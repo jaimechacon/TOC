@@ -3,14 +3,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-	public function index()
+	public function __construct()
 	{
-		$this->load->view('temp/header');
-		$this->load->view('temp/menu');
-		$this->load->view('home');
-		$this->load->view('temp/footer');
+		parent::__construct();
+		//$this->load->database();
+		//$this->load->library('form_validation');
+		//$this->load->helper(array('auth/login_rules'));
+		//$this->load->model('usuario_model');
+
 	}
 
-	
+	public function index()
+	{
+		$usuario = $this->session->userdata();
+		if($usuario){
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu');
+			$this->load->view('home', $usuario);
+			$this->load->view('temp/footer');
+		}else
+		{
+			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
+			redirect('login');
+			echo 'entro acá';
 
+		}
+	}
+
+	public function home()
+	{
+		$usuario = $this->session->userdata();
+		if($usuario){
+			
+			echo $usuario['id_usuario'];
+			echo $usuario['u_rut'];
+			echo $usuario['u_nombres'];
+			echo $usuario['u_apellidos'];
+
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu');
+			$this->load->view('home', $usuario);
+			$this->load->view('temp/footer');
+		}else
+		{
+			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
+			redirect('login');
+			echo 'entro acá';
+
+		}
+	}
 }
