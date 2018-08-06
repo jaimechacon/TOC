@@ -24,9 +24,7 @@ class Home extends CI_Controller {
 		}else
 		{
 			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
-			redirect('login');
-			echo 'entro acá';
-
+			redirect('Login');
 		}
 	}
 
@@ -34,12 +32,6 @@ class Home extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			
-			echo $usuario['id_usuario'];
-			echo $usuario['u_rut'];
-			echo $usuario['u_nombres'];
-			echo $usuario['u_apellidos'];
-
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu');
 			$this->load->view('home', $usuario);
@@ -47,9 +39,7 @@ class Home extends CI_Controller {
 		}else
 		{
 			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
-			redirect('login');
-			echo 'entro acá';
-
+			redirect('Login');
 		}
 	}
 }

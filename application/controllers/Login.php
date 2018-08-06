@@ -28,27 +28,11 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('u_nombres', $result['u_nombres']);
 			$this->session->set_userdata('u_apellidos', $result['u_apellidos']);
 
-			echo $this->session->id_usuario.'</br>';
-			echo $this->session->u_rut.'</br>';
-			echo $this->session->u_nombres.'</br>';
-			echo $this->session->u_apellidos.'</br>';
-
-
 			$usuario = $this->session->userdata();
-			/*if($usuario)
-			{
-				echo 'bien ctmre!!!!';
-				echo $usuario['id_usuario'];
-				echo $usuario['u_rut'];
-				echo $usuario['u_nombres'];
-				echo $usuario['u_apellidos'];
-			}*/
-
-			//$this->session->('user', $result);
-			redirect('home');
+			redirect('Home');
 		}else{
 			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
-			$this->load->view('login', $data);
+			$this->load->view('Login', $data);
 		}
 	}
 
