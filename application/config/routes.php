@@ -51,8 +51,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //$route['Login/ingresar'] = 'Login';
+//$route['Campania'] = 'Campania';
+//$route['Evaluacion'] = 'Evaluacion';
 $route['Perfil'] = 'Perfil';
-$route['default_controller'] = 'login';
+$route['default_controller'] = 'inicio';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

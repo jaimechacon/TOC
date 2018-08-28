@@ -12,7 +12,18 @@
 		<br/><br/>
 		<div class="col-md-12">
 			<a href="#" class="pull-right veinticinco_m_b">
-				<span class="glyphicon glyphicon-plus"></span>
+				<svg
+				  width="24"
+				  height="24"
+				  fill="none"
+				  stroke="currentColor"
+				  stroke-width="2"
+				  stroke-linecap="round"
+				  stroke-linejoin="round"
+				>
+				  <use xlink:href="<?php echo base_url();?>node_modules/feather-icons/dist/feather-sprite.svg#plus"/>
+				</svg>
+				<i data-feather="plus"></i>
 				<medium class="cinco_m_l">Agregar Perfil</medium>
 			</a>
 			<div class="table-responsive-md">

@@ -521,3 +521,8 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+$config['hostname'] = '192.168.158.5';
+$config['username'] = 'client1';
+$config['password'] = 'neopass';
+$config['debug'] = TRUE;
