@@ -16,7 +16,7 @@
 
 </div>
 
-<label>Selecciona una categoría</label>
+<label>Selecciona una categoría: </label>
  <select name="categoria" id="categoria">
  <option value="">Selecciona una categoría</option>
  <option value="compraventa">Compra y venta</option>
@@ -29,7 +29,7 @@
  <option value="contactos">Contactos</option>
  <option value="antiguedades">Antigüedades</option>
  </select>
-         <label>Selecciona una subcategoría</label>
+         <label>Selecciona una subcategoría: </label>
  <select name="subcategoria" id="subcategoria">
  <option value="">Selecciona una subcategoría</option>
  </select>
