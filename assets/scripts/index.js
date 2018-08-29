@@ -15,20 +15,20 @@ $(document).ready(function() {
              
               for (var i = 0; i < data.length; i++){
                 var row = '<tr>';
-                row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['COD_USUARIO']+'</th>');
-                row = row.concat('\n<td class="text-center align-middle">'+data[i]['EAC']+'</td>');
+                row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
+                row = row.concat('\n<td class="text-center align-middle">'+data[i]['eac']+'</td>');
 
-                for (var c = 1; c <=  data[0]['CANT_CAMPANIAS']; c++) {
-                  row = row.concat('\n<td class="text-center align-middle">\n<a href="AgregarEvaluacion/?idEAC='+data[i]['ID_USU']+'&idCamp='+data[i][('ID_CAMP_'+c)]+'" class="badge badge-pill ');
-                  if(data[i][('CANT_EVAL_'+c)] == 0)
+                for (var c = 1; c <=  data[0]['cant_campanias']; c++) {
+                  row = row.concat('\n<td class="text-center align-middle">\n<a href="AgregarEvaluacion/?idEAC='+data[i]['id_usu']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
+                  if(data[i][('cant_eval_'+c)] == 0)
                   {
-                    row = row.concat('badge-danger">'+data[i][('CANT_EVAL_'+c)]+'   /   '+data[i][('TOTAL_EAC_'+c)]); 
+                    row = row.concat('badge-danger">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]); 
                   }else
-                    if(data[i][('CANT_EVAL_'+c)] > 0 && data[i][('CANT_EVAL_'+c)] < data[i][('TOTAL_EAC_'+c)])
+                    if(data[i][('cant_eval_'+c)] > 0 && data[i][('cant_eval_'+c)] < data[i][('total_eac_'+c)])
                     {
-                       row = row.concat('badge-warning">'+data[i][('CANT_EVAL_'+c)]+'   /   '+data[i][('TOTAL_EAC_'+c)]);
+                       row = row.concat('badge-warning">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]);
                     }else{
-                      row = row.concat('badge-success">'+data[i][('CANT_EVAL_'+c)]+'   /   '+data[i][('TOTAL_EAC_'+c)]);
+                      row = row.concat('badge-success">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]);
                     }
                   }
                   row = row.concat('</a>\n</td>');
