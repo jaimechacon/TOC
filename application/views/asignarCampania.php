@@ -10,7 +10,7 @@
                 {
                   echo '<option selected>Seleccione un Usuario</option>';
                   foreach ($usuarios as $usu) {
-                    echo '<option value="1">'.$usu['NOMBRE_USU'].'</option>';
+                    echo '<option value="1">'.$usu['nombre_usu'].'</option>';
                   }
                 }
               ?>
@@ -26,8 +26,9 @@
                 if(isset($campanias))
                 {
                   echo '<option selected>Seleccione una Campania</option>';
+                  var_dump($campanias);
                   foreach ($campanias as $camp) {
-                    echo '<option value="1">'.$camp['C_NOMBRE'].'</option>';
+                    echo '<option value="1">'.$camp['c_nombre'].'</option>';
                   }
                 }
               ?>
@@ -39,52 +40,52 @@
 
   <div class="row"> 
     <table class="table table-sm table-hover mt-5">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Campania</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Janina</td>
-                <td>Hernandez</td>
-                <td>Pre - Pre</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-               <td>Janina</td>
-                <td>Hernandez</td>
-                <td>Pre - Post</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Janina</td>
-                <td>Hernandez</td>
-                <td>Post - Post</td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Susana</td>
-                <td>Cancino</td>
-                <td>Pre - Pre</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-               <td>Susana</td>
-                <td>Cancino</td>
-                <td>Pre - Post</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Susana</td>
-                <td>Cancino</td>
-                <td>Post - Post</td>
-              </tr>
-            </tbody>
-          </table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Campania</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Janina</td>
+          <td>Hernandez</td>
+          <td>Pre - Pre</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+         <td>Janina</td>
+          <td>Hernandez</td>
+          <td>Pre - Post</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Janina</td>
+          <td>Hernandez</td>
+          <td>Post - Post</td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>Susana</td>
+          <td>Cancino</td>
+          <td>Pre - Pre</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+         <td>Susana</td>
+          <td>Cancino</td>
+          <td>Pre - Post</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Susana</td>
+          <td>Cancino</td>
+          <td>Post - Post</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
