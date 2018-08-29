@@ -116,13 +116,9 @@ class Evaluacion extends CI_Controller {
 				$idEAC = $this->input->GET('idEAC');
 				$pauta =  $this->evaluacion_model->obtenerPlantillaEAC($idEAC, $idCampania);
 				$usuario['pauta'] = $pauta;
-
-			
-				$temp = array_unique(array_column($pauta, 'CAT_NOMBRE'));
+				$temp = array_unique(array_column($pauta, 'cat_nombre'));
 				$cat_pauta = array_intersect_key($pauta, $temp);
 				$usuario['cat_pauta'] = $cat_pauta;
-				
-
 			}
 			
 			$this->load->view('temp/header');

@@ -1,5 +1,7 @@
 <?php
 	$id_usuario=$this->session->userdata('id_usuario');
+	/*var_dump($cat_pauta);
+	var_dump($pauta);*/
 	 
 	if(!$id_usuario){
 	  redirect('Login');
