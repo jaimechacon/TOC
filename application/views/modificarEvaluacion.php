@@ -34,7 +34,7 @@
 						<div id="titulo" class="col-sm-3 mt-4">
 							<div class="row justify-content-center ">
 								<div class="row justify-content-center ">
-									<h3><?php echo $pauta[0]['P_NOMBRE']; ?></h3>
+									<h3><?php echo $pauta[0]['p_nombre']; ?></h3>
 								</div>
 							</div>
 							<div class="row justify-content-center">
@@ -50,7 +50,7 @@
 									<tbody>
 										<tr>
 											<td>EAC</td>
-											<td><?php echo $pauta[0]['NOMBRE_EAC']; ?></td>
+											<td><?php echo $pauta[0]['nombre_eac']; ?></td>
 										</tr>
 										<tr>
 											<td>ID Llamada</td>
