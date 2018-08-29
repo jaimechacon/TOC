@@ -11,7 +11,7 @@
 		<h4>Bienvenido <?php echo $u_nombres.' '.$u_apellidos; ?></h4>
 	</div>
 	<div class="row mt-3">
-		<h4>Usted es un <?php echo $perfil['PERFIL'];//echo $perfil; ?></h4>
+		<h4>Usted es un <?php echo $perfil['perfil'];//echo $perfil; ?></h4>
 	</div>
 
 </div>
