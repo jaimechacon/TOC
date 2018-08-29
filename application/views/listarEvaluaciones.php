@@ -47,7 +47,7 @@
 							if($empresas)
 							{
 								foreach ($empresas as $empresa) {
-									echo '<option value="'.$empresa['ID_EMPRESA'].'">'.$empresa['E_TITULO'].'</option>';
+									echo '<option value="'.$empresa['id_empresa'].'">'.$empresa['e_titulo'].'</option>';
 								}
 							}
 							?>
@@ -107,8 +107,8 @@
 			      <th scope="col" class="text-center align-middle">ID EAC</th>
 			      <th scope="col" class="text-center align-middle">Nombre EAC</th>
 			      <?php
-			      	for ($i=1; $i <=  $evaluaciones[0]['CANT_CAMPANIAS']; $i++) { 
-			      		echo '<th scope="col" class="text-center align-middle">'.$evaluaciones[0][('NOMBRE_CAMP_'.$i)].'</th>';
+			      	for ($i=1; $i <=  $evaluaciones[0]['cant_campanias']; $i++) { 
+			      		echo '<th scope="col" class="text-center align-middle">'.$evaluaciones[0][('nombre_camp_'.$i)].'</th>';
 			      	}
 			      ?>
 			    </tr>
@@ -116,22 +116,22 @@
 			  <tbody id="tbodyEAC">
 			  		<?php foreach ($evaluaciones as $evaluacion): ?>
 			  			<tr>
-					        <th scope="row" class="text-center align-middle"><?php echo $evaluacion['COD_USUARIO']; ?></th>
-					        <td class="text-center align-middle"><?php echo $evaluacion['EAC']; ?></td>
+					        <th scope="row" class="text-center align-middle"><?php echo $evaluacion['cod_usuario']; ?></th>
+					        <td class="text-center align-middle"><?php echo $evaluacion['eac']; ?></td>
 					         <?php
-						      	for ($i=1; $i <=  $evaluaciones[0]['CANT_CAMPANIAS']; $i++) { 
+						      	for ($i=1; $i <=  $evaluaciones[0]['cant_campanias']; $i++) { 
 						      		echo '<td class="text-center align-middle">
-					        	<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['ID_USU'].'&idCamp='.$evaluacion[('ID_CAMP_'.$i)].'" class="badge badge-pill ';
+					        	<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['id_usu'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill ';
 
-					        	if($evaluacion[('CANT_EVAL_'.$i)] == 0)
+					        	if($evaluacion[('cant_eval_'.$i)] == 0)
 					        	{
-					        		echo 'badge-danger'.'">'.$evaluacion[('CANT_EVAL_'.$i)].'   /   '.$evaluacion[('TOTAL_EAC_'.$i)];	
+					        		echo 'badge-danger'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$evaluacion[('total_eac_'.$i)];	
 					        	}else
-					        		if($evaluacion[('CANT_EVAL_'.$i)] > 0 && $evaluacion[('CANT_EVAL_'.$i)] < $evaluacion[('TOTAL_EAC_'.$i)])
+					        		if($evaluacion[('cant_eval_'.$i)] > 0 && $evaluacion[('cant_eval_'.$i)] < $evaluacion[('total_eac_'.$i)])
 					        		{
-					        			echo 'badge-warning'.'">'.$evaluacion[('CANT_EVAL_'.$i)].'   /   '.$evaluacion[('TOTAL_EAC_'.$i)];
+					        			echo 'badge-warning'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$evaluacion[('total_eac_'.$i)];
 					        		}else{
-					        			echo 'badge-success'.'">'.$evaluacion[('CANT_EVAL_'.$i)].'   /   '.$evaluacion[('TOTAL_EAC_'.$i)];
+					        			echo 'badge-success'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$evaluacion[('total_eac_'.$i)];
 					        		}
 						      	}
 						      	echo '</a></td>';

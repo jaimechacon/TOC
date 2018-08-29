@@ -25,7 +25,7 @@
 							 		{
 							 			echo '<option selected>Seleccione una Campania</option>';
 							 			foreach ($campanias as $camp) {
-							 				echo '<option value="1">'.$camp['C_NOMBRE'].'</option>';
+							 				echo '<option value="1">'.$camp['c_nombre'].'</option>';
 							 			}
 							 		}
 							 	?>
@@ -93,7 +93,7 @@
 						<div id="titulo" class="col-sm-3 mt-4">
 							<div class="row justify-content-center ">
 								<div class="row justify-content-center ">
-									<h3><?php echo $pauta[0]['P_NOMBRE']; ?></h3>
+									<h3><?php echo $pauta[0]['p_nombre']; ?></h3>
 								</div>
 							</div>
 							<div class="row justify-content-center">
@@ -109,7 +109,7 @@
 									<tbody>
 										<tr>
 											<td>EAC</td>
-											<td><?php echo $pauta[0]['NOMBRE_EAC']; ?></td>
+											<td><?php echo $pauta[0]['nombre_eac']; ?></td>
 										</tr>
 										<tr>
 											<td>ID Llamada</td>
@@ -143,17 +143,17 @@
 									foreach ($cat_pauta as $cat) {
 										echo '<tr>
 										<th scope="col" colspan="12">
-										'.$cat['CAT_NOMBRE'].'</th>
+										'.$cat['cat_nombre'].'</th>
 										</tr>';
 
 										foreach ($pauta as $pregunta) {
 											//var_dump($pregunta['CAT_NOMBRE']);
 											//var_dump($pregunta['CAT_NOMBRE']);
-											if($pregunta['CAT_NOMBRE'] == $cat['CAT_NOMBRE'])
+											if($pregunta['cat_nombre'] == $cat['cat_nombre'])
 											{
 												echo '<tr>
 													<th scope="row">'.$cont.'</th>
-													<td colspan="9">'.$pregunta['PRE_NOMBRE'].'</td>
+													<td colspan="9">'.$pregunta['pre_nombre'].'</td>
 													<td class="text-center">
 														<input type="radio" name="optionsRadios'.$cont.'" id="optionsRadios'.$cont.'" value="option'.$cont.'">
 													</td>
