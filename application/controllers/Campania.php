@@ -26,15 +26,12 @@ class Campania extends CI_Controller {
 
 	public function asignarCampania()
 	{
-		echo 'asdf';
 		$usuario = $this->session->userdata();
 		if($usuario){
 			$campanias = $this->usuario_model->listarCampaniasUsu($usuario["id_usuario"]);
-			var_dump($campanias);
 			$usuario['campanias'] = $campanias;
 			mysqli_next_result($this->db->conn_id);
 			$usuarios = $this->usuario_model->listarAnalistaUsu();
-			var_dump($usuarios);
 			$usuario['usuarios'] = $usuarios;
 				
 			$this->load->view('temp/header');
