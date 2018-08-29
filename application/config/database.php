@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'instanciamysql.cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
-	'username' => 'psandoval',
-	'password' => 'black.Hole2018$$',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'root',
 	'database' => 'gestion_calidad',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

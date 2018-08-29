@@ -37,13 +37,13 @@ class Usuario_model extends CI_Model
 
 	public function obtenerEmpresasUsu($id_usuario)
 	{
-		$query = $this->db->query('CALL `gestion_calidad`.`obtenerEmpresasUsu`('.$id_usuario.');');
+		$query = $this->db->query('call `gestion_calidad`.`obtenerEmpresasUsu`('.$id_usuario.');');
 		return $query->result_array();
 	}
 
 	public function listarCampaniasUsu($id_usuario)
 	{
-		$query = $this->db->query('CALL `gestion_calidad`.`listarCampaniasUsu`('.$id_usuario.');');
+		$query = $this->db->query('call `gestion_calidad`.`listarCampaniasUsu`('.$id_usuario.');');
 		return $query->result_array();
 	}
 
