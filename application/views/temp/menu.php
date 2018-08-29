@@ -1,6 +1,3 @@
-<?php
-?>
-
 <body>
 	<div class="container">
 		<div id="menu">
@@ -11,10 +8,10 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto">
 
-				    	<?php
-				    	
+				    	<?php				    	
 				    	foreach ($u_menu as $menu) {
-							if(isset($menu['cant_submenu']) && count($menu['sub_menu']) == 0)
+				    		//echo count($menu['sub_menu']);
+							if(count($menu['sub_menu']) == 0)
 							{
 						?>
 							<li class="nav-item active">
@@ -22,10 +19,10 @@
 							</li>
 						<?php
 							}
-							elseif (isset($menu['cant_submenu']) && count($menu['sub_menu']) > 0) {
+							elseif (count($menu['sub_menu']) > 0) {
 							?>
 								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<a class="nav-link dropdown-toggle" href="#" id="ddl<?php echo $menu['me_nombre'];?>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<?php echo $menu['me_nombre'];?>
 									</a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown">

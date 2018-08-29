@@ -14,10 +14,10 @@ class Inicio extends CI_Controller {
 		$usuario = $this->session->userdata();
 
 		if($this->session->has_userdata('id_usuario'))
-		{
-			
+		{			
 			$perfil = $this->usuario_model->traerPerfilUsu($usuario["id_usuario"]);
 			$usuario['perfil'] = $perfil[0];
+			//var_dump($usuario['u_menu']);
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('inicioSesion', $usuario);
