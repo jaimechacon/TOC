@@ -31,7 +31,9 @@
 				    	foreach ($menu['sub_menu'] as $item) {
 							
 						?>
-										<a class="dropdown-item" href="<?php echo base_url().$item['me_url'];?>"><?php echo $item['me_nombre'];?></a>
+										<a class="dropdown-item" href="<?php echo base_url().$item['me_url'];?>">
+											<?php echo $item['me_nombre'];?>
+										</a>
 										<?php
 						}
 						?>

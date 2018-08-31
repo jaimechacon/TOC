@@ -51,7 +51,7 @@ class Usuario_model extends CI_Model
 	{
 		$query = $this->db->query("			select concat(usu.u_nombres, ' ', usu.u_apellidos) as nombre_usu from usuarios usu inner join usuarios_perfiles up on usu.id_usuario = up.id_usuario
 			inner join perfiles p on up.id_perfil = p.id_perfil
-			where p.pf_analista = 1;");
+			where p.pf_analista in (2, 3);");
 		return $query->result_array();
 	}
 
