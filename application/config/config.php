@@ -22,6 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
 |
+	http://www.2gdc.com/
+	http://localhost/gestion_calidad/
+
 */
 $config['base_url'] = 'http://www.2gdc.com/';
 

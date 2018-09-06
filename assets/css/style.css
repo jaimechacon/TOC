@@ -4,18 +4,36 @@ body.fondo {
       background-color: #fff;
 }
 
-input[type=radio] {
-    width: 25px;
-    height: 25px;
+input[type=radio].pauta {
+    width: 20px;
+    height: 20px;
 }
 
-.btn-green {
-  background-color: green;
+.thl-radius {
+    border-radius: 10px 0px 0px 0px !important;
+	border-top: 0px !important;
 }
-.btn-red {
-  background-color: red;
+
+.thr-radius {
+    border-radius: 0px 10px 0px 0px !important;
+	border-top: 0px !important;
 }
-.wrap {
-  margin: 120px;
+
+input[type=checkbox].pauta{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.plusTitulo {
+  width: 35px;
+  height: 35px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  color: seagreen;
 }
 

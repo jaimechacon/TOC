@@ -1,10 +1,8 @@
 <?php
 	$id_usuario=$this->session->userdata('id_usuario');
-	 
 	if(!$id_usuario){
 	  redirect('Login');
 	}
-	
 ?>
 
 <div class="row">
@@ -13,7 +11,7 @@
 			<div class="col-sm-4">
 				<div class="row">
 					<div class="col-sm-4">
-						<span class="">Bienvenid@</span>
+						<span>Bienvenid@</span>
 					</div>
 					<div class="col-sm-8">
 						<?php if(isset($u_nombres)) { echo $u_nombres; } ?> <?php if(isset($u_apellidos)) { echo $u_apellidos; } ?>

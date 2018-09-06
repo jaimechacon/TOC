@@ -34,9 +34,8 @@ class Evaluacion extends CI_Controller {
 			if($this->input->post('rango'))
 			{
 				$rango = $this->input->post('rango');
-				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango));				
-			}else{
-				
+				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango));		
+			}else{				
 				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango);
 
 				if($evaluaciones)

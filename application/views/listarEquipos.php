@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div id="agregarEquipo" class="col-sm-6 d-flex justify-content-end">
-		<a href="AgregarEquipo" class="btn btn-link"><i data-feather="plus"></i>Agregar Equipo</a>
+		<a href="AgregarEquipo" class="btn btn-link"><i stop-color data-feather="plus"></i>Agregar Equipo</a>
 	</div>
 	<div id="tDatos" class="col-sm-12 m-3">
 		<div class="table-responsive">
@@ -42,15 +42,12 @@
 					        	<span class="badge badge-primary badge-pill"><?php echo $equipo['cant_usu']; ?></span>
 					        </td>
 					        <td class="text-center align-middle">
-					        	<div class="in-line">
-					        	<a id="trash" class="trash" href="#" data-toggle="modal" data-target="#exampleModalCenter">
+					        	<a id="trash_<?php echo $equipo['id_equipo']; ?>" class="trash" href="#" data-id="<?php echo $equipo['id_equipo']; ?>" data-nombre="<?php echo $equipo['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarEquipo">
 					        		<i data-feather="trash-2"></i>					        		
 				        		</a>
-				        		<a id="edit" class="edit" href="#">
+				        		<a id="edit_<?php echo $equipo['id_equipo']; ?>" class="edit" href="#">
 					        		<i data-feather="edit"></i>
 				        		</a>
-				        		</div>
-				        		
 				        	</td>
 				    	</tr>
 			  		<?php endforeach ?>
@@ -61,24 +58,21 @@
 </div>
 
 <!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="modalEliminarEquipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalCenterTitle">¿Estas seguro que deseas eliminar el Equipo "EAC A"?</h5>
+	        <h5 class="modal-title" id="tituloEE" name="tituloEE" data-idequipo="1" data-nombreequipo="" ></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        Nombre: EAC A
-          	Descripci&oacute;n: EAC A
-          	Abreviaci&oacute;n: A
-          	Cant. Usuarios: 34
+			<p id="parrafoEE"></p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-	        <button type="button" class="btn btn-danger">Eliminar</button>
+	        <button id="eliminarEquipo" type="button" class="btn btn-danger">Eliminar</button>
 	      </div>
 	    </div>
 	  </div>

@@ -132,10 +132,10 @@
 						<table class="table table-hover table-sm">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">N°</th>
+									<th class="thl-radius" scope="col">N°</th>
 									<th scope="col" colspan="9">Pregunta</th>
 									<th scope="col">Cumple</th>
-									<th scope="col">No Cumple</th>
+									<th class="thr-radius" scope="col">No Cumple</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -157,10 +157,10 @@
 													<th scope="row">'.$cont.'</th>
 													<td colspan="9">'.$pregunta['pre_nombre'].'</td>
 													<td class="text-center">
-														<input type="radio" name="optionsRadios'.$cont.'" id="optionsRadios'.$cont.'" value="option'.$cont.'">
+														<input type="radio" class="pauta" name="optionsRadios'.$cont.'" id="optionsRadios'.$cont.'" value="option'.$cont.'">
 													</td>
 													<td class="text-center">
-														<input type="radio" name="optionsRadios'.$cont.'" id="optionsRadios'.$cont.'" value="option'.$cont.'">
+														<input type="radio" class="pauta" name="optionsRadios'.$cont.'" id="optionsRadios'.$cont.'" value="option'.$cont.'">
 													</td>
 												</tr>';
 												$cont++;
