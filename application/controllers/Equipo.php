@@ -57,25 +57,93 @@ class Equipo extends CI_Controller {
 			$eacs = $this->equipo_model->listarEAC();
 			if($eacs)
 				$usuario['eacs'] = $eacs;
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu', $usuario);
+			$this->load->view('agregarEquipo', $usuario);
+			$this->load->view('temp/footer');
+		}
+	}
 
-		if(isset($this->session->listaEAC))
-			$this->session->unset_userdata('listaEAC');
-		$this->load->view('temp/header');
-		$this->load->view('temp/menu', $usuario);
-		$this->load->view('agregarEquipo', $usuario);
-		$this->load->view('temp/footer');
+	public function guardarEquipo()
+	{
+		$usuario = $this->session->userdata();
+		if($usuario){
+			if(!is_null($this->input->POST('nombreEquipo')))
+			{
+				if(!is_null($this->input->POST('abreviacionEquipo')))
+				{
+					$nombre = trim($this->input->POST('nombreEquipo'));
+					$abreviacion = trim($this->input->POST('abreviacionEquipo'));
+					$observaciones = "";
+					$eacs[] = array();
+					unset($eacs);
+					if(!is_null($this->input->POST('observacionesEquipo')))
+						$observaciones = trim($this->input->POST('observacionesEquipo'));
+					if(!is_null($this->input->POST('eacsEquipo')))
+						$eacs = $this->input->POST('eacsEquipo');
+					$resultado = $this->equipo_model->guardarEquipo($nombre, $abreviacion, $observaciones, $eacs, $usuario["id_usuario"]);
+					if($resultado > 0)
+					{
+						if($resultado[0] > 0)
+						{
+							if($resultado[0]['idEquipo'])
+							{
+								$idEquipo = (int)$resultado[0]['idEquipo'];								
+								$respuesta = 1;
+								$cantEAC = sizeof($eacs);
+								if($cantEAC > 0)
+								{
+									$cantEACA = 0;							
+									foreach ($eacs as $eac) {
+										if(is_numeric($eac))
+										{
+											mysqli_next_result($this->db->conn_id);
+											$resultadoEAC = $this->equipo_model->guardarEACEquipo($idEquipo, (int)$eac, $usuario["id_usuario"]);	
+											if($resultadoEAC > 0)
+											{
+												//var_dump($resultadoEAC);
+												$cantEAC ++;
+											}else{
+												$respuesta = 0;							
+											}
+										}
+
+										/*
+										$resultadoEAC = $this->equipo_model->guardarEACEquipo($idEquipo, $eac, $usuario["id_usuario"]);
+										if($resultadoEAC > 0)
+										{
+											$cantEAC ++;
+										}else{
+											$respuesta = 0;							
+										}*/
+									}
+								}
+							}
+						}
+						
+						
+						
+					
+					}
+					echo json_encode($respuesta);
+				}
+			}
 		}
 	}
 
 	public function eliminarEquipo()
 	{
-		/*$usuario = $this->session->userdata();
-		if($usuario){*/
+		$usuario = $this->session->userdata();
+		if($usuario){
 			$idEquipo = null;
 			if($this->input->POST('idEquipo'))
 				$idEquipo = $this->input->POST('idEquipo');
-			echo json_encode($this->equipo_model->eliminarEquipo($idEquipo, 1));
-		//}
+			$resultado = $this->equipo_model->eliminarEquipo($idEquipo, 1);
+			$respuesta = 0;
+			if($resultado > 0)
+				$respuesta = 1;
+			echo json_encode($respuesta);
+		}
 	}
 
 	public function buscarEAC()
@@ -85,8 +153,10 @@ class Equipo extends CI_Controller {
 			$eac = "";
 			if($this->input->POST('eac'))
 				$eac = $this->input->POST('eac');
-			echo json_encode($this->equipo_model->buscarEAC($eac));
+			
+			$eacs = $this->equipo_model->buscarEAC($eac);
 		}
+		echo json_encode($eacs);		
 	}
 
 	public function listaEAC()
@@ -104,46 +174,39 @@ class Equipo extends CI_Controller {
 			{
 				$idEac = $this->input->POST('idEac');
 				$checked = $this->input->POST('checked');
-
 				$checked = $this->input->POST('checked') === 'true'? true : false;
 
 				if(isset($usuario['listaEAC']))
 				{
 					$eacs = $usuario['listaEAC'];
-					
 					if($checked)
 					{
-						
+						if(!in_array($idEac, $eacs))
+						{
+							$eacs[count($eacs)] = $idEac;
+							$this->session->set_flashdata('listaEAC', $eacs);
+							$this->session->keep_flashdata('listaEAC');
+							echo json_encode(array('idEAC' => $idEac, 'checked' => true));
+						}
 					}else{
-						echo 'hay que eliminarlo';
-						var_dump($respuesta);
-						var_dump($checked);
+						if(in_array($idEac, $eacs))
+						{
+							$posicion = array_search($idEac, $eacs);
+							unset($eacs[$posicion]);
+							$this->session->set_flashdata('listaEAC', $eacs);
+							$this->session->keep_flashdata('listaEAC');
+							echo json_encode(array('idEAC' => $idEac, 'checked' => false));
+						}
 					}
-					
-					//$eacs[] = array('asdf', 'asdf');
-					//$usuario['listaEAC'] = $eacs;
-					//var_dump($usuario['listaEAC']);
-					//$this->session->mark_as_flash('listaEAC');
-					//$this->session->set_flashdata('listaEAC');
 				}else
 				{
-					$eacs = array('idEAC' => $idEac);
-
+					$eacs = array(0 => $idEac);
 					$this->session->set_userdata('listaEAC', $eacs);
-
-					echo 'la variable no esta definida';				
-					//var_dump($usuario);
-					//$eac = "";
-					//if($this->input->POST('eac'))
-					//	$eac = $this->input->POST('eac');
-					//echo json_encode($this->equipo_model->buscarEAC($eac));
+					$this->session->mark_as_flash('listaEAC');
+					echo json_encode(array('idEAC' => $idEac, 'checked' => true));
 				}
-
 			}
-
-			
 		}
-	}
-	
+	}	
 	
 }
