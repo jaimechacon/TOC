@@ -120,8 +120,8 @@ $(document).ready(function() {
     $("#tituloEE").text('Eliminar ' + nombreEquipo);
     $("#parrafoEE").text('¿Estás seguro que deseas eliminar "' + nombreEquipo + '"?');
 
-    $("#tituloEE").removeData("idequipo");    
-    $("#tituloEE").attr("data-idEquipo", idEquipo);
+    $("#tituloEE").removeData("idequipo");
+    $("#tituloEE").attr("data-idequipo", idEquipo);
     //$("#tituloEE").removeData("nombreequipo");
     //$("#tituloEE").attr("data-nombreEquipo", nombreEquipo);
   });
@@ -359,6 +359,9 @@ $(document).ready(function() {
               show: true
             });
             $("#agregarEquipo")[0].reset();
+            $("#check_todos").text('Seleccionar Todos');
+            $(".pauta").prop("checked", false);
+
           }else{
 
             $('#tituloME').empty();

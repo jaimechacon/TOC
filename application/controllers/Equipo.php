@@ -28,7 +28,7 @@ class Equipo extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			$equipos = $this->equipo_model->listarEquipos();
+			$equipos = $this->equipo_model->buscarEquipo('');
 			$usuario['equipos'] = $equipos;
 
 			//var_dump($equipos);
@@ -138,7 +138,7 @@ class Equipo extends CI_Controller {
 			$idEquipo = null;
 			if($this->input->POST('idEquipo'))
 				$idEquipo = $this->input->POST('idEquipo');
-			$resultado = $this->equipo_model->eliminarEquipo($idEquipo, 1);
+			$resultado = $this->equipo_model->eliminarEquipo($idEquipo, $usuario['id_usuario']);
 			$respuesta = 0;
 			if($resultado > 0)
 				$respuesta = 1;
