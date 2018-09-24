@@ -48,7 +48,7 @@ $(document).ready(function() {
 
   $("#rango").change(function() {
     idRango= $("#rango").val();
-    var baseurl = window.origin + '/gestion_calidad/Equipo/listarEvaluaciones';
+    var baseurl = window.origin + '/Equipo/listarEvaluaciones';
     jQuery.ajax({
       type: "POST",
       url: baseurl,
@@ -96,7 +96,7 @@ $(document).ready(function() {
 
   $("#categoria").change(function() {
     micategoria= $("#categoria").val();
-    var baseurl = window.origin + '/gestion_calidad/Inicio/llenacombo';
+    var baseurl = window.origin + '/Inicio/llenacombo';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -134,7 +134,7 @@ $(document).ready(function() {
  $('#eliminarEquipo').click(function(e){    
     idEquipo = $('#tituloEE').data('idequipo');
     //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    var baseurl = window.origin + '/gestion_calidad/Equipo/eliminarEquipo';    
+    var baseurl = window.origin + '/Equipo/eliminarEquipo';    
 
     jQuery.ajax({
     type: "POST",
@@ -185,7 +185,7 @@ $(document).ready(function() {
 
  function listarEquipos(filtro)
  {
-    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEquipo';
+    var baseurl = window.origin + '/Equipo/buscarEquipo';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -232,7 +232,7 @@ $(document).ready(function() {
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEAC';   
+    var baseurl = window.origin + '/Equipo/buscarEAC';   
 
     jQuery.ajax({
     type: "POST",
@@ -356,7 +356,7 @@ $(document).ready(function() {
         else
           eacsEquipo = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-      var baseurl = (window.origin + '/gestion_calidad/Equipo/guardarEquipo');
+      var baseurl = (window.origin + '/Equipo/guardarEquipo');
       var nombreEquipo = $('#inputNombre').val();
       var abreviacionEquipo = $('#inputAbreviacion').val();
       var observacionesEquipo = $('#inputObservaciones').val();
@@ -386,9 +386,7 @@ $(document).ready(function() {
             /*$("#agregarEquipo")[0].reset();
             $("#check_todos").text('Seleccionar Todos');
             $(".pauta").prop("checked", false);*/
-
           }else{
-
             $('#tituloME').empty();
             $("#parrafoME").empty();
             $("#tituloME").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
