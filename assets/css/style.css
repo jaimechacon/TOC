@@ -48,3 +48,29 @@ input[type=checkbox].pauta{
   fill: none;
   color: firebrick;
 }
+
+/*.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../img/cargando_1.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}*/
+
+.loader {
+display : block;
+position : fixed;
+z-index: 100;
+background-image : url('../img/cargando_2.gif');
+background-color:#000000;
+opacity : 0.5;
+background-repeat : no-repeat;
+background-position : center;
+left : 0;
+bottom : 0;
+right : 0;
+top : 0;
+}

@@ -4,32 +4,36 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
+	//var_dump(implode(",", $eacsEquipo));
 ?>
 <div class="row">
 	<div class="col-sm-12">
 		<div id="titulo" class="mt-3">
-			<h3><i class="plusTitulo mb-2" data-feather="plus"></i>Agregar Equipo</h3>
+			<h3><i class="plusTitulo mb-2" data-feather="plus"></i><?php echo $titulo; ?></h3>
 		</div>
 	</div>
 	<div class="col-sm-12">
 		<div id="filtros" class="mt-3 mr-3 ml-3">
 			<form id="agregarEquipo" action="agregarEquipo" method="POST">
 				<div class="row">
+					<input type="text" class="form-control form-control-sm" id="inputIdEquipo" name="inputIdEquipo" value="<?php if(isset($equipo['id_equipo'])): echo $equipo['id_equipo']; endif; ?>" hidden>
+				</div>
+				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="inputNombre">Nombre</label>
-						<input type="text" class="form-control  form-control-sm" id="inputNombre" minlength="1" placeholder="Ingrese nombre Equipo" name="inputNombre">
+						<input type="text" class="form-control  form-control-sm" id="inputNombre" minlength="1" placeholder="Ingrese nombre Equipo" name="inputNombre" value="<?php if(isset($equipo['nombre'])): echo $equipo['nombre']; endif; ?>">
 						<!--<span>Se requiere un Nombre de Equipo.</span>-->
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputAbreviacion">Abreviaci&oacute;n</label>
-						<input type="text" class="form-control  form-control-sm" id="inputAbreviacion" name="inputAbreviacion" placeholder="Ingrese abreviaci&oacute;n Equipo">
+						<input type="text" class="form-control  form-control-sm" id="inputAbreviacion" name="inputAbreviacion" placeholder="Ingrese abreviaci&oacute;n Equipo" value="<?php if(isset($equipo['abreviacion'])): echo $equipo['abreviacion']; endif; ?>">
 						<!--<span>Se requiere una Abreviaci&oacute;n para el Equipo.</span>-->
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="inputObservaciones">Observaciones</label>
-						<textarea class="form-control form-control-sm block" id="inputObservaciones" name="inputObservaciones" rows="2"></textarea>
+						<textarea class="form-control form-control-sm block" id="inputObservaciones" name="inputObservaciones" rows="2"><?php if(isset($equipo['descripcion'])): echo $equipo['descripcion']; endif; ?></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -44,7 +48,7 @@
 						<button id="check_todos" type="button" class="btn btn-sm btn-outline-dark">Seleccionar Todos</button>
 					</div>
 				</div>
-				<div id="tablaEAC" class="row" data-eac="">
+				<div id="tablaEAC" class="row" data-eac="<?php echo (isset($eacsEquipo) ? implode(",", $eacsEquipo): ''); ?>">
 					<div class="col-sm-12">
 						<table id="tListaEAC" class="table table-hover table-sm">
 							<thead class="thead-dark">
@@ -68,7 +72,11 @@
 										<td class="text-center" colspan="5">'.$eac['apellidos'].'</td>
 										<td class="text-center" >'.$eac['email'].'</td>
 										<td class="text-center " >
-											<input id="check_'.$eac['id_usuario'].'" type="checkbox" class="pauta" data-idUsuario="'.$eac['id_usuario'].'" >
+											<input id="check_'.$eac['id_usuario'].'" type="checkbox" class="pauta" data-idUsuario="'.$eac['id_usuario'].'"';
+
+										if (isset($eacsEquipo) && in_array($eac['id_usuario'], $eacsEquipo))
+											echo 'checked';
+										echo '>
 										</td>
 										</tr>';
 										}
@@ -93,13 +101,15 @@
 						<a class="btn btn-link"  href="<?php echo base_url();?>Equipo/ListarEquipos">Volver</a>
 					</div>
 					<div  class="col-sm-6 text-right">
-					 	<button type="submit" class="btn btn-primary submit">Guardar Equipo</button>
+					 	<button type="submit" class="btn btn-primary submit"><?php echo $titulo;?></button>
 					</div>
 				</div>
 			</form>		
 		</div>
 	</div>
 </div>
+
+<div id="loader" class="loader" hidden></div>
 
 <!-- Modal Mensaje -->
 <div class="modal fade" id="modalMensajeEquipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

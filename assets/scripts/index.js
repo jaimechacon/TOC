@@ -1,5 +1,10 @@
 
 $(document).ready(function() {
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
   $("#agregarEquipo").validate({
     errorClass:'invalid-feedback',
     errorElement:'span',
@@ -43,9 +48,10 @@ $(document).ready(function() {
 
   $("#rango").change(function() {
     idRango= $("#rango").val();
+    var baseurl = window.origin + '/gestion_calidad/Equipo/listarEvaluaciones';
     jQuery.ajax({
       type: "POST",
-      url: "listarEvaluaciones",
+      url: baseurl,
       dataType: 'json',
       data: {rango: idRango},
       success: function(data) {
@@ -90,11 +96,10 @@ $(document).ready(function() {
 
   $("#categoria").change(function() {
     micategoria= $("#categoria").val();
-    //alert(micategoria);
-
+    var baseurl = window.origin + '/gestion_calidad/Inicio/llenacombo';
     jQuery.ajax({
     type: "POST",
-    url: "Inicio/llenacombo",
+    url: baseurl,
     //dataType: 'json',
     data: {micategoria: micategoria},
     success: function(res) {
@@ -129,10 +134,11 @@ $(document).ready(function() {
  $('#eliminarEquipo').click(function(e){    
     idEquipo = $('#tituloEE').data('idequipo');
     //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    
+    var baseurl = window.origin + '/gestion_calidad/Equipo/eliminarEquipo';    
+
     jQuery.ajax({
     type: "POST",
-    url: "eliminarEquipo",
+    url: baseurl,
     //dataType: 'json',
     data: {idEquipo: idEquipo},
     success: function(data) {
@@ -162,6 +168,7 @@ $(document).ready(function() {
           listarEquipos('');
         }
         feather.replace()
+        $('[data-toggle="tooltip"]').tooltip()
       }
     }
     });
@@ -178,9 +185,10 @@ $(document).ready(function() {
 
  function listarEquipos(filtro)
  {
+    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEquipo';
     jQuery.ajax({
     type: "POST",
-    url: "buscarEquipo",
+    url: baseurl,
     dataType: 'json',
     data: {equipo: filtro},
     success: function(data) {
@@ -195,18 +203,22 @@ $(document).ready(function() {
           row = row.concat('\n<td class="text-center align-middle">',data[i]['abreviacion'],'</td>');
           row = row.concat('\n<td class="text-center align-middle"><span class="badge badge-primary badge-pill">',data[i]['cant_usu'],'</span></td>');
           row = row.concat('\n<td class="text-center align-middle">');
-          row = row.concat('\n<a id="trash_',data[i]['id_equipo'],'" class="trash" href="#" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'"  data-toggle="modal" data-target="#modalEliminarEquipo">');
-          row = row.concat('\n<i data-feather="trash-2"></i>');
+          row = row.concat('\n<a id="trash_',data[i]['id_equipo'],'" class="trash" href="#" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'" data-toggle="modal" data-target="#modalEliminarEquipo">');
+          row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
           row = row.concat('\n</a>');
-          row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit" href="#">');
-          row = row.concat('\n<i data-feather="edit"></i>');
+          row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit btn btn-link" type="link" href="ModificarEquipo/?idEquipo=',data[i]['id_equipo'],'" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'">');
+          row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
           row = row.concat('\n</a>');
+          //row = row.concat('\n<a id="view_',data[i]['id_equipo'],'" class="view" href="#">');
+          //row = row.concat('\n<i data-feather="search"  data-toggle="tooltip" data-placement="top" title="ver"></i>');
+          //row = row.concat('\n</a>');
           row = row.concat('\n</td>');
           row = row.concat('\n<tr>');
 
         $("#tbodyEquipo").append(row);
       }
       feather.replace()
+      $('[data-toggle="tooltip"]').tooltip()
     }
     }
     });
@@ -220,42 +232,45 @@ $(document).ready(function() {
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
+    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEAC';   
+
     jQuery.ajax({
     type: "POST",
-    url: "buscarEAC",
+    url: baseurl, //"buscarEAC",
     dataType: 'json',
     data: {eac: filtro},
     success: function(data) {
-    if (data)
-    {
-        $("#tbodyEAC").empty();
-        count = 0;
-        for (var i = 0; i < data.length; i++){
-          count++;
-          var clases = "";//((count == 2) ? 'list-group' : '');
-          if(count == 15)
-            count = 0;
-          var row = '';
-          row = row.concat('<tr class="',clases,'">');
-          row = row.concat('\n<td class="text-center" hidden>',data[i]['id_usuario'],'</td>');
-          row = row.concat('\n<th class="text-center" scope="col">',data[i]['cod_eac'],'</td>');
-          row = row.concat('\n<td class="text-center" colspan="5">',data[i]['nombres'],'</td>');
-          row = row.concat('\n<td class="text-center" colspan="5">',data[i]['apellidos'],'</td>');
-          row = row.concat('\n <td class="text-center" >',data[i]['email'],'</td>');
-          row = row.concat('\n<td class="text-center " >');
-          
-          checked = "";
-          var indiceEAC = eacs.indexOf(data[i]['id_usuario'].toString());
-          if(indiceEAC != -1)
-            checked = "checked";
+      if (data)
+      {
+          $("#tbodyEAC").empty();
+          count = 0;
+          for (var i = 0; i < data.length; i++){
+            count++;
+            var clases = "";//((count == 2) ? 'list-group' : '');
+            if(count == 15)
+              count = 0;
+            var row = '';
+            row = row.concat('<tr class="',clases,'">');
+            row = row.concat('\n<td class="text-center" hidden>',data[i]['id_usuario'],'</td>');
+            row = row.concat('\n<th class="text-center" scope="col">',data[i]['cod_eac'],'</td>');
+            row = row.concat('\n<td class="text-center" colspan="5">',data[i]['nombres'],'</td>');
+            row = row.concat('\n<td class="text-center" colspan="5">',data[i]['apellidos'],'</td>');
+            row = row.concat('\n <td class="text-center" >',data[i]['email'],'</td>');
+            row = row.concat('\n<td class="text-center " >');
+            
+            checked = "";
+            var indiceEAC = eacs.indexOf(data[i]['id_usuario'].toString());
+            if(indiceEAC != -1)
+              checked = "checked";
 
-          row = row.concat('\n<input id="check_',data[i]['id_usuario'],'" type="checkbox" class="pauta" data-idUsuario="', data[i]['id_usuario'],'" ', checked, '>');
-          row = row.concat('\n</td>');
-          row = row.concat('\n<tr>');
-        $("#tbodyEAC").append(row);
+            row = row.concat('\n<input id="check_',data[i]['id_usuario'],'" type="checkbox" class="pauta" data-idUsuario="', data[i]['id_usuario'],'" ', checked, '>');
+            row = row.concat('\n</td>');
+            row = row.concat('\n<tr>');
+          $("#tbodyEAC").append(row);
+        }
+        //feather.replace()
+        //$('[data-toggle="tooltip"]').tooltip()
       }
-      feather.replace()
-    }
     }
     });
  }
@@ -325,8 +340,11 @@ $(document).ready(function() {
         $("#check_todos").text('Seleccionar Todos');
   });
 
-  $( "#agregarEquipo" ).submit(function( event ) {
-   
+  $( "#agregarEquipo").submit(function( event ) {
+
+    var loader = document.getElementById("loader");
+    loader.removeAttribute('hidden');
+    /*$("div.loader").addClass('show');*/
     var validacion = $("#agregarEquipo").validate();
     if(validacion.errorList.length == 0)
     {
@@ -338,52 +356,64 @@ $(document).ready(function() {
         else
           eacsEquipo = document.getElementById('tablaEAC').dataset.eac.split(',');
 
+      var baseurl = (window.origin + '/gestion_calidad/Equipo/guardarEquipo');
       var nombreEquipo = $('#inputNombre').val();
       var abreviacionEquipo = $('#inputAbreviacion').val();
       var observacionesEquipo = $('#inputObservaciones').val();
+      var idEquipo = null;
+      if($("#inputIdEquipo").val())
+        idEquipo = $('#inputIdEquipo').val();
+
       jQuery.ajax({
       type: "POST",
-      url: "guardarEquipo",
+      url: baseurl,
       dataType: 'json',
-      data: {nombreEquipo: nombreEquipo, abreviacionEquipo: abreviacionEquipo, observacionesEquipo: observacionesEquipo, eacsEquipo: eacsEquipo },
+      data: {idEquipo: idEquipo, nombreEquipo: nombreEquipo, abreviacionEquipo: abreviacionEquipo, observacionesEquipo: observacionesEquipo, eacsEquipo: eacsEquipo },
       success: function(data) {
         if (data)
         {
-          if(data == '1')
+          //data = JSON.parse(data);
+          if(data['respuesta'] == '1')
           {
             $('#tituloME').empty();
             $("#parrafoME").empty();
             $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
-            $("#parrafoME").append('Se ha agregado exitosamente el Equipo.');
+            $("#parrafoME").append(data['mensaje']);
+            loader.setAttribute('hidden', '');
             $('#modalMensajeEquipo').modal({
               show: true
             });
-            $("#agregarEquipo")[0].reset();
+            /*$("#agregarEquipo")[0].reset();
             $("#check_todos").text('Seleccionar Todos');
-            $(".pauta").prop("checked", false);
+            $(".pauta").prop("checked", false);*/
 
           }else{
 
             $('#tituloME').empty();
             $("#parrafoME").empty();
             $("#tituloME").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
-            $("#parrafoME").append('Ha ocurrido un error al intentar agregar el Equipo.');
+            $("#parrafoME").append(data['mensaje']);
+            loader.setAttribute('hidden', '');
             $('#modalMensajeEquipo').modal({
               show: true
             });
           }
-          //alert(data.length);
-
           feather.replace()
+          $('[data-toggle="tooltip"]').tooltip()
         }
       }
       });
-
-      
-
     }
   });
 
+  $('#tDatos').on('click', '.edit', function(e) {
+    //alert('se modificará el equipo' + ' ' + $(e.currentTarget).data('id'));
+    //$.redirect('demo.php',
+    //$.redirect('ModificarEquipo', {'idEquipo': $(e.currentTarget).data('id')});
+     $.post("ModificarEquipo", {'idEquipo': $(e.currentTarget).data('id') } );
+  });
+
   feather.replace()
+  $('[data-toggle="tooltip"]').tooltip()
 
 });

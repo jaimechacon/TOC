@@ -45,9 +45,9 @@ class Equipo_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function guardarEquipo($nombreEquipo, $abreviacionEquipo, $observacionesEquipo, $eacs, $idUsuario)
+	public function guardarEquipo($idEquipo, $nombreEquipo, $abreviacionEquipo, $observacionesEquipo, $idUsuario)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`agregarEquipo`('".$nombreEquipo."', '".$abreviacionEquipo."', '".$observacionesEquipo."', ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`agregarEquipo`(".$idEquipo.", '".$nombreEquipo."', '".$abreviacionEquipo."', '".$observacionesEquipo."', ".$idUsuario.");");
 
 		return $query->result_array();
 	}
@@ -58,6 +58,22 @@ class Equipo_model extends CI_Model
 
 		return $query->result_array();
 	}
+
+	public function eliminarEACEquipo($idEquipo, $idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`eliminarEACEquipo`(".$idEquipo.", ".$idUsuario.");");
+
+		return $query->result_array();
+	}
+
+	public function obtenerEquipo($idEquipo)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerEquipo`(".$idEquipo.");");
+
+		return $query->result_array();
+	}
+
+	
 
 	
 }	

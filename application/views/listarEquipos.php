@@ -43,11 +43,14 @@
 					        </td>
 					        <td class="text-center align-middle">
 					        	<a id="trash_<?php echo $equipo['id_equipo']; ?>" class="trash" href="#" data-id="<?php echo $equipo['id_equipo']; ?>" data-nombre="<?php echo $equipo['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarEquipo">
-					        		<i data-feather="trash-2"></i>					        		
+					        		<i data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar"></i>					        		
 				        		</a>
-				        		<a id="edit_<?php echo $equipo['id_equipo']; ?>" class="edit" href="#">
-					        		<i data-feather="edit"></i>
+				        		<a id="edit_<?php echo $equipo['id_equipo']; ?>" class="edit btn btn-link" type="link" href="ModificarEquipo/?idEquipo=<?php echo $equipo['id_equipo']; ?>" data-id="<?php echo $equipo['id_equipo']; ?>" data-nombre="<?php echo $equipo['nombre']; ?>">
+					        		<i data-feather="edit-3" data-toggle="tooltip" data-placement="top" title="modificar"></i>
 				        		</a>
+				        		<!--<a id="view_<?php echo $equipo['id_equipo']; ?>" class="view" href="#">
+					        		<i data-feather="search"  data-toggle="tooltip" data-placement="top" title="ver"></i>
+				        		</a>-->
 				        	</td>
 				    	</tr>
 			  		<?php endforeach ?>
