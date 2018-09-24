@@ -340,7 +340,7 @@ $(document).ready(function() {
         $("#check_todos").text('Seleccionar Todos');
   });
 
-  $( "#agregarEquipo").submit(function( event ) {
+  $("#agregarEquipo").submit(function(e) {
 
     var loader = document.getElementById("loader");
     loader.removeAttribute('hidden');
@@ -379,23 +379,34 @@ $(document).ready(function() {
             $("#parrafoME").empty();
             $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
             $("#parrafoME").append(data['mensaje']);
+            if(!$("#inputIdEquipo").val())
+            {
+              $("#agregarEquipo")[0].reset();
+              $("#check_todos").text('Seleccionar Todos');
+              $(".pauta").prop("checked", false);
+            }
             loader.setAttribute('hidden', '');
             $('#modalMensajeEquipo').modal({
               show: true
             });
-            /*$("#agregarEquipo")[0].reset();
-            $("#check_todos").text('Seleccionar Todos');
-            $(".pauta").prop("checked", false);*/
           }else{
             $('#tituloME').empty();
             $("#parrafoME").empty();
             $("#tituloME").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
             $("#parrafoME").append(data['mensaje']);
+            if(!$("#inputIdEquipo").val())
+            {
+              $("#agregarEquipo")[0].reset();
+              $("#check_todos").text('Seleccionar Todos');
+              $(".pauta").prop("checked", false);
+            }
             loader.setAttribute('hidden', '');
             $('#modalMensajeEquipo').modal({
               show: true
             });
           }
+
+
           feather.replace()
           $('[data-toggle="tooltip"]').tooltip()
         }
@@ -409,6 +420,10 @@ $(document).ready(function() {
     //$.redirect('demo.php',
     //$.redirect('ModificarEquipo', {'idEquipo': $(e.currentTarget).data('id')});
      $.post("ModificarEquipo", {'idEquipo': $(e.currentTarget).data('id') } );
+  });
+
+  $('#modalMensajeEquipo').on('hidden.bs.modal', function (e) {
+    
   });
 
   feather.replace()

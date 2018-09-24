@@ -85,8 +85,14 @@ class Equipo extends CI_Controller {
 					if(!is_null($this->input->POST('eacsEquipo')))
 						$eacs = $this->input->POST('eacsEquipo');
 					$idEquipo = 'null';
-
-					if(is_null($this->input->POST('idEquipo')) && is_numeric($this->input->POST('idEquipo')))
+/*
+					var_dump($this->input->POST('idEquipo'));
+					echo '----';
+					var_dump(is_null($this->input->POST('idEquipo')));
+					echo '----';
+					var_dump(is_numeric($this->input->POST('idEquipo')));
+					echo '----';*/
+					if(!is_null($this->input->POST('idEquipo')) && is_numeric($this->input->POST('idEquipo')))
 					{
 						$idEquipo = $this->input->POST('idEquipo');
 						$accion = 'modificado';
