@@ -59,7 +59,7 @@
 						<span >Pendientes</span>
 					</div>
 					<div class="col-sm-6">
-						<select id="rango" class="custom-select custom-select-sm">
+						<select id="gestionEvaluacion" class="custom-select custom-select-sm">
 						    <option value="2">CICLO</option>
 						    <option value="3">FASE</option>
 						</select>

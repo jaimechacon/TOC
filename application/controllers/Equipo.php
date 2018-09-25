@@ -13,10 +13,12 @@ class Equipo extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
+			$usuario['controller'] = 'equipo';
+
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarEquipos', $usuario);
-			$this->load->view('temp/footer');
+			$this->load->view('temp/footer', $usuario);
 		}else
 		{
 			//$data['message'] = 'Verifique su email y contrase&ntilde;a.';
@@ -30,12 +32,12 @@ class Equipo extends CI_Controller {
 		if($usuario){
 			$equipos = $this->equipo_model->buscarEquipo('');
 			$usuario['equipos'] = $equipos;
-
+			$usuario['controller'] = 'equipo';
 			//var_dump($equipos);
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarEquipos', $usuario);
-			$this->load->view('temp/footer');
+			$this->load->view('temp/footer', $usuario);
 		}
 	}
 
@@ -58,11 +60,12 @@ class Equipo extends CI_Controller {
 			if($eacs)
 				$usuario['eacs'] = $eacs;
 		$usuario['titulo'] = 'Agregar Equipo';
+		$usuario['controller'] = 'equipo';
 
 		$this->load->view('temp/header');
 		$this->load->view('temp/menu', $usuario);
 		$this->load->view('agregarEquipo', $usuario);
-		$this->load->view('temp/footer');
+		$this->load->view('temp/footer', $usuario);
 		}
 	}
 
@@ -251,7 +254,7 @@ class Equipo extends CI_Controller {
 				$usuario['eacs'] = $eacs;
 
 			$usuario['titulo'] = 'Modificar Equipo';
-
+			$usuario['controller'] = 'equipo';
 			if($this->input->GET('idEquipo') && $this->input->GET('idEquipo'))
 			{
 				//mysqli_next_result($this->db->conn_id);
@@ -271,7 +274,7 @@ class Equipo extends CI_Controller {
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('agregarEquipo', $usuario);
-			$this->load->view('temp/footer');
+			$this->load->view('temp/footer', $usuario);
 		}
 	}
 	
