@@ -41,7 +41,7 @@
     }
   });
 
-  $('#buscarEquipo').on('input',function(e){
+  $('#buscarEquipo').on('change',function(e){
      filtroEquipo = $('#buscarEquipo').val();
 
      if(filtroEquipo.length = 0)
@@ -130,16 +130,16 @@
         $("#tbodyEquipo").empty();
         for (var i = 0; i < data.length; i++){
           var row = '<tr>';
-          row = row.concat('\n<th scope="row" class="text-center align-middle">',data[i]['id_equipo'],'</th>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['nombre'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['descripcion'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['abreviacion'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle"><span class="badge badge-primary badge-pill">',data[i]['cant_usu'],'</span></td>');
-          row = row.concat('\n<td class="text-center align-middle">');
+          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data[i]['id_equipo'],'</th>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['nombre'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['descripcion'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['abreviacion'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro"><span class="badge badge-primary badge-pill">',data[i]['cant_usu'],'</span></td>');
+          row = row.concat('\n<td class="text-right align-middle registro">');
           row = row.concat('\n<a id="trash_',data[i]['id_equipo'],'" class="trash" href="#" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'" data-toggle="modal" data-target="#modalEliminarEquipo">');
           row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
           row = row.concat('\n</a>');
-          row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit btn btn-link" type="link" href="ModificarEquipo/?idEquipo=',data[i]['id_equipo'],'" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'">');
+          row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit" type="link" href="ModificarEquipo/?idEquipo=',data[i]['id_equipo'],'" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'">');
           row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
           row = row.concat('\n</a>');
           //row = row.concat('\n<a id="view_',data[i]['id_equipo'],'" class="view" href="#">');

@@ -106,7 +106,7 @@ class Categoria extends CI_Controller {
 					{
 						if($resultado === 0)
 						{
-							$mensaje = 'Ha ocurrido un error al '.$accion.' el equipo, el equipo no se encuentra registrado.';
+							$mensaje = 'Ha ocurrido un error al '.$accion.' la categor&iacute;a, la categor&iacute;a no se encuentra registrado.';
 						}
 					}
 					$data['respuesta'] = $respuesta;
@@ -139,7 +139,7 @@ class Categoria extends CI_Controller {
 
 			$usuario['titulo'] = 'Modificar Categoria';
 			$usuario['controller'] = 'categoria';
-			
+
 			if($this->input->GET('idCategoria') && $this->input->GET('idCategoria'))
 			{
 				//mysqli_next_result($this->db->conn_id);

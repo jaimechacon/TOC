@@ -66,7 +66,7 @@
     jQuery.ajax({
     type: "POST",
     url: baseurl,
-    //dataType: 'json',
+    dataType: 'json',
     data: {idCategoria: idCategoria},
     success: function(data) {
       if (data)
@@ -183,15 +183,15 @@
         $("#tbodyCategoria").empty();
         for (var i = 0; i < data.length; i++){
           var row = '<tr>';
-          row = row.concat('\n<th scope="row" class="text-center align-middle">',data[i]['id_categoria'],'</th>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['nombre'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['descripcion'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle">',data[i]['puntuacion'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle">');
+          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data[i]['id_categoria'],'</th>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['nombre'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['descripcion'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['puntuacion'],'</td>');
+          row = row.concat('\n<td class="text-right align-middle registro">');
           row = row.concat('\n<a id="trash_',data[i]['id_categoria'],'" class="trash" href="#" data-id="',data[i]['id_categoria'],'" data-nombre="',data[i]['nombre'],'" data-toggle="modal" data-target="#modalEliminarCategoria">');
           row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
           row = row.concat('\n</a>');
-          row = row.concat('\n<a id="edit_',data[i]['id_categoria'],'" class="edit btn btn-link" type="link" href="ModificarCategoria/?idCategoria=',data[i]['id_categoria'],'" data-id="',data[i]['id_categoria'],'" data-nombre="',data[i]['nombre'],'">');
+          row = row.concat('\n<a id="edit_',data[i]['id_categoria'],'" class="edit" type="link" href="ModificarCategoria/?idCategoria=',data[i]['id_categoria'],'" data-id="',data[i]['id_categoria'],'" data-nombre="',data[i]['nombre'],'">');
           row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
           row = row.concat('\n</a>');
           //row = row.concat('\n<a id="view_',data[i]['id_equipo'],'" class="view" href="#">');

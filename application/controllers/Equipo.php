@@ -195,56 +195,6 @@ class Equipo extends CI_Controller {
 		echo json_encode($eacs);
 	}
 
-	/*public function listaEAC()
-	{
-		$usuario = $this->session->userdata();
-		if($usuario){
-
-			$eacs[] = array();
-			unset($eacs);
-			$idEac = "";
-			$checked = false;
-
-			$respuesta = "";
-			if($this->input->POST('idEac') && $this->input->POST('checked'))
-			{
-				$idEac = $this->input->POST('idEac');
-				$checked = $this->input->POST('checked');
-				$checked = $this->input->POST('checked') === 'true'? true : false;
-
-				if(isset($usuario['listaEAC']))
-				{
-					$eacs = $usuario['listaEAC'];
-					if($checked)
-					{
-						if(!in_array($idEac, $eacs))
-						{
-							$eacs[count($eacs)] = $idEac;
-							$this->session->set_flashdata('listaEAC', $eacs);
-							$this->session->keep_flashdata('listaEAC');
-							echo json_encode(array('idEAC' => $idEac, 'checked' => true));
-						}
-					}else{
-						if(in_array($idEac, $eacs))
-						{
-							$posicion = array_search($idEac, $eacs);
-							unset($eacs[$posicion]);
-							$this->session->set_flashdata('listaEAC', $eacs);
-							$this->session->keep_flashdata('listaEAC');
-							echo json_encode(array('idEAC' => $idEac, 'checked' => false));
-						}
-					}
-				}else
-				{
-					$eacs = array(0 => $idEac);
-					$this->session->set_userdata('listaEAC', $eacs);
-					$this->session->mark_as_flash('listaEAC');
-					echo json_encode(array('idEAC' => $idEac, 'checked' => true));
-				}
-			}
-		}
-	}*/
-
 	public function modificarEquipo()
 	{
 		$usuario = $this->session->userdata();

@@ -4,12 +4,13 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
-	//var_dump(implode(",", $eacsEquipo));
 ?>
 <div class="row">
 	<div class="col-sm-12">
 		<div id="titulo" class="mt-3">
-			<h3><i class="plusTitulo mb-2" data-feather="plus"></i><?php echo $titulo; ?></h3>
+			<h3>
+				<i class="plusTitulo mb-2" data-feather="<?php echo ($titulo == 'Agregar Equipo' ? 'plus' : 'edit-3'); ?>" ></i><?php echo $titulo; ?>
+			</h3>
 		</div>
 	</div>
 	<div class="col-sm-12">

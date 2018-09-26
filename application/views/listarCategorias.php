@@ -14,35 +14,38 @@
 			  <input type="text" class="form-control form-control-sm" id="buscarCategoria" placeholder="Busque por ( Nombre, Descripci&oacute;n, Puntuaci&oacute;n )">
 			</div>
 		</div>
+
 	</div>
-	<div id="agregarCategoria" class="col-sm-6 d-flex justify-content-end">
-		<a href="AgregarCategoria" class="btn btn-link"><i stop-color data-feather="plus"></i>Agregar Categor&iacute;a</a>
+	<div id="agregarCategoria" class="col-sm-6 text-right">
+			<a href="AgregarCategoria" class="btn btn-link"><i stop-color data-feather="plus"></i>Agregar Categor&iacute;a</a>
 	</div>
-	<div id="tDatos" class="col-sm-12 m-3">
+</div>
+<div class="row p-3">
+	<div id="tDatos" class="col-sm-12 p-3">
 		<div class="table-responsive">
 			<table class="table table-sm table-hover ">
 			  <thead>
 			    <tr>
-			      <th scope="col" class="text-center align-middle"># ID</th>
-			      <th scope="col" class="text-center align-middle">Nombre</th>
-			      <th scope="col" class="text-center align-middle">Descripci&oacute;n</th>
-			      <th scope="col" class="text-center align-middle">Puntuaci&oacute;n</th>
-			      <th scope="col" class="text-center align-middle"></th>
+			      <th scope="col" class="text-center align-middle registro"># ID</th>
+			      <th scope="col" class="text-center align-middle registro">Nombre</th>
+			      <th scope="col" class="text-center align-middle registro">Descripci&oacute;n</th>
+			      <th scope="col" class="text-center align-middle registro">Puntuaci&oacute;n</th>
+			      <th scope="col" class="text-right align-middle registro"></th>
 			    </tr>
 			  </thead>
 			  <tbody id="tbodyCategoria">
 			        <?php foreach ($categorias as $categoria): ?>
 			  			<tr>
 					        <th scope="row" class="text-center align-middle"><?php echo $categoria['id_categoria']; ?></th>
-					        <td class="text-center align-middle"><?php echo $categoria['nombre']; ?></td>
-					        <td class="text-center align-middle"><?php echo $categoria['descripcion']; ?></td>
-					        <td class="text-center align-middle"><?php echo $categoria['puntuacion']; ?></td>
-					        <td class="text-center align-middle">
-					        	<a id="trash_<?php echo $categoria['id_categoria']; ?>" class="trash" href="#" data-id="<?php echo $categoria['id_categoria']; ?>" data-nombre="<?php echo $categoria['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarCategoria">
-					        		<i data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar"></i>					        		
-				        		</a>
-				        		<a id="edit_<?php echo $categoria['id_categoria']; ?>" class="edit btn btn-link" type="link" href="ModificarCategoria/?idCategoria=<?php echo $categoria['id_categoria']; ?>" data-id="<?php echo $categoria['id_categoria']; ?>" data-nombre="<?php echo $categoria['nombre']; ?>">
-					        		<i data-feather="edit-3" data-toggle="tooltip" data-placement="top" title="modificar"></i>
+					        <td class="text-center align-middle registro"><?php echo $categoria['nombre']; ?></td>
+					        <td class="text-center align-middle registro"><?php echo $categoria['descripcion']; ?></td>
+					        <td class="text-center align-middle registro"><?php echo $categoria['puntuacion']; ?></td>
+					        <td class="text-right align-middle registro">
+								<button id="trash_<?php echo $categoria['id_categoria']; ?>" class="btn btn-link btn-sm trash" type="link" data-id="<?php echo $categoria['id_categoria']; ?>" data-nombre="<?php echo $categoria['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarCategoria">
+									<i class="trash" data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar" ></i>
+								</button>
+				        		<a id="edit_<?php echo $categoria['id_categoria']; ?>" class="edit" type="link" href="ModificarCategoria/?idCategoria=<?php echo $categoria['id_categoria']; ?>" data-id="<?php echo $categoria['id_categoria']; ?>" data-nombre="<?php echo $categoria['nombre']; ?>">
+					        		<i class="edit" data-feather="edit-3" data-toggle="tooltip" data-placement="top" title="modificar"></i>
 				        		</a>
 				        	</td>
 				    	</tr>
@@ -99,6 +102,7 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
+	      	<i class="plusTituloError mb-2" data-feather="trash-2"></i>
 	        <h5 class="modal-title" id="tituloEC" name="tituloEC" data-idcategoria="" data-nombrecategoria="" ></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
