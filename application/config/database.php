@@ -69,15 +69,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
+
+
+
+'instanciamysql.cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
+	'username' => 'psandoval',
+	'password' => 'black.Hole2018$$',
+	'database' => 'gestion_calidad',
+
+
+    'hostname' => '20.0.1.58',
+    'username' => 'usr_calidad',
+    'password' => 'calidad.2018$$',
+    'database' => 'gestion_calidad',
+
+
 */
 $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'instanciamysql.cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
-	'username' => 'psandoval',
-	'password' => 'black.Hole2018$$',
+	'hostname' => '20.0.1.58',
+	'username' => 'usr_calidad',
+	'password' => 'calidad.2018$$',
 	'database' => 'gestion_calidad',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

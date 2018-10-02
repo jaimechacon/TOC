@@ -35,6 +35,17 @@ input[type=checkbox].pauta{
   color: seagreen;
 }
 
+.plusA {
+    width: 29px;
+    height: 29px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    color: seagreen;
+}
+
 .plusTituloError {
   width: 35px;
   height: 35px;

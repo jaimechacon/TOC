@@ -19,4 +19,4 @@ class Campania_model extends CI_Model
 		$query = $this->db->query('CALL `gestion_calidad`.`listarCampaniasUsu`('.$id_usuario.');');
 		return $query->result_array();
 	}
-}	
+}

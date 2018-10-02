@@ -24,9 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 	http://www.2gdc.com/
 	http://localhost/gestion_calidad/
+	http://calidad.gsbpo.cl'
 
 */
-$config['base_url'] = 'http://www.2gdc.com/';
+$config['base_url'] = 'http://calidad.gsbpo.cl/';
 
 /*
 |--------------------------------------------------------------------------

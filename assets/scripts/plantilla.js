@@ -1,6 +1,6 @@
  $(document).ready(function() {
 
-  $("#agregarEquipo").validate({
+  $("#agregarPlantilla").validate({
     errorClass:'invalid-feedback',
     errorElement:'span',
     highlight: function(element, errorClass, validClass) {
@@ -15,24 +15,14 @@
         minlength: 3,
         maxlength: 50
       },
-      inputAbreviacion: {
-        required: true,
-        minlength: 1,
-        maxlength: 10
-      },
       inputObservaciones: {
         maxlength: 100
       },
     },
     messages:{
       inputNombre: {
-        required: "Se requiere un Nombre de Equipo.",
+        required: "Se requiere un Nombre de Plantilla.",
         minlength: "Se requieren m&iacute;nimo {0} caracteres.",
-        maxlength: "Se requiere no mas de {0} caracteres."
-      },
-      inputAbreviacion: {
-        required: "Se requiere una Abreviacion para el Equipo.",
-        minlength: "Se requiere m&iacute;nimo {0} caracteres.",
         maxlength: "Se requiere no mas de {0} caracteres."
       },
       inputObservaciones: {
@@ -41,62 +31,62 @@
     }
   });
 
-  $('#buscarEquipo').on('change',function(e){
-     filtroEquipo = $('#buscarEquipo').val();
+  $('#buscarPlantilla').on('change',function(e){
+     filtroPlantilla = $('#buscarPlantilla').val();
 
-     if(filtroEquipo.length = 0)
-        filtroEquipo = "";
-    listarEquipos(filtroEquipo);
+     if(filtroPlantilla.length = 0)
+        filtroPlantilla = "";
+    listarPlantillas(filtroPlantilla);
   });
 
-  $('#modalEliminarEquipo').on('show.bs.modal', function(e) {
+  $('#modalEliminarPlantilla').on('show.bs.modal', function(e) {
     //get data-id attribute of the clicked element
-    var idEquipo = $(e.relatedTarget).data('id');
-    var nombreEquipo = $(e.relatedTarget).data('nombre');
+    var idPlantilla = $(e.relatedTarget).data('id');
+    var nombrePlantilla = $(e.relatedTarget).data('nombre');
     //populate the textbox
-    $("#tituloEE").text('Eliminar ' + nombreEquipo);
-    $("#parrafoEE").text('¿Estás seguro que deseas eliminar "' + nombreEquipo + '"?');
+    $("#tituloEP").text('Eliminar ' + nombrePlantilla);
+    $("#parrafoEP").text('¿Estás seguro que deseas eliminar "' + nombrePlantilla + '"?');
 
-    $("#tituloEE").removeData("idequipo");
-    $("#tituloEE").attr("data-idequipo", idEquipo);
-    //$("#tituloEE").removeData("nombreequipo");
-    //$("#tituloEE").attr("data-nombreEquipo", nombreEquipo);
+    $("#tituloEP").removeData("idplantilla");
+    $("#tituloEP").attr("data-idplantilla", idPlantilla);
+    //$("#tituloEP").removeData("nombreplantilla");
+    //$("#tituloEP").attr("data-nombrePlantilla", nombrePlantilla);
   });
 
-  $('#eliminarEquipo').click(function(e){
-    idEquipo = $('#tituloEE').data('idequipo');
-    //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    var baseurl = window.origin + '/Equipo/eliminarEquipo';
+  $('#eliminarPlantilla').click(function(e){
+    idPlantilla = $('#tituloEP').data('idplantilla');
+    //var nombrePlantilla = $('#tituloEP').data('nombreplantilla');
+    var baseurl = window.origin + '/Plantilla/eliminarPlantilla';
 
     jQuery.ajax({
     type: "POST",
     url: baseurl,
     //dataType: 'json',
-    data: {idEquipo: idEquipo},
+    data: {idPlantilla: idPlantilla},
     success: function(data) {
       if (data)
       {
         if(data == '1')
         {
-          $('#tituloME').empty();
-          $("#parrafoME").empty();
-          $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
-          $("#parrafoME").append('Se ha eliminado exitosamente el Equipo.');
-          $('#modalEliminarEquipo').modal('hide');
-          $('#modalMensajeEquipo').modal({
+          $('#tituloMP').empty();
+          $("#parrafoMP").empty();
+          $("#tituloMP").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
+          $("#parrafoMP").append('Se ha eliminado exitosamente el Plantilla.');
+          $('#modalEliminarPlantilla').modal('hide');
+          $('#modalMensajePlantilla').modal({
             show: true
           });
-          listarEquipos('');
+          listarPlantillas('');
         }else{
-          $('#tituloME').empty();
-          $("#parrafoME").empty();
-          $("#tituloME").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
-          $("#parrafoME").append('Ha ocurrido un error al intentar eliminar el Equipo.');
-          $('#modalEliminarEquipo').modal('hide');
-          $('#modalMensajeEquipo').modal({
+          $('#tituloMP').empty();
+          $("#parrafoMP").empty();
+          $("#tituloMP").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
+          $("#parrafoMP").append('Ha ocurrido un error al intentar eliminar el Plantilla.');
+          $('#modalEliminarPlantilla').modal('hide');
+          $('#modalMensajePlantilla').modal({
             show: true
           });
-          listarEquipos('');
+          listarPlantillas('');
         }
         feather.replace()
         $('[data-toggle="tooltip"]').tooltip()
@@ -113,36 +103,36 @@
       listarEAC(filtroEAC);
   });
 
-  function listarEquipos(filtro)
+  function listarPlantillas(filtro)
   {
-    var baseurl = window.origin + '/Equipo/buscarEquipo';
+    var baseurl = window.origin + '/Plantilla/buscarPlantilla';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
     dataType: 'json',
-    data: {equipo: filtro},
+    data: {plantilla: filtro},
     success: function(data) {
     if (data)
     {
-        $("#tbodyEquipo").empty();
+        $("#tbodyPlantilla").empty();
         for (var i = 0; i < data.length; i++){
           var row = '<tr>';
-          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data[i]['id_equipo'],'</th>');
+          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data[i]['id_plantilla'],'</th>');
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['nombre'],'</td>');
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['descripcion'],'</td>');
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['abreviacion'],'</td>');
           row = row.concat('\n<td class="text-center align-middle registro"><span class="badge badge-primary badge-pill">',data[i]['cant_usu'],'</span></td>');
           row = row.concat('\n<td class="text-right align-middle registro">');
-          row = row.concat('\n<a id="trash_',data[i]['id_equipo'],'" class="trash" href="#" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'" data-toggle="modal" data-target="#modalEliminarEquipo">');
+          row = row.concat('\n<a id="trash_',data[i]['id_plantilla'],'" class="trash" href="#" data-id="',data[i]['id_plantilla'],'" data-nombre="',data[i]['nombre'],'" data-toggle="modal" data-target="#modalEliminarPlantilla">');
           row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
           row = row.concat('\n</a>');
-          row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit" type="link" href="ModificarEquipo/?idEquipo=',data[i]['id_equipo'],'" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'">');
+          row = row.concat('\n<a id="edit_',data[i]['id_plantilla'],'" class="edit" type="link" href="ModificarPlantilla/?idPlantilla=',data[i]['id_plantilla'],'" data-id="',data[i]['id_plantilla'],'" data-nombre="',data[i]['nombre'],'">');
           row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
           row = row.concat('\n</a>');
           row = row.concat('\n</td>');
           row = row.concat('\n<tr>');
 
-        $("#tbodyEquipo").append(row);
+        $("#tbodyPlantilla").append(row);
       }
       feather.replace()
       $('[data-toggle="tooltip"]').tooltip()
@@ -159,7 +149,7 @@
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-    var baseurl = window.origin + '/Equipo/buscarEAC';   
+    var baseurl = window.origin + '/Plantilla/buscarEAC';   
 
     jQuery.ajax({
     type: "POST",
@@ -267,61 +257,84 @@
         $("#check_todos").text('Seleccionar Todos');
   });
 
-  $("#agregarEquipo").submit(function(e) {
+  $("#agregarPlantilla").submit(function(e) {
     var loader = document.getElementById("loader");
     loader.removeAttribute('hidden');
     /*$("div.loader").addClass('show');*/
-    var validacion = $("#agregarEquipo").validate();
+    var validacion = $("#agregarPlantilla").validate();
     if(validacion.numberOfInvalids() == 0)
     {
       event.preventDefault();
-      var eacsEquipo = [];
+      /*var eacsPlantilla = [];
       if(document.getElementById('tablaEAC').dataset.eac.split(',').length > 0 && document.getElementById('tablaEAC').dataset.eac.split(',') != "")
         if(document.getElementById('tablaEAC').dataset.eac.split(',').length == 1)
-          eacsEquipo = [document.getElementById('tablaEAC').dataset.eac];
+          eacsPlantilla = [document.getElementById('tablaEAC').dataset.eac];
         else
-          eacsEquipo = document.getElementById('tablaEAC').dataset.eac.split(',');
+          eacsPlantilla = document.getElementById('tablaEAC').dataset.eac.split(',');*/
 
-      var baseurl = (window.origin + '/Equipo/guardarEquipo');
-      var nombreEquipo = $('#inputNombre').val();
-      var abreviacionEquipo = $('#inputAbreviacion').val();
-      var observacionesEquipo = $('#inputObservaciones').val();
-      var idEquipo = null;
-      if($("#inputIdEquipo").val())
-        idEquipo = $('#inputIdEquipo').val();
+      var baseurl = (window.origin + '/Plantilla/guardarPlantilla');
+      var nombrePlantilla = $('#inputNombre').val();
+      var observacionesPlantilla = $('#inputObservaciones').val();
+      var idPlantilla = null;
+      var esAgregado = 1;
+      var formPlantilla = document.getElementById('agregarPlantilla');
+
+      if(formPlantilla.dataset['idplantilla'])
+        idPlantilla = formPlantilla.dataset['idplantilla'];
+
+       if($("#inputIdPlantilla").val())
+       {
+          idPlantilla = $('#inputIdPlantilla').val();
+          esAgregado = 0;
+       }
 
       jQuery.ajax({
       type: "POST",
       url: baseurl,
       dataType: 'json',
-      data: {idEquipo: idEquipo, nombreEquipo: nombreEquipo, abreviacionEquipo: abreviacionEquipo, observacionesEquipo: observacionesEquipo, eacsEquipo: eacsEquipo },
+      data: {idPlantilla: idPlantilla, nombrePlantilla: nombrePlantilla, observacionesPlantilla: observacionesPlantilla, esAgregado: esAgregado /*, eacsPlantilla: eacsPlantilla*/ },
       success: function(data) {
         if (data)
         {
           //data = JSON.parse(data);
           if(data['respuesta'] == '1')
           {
-            $('#tituloME').empty();
-            $("#parrafoME").empty();
-            $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
-            $("#parrafoME").append(data['mensaje']);
-            if(!$("#inputIdEquipo").val())
+            $('#tituloMP').empty();
+            $("#parrafoMP").empty();
+            $("#tituloMP").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
+            $("#parrafoMP").append(data['mensaje']);
+            if(!$("#inputIdPlantilla").val())
             {
-              $("#agregarEquipo")[0].reset();
+              $("#agregarPlantilla")[0].reset();
               $("#check_todos").text('Seleccionar Todos');
               $(".pauta").prop("checked", false);
             }
             loader.setAttribute('hidden', '');
-            $('#modalMensajeEquipo').modal({
+            $('#modalMensajePlantilla').modal({
               show: true
             });
+            
+            var baseurl = (window.origin + '/Plantilla/obtenerIdPlantilla');
+            jQuery.ajax({
+            type: "POST",
+            url: baseurl,
+            //dataType: 'json',
+            //data: {idPlantilla: idPlantilla, nombrePlantilla: nombrePlantilla, observacionesPlantilla: observacionesPlantilla, esAgregado: esAgregado /*, eacsPlantilla: eacsPlantilla*/ },
+            success: function(data) {
+              if (data)
+              {
+                $('#agregarPlantilla').attr('data-idplantilla', data);
+              }
+            }
+          });
+            
           }else{
-            $('#tituloME').empty();
-            $("#parrafoME").empty();
-            $("#tituloME").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
-            $("#parrafoME").append(data['mensaje']);
+            $('#tituloMP').empty();
+            $("#parrafoMP").empty();
+            $("#tituloMP").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
+            $("#parrafoMP").append(data['mensaje']);
             loader.setAttribute('hidden', '');
-            $('#modalMensajeEquipo').modal({
+            $('#modalMensajePlantilla').modal({
               show: true
             });
           }
@@ -336,8 +349,76 @@
     }
   });
 
-  $('#modalMensajeEquipo').on('hidden.bs.modal', function (e) {
+  $('#modalMensajePlantilla').on('hidden.bs.modal', function (e) {
     
   });
+
+  $("#agregarCategoria").on('click', function(e) {
+   
+    var idCategoria = $("#categoria").val();
+    var nombreCategoria = $("#categoria option:selected").text();
+    if(idCategoria < 0)
+    {
+      alert('Debe ingresar una categoria');
+    }else{
+      var formPlantilla = document.getElementById('agregarPlantilla');
+
+      if(formPlantilla.dataset['idplantilla'])
+        idPlantilla = formPlantilla.dataset['idplantilla'];
+
+      var categoriasPlantilla = [];
+      if(formPlantilla.dataset.categorias.split(',').length > 0 && formPlantilla.dataset.categorias.split(',') != "")
+        if(formPlantilla.dataset.categorias.split(',').length == 1)
+          categoriasPlantilla = [formPlantilla.dataset.categorias];
+        else
+          categoriasPlantilla = formPlantilla.dataset.categorias.split(',');
+
+      var indiceCategoriaPlantilla = categoriasPlantilla.indexOf(idCategoria.toString());
+      if(indiceCategoriaPlantilla == -1)
+      {
+          categoriasPlantilla.push([idCategoria]);
+          formPlantilla.dataset.categorias = categoriasPlantilla;
+           $('.collapse.show').removeClass("show");
+            var collapse = '';
+            collapse = collapse.concat('<div class="card">');
+            collapse = collapse.concat('<div class="card-header" id="heading_',idCategoria,'">');
+            collapse = collapse.concat('<h5 class="mb-0">');
+            collapse = collapse.concat('<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse',idCategoria,'" aria-expanded="true" aria-controls="collapse6">');
+            collapse = collapse.concat(nombreCategoria);
+            collapse = collapse.concat('</button>');
+            collapse = collapse.concat('</h5>');
+            collapse = collapse.concat('</div>');
+            collapse = collapse.concat('<div id="collapse',idCategoria,'" class="collapse show" aria-labelledby="heading_',idCategoria,'" data-parent="#categorias">');
+            collapse = collapse.concat('<div class="card-body">');
+            collapse = collapse.concat('Esto es un texto donde se encuentran las preguntas de la categoría');
+            collapse = collapse.concat('</div>');
+            collapse = collapse.concat('</div>');
+            collapse = collapse.concat('</div>');
+            $('#categorias').append(collapse);
+      }else
+      {
+        alert('ya se encuentra la categoria');
+      }
+
+      
+
+
+     
+
+    }
+     
+  });
+
+  /*
+
+  $('#categorias').on('hidden.bs.collapse', function (e) {
+    $(this).parent().find(".collapseIcon").empty().append('<i data-feather="chevron-down" data-toggle="tooltip" data-placement="top" title="" ></i>');
+  });
+
+  $('#categorias').on('show.bs.collapse', function (e) {
+    $(this).parent().find(".collapseIcon").empty().append('<i data-feather="chevron-up" data-toggle="tooltip" data-placement="top" title="" ></i>');
+  });
+
+  */
 
 });

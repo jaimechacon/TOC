@@ -7,7 +7,7 @@ $(document).ready(function() {
  // inicio prueba ajax de Pagina inicio
   $("#categoria").change(function() {
     micategoria= $("#categoria").val();
-    var baseurl = window.origin + '/gestion_calidad/Inicio/llenacombo';
+    var baseurl = window.origin + '/Inicio/llenacombo';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
   $("#gestionEvaluacion").change(function() {
     idRango= $("#gestionEvaluacion").val();
-    var baseurl = window.origin + '/gestion_calidad/Equipo/listarEvaluaciones';
+    var baseurl = window.origin + '/Equipo/listarEvaluaciones';
     jQuery.ajax({
       type: "POST",
       url: baseurl,
