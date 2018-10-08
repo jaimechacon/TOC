@@ -81,8 +81,6 @@ class Evaluacion extends CI_Controller {
 	public function agregarEvaluacion()
 	{
 		$usuario = $this->session->userdata();
-			
-		
 
 		$config['hostname'] = '192.168.158.5';
 		$config['username'] = 'client1';
@@ -129,6 +127,11 @@ class Evaluacion extends CI_Controller {
 			$data['message'] = 'Verifique su email y contrase&ntilde;a.';
 			redirect('Login');
 		}
+	}
+
+	public function guardarEvaluacion()
+	{
+		
 	}
 
 	public function modificarEvaluacion()

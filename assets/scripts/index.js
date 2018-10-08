@@ -31,7 +31,7 @@ $(document).ready(function() {
 
   $("#gestionEvaluacion").change(function() {
     idRango= $("#gestionEvaluacion").val();
-    var baseurl = window.origin + '/Equipo/listarEvaluaciones';
+    var baseurl = window.origin + '/Evaluacion/listarEvaluaciones';
     jQuery.ajax({
       type: "POST",
       url: baseurl,

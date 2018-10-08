@@ -44,16 +44,16 @@ class Plantilla_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function guardarEACPlantilla($idPlantilla, $idEac, $idUsuario)
+	public function guardarCatPrePlantilla($idPlantilla, $idCategoria, $idPregunta, $orden, $idUsuario)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`agregarEACPlantilla`(".$idPlantilla.", ".$idEac.", ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`guardarCatPrePlantilla`(".$idPlantilla.", ".$idCategoria.", ".$idPregunta.", ".$orden.", ".$idUsuario.");");
 
 		return $query->result_array();
 	}
 
-	public function eliminarEACPlantilla($idPlantilla, $idUsuario)
+	public function eliminarCatPrePlantilla($idPlantilla, $idUsuario)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`eliminarEACPlantilla`(".$idPlantilla.", ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`eliminarCatPrePlantilla`(".$idPlantilla.", ".$idUsuario.");");
 
 		return $query->result_array();
 	}

@@ -8,6 +8,7 @@ class Plantilla extends CI_Controller {
 		parent::__construct();
 		$this->load->model('plantilla_model');
 		$this->load->model('categoria_model');
+		$this->load->model('pregunta_model');
 	}
 
 	public function index()
@@ -72,11 +73,13 @@ class Plantilla extends CI_Controller {
 				$usuario['idPlantilla'] = $idPlantilla;
 			}
 		}
-
 		mysqli_next_result($this->db->conn_id);
+		$preguntas = $this->pregunta_model->listarPreguntas();
+		$usuario['preguntas'] = $preguntas;
+
+		//mysqli_next_result($this->db->conn_id);
 		$categorias = $this->categoria_model->listarCategorias();
 		$usuario['categorias'] = $categorias;
-
 		$usuario['titulo'] = 'Agregar Plantilla';
 		$usuario['controller'] = 'plantilla';
 
@@ -115,94 +118,110 @@ class Plantilla extends CI_Controller {
 		if($usuario){
 			if(!is_null($this->input->POST('nombrePlantilla')))
 			{
-				//if(!is_null($this->input->POST('abreviacionPlantilla')))
-				//{
-					$nombre = trim($this->input->POST('nombrePlantilla'));
-					//$abreviacion = trim($this->input->POST('abreviacionPlantilla'));
-					$observaciones = "";
-					//$eacs[] = array();
-					$accion = 'agregado';
-					//unset($eacs);
-					if(!is_null($this->input->POST('observacionesPlantilla')))
-						$observaciones = trim($this->input->POST('observacionesPlantilla'));
-					/*if(!is_null($this->input->POST('eacsPlantilla')))
-						$eacs = $this->input->POST('eacsPlantilla');*/
-					$idPlantilla = 'null';
-/*
-					var_dump($this->input->POST('idPlantilla'));
-					echo '----';
-					var_dump(is_null($this->input->POST('idPlantilla')));
-					echo '----';
-					var_dump(is_numeric($this->input->POST('idPlantilla')));
-					echo '----';*/
-					if(!is_null($this->input->POST('idPlantilla')) && is_numeric($this->input->POST('idPlantilla')))
-						$idPlantilla = $this->input->POST('idPlantilla');
+				$nombre = trim($this->input->POST('nombrePlantilla'));
+				$observaciones = "";
+				
+				$accion = 'agregado';
+				if(!is_null($this->input->POST('observacionesPlantilla')))
+					$observaciones = trim($this->input->POST('observacionesPlantilla'));
+				
+				$idPlantilla = 'null';
+				$categoriasPreguntas[] = array();
+				unset($categoriasPreguntas);
 
-					if(!is_null($this->input->POST('esAgregado')) && is_numeric($this->input->POST('esAgregado')) && (int)$this->input->POST('esAgregado') != 1)
-							$accion = 'modificado';
+				if(!is_null($this->input->POST('categoriasPreguntasPlantilla')))
+					$categoriasPreguntas = $this->input->POST('categoriasPreguntasPlantilla');
 
-					$respuesta = 0;
-					$cantEacs = 0;
-					$mensaje = '';
+				if(!is_null($this->input->POST('idPlantilla')) && is_numeric($this->input->POST('idPlantilla')))
+					$idPlantilla = $this->input->POST('idPlantilla');
 
-					//var_dump($idPlantilla, $nombre, $abreviacion, $observaciones);
-					//mysqli_next_result($this->db->conn_id);
+				if(!is_null($this->input->POST('esAgregado')) && is_numeric($this->input->POST('esAgregado')) && (int)$this->input->POST('esAgregado') != 1)
+						$accion = 'modificado';
 
-					$resultado = $this->plantilla_model->guardarPlantilla($idPlantilla, $nombre, $observaciones, 0, $usuario["id_usuario"]);
-					//var_dump($resultado);
-					if($resultado[0] > 0)
+
+
+				$respuesta = 0;
+				$cantCat = 0;
+				$mensaje = '';
+
+				//var_dump($idPlantilla, $nombre, $abreviacion, $observaciones);
+				//mysqli_next_result($this->db->conn_id);
+
+				$resultado = $this->plantilla_model->guardarPlantilla($idPlantilla, $nombre, $observaciones, 0, $usuario["id_usuario"]);
+				//var_dump($resultado);
+				if($resultado[0] > 0)
+				{
+					//var_dump($resultado[0]);
+					if($resultado[0]['idPlantilla'])
 					{
+						if($idPlantilla == 'null')
+							$idPlantilla = (int)$resultado[0]['idPlantilla'];
+
 						//var_dump($resultado[0]);
-						if($resultado[0]['idPlantilla'])
+						$respuesta = 1;
+						$mensaje = 'Se ha '.$accion.' la plantilla exitosamente.';
+
+						if(isset($categoriasPreguntas))
 						{
-							if($idPlantilla == 'null')
-								$idPlantilla = (int)$resultado[0]['idPlantilla'];
-
-							//var_dump($resultado[0]);
-							$respuesta = 1;
-							$mensaje = 'Se ha '.$accion.' el plantilla exitosamente.';
-							/*if(isset($eacs))
+							$cantCat = sizeof($categoriasPreguntas);
+							if($cantCat > 0)
 							{
-								$cantEAC = sizeof($eacs);
-								if($cantEAC > 0)
+								//var_dump($categoriasPreguntas);
+								mysqli_next_result($this->db->conn_id);
+								$resultadoECatPre = $this->plantilla_model->eliminarCatPrePlantilla($idPlantilla, $usuario["id_usuario"]);
+
+								$cantPre = 0;
+
+								if($resultadoECatPre > 0)
 								{
-									mysqli_next_result($this->db->conn_id);
-									$resultadoEEAC = $this->plantilla_model->eliminarEACPlantilla($idPlantilla, $usuario["id_usuario"]);
-
-									if($resultadoEEAC > 0)
+									foreach ($categoriasPreguntas as $cat) {
+									
+									if(is_numeric($cat[0]))
 									{
-										foreach ($eacs as $eac) {
-										if(is_numeric($eac))
-										{
-											mysqli_next_result($this->db->conn_id);
-											$resultadoEAC = $this->plantilla_model->guardarEACPlantilla($idPlantilla, (int)$eac, $usuario["id_usuario"]);
-											//var_dump($resultadoEAC);
-											if($resultadoEAC > 0)
-											{
-												$cantEacs ++;
-											}else{
-												$respuesta = 0;
-											}
-										}	
-									}
+										$idCategoria = (int)$cat[0];
+										$nombreCategoria = trim($cat[1]);
+										$preguntas = $cat[2];
 
-									$mensaje = $mensaje.' Se han insertado '.$cantEacs.' EAC al plantilla.';
+										if(sizeof($preguntas) > 0)
+										{
+											foreach ($preguntas as $pregunta) {
+												mysqli_next_result($this->db->conn_id);
+												$resultadoPAP = $this->plantilla_model->guardarCatPrePlantilla($idPlantilla, $idCategoria, $pregunta, $cantPre, $usuario["id_usuario"]);
+
+												//var_dump($idPlantilla.' - '.$idCategoria.' - '.(int)$pregunta.' - '.(int)$cantPre);
+										//var_dump($resultadoEAC);
+												if($resultadoPAP > 0)
+												{
+													$cantPre ++;
+												}else{
+													$respuesta = 0;
+												}
+											}
+										}
+
+										
+										//mysqli_next_result($this->db->conn_id);
+										
 									}
 								}
-							}*/
-						}
-					}else
-					{
-						if($resultado === 0)
-						{
-							$mensaje = 'Ha ocurrido un error al modificar el plantilla, el plantilla no se encuentra registrado.';
+
+								$mensaje = $mensaje.' Se han insertado '.$cantCat.' Categorias y '.$cantPre.' Preguntas a la Plantilla.';
+								}
+							}
 						}
 					}
-					$data['respuesta'] = $respuesta;
-					$data['eacs'] = $cantEacs;
-					$data['mensaje'] = $mensaje;
-					echo json_encode($data);
-				//}
+				}else
+				{
+					if($resultado === 0)
+					{
+						$mensaje = 'Ha ocurrido un error al modificar el plantilla, la plantilla no se encuentra registrada.';
+					}
+				}
+				$data['respuesta'] = $respuesta;
+				$data['cantCat'] = $cantCat;
+				$data['cantPre'] = $cantPre;
+				$data['mensaje'] = $mensaje;
+				echo json_encode($data);
 			}
 		}
 	}
@@ -239,21 +258,35 @@ class Plantilla extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			$eacs = $this->plantilla_model->listarEAC();
-			if($eacs)
-				$usuario['eacs'] = $eacs;
-
 			$usuario['titulo'] = 'Modificar Plantilla';
 			$usuario['controller'] = 'plantilla';
 			if($this->input->GET('idPlantilla') && $this->input->GET('idPlantilla'))
 			{
 				//mysqli_next_result($this->db->conn_id);
 				$idPlantilla = $this->input->GET('idPlantilla');
-				$plantilla =  $this->plantilla_model->obtenerPlantilla($idPlantilla);
-				$usuario['plantilla'] = $plantilla[0];
-				//var_dump($plantilla[0]);
-				$eacsPlantilla = array_unique(array_column($plantilla, 'id_usuario'));
-				$usuario['eacsPlantilla'] = $eacsPlantilla;
+				$resultadoPlantilla =  $this->plantilla_model->obtenerPlantilla($idPlantilla);
+				$plantilla = $this->obtener_categoriasPreguntas($resultadoPlantilla);
+				//var_dump($plantilla);
+				$usuario['plantilla'] = $plantilla;
+				mysqli_next_result($this->db->conn_id);
+				$preguntas = $this->pregunta_model->listarPreguntas();
+				$usuario['preguntas'] = $preguntas;
+
+				//mysqli_next_result($this->db->conn_id);
+				$categorias = $this->categoria_model->listarCategorias();
+				$usuario['categorias'] = $categorias;
+
+
+				//var_dump($plantilla);
+				//$categoriasPreguntasPlantilla = array_unique(array_column($plantilla, 'id_categoria'));
+				//$cat = array_unique(array_column($plantilla, 'id_categoria'));
+				//var_dump(array_merge($plantilla, array_flatten('id_categoria')));
+				//var_dump($cat);
+				//$usuario['eacsPlantilla'] = $eacsPlantilla;
+
+				//$CategoriasPreguntas = $this->plantilla_model->listarCategoriasPreguntasPlantilla($idPlantilla);
+				//if($CategoriasPreguntas)
+					//$usuario['CategoriasPreguntas'] = $CategoriasPreguntas;
 				//$eacs = array_unique(array_column($plantilla, 'nombre'), array_column($plantilla, 'abreviacion'), array_column($plantilla, 'descripcion'));
 				//$eacs = array_unique(array_map("serialize", $plantilla));
 				//var_dump($temp);
@@ -267,5 +300,80 @@ class Plantilla extends CI_Controller {
 			$this->load->view('temp/footer', $usuario);
 		}
 	}
+
+	public function listarPreguntas()
+	{
+		$usuario = $this->session->userdata();
+		$preguntas = "";
+		if($usuario){
+			$preguntas = $this->pregunta_model->listarPreguntas();
+		}
+		echo json_encode($preguntas);
+	}
 	
+	private function obtener_categoriasPreguntas($categoriasPreguntasPlantilla)
+	{
+		$plantilla[] = array();
+		unset($plantilla);
+		$plantilla['id_plantilla'] = $categoriasPreguntasPlantilla[0]['id_plantilla'];
+		$plantilla['nombre'] = $categoriasPreguntasPlantilla[0]['nombre'];
+		$plantilla['descripcion'] = $categoriasPreguntasPlantilla[0]['descripcion'];
+		$plantilla['cantCategorias'] = sizeof(array_unique(array_column($categoriasPreguntasPlantilla, 'id_categoria')));
+		$plantilla['categorias'] = array();
+
+		$categorias[] = array();
+		unset($categorias);
+		$cont = 0;
+
+		$listaCategorias = '';
+		$listaPreguntas = '';
+		foreach ($categoriasPreguntasPlantilla as $categoria) {
+			$cat[] = array();
+			unset($cat);
+			$pregunta[] = array();
+			unset($pregunta);
+			$cat['id_categoria'] = $categoria['id_categoria'];
+			$cat['nombreCategoria'] = $categoria['cat_nombre'];
+			$cat['preguntas'] = array();
+
+			$pregunta['id_pregunta'] = $categoria['id_pregunta'];
+			$pregunta['pre_nombre'] = $categoria['pre_nombre'];
+			$pregunta['pre_orden'] = $categoria['pca_orden'];
+
+			if(!isset($categorias))
+			{
+				$listaCategorias = $cat['id_categoria'];
+				$listaPreguntas = $pregunta['id_pregunta'];
+				$cat['preguntas'] = [$pregunta];
+				$categorias[$cont] = $cat;
+				$cont++;
+			}else
+			{
+				$catInsertadas = array_column($categorias, 'id_categoria', 'nombreCategoria');
+				if(!in_array($cat['id_categoria'], $catInsertadas))
+				{
+					$categorias[$cont-1]['listaPreguntas'] = $listaPreguntas;
+
+					//var_dump($categorias[$cont-1]);
+					//var_dump($listaPreguntas);
+					//$catetorias[$cont-1]['listaPreguntas'] = $listaPreguntas;
+					$listaCategorias = $listaCategorias.','.$cat['id_categoria'];
+					$listaPreguntas = $pregunta['id_pregunta'];
+					$cat['preguntas'] = [$pregunta];
+					$categorias[$cont] = $cat;
+					$cont++;
+				}else
+				{
+					$listaPreguntas = $listaPreguntas.','.$pregunta['id_pregunta'];
+					array_push($categorias[$cont-1]['preguntas'], $pregunta);
+				}				
+			}
+		}
+
+		$categorias[$cont-1]['listaPreguntas'] = $listaPreguntas;
+		$plantilla['categorias'] = $categorias;
+		$plantilla['listaCategorias'] = $listaCategorias;
+		//var_dump($plantilla);
+		return $plantilla;
+	}
 }

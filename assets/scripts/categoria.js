@@ -117,7 +117,7 @@
     {
       event.preventDefault();
 
-      var baseurl = (window.origin + '/Categoria/guardarCategoria');
+      var baseurl = window.origin + '/Categoria/guardarCategoria';
       var nombreCategoria = $('#inputNombre').val();
       var puntuacionCategoria = $('#inputPuntuacion').val();
       var observacionesCategoria = $('#inputObservaciones').val();

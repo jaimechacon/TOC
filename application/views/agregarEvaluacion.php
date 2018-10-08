@@ -13,7 +13,7 @@
 			if(!isset($pauta))
 			{
 				?>
-					<form>
+					<form id="agregarEvaluacion" action="agregarEvaluacion" method="POST" data-idEvaluacion="<?php echo (isset($evaluacion['id_evaluacion']) ? $evaluacion['id_evaluacion'] : ''); ?>">
 					  <div class="form-group row">
 					    <div class="col-sm-6">
 					      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">EAC</label>
@@ -138,7 +138,7 @@
 									<th class="thr-radius" scope="col">No Cumple</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="listaPreguntas">
 
 								<?php
 									$cont = 1;
@@ -186,7 +186,7 @@
 						<a class="btn btn-link"  href="<?php echo base_url();?>Evaluacion/ListarEvaluaciones">Volver</a>
 					</div>
 					<div  class="col-sm-6 text-right">
-					 	<button type="button" class="btn btn-primary ">Guardar Evaluacion</button>
+					 	<button id="btnAgregarEvaluacion" type="button" class="btn btn-primary ">Guardar Evaluacion</button>
 					</div>
 				</div>
 		<?php
