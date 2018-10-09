@@ -119,7 +119,7 @@
 					         <?php
 						      	for ($i=1; $i <=  $evaluaciones[0]['cant_campanias']; $i++) { 
 						      		echo '<td class="text-center align-middle">
-					        	<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['id_usu'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill ';
+					        	<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill ';
 
 					        	if($evaluacion[('cant_eval_'.$i)] == 0)
 					        	{

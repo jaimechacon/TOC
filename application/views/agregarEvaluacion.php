@@ -1,11 +1,13 @@
 <?php
 	$id_usuario=$this->session->userdata('id_usuario');
-	/*var_dump($cat_pauta);
-	var_dump($pauta);*/
+	//var_dump($grabacion);
+	//var_dump($pauta);
+	//var_dump($pauta);
 	 
 	if(!$id_usuario){
 	  redirect('Login');
 	}
+
 ?>
 <div class="row">	
 	<div class="col-sm-12 mt-3">
@@ -34,6 +36,9 @@
 							</select>
 						</div>
 					  </div>
+					  <div class="row">
+							<input type="text" class="form-control form-control-sm" id="inputIdEvaluacion" name="inputIdEvaluacion" value="<?php if(isset($pauta['id_evaluacion'])): echo $pauta['id_evaluacion']; endif; ?>" hidden />
+						</div>
 					</form>
 					<table class="table table-sm table-hover mt-5">
 					  <thead>
@@ -82,25 +87,26 @@
 										</tr>
 										<tr>
 											<td>Empresa</td>
-											<td>CLARO</td>
+											<td><?php echo $pauta[0]['empresa']; ?></td>
 										</tr>
 										<tr>
-											<td>Fecha</td>
-											<td><?php echo date("d/m/Y"); ?></td>
+											<td>Fecha Carga</td>
+											<td><?php echo $grabacion['FechaCarga']; ?>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
 						<div id="titulo" class="col-sm-3 mt-4">
-							<div class="row justify-content-center ">
+							<div class="row text-center">
 								<div class="row justify-content-center ">
 									<h3><?php echo $pauta[0]['p_nombre']; ?></h3>
 								</div>
 							</div>
-							<div class="row justify-content-center">
+							<div class="row text-center">
 								<div class="musica">
-							    	<audio src="<?php echo base_url(); ?>grabaciones/930904279-1151056-20180810121655.mp3" preload="auto" controls></audio>
+							    	<audio src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="auto" controls></audio>
 							    	<!--<audio src="<?php //echo base_url(); ?>grabaciones/MONITOREO/930904279-1151056-20180810121655.mp3" preload="auto" controls></audio>-->
 							    </div>
 							</div>
@@ -115,7 +121,7 @@
 										</tr>
 										<tr>
 											<td>ID Llamada</td>
-											<td>13246578</td>
+											<td><?php echo $grabacion['idllamada']; ?></td>
 										</tr>
 										<tr>
 											<td>Evaluacion</td>
@@ -153,7 +159,7 @@
 											//var_dump($pregunta['CAT_NOMBRE']);
 											if($pregunta['cat_nombre'] == $cat['cat_nombre'])
 											{
-												echo '<tr>
+												echo '<tr data-idplacatpre="'.$pregunta['id_plantilla_categoria_pregunta'].'">
 													<th scope="row">'.$cont.'</th>
 													<td colspan="9">'.$pregunta['pre_nombre'].'</td>
 													<td class="text-center">
@@ -177,8 +183,8 @@
 				</div>
 				<div id="observaciones" class="row">
 					<div class="row col-sm-12 m-2">
-						<label for="exampleFormControlTextarea1">Observaciones</label>
-						<textarea class="form-control block" id="exampleFormControlTextarea1" rows="3"></textarea>
+						<label for="observacionEvaluacion">Observaciones</label>
+						<textarea class="form-control block" id="observacionEvaluacion" rows="3"></textarea>
 					</div>
 				</div>
 				<div id="botones" class="row m-3">
@@ -193,4 +199,26 @@
 			}
 		?>
 	</div>
+</div>
+
+<div id="loader" class="loader" hidden></div>
+
+<!-- Modal Mensaje -->
+<div class="modal fade" id="modalMensajeEvaluacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloME"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<p id="parrafoME"></p>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCerrarME" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

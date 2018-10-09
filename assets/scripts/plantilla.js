@@ -524,17 +524,16 @@
   });
 
  $("#agregarPreguntaPlantilla").on('click', function(e) {
-
-    var categorias = document.getElementById("categorias");    
     var idCategoria = document.getElementById('tituloAPP').dataset.idcategoria;
+    var categoria = document.getElementById("categoria_" + idCategoria);
     var table = "";
     var preguntas = [];
     var rowPreguntas = '';
 
-    $(categorias.children).each(function(){
-      if(this.dataset.preguntas != "")
-        preguntas = this.dataset.preguntas.split(',').map(Number);
-    });
+    //$(categorias.children).each(function(){
+      if(categoria.dataset.preguntas != "")
+        preguntas = categoria.dataset.preguntas.split(',').map(Number);
+   // });
 
     var contienePreguntas = false;
 
@@ -545,6 +544,7 @@
     {
       rowPreguntas = rowPreguntas.concat('<ul class="list-group" id="listaPreguntas_', idCategoria,'">');
     }
+
     $("input:checkbox:checked").each(function(){
       var idPregunta = $(this).data('idpregunta');
       var nombrePregunta = $(this).data('nombrepregunta');
@@ -554,7 +554,9 @@
 
     if(contienePreguntas)
     {
-      document.getElementById('listaPreguntas_' + idCategoria).append($(rowPreguntas)[0]);
+      for (var i = 0; i < $(rowPreguntas).length; i++) {
+         document.getElementById('listaPreguntas_' + idCategoria).append($(rowPreguntas)[i]);
+      }     
     }else
     {
       rowPreguntas = rowPreguntas.concat('</ul>');

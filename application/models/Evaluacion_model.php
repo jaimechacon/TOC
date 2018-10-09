@@ -25,4 +25,18 @@ class Evaluacion_model extends CI_Model
 		$query = $this->db->query('call `gestion_calidad`.`listarPlantilla`('.$id_usuario_eac.', '.$id_campania.');');
 		return $query->result_array();
 	}
+
+	public function guardarEvaluacion($idEvaluacion, $idGrabacion, $observacionesEvaluacion, $idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`agregarEvaluacion`(".$idEvaluacion.", ".$idGrabacion.", '".$observacionesEvaluacion."', ".$idUsuario.");");
+
+		return $query->result_array();
+	}
+
+	public function guardarRespuestaPreguntaEvaluacion($idEvaluacion, $idplacatpre, $respuesta, $idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`guardarRespuestaPreguntaEvaluacion`(".$idEvaluacion.", ".$idplacatpre.", ".$respuesta.", ".$idUsuario.");");
+
+		return $query->result_array();
+	}	
 }	

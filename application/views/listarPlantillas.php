@@ -28,7 +28,7 @@
 			      <th scope="col" class="text-center align-middle registro"># ID</th>
 			      <th scope="col" class="text-center align-middle registro">Nombre</th>
 			      <th scope="col" class="text-center align-middle registro">Descripci&oacute;n</th>
-			      <th scope="col" class="text-center align-middle registro">Cant. Usuarios</th>
+			      <!--<th scope="col" class="text-center align-middle registro">Cant. Usuarios</th>-->
 			      <th scope="col" class="text-right align-middle registro"></th>
 			    </tr>
 			  </thead>
@@ -38,9 +38,9 @@
 					        <th scope="row" class="text-center align-middle registro"><?php echo $plantilla['id_plantilla']; ?></th>
 					        <td class="text-center align-middle registro"><?php echo $plantilla['nombre']; ?></td>
 					        <td class="text-center align-middle registro"><?php echo $plantilla['descripcion']; ?></td>
-					        <td class="text-center align-middle registro"> 
+					        <!--<td class="text-center align-middle registro"> 
 					        	<span class="badge badge-primary badge-pill"><?php //echo $plantilla['cant_usu']; ?></span>
-					        </td>
+					        </td>-->
 					        <td class="text-right align-middle registro">
 					        	<a id="trash_<?php echo $plantilla['id_plantilla']; ?>" class="trash" href="#" data-id="<?php echo $plantilla['id_plantilla']; ?>" data-nombre="<?php echo $plantilla['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarPlantilla">
 					        		<i data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar"></i>					        		
