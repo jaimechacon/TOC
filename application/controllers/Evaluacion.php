@@ -116,6 +116,9 @@ class Evaluacion extends CI_Controller {
 				$idCampania = $this->input->GET('idCamp');
 				$idEAC = $this->input->GET('idEAC');
 
+				$usuario['idCampania'] = $idCampania;
+				$usuario['idEAC'] = $idEAC;
+
 				$pauta =  $this->evaluacion_model->obtenerPlantillaEAC($idEAC, $idCampania);
 				$usuario['pauta'] = $pauta;
 				$temp = array_unique(array_column($pauta, 'cat_nombre'));
@@ -306,4 +309,23 @@ class Evaluacion extends CI_Controller {
 			redirect('Login');
 		}
 	}
+
+	public function listarGrabacionesUsu(){
+		$usuario = $this->session->userdata();
+		$grabaciones = array();
+		if($usuario){
+
+			if(!is_null($this->input->POST('idEAC')))
+			{
+				if(!is_null($this->input->POST('idCampania')))
+				{
+					$idEAC = $this->input->POST('idEAC');
+					$idCampania = $this->input->POST('idCampania');
+					$grabaciones = $this->grabacion_model->listarGrabacionesUsu($idEAC, $idCampania);
+				}
+			}
+		}
+		echo json_encode($grabaciones);
+	}
+
 }

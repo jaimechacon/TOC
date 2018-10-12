@@ -104,12 +104,6 @@
 									<h3><?php echo $pauta[0]['p_nombre']; ?></h3>
 								</div>
 							</div>
-							<div class="row text-center">
-								<div class="musica">
-							    	<audio src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="auto" controls></audio>
-							    	<!--<audio src="<?php //echo base_url(); ?>grabaciones/MONITOREO/930904279-1151056-20180810121655.mp3" preload="auto" controls></audio>-->
-							    </div>
-							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="row">
@@ -131,7 +125,15 @@
 								</table>	
 							</div>
 						</div>
-					</div>			
+					</div>
+					<div class="row">
+						<div class="col-sm-8 col-lg-9 col-xl-10">
+					    	<audio id="grabacion" class="grabacion" src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="metadata" controls>
+					    </div>
+					    <div class="col-sm-4 col-lg-3 col-xl-2 pt-2 ">
+					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalCambiarGrabacion" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
+					    </div>
+				    </div>		
 				</div>
 				<div id="tablaPreguntas" class="mt-1 ml-3 mr-3">
 					<div class="row justify-content-center">
@@ -221,4 +223,72 @@
       </div>
     </div>
   </div>
+</div>
+
+<div id="loader" class="loader" hidden></div>
+
+<div class="modal fade" id="modalCambiarGrabacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<i class="plusA mb-2" data-feather="phone-call"></i>
+	        <h5 class="modal-title ml-2" id="tituloMGE" name="tituloMGE" data-idcategoria="" data-nombrecategoria="" >Seleccione una grabaci&oacute;n de llamada.</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+			<!--<div class="table-responsive">
+				<table class="table table-sm table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col" class="text-center align-middle registro">ID Llamada</th>
+				      <th scope="col" class="text-center align-middle registro">Fecha</th>
+				      <th scope="col" class="text-center align-middle registro">Duraci&oacute;n Min.</th>
+				      <th scope="col" class="text-center align-middle registro">Selecci&oacute;n</th>
+				    </tr>
+				  </thead>
+				  <tbody id="tbodyGrabaciones">
+
+				  </tbody>
+				</table>
+	      	</div>-->
+			<ul id="listaGrabaciones" class="list-group list-group-flush">
+			  <!--<li class="list-group-item">
+			  	<div class="row">
+			  		<div class="col-sm">
+			     		<span class="font-weight-bold">ID Llamada</span>
+			    	</div>
+					<div class="col-sm">
+			     		<span class="font-weight-bold">Fecha</span>
+			    	</div>
+			    	<div class="col-sm">
+			     		<span class="font-weight-bold">Duraci&oacute;n Min.</span>
+			    	</div>
+			  	</div>
+			  </li>
+			  <li class="list-group-item list-group-item-action">
+			  	<div class="row">
+			  		<div class="col-sm">
+			     		<span>ID Llamada</span>
+			    	</div>
+					<div class="col-sm">
+			     		<span>Fecha</span>
+			    	</div>
+			    	<div class="col-sm">
+			     		<span>Duraci&oacute;n Min.</span>
+			    	</div>
+			  	</div>
+			  </li>
+			  <li class="list-group-item list-group-item-action">Morbi leo risus</li>
+			  <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
+			  <li class="list-group-item list-group-item-action">Vestibulum at eros</li>-->
+			</ul>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+	        <button id="agregarPreguntaPlantilla" type="button" class="btn btn-success">Seleccionar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>

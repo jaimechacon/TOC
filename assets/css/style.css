@@ -106,3 +106,17 @@ top : 0;
 .registro{
     padding: .4rem !important;
 }
+
+.grabacion{
+	width: 100% !important;
+}
+
+.iconBlack {
+    width: 29px;
+    height: 29px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}

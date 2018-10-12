@@ -16,21 +16,21 @@ class Grabacion_model extends CI_Model
 		$sql = '';
         if($cod_campania == 8)
         {
-        	$sql = "select clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionSegundo, clg.tmo, clg.asa
+        	$sql = "select clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
 			from clg_prechequeogt pre inner join clg_traficollamada clg on pre.idgestion = clg.IdVenta
 			where pre.user_neotel = ".$id_usuario."
 			and clg.cola = ".$cod_campania."
-			and date_format(clg.FechaCarga, '%d/%m/%Y') >= date_format(date_sub(now(), interval 15 day), '%d/%m/%Y')
-			group by clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionSegundo, clg.tmo, clg.asa
+			and (TIMESTAMPDIFF(DAY, clg.FechaCarga,now())) <= 15
+			group by clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
 			order by clg.FechaCarga desc;";
         }else
         {
-        	$sql = "select vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionSegundo, clg.tmo, clg.asa
+        	$sql = "select vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
 				from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.Idllamada
 				where vg.user_neotel = ".$id_usuario."
 				and clg.cola = ".$cod_campania."
-				and date_format(clg.FechaCarga, '%d/%m/%Y') >= date_format(date_sub(now(), interval 15 day), '%d/%m/%Y')
-				group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionSegundo, clg.tmo, clg.asa
+				and (TIMESTAMPDIFF(DAY, clg.FechaCarga,now())) <= 15
+				group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
 				order by clg.FechaCarga desc;";
         }
 		$query = $this->db_b->query($sql);

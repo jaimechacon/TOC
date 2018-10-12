@@ -8,7 +8,7 @@
 
 <div class="row justify-content-center">
 	<!--Hola <?php //if(isset($u_nombres)) { echo $u_nombres; } ?> <?php //if(isset($u_apellidos)) { echo $u_apellidos; } ?>,este es el inicio.-->
-	<div id="filtros" class="col-sm-10 mt-3">
+	<!--<div id="filtros" class="col-sm-10 mt-3">
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -93,7 +93,7 @@
 		    </div>
 		  </div>
 		</div>
-	</div>
+	</div>-->
 	<!--
 	<div id="tDatos" class="col-sm-12 m-3">
 		<div class="table-responsive">

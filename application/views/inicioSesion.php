@@ -15,23 +15,3 @@
 	</div>
 
 </div>
-
-<label>Selecciona una categoría: </label>
- <select name="categoria" id="categoria">
- <option value="">Selecciona una categoría</option>
- <option value="compraventa">Compra y venta</option>
- <option value="inmobiliaria">Mundo Inmobiliario</option>
- <option value="motor">Mundo motor</option>
- <option value="empleo">Empleo</option>
- <option value="consolas-videojuegos">Consolas y videojuegos</option>
- <option value="servicios">Servicios</option>
- <option value="mascotas">Mascotas</option>
- <option value="contactos">Contactos</option>
- <option value="antiguedades">Antigüedades</option>
- </select>
-         <label>Selecciona una subcategoría: </label>
- <select name="subcategoria" id="subcategoria">
- <option value="">Selecciona una subcategoría</option>
- </select>
-
-
