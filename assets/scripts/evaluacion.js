@@ -139,7 +139,7 @@
 	    success: function(data) {
 	      if (data.length > 0)
 	      {
-	         
+	         var idLlamada = $(document.getElementById('idLlamada')).text();
 	    	 $("#listaGrabaciones").empty();
          	  var row = '';
 			  row = row.concat('<li class="list-group-item text-center">');
@@ -156,8 +156,8 @@
 			  row = row.concat('</div>');
 			  row = row.concat('</li>');
           for (var i = 0; i < data.length; i++){
-			  row = row.concat('<li class="list-group-item list-group-item-action text-center" data-ruta="',data[i]['Grabacion'],'" data-idllamada="',data[i]['idllamada'],'" >');
-			  row = row.concat('<div class="row">');
+			  row = row.concat('<li class="list-group-item list-group-item-action text-center ', ((data[i]['idllamada'] == idLlamada)?'active show':''),'" data-toggle="tab" data-ruta="',data[i]['Grabacion'],'" data-idllamada="',data[i]['idllamada'],'" data-fecha="',data[i]['Inicio'],'" >');
+			  row = row.concat('<div class="row" >');
 			  row = row.concat('<div class="col-sm">');
 			  row = row.concat('<span>',data[i]['idllamada'],'</span>');
 			  row = row.concat('</div>');
@@ -172,7 +172,7 @@
         	}
         	$("#listaGrabaciones").append(row);
         	loader.setAttribute('hidden', '');
-            $('#modalMensajeEquipo').modal({
+            $('#modalCambiarGrabacion').modal({
               show: true
             });
 	        feather.replace()
@@ -182,75 +182,27 @@
   });
 
 
-   /*$('#modalCambiarGrabacion').on('shown.bs.modal', function (event) {
+	$('#listaGrabaciones').on('shown.bs.tab', function(event){
+	    var grabacionSeleccionada = $(event.target);         // active tab
+	    $(document.getElementsByClassName('active show')).removeClass("active show");
+	    $(grabacionSeleccionada).addClass("active show");
+	});
 
-   	//$("#tituloMGE").append('Seleccionar grabaci&oacute;n de llamada.');
-    var botonGrabacion = $(event.relatedTarget);
-    var idEAC = botonGrabacion.data('ideac');
-    var idCampania = botonGrabacion.data('idcampania');
-    //var botonCategoria = document.getElementById('categoria_' + idCategoria);
+	$('#cambiarGrabacion').on('click', function(event){
+	    var grabacion = $(document.getElementsByClassName('active show'));
+	    if(grabacion.length > 0)
+	    {
+	    	var idLlamada = grabacion.data('idllamada');
+	    	var ruta = grabacion.data('ruta');
+	    	var fecha = grabacion.data('fecha');
+			$(document.getElementById('idLlamada')).text(idLlamada);
+	    	$(document.getElementById('fecha')).text(fecha);	    	
+	    	var url = document.getElementById('grabacion').currentSrc.substr(0, document.getElementById('grabacion').currentSrc.lastIndexOf('grabaciones/') + 12) + ruta;
+	    	document.getElementById('grabacion').setAttribute('src', url);
+	    	$('#modalCambiarGrabacion').modal('hide');
+	    }
+
+	});
 	
-
-    /*if(botonACategoria)
-      if(botonCategoria.dataset.preguntas.split(',').length > 0 && botonCategoria.dataset.preguntas.split(',') != "")
-        if(botonCategoria.dataset.preguntas.split(',').length == 1)
-          preguntas = [botonCategoria.dataset.preguntas];
-        else
-          preguntas = botonCategoria.dataset.preguntas.split(',');*/
-
-   /* var baseurl = window.origin + '/Evaluacion/listarGrabacionesUsu';
-
-    jQuery.ajax({
-    type: "POST",
-    url: baseurl,
-    dataType: 'json',
-    data: {idEAC: idEAC, idCampania, idCampania},
-    success: function(data) {
-      if (data)
-      {
-
-          $("#listaGrabaciones").empty();
-          count = 0;
-         	  var row = '';
-			  row = row.concat('<li class="list-group-item">');
-			  row = row.concat('<div class="row">');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span class="font-weight-bold">ID Llamada</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span class="font-weight-bold">Fecha</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span class="font-weight-bold">Duraci&oacute;n Min.</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('</div>');
-          for (var i = 0; i < data.length; i++){
-			  row = row.concat('<li class="list-group-item list-group-item-action" data-ruta="',data[i]['Grabacion'],'" data-idllamada="',data[i]['idllamada'],'" >');
-			  row = row.concat('<div class="row">');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span>',data[i]['idllamada'],'</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span>',data[i]['Inicio'],'</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('<div class="col-sm">');
-			  row = row.concat('<span>',data[i]['DuracionMinutos'],'</span>');
-			  row = row.concat('</div>');
-			  row = row.concat('</div>');
-			  row = row.concat('</li>');
-	          $("#listaGrabaciones").append(row);
-          //$("#tituloAPP").data('idcategoria', idCategoria);
-          
-        }
-        //feather.replace()
-        //$('[data-toggle="tooltip"]').tooltip()
-      }
-    }
-    });
-
-    //var modal = $(this)
-    //modal.find('.modal-title').text('New message to ')
-    //modal.find('.modal-body input').val(recipient)
-  });*/
 
 });

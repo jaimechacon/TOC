@@ -90,8 +90,8 @@
 											<td><?php echo $pauta[0]['empresa']; ?></td>
 										</tr>
 										<tr>
-											<td>Fecha Carga</td>
-											<td><?php echo $grabacion['FechaCarga']; ?>
+											<td>Fecha</td>
+											<td id="fecha"><?php echo $grabacion['FechaCarga']; ?>
 											</td>
 										</tr>
 									</tbody>
@@ -115,7 +115,7 @@
 										</tr>
 										<tr>
 											<td>ID Llamada</td>
-											<td><?php echo $grabacion['idllamada']; ?></td>
+											<td id="idLlamada"><?php echo $grabacion['idllamada']; ?></td>
 										</tr>
 										<tr>
 											<td>Evaluacion</td>
@@ -131,7 +131,8 @@
 					    	<audio id="grabacion" class="grabacion" src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="metadata" controls>
 					    </div>
 					    <div class="col-sm-4 col-lg-3 col-xl-2 pt-2 ">
-					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalCambiarGrabacion" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
+					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
+					    	<!--/*data-toggle="modal" data-target="#modalCambiarGrabacion"-->
 					    </div>
 				    </div>		
 				</div>
@@ -286,7 +287,7 @@
 			</ul>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-	        <button id="agregarPreguntaPlantilla" type="button" class="btn btn-success">Seleccionar</button>
+	        <button id="cambiarGrabacion" type="button" class="btn btn-success">Seleccionar</button>
 	      </div>
 	    </div>
 	  </div>
