@@ -1,6 +1,6 @@
 .DS_Store
 application/grabaciones/*
-application/grabaciones
+application/grabaciones/
 application/config/config.php
 application/cache/*
 !application/cache/index.html
