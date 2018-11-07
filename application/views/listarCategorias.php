@@ -29,7 +29,7 @@
 			      <th scope="col" class="text-center align-middle registro"># ID</th>
 			      <th scope="col" class="text-center align-middle registro">Nombre</th>
 			      <th scope="col" class="text-center align-middle registro">Descripci&oacute;n</th>
-			      <th scope="col" class="text-center align-middle registro">Puntuaci&oacute;n</th>
+			      <th scope="col" class="text-center align-middle registro">Peso ( % )</th>
 			      <th scope="col" class="text-right align-middle registro"></th>
 			    </tr>
 			  </thead>

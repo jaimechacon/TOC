@@ -120,3 +120,28 @@ top : 0;
     stroke-linejoin: round;
     fill: none;
 }
+
+#backButton {
+	border-radius: 4px;
+	padding: 8px;
+	border: none;
+	font-size: 16px;
+	background-color: #2eacd1;
+	color: white;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.verde {
+	color: seagreen;
+}
+
+.rojo {
+	color: firebrick;
+}
+
+.selectFiltros{
+	width: 190px;
+}

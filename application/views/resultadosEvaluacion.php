@@ -4,7 +4,7 @@
 	//var_dump($ruta);
 	//var_dump($pauta);
 	//var_dump(isset($grabacion));
-	 //$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
+	 $ruta = 'http://calidad.gsbpo.cl/grabaciones/';
 	if(!$id_usuario){
 	  redirect('Login');
 	}
@@ -117,10 +117,10 @@
 											<td>ID Llamada</td>
 											<td id="idLlamada"><?php echo $grabacion['idllamada']; ?></td>
 										</tr>
-										<!--<tr>
+										<tr>
 											<td>Evaluacion</td>
 											<td>2   /   3</td>
-										</tr>-->
+										</tr>
 									</tbody>
 								</table>	
 							</div>

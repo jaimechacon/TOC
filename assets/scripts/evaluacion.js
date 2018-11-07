@@ -3,10 +3,18 @@
  	$("#btnAgregarEvaluacion").on('click', function(e) {
  		var listaPreguntas = document.getElementById('listaPreguntas');
  		//var observacionesEvaluacion = $('#observacionEvaluacion').val();
- 		var idGrabacion = 17610;
+
+ 		var grabacion = $(document.getElementById('grabacion'));
+ 		var duracionSegundos = grabacion.data('duracionseg');
+ 		var duracionMinutos = grabacion.data('duracionmin');
+ 		var idLlamada = $(document.getElementById('idLlamada')).text();
+ 		var nombreGrabacion = grabacion.data('grabacion');
  		var observacionesEvaluacion = $('#observacionEvaluacion').val();
  		var preguntasEvaluacion = [];
  		var idEvaluacion = null;
+ 		var botonGrabacion = document.getElementById("btnCambiarGrabacion");
+	    var idEAC = botonGrabacion.dataset.ideac;
+	    var idCampania = botonGrabacion.dataset.idcampania;
 
 	 	if($("#inputIdEvaluacion").val())
 	        idEvaluacion = $('#inputIdEvaluacion').val();
@@ -49,7 +57,7 @@
 		type: "POST",
 		url: baseurl,
 		dataType: 'json',
-		data: {idEvaluacion: idEvaluacion, idGrabacion: idGrabacion, observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion },
+		data: {idEvaluacion: idEvaluacion, idEAC: idEAC, idCampania: idCampania, idLlamada: idLlamada, nombreGrabacion: nombreGrabacion, duracionSegundos: duracionSegundos, duracionMinutos: duracionMinutos,/*idGrabacion: idGrabacion,*/ observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion },
 		success: function(data) {
 			if (data)
 			{
@@ -60,15 +68,15 @@
 	              $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
 	              $("#parrafoME").append(data['mensaje']);
 	              
-	              /*if(!$("#inputIdEvaluacion").val())
+	              if(!$("#inputIdEvaluacion").val())
 	              {
 	                //$("#agregarEvaluacion")[0].reset();
 	                //$('#categorias').empty();
 	                //document.getElementById('agregarEvaluacion').dataset.categorias = null;
 	                //document.getElementById('agregarEvaluacion').dataset.idplantilla = null;
 
-	              }*/
-	              loader.setAttribute('hidden', '');
+	              }
+	              //loader.setAttribute('hidden', '');
 	              $('#modalMensajeEvaluacion').modal({
 	                show: true
 	              });
@@ -81,7 +89,7 @@
 
  	$("#gestionEvaluacion").change(function() {
     idRango= $("#gestionEvaluacion").val();
-    var baseurl = window.origin + '/Evaluacion/listarEvaluaciones';
+    var baseurl = window.origin + '/Evaluacion/evaluarUsuarios';
     jQuery.ajax({
       type: "POST",
       url: baseurl,
@@ -97,16 +105,16 @@
             row = row.concat('\n<td class="text-center align-middle">'+data[i]['eac']+'</td>');
 
             for (var c = 1; c <=  data[0]['cant_campanias']; c++) {
-            row = row.concat('\n<td class="text-center align-middle">\n<a href="AgregarEvaluacion/?idEAC='+data[i]['id_usu']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
+            row = row.concat('\n<td class="text-center align-middle">\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
             if(data[i][('cant_eval_'+c)] == 0)
             {
-              row = row.concat('badge-danger">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]); 
+              row = row.concat('badge-danger">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]); 
             }else
-              if(data[i][('cant_eval_'+c)] > 0 && data[i][('cant_eval_'+c)] < data[i][('total_eac_'+c)])
+              if(data[i][('cant_eval_'+c)] > 0 && data[i][('cant_eval_'+c)] < data[i][('cant_a_gestionar_'+c)])
               {
-                 row = row.concat('badge-warning">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]);
+                 row = row.concat('badge-warning">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]);
               }else{
-                row = row.concat('badge-success">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('total_eac_'+c)]);
+                row = row.concat('badge-success">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]);
               }
             }
             row = row.concat('</a>\n</td>');
@@ -156,7 +164,7 @@
 			  row = row.concat('</div>');
 			  row = row.concat('</li>');
           for (var i = 0; i < data.length; i++){
-			  row = row.concat('<li class="list-group-item list-group-item-action text-center ', ((data[i]['idllamada'] == idLlamada)?'active show':''),'" data-toggle="tab" data-ruta="',data[i]['Grabacion'],'" data-idllamada="',data[i]['idllamada'],'" data-fecha="',data[i]['Inicio'],'" >');
+			  row = row.concat('<li class="list-group-item list-group-item-action text-center ', ((data[i]['idllamada'] == idLlamada)?'active show':''),'" data-toggle="tab" data-ruta="',data[i]['Grabacion'],'" data-idllamada="',data[i]['idllamada'],'" data-fecha="',data[i]['Inicio'],'" data-duracionseg="',data[i]['DuracionSegundo'],'" data-duracionmin="',data[i]['DuracionMinutos'],'" >');
 			  row = row.concat('<div class="row" >');
 			  row = row.concat('<div class="col-sm">');
 			  row = row.concat('<span>',data[i]['idllamada'],'</span>');
@@ -175,6 +183,9 @@
             $('#modalCambiarGrabacion').modal({
               show: true
             });
+
+            $(".pauta").prop("checked", false);
+            $(document.getElementById('puntaje')).text("0 %");
 	        feather.replace()
       }
   }
@@ -195,14 +206,377 @@
 	    	var idLlamada = grabacion.data('idllamada');
 	    	var ruta = grabacion.data('ruta');
 	    	var fecha = grabacion.data('fecha');
+	    	var DuracionSegundo = grabacion.data('duracionseg');
+	    	var DuracionMinutos = grabacion.data('duracionmin');
 			$(document.getElementById('idLlamada')).text(idLlamada);
-	    	$(document.getElementById('fecha')).text(fecha);	    	
+	    	$(document.getElementById('fecha')).text(fecha);
 	    	var url = document.getElementById('grabacion').currentSrc.substr(0, document.getElementById('grabacion').currentSrc.lastIndexOf('grabaciones/') + 12) + ruta;
 	    	document.getElementById('grabacion').setAttribute('src', url);
+			document.getElementById('grabacion').setAttribute('data-duracionseg', DuracionSegundo);
+			document.getElementById('grabacion').setAttribute('data-duracionmin', DuracionMinutos);
+			document.getElementById('grabacion').setAttribute('data-grabacion', ruta);
 	    	$('#modalCambiarGrabacion').modal('hide');
 	    }
 
 	});
+
+	$('#listaPreguntas').on('click', '.pauta', function(e) {
+		var r=1;
+		var idplacatpre = $(e.currentTarget).parents()[1].dataset.idplacatpre;
+		var puntaje_pre = 0;
+		if(e.currentTarget.dataset.puntuacioncat != "" && e.currentTarget.dataset.puntuacioncat != null)
+			puntaje_pre = parseFloat(Math.round(e.currentTarget.dataset.puntuacioncat));
+		var puntaje_actual = 0;
+		var puntaje_total = parseFloat(Math.round(document.getElementById('puntaje').dataset.puntajetotal));
+
+		var tListaPreguntas = document.getElementById("listaPreguntas");
+        while(row=tListaPreguntas.rows[r++])
+		{
+			if(row.dataset.idplacatpre != "" && row.dataset.idplacatpre != null && row.dataset.idplacatpre != idplacatpre)
+			{        
+			  if(row.cells[2].children[0].checked)
+			  {
+			   	puntaje_actual = (puntaje_actual + parseFloat(Math.round(row.cells[2].children[0].dataset.puntuacioncat)));
+			  }
+			}
+		}
+
+		puntaje_actual = puntaje_actual + puntaje_pre;
+		var total = parseFloat(Math.round(puntaje_actual * 100)/puntaje_total).toFixed(2);
+		$(document.getElementById('puntaje')).text(total + " %");
+
+      /*idEAC = $(e.currentTarget).data('idusuario');
+      checked = null;
+      if(idEAC != null)
+        checked = ($(this).is(':checked') ? true : false);
+	  
+      var eacs = [];
+      if(document.getElementById('tablaEAC').dataset.eac.split(',').length > 0 && document.getElementById('tablaEAC').dataset.eac.split(',') != "")
+        if(document.getElementById('tablaEAC').dataset.eac.split(',').length == 1)
+          eacs = [document.getElementById('tablaEAC').dataset.eac];
+        else
+          eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
+
+      var indiceEAC = eacs.indexOf(idEAC.toString());
+      if(indiceEAC != -1)
+      {
+        if(!checked)
+          eacs.splice(indiceEAC, 1);
+      }else
+        if(checked)
+          eacs.push([idEAC]);
+      document.getElementById('tablaEAC').dataset.eac = eacs;*/
+     
+  });
+
+
+$('#analistas').on('change',function(e){
+    analista = null;
+    campania = null;
+    eac = null;
+
+    if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
+       analista = $('#analistas').val(); 
+
+    if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
+   		campania = $('#campanias').val();
+
+	  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+   		eac = $('#eacs').val();
+
+   	if(campania)
+   		$(document.getElementById('campanias')).attr('disabled', 'disabled');
+
+   	if(eac)
+   		$(document.getElementById('eacs')).attr('disabled', 'disabled');
+
+
+   	if (!analista)
+   	{
+   		document.getElementById('analistas').dataset.num = "";
+   		if(document.getElementById('campanias').dataset.num == 2)
+   			$(document.getElementById('campanias')).removeAttr('disabled');
+   		else
+	   		if(document.getElementById('eacs').dataset.num == 2)
+	   			$(document.getElementById('eacs')).removeAttr('disabled');
+	   		else
+	   			if($("#campanias").data('num') == 1)
+		   			$(document.getElementById('campanias')).removeAttr('disabled');
+		   		else
+			   		if(document.getElementById('eacs').dataset.num == 1)
+			   			$(document.getElementById('eacs')).removeAttr('disabled');			   		
+   	}
+	else
+	   	if(campania && eac)
+	   		document.getElementById('analistas').dataset.num = 3;
+	   	else
+	   		if(campania) 
+	   			document.getElementById('analistas').dataset.num = 2;
+	   		else
+	   			if(eac) 
+		   			document.getElementById('analistas').dataset.num = 2;
+		   		else
+		   			document.getElementById('analistas').dataset.num = 1;
+
+    listarEvaluaciones(analista, campania, eac);
+});
+
+$('#campanias').on('change',function(e){
+    analista = null;
+    campania = null;
+    eac = null;
+
+    if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
+       analista = $('#analistas').val();
+
+    if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
+   		campania = $('#campanias').val();
+
+
+  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+   		eac = $('#eacs').val();
+
+   	if(analista)
+   		$(document.getElementById('analistas')).attr('disabled', 'disabled');
+
+   	if(eac)
+   		$(document.getElementById('eacs')).attr('disabled', 'disabled');
+
+	if (!campania)
+	{
+   		document.getElementById('campanias').dataset.num = "";
+	   	if(document.getElementById('analistas').dataset.num == 2)
+	   			$(document.getElementById('analistas')).removeAttr('disabled');
+	   		else
+		   		if(document.getElementById('eacs').dataset.num == 2)
+		   			$(document.getElementById('eacs')).removeAttr('disabled');
+		   		else
+		   			if(document.getElementById('analistas').dataset.num == 1)
+			   			$(document.getElementById('analistas')).removeAttr('disabled');
+			   		else
+				   		if(document.getElementById('eacs').dataset.num == 1)
+				   			$(document.getElementById('eacs')).removeAttr('disabled');
+   	}
+	else
+	   	if(analista && eac)
+	   		document.getElementById('campanias').dataset.num = 3;
+	   	else
+	   		if(eac) 
+	   			document.getElementById('campanias').dataset.num = 2;	
+	   		else
+	   			if(analista) 
+	   				document.getElementById('campanias').dataset.num = 2;
+		   		else
+		   			document.getElementById('campanias').dataset.num = 1;
+
+    listarEvaluaciones(analista, campania, eac);
+});
+
+
+$('#eacs').on('change',function(e){
+    analista = null;
+    campania = null;
+    eac = null;
+
+    if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
+       analista = $('#analistas').val(); 
+
+    if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
+   		campania = $('#campanias').val();       
+
+
+  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+   		eac = $('#eacs').val();
+
+   	if(analista)
+   		$(document.getElementById('analistas')).attr('disabled', 'disabled');
+
+   	if(campania)
+   		$(document.getElementById('campanias')).attr('disabled', 'disabled');
+
+	if (!eac)
+	{
+   		document.getElementById('eacs').dataset.num = "";
+   		if(document.getElementById('analistas').dataset.num == 2)
+   			$(document.getElementById('analistas')).removeAttr('disabled');
+   		else
+	   		if(document.getElementById('campanias').dataset.num == 2)
+	   			$(document.getElementById('campanias')).removeAttr('disabled');
+	   		else
+	   			if(document.getElementById('analistas').dataset.num == 1)
+		   			$(document.getElementById('analistas')).removeAttr('disabled');
+		   		else
+			   		if(document.getElementById('campanias').dataset.num == 1)
+			   			$(document.getElementById('campanias')).removeAttr('disabled');
+	}
+	else
+	   	if(analista && campania)
+	   		document.getElementById('eacs').dataset.num = 3;
+	   	else
+	   		if(campania) 
+	   			document.getElementById('eacs').dataset.num = 2;
+	   		else
+		   		if(analista)
+		   			document.getElementById('eacs').dataset.num = 2;
+				else
+		   			document.getElementById('eacs').dataset.num = 1;
+
+    listarEvaluaciones(analista, campania, eac);
+});
+
 	
+  function listarEvaluaciones(analista, campania, eac)
+  {
+    var baseurl = window.origin + '/Evaluacion/filtrarEvaluaciones';
+    jQuery.ajax({
+    type: "POST",
+    url: baseurl,
+    dataType: 'json',
+    data: {analista: analista, campania: campania, eac: eac},
+    success: function(data) {
+    if (data)
+    {
+    	if(!analista)
+    	{
+    		$(document.getElementById("analistas").options).remove();
+    		$(document.getElementById("analistas")).append('<option value="-1">Seleccione una Analista</option>');
+    		for (var b = 0; b < data["analistas"].length; b++) {
+    			$(document.getElementById("analistas")).append("<option value='" + data["analistas"][b]["id_usuario"] + "'>" + data["analistas"][b]["nombre_completo"] + "</option>");
+    		}
+    	}
+
+    	if(!campania)
+    	{
+    		$(document.getElementById("campanias").options).remove();
+    		$(document.getElementById("campanias")).append('<option value="-1">Seleccione una Campa&ntilde;a</option>');
+    		for (var c = 0; c < data["campanias"].length; c++) {
+    			$(document.getElementById("campanias")).append('<option value="' + data["campanias"][c]["id_campania"] + '">' + data["campanias"][c]["c_nombre"] + '</option>');
+    		}
+    	}/*else{
+    		if(analista)
+    		{
+    			$(document.getElementById("analistas").options).remove();
+	    		$(document.getElementById("analistas")).append('<option value="-1">Seleccione una Analista</option>');
+	    		for (var b = 0; b < data["analistas"].length; b++) {
+	    			$(document.getElementById("analistas")).append("<option value='" + data["analistas"][b]["id_usuario"] + "'>" + data["analistas"][b]["nombre_completo"] + "</option>");
+	    		}
+	    		$("#analistas").val(analista).change();
+    		}
+    	}*/
+
+    	if(!eac)
+    	{
+    		$(document.getElementById("eacs").options).remove();
+    		$(document.getElementById("eacs")).append('<option value="-1">Seleccione un EAC</option>');
+    		for (var d = 0; d < data["eacs"].length; d++) {
+    			$(document.getElementById("eacs")).append("<option value='" + data["eacs"][d]["id_usuario"] + "'>" + data["eacs"][d]["nombre_completo_eac"] + "</option>");
+    		}
+    	}
+
+        $("#tbodyEvaluaciones").empty();
+        for (var i = 0; i < data["evaluaciones"].length; i++){
+          var row = '<tr>';
+          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data["evaluaciones"][i]['id_evaluacion'],'</th>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['ev_fecha'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['g_duracion_minutos'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['g_identificador'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['c_nombre'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['nombre_eac'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['puntaje'],' %</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['nombre_usu'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data["evaluaciones"][i]['nombre_usu_respon'],'</td>');
+
+          row = row.concat('\n<td class="text-right align-middle registro">');
+          row = row.concat('\n<a id="view_',data["evaluaciones"][i]['id_evaluacion'],'" class="view" href="#" data-id="',data["evaluaciones"][i]['id_evaluacion'],'" data-toggle="modal" data-target="#modalVerEvaluacion">');
+          row = row.concat('\n<i data-feather="search"  data-toggle="tooltip" data-placement="top" title="ver resultados"></i>');
+          row = row.concat('\n</a>');
+          /*row = row.concat('\n<a id="edit_',data[i]['id_equipo'],'" class="edit" type="link" href="ModificarEquipo/?idEquipo=',data[i]['id_equipo'],'" data-id="',data[i]['id_equipo'],'" data-nombre="',data[i]['nombre'],'">');
+          row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
+          row = row.concat('\n</a>');;*/
+          row = row.concat('\n</td>')
+          row = row.concat('\n<tr>');
+
+        $("#tbodyEvaluaciones").append(row);
+      }
+      feather.replace()
+      $('[data-toggle="tooltip"]').tooltip()
+    }
+    }
+    });
+  }
+
+  $('#modalVerEvaluacion').on('show.bs.modal', function(e) {
+
+    var idEvaluacion = $(e.relatedTarget).data('id');
+    var baseurl = window.origin + '/Evaluacion/obtenerResultadoEvaluacion';
+    jQuery.ajax({
+    type: "POST",
+    url: baseurl,
+    dataType: 'json',
+    data: {idEvaluacion: idEvaluacion },
+    success: function(data) {
+	    if (data)
+	    {
+	    	var url = 'http://calidad.gsbpo.cl/grabaciones/';
+	    	url = url.concat(data["pauta"][0]['g_nombre']);
+	    	$(document.getElementById('puntaje')).text(data["pauta"][0]['puntuacion'] + " %");
+	    	$(document.getElementById('empresa')).text(data["pauta"][0]['empresa']);
+	    	$(document.getElementById('fecha')).text(data["pauta"][0]['ev_fecha']);    	
+	    	$(document.getElementById('agente')).text(data["pauta"][0]['nombre_completo']);
+	    	$(document.getElementById('eac')).text(data["pauta"][0]['nombre_completo_eac']);
+	    	$(document.getElementById('idLlamada')).text(data["pauta"][0]['g_identificador']);
+	    	$(document.getElementById('nombreCampania')).text(data["pauta"][0]['campania']);
+	    	$(document.getElementById('observacionEvaluacion')).text(data["pauta"][0]['ev_observacion']);
+	    	document.getElementById('grabacion').setAttribute('src', url);
+	    	
+			$("#listaPreguntas").empty();
+			for (var i = 0; i < Object.keys(data["cat_pauta"]).length; i++) {
+				var row = '<tr>';
+	      		row = row.concat('\n<th scope="col" colspan="12">');
+				row = row.concat('\n', data["cat_pauta"][i]["nombre_categoria"], '</th>');
+				row = row.concat('\n</tr>');
+
+				for (var f = 0; f < Object.keys(data["pauta"]).length; f++) {
+					if(data["pauta"][f]['cat_nombre'] == data["cat_pauta"][i]["nombre_categoria"])
+					{
+						row = row.concat('\n<tr data-idplacatpre="',data["pauta"][f]['id_plantilla_categoria_pregunta'],'">');
+						row = row.concat('\n<th scope="row">',f + 1,'</th>');
+						row = row.concat('\n<td colspan="9">',data["pauta"][f]['pre_nombre'],'</td>');
+						row = row.concat('\n<td class="text-center">');
+						if(data["pauta"][f]['id_respuesta'] == "1")
+						{
+							row = row.concat('\n<i data-feather="check" class="verde" data-toggle="tooltip" data-placement="top"></i>');
+							row = row.concat('\n</td>');
+							row = row.concat('\n<td class="text-center">');
+						}else
+						{
+							row = row.concat('\n</td>');
+							row = row.concat('\n<td class="text-center">');
+							row = row.concat('\n<i data-feather="x" class="rojo" data-toggle="tooltip" data-placement="top"></i>');
+						}
+						//row = row.concat('\n<input type="radio" class="pauta" name="optionsRadios',f,'" id="optionsRadios',f,'" value="option',f,'">');
+						
+						//row = row.concat('\n<i data-feather="check"  data-toggle="tooltip" data-placement="top"></i>');
+						//row = row.concat('\n<input type="radio" class="pauta" name="optionsRadios',f,'" id="optionsRadios',f,'" value="option',f,'">');
+						row = row.concat('\n</td>');
+						row = row.concat('\n</tr>');
+					}
+				}
+				$("#listaPreguntas").append(row);
+			}
+				
+			feather.replace()
+		    $('[data-toggle="tooltip"]').tooltip()
+		}
+  	}
+    });
+
+
+  });
+
+   $('#modalVerEvaluacion').on('hide.bs.modal', function(e) {
+	    var audio = document.getElementById('grabacion');
+	    audio.pause();
+	});
 
 });

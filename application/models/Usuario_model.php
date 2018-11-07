@@ -14,12 +14,6 @@ class Usuario_model extends CI_Model
 		return $usuario->row_array();
 	}
 
-	public function campanias()
-	{		
-        $query = $this->db->get('campanias');
-        return $query->result_array();
-	}
-
 	public function obtener_menu_usuario($id_usuario)
 	{
 		//$usuario = $this->db->get_where('usuarios', array('u_email' => $email, 'u_contrasenia' => $contrasenia), 1);
@@ -60,6 +54,50 @@ class Usuario_model extends CI_Model
 		$query = $this->db->query("		select p.pf_nombre as perfil from usuarios usu inner join usuarios_perfiles up on usu.id_usuario = up.id_usuario
 		inner join perfiles p on up.id_perfil = p.id_perfil
 		where usu.id_usuario = ".$id_usuario." group by p.pf_nombre;");
+		return $query->result_array();
+	}
+
+	public function listarUsuarios()
+	{
+		$query = $this->db->query("select usu.id_usuario,
+		    usu.u_rut as rut,
+		    usu.u_nombres as nombres,
+		    usu.u_apellidos as apellidos,
+		    usu.u_email as email,
+		    usu.u_cod_usuario as cod_usuario,
+		    usu.id_empresa,
+		    e.e_razon_social as empresa
+		from usuarios usu inner join empresas e on usu.id_empresa = e.id_empresa
+				inner join usuarios_perfiles up on usu.id_usuario = up.id_usuario
+						  inner join perfiles p on up.id_perfil = p.id_perfil
+		where usu.u_fecha_baja is null
+		and usu.id_usuario <> 1;");
+		return $query->result_array();
+	}
+
+	public function buscarUsuario($usuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`buscarUsuario`('".$usuario."');");
+		return $query->result_array();
+	}
+
+	public function eliminarUsuario($idUsuarioE, $idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`eliminarUsuario`(".$idUsuarioE.", ".$idUsuario.");");
+		return $query->result_array();
+	}
+
+	public function guardarUsuario($idUsuarioG, $nombreUsuario, $puntuacionUsuario, $observacionesUsuario, $idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`agregarUsuario`(".$idUsuarioG.", '".$nombreUsuario."', ".$puntuacionUsuario.", '".$observacionesUsuario."', ".$idUsuario.");");
+
+		return $query->result_array();
+	}
+
+	public function obtenerUsuario($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerUsuario`(".$idUsuario.");");
+
 		return $query->result_array();
 	}
 }	

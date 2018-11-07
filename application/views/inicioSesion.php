@@ -12,6 +12,11 @@
 	</div>
 	<div class="row mt-3">
 		<h4>Usted es un <?php echo $perfil['perfil'];//echo $perfil; ?></h4>
-	</div>
+	</div>	
+	<div id="chartContainer2" style="height: 400px; width: 100%;"></div>
+	
+	<button class="btn invisible" id="backButton"><i data-feather="chevron-left"></i> Volver</button>
+	<div id="chartContainer3" style="height: 100%; width: 100%;"></div>
+	<div id="chartContainer" style="height: 100%; width: 100%;"></div>
 
 </div>

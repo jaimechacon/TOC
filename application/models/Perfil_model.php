@@ -19,4 +19,11 @@ class Perfil_model extends CI_Model
         $query = $this->db->get('campanias');
         return $query->result_array();
 	}
+
+	public function listarPerfilUsuario($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`listarPerfilUsuario`(".$idUsuario.");");
+		return $query->result_array();
+	}
+
 }	

@@ -31,12 +31,6 @@ class Categoria_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function buscarEAC($eac)
-	{
-		$query = $this->db->query("call `gestion_calidad`.`buscarEAC`('".$eac."');");
-		return $query->result_array();
-	}
-
 	public function guardarCategoria($idCategoria, $nombreCategoria, $puntuacionCategoria, $observacionesCategoria, $idUsuario)
 	{
 		$query = $this->db->query("call `gestion_calidad`.`agregarCategoria`(".$idCategoria.", '".$nombreCategoria."', ".$puntuacionCategoria.", '".$observacionesCategoria."', ".$idUsuario.");");
