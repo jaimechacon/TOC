@@ -30,15 +30,38 @@ class Evaluacion extends CI_Controller {
 	public function evaluarUsuarios()
 	{
 		$usuario = $this->session->userdata();
+
+		$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();
+
+		
+		$seAgregaUsuario = $this->evaluacion_model->truncarUsuariosGrabacion();
+		//var_dump($usuariosGrabaciones);
+		mysqli_next_result($this->db->conn_id);
+		foreach ($usuariosGrabaciones as $usuarioGrabacion) {
+			$usuarios = explode(",", $usuarioGrabacion["users"]);
+			$u_cod_campania = $usuarioGrabacion["tipo"];
+			//var_dump(count($usuarios)); 
+			//var_dump(count($usuarios));
+			for ($i=0; $i < count($usuarios); $i++) {
+				$u_cod_usuario = $usuarios[$i];
+				$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
+				mysqli_next_result($this->db->conn_id);
+			}
+		}
 		if($usuario){
-			$rango = 3;
+			$rango = 2;
+
+			
+
 			if($this->input->post('rango'))
 			{
 				$rango = $this->input->post('rango');
 				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango));		
 			}else{				
+				
 				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango);
-
+				//var_dump($evaluaciones);
+				//var_dump($evaluaciones);
 				if($evaluaciones)
 				{
 					$usuario['evaluaciones'] = $evaluaciones;
@@ -114,9 +137,11 @@ class Evaluacion extends CI_Controller {
 			{
 				//mysqli_next_result($this->db->conn_id);
 				$idCampania = $this->input->GET('idCamp');
+				$codCampania = $this->input->GET('codCamp');
 				$idEAC = $this->input->GET('idEAC');
 
 				$usuario['idCampania'] = $idCampania;
+				$usuario['codCampania'] = $codCampania;
 				$usuario['idEAC'] = $idEAC;
 
 				$pauta =  $this->evaluacion_model->obtenerPlantillaEAC($idEAC, $idCampania);
@@ -126,7 +151,7 @@ class Evaluacion extends CI_Controller {
 				$usuario['cat_pauta'] = $cat_pauta;
 				
 
-				$grabaciones = $this->grabacion_model->listarGrabacionesUsu($idEAC, $idCampania);
+				$grabaciones = $this->grabacion_model->listarGrabacionesUsu($idEAC, $codCampania);
 				//var_dump($grabaciones);
 				if(sizeof($grabaciones) > 0)
 					$usuario['grabacion'] = $grabaciones[0];
@@ -341,11 +366,11 @@ class Evaluacion extends CI_Controller {
 
 			if(!is_null($this->input->POST('idEAC')))
 			{
-				if(!is_null($this->input->POST('idCampania')))
+				if(!is_null($this->input->POST('codCampania')))
 				{
 					$idEAC = $this->input->POST('idEAC');
-					$idCampania = $this->input->POST('idCampania');
-					$grabaciones = $this->grabacion_model->listarGrabacionesUsu($idEAC, $idCampania);
+					$codCampania = $this->input->POST('codCampania');
+					$grabaciones = $this->grabacion_model->listarGrabacionesUsu($idEAC, $codCampania);
 				}
 			}
 		}

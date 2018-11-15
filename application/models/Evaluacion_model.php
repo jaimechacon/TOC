@@ -10,7 +10,7 @@ class Evaluacion_model extends CI_Model
 
 	public function listar_evaluaciones($id_usuario, $rango)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu`(".$id_usuario.", ".$rango.");");
+		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu4`(".$id_usuario.", ".$rango.", 2);");
 		return $query->result_array();
 	}
 
@@ -120,6 +120,18 @@ group by e.id_evaluacion, e.id_usuario, e.id_usuario_responsable, e.ev_fecha, us
 	public function obtenerUsuariosEACEvaluaciones($idUsuarioResponsable, $idCampania, $idUsuarioEAC)
 	{
 		$query = $this->db->query('call `gestion_calidad`.`obtenerUsuariosEACEvaluaciones`('.$idUsuarioResponsable.', '.$idCampania.', '.$idUsuarioEAC.');');
+		return $query->result_array();
+	}
+
+	public function truncarUsuariosGrabacion()
+	{
+		$query = $this->db->query("call `gestion_calidad`.`truncarUsuariosGrabacion`();");
+		return $query->result_array();
+	}
+
+	public function agregarUsuarioGrabacion($c_cod_campania, $u_cod_usuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`agregarUsuarioGrabacion`('".$c_cod_campania."', '".$u_cod_usuario."');");
 		return $query->result_array();
 	}
 }	

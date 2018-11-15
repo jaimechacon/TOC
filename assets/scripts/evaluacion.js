@@ -104,24 +104,40 @@
             row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
             row = row.concat('\n<td class="text-center align-middle">'+data[i]['eac']+'</td>');
 
-            for (var c = 1; c <=  data[0]['cant_campanias']; c++) {
-            row = row.concat('\n<td class="text-center align-middle">\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
-            if(data[i][('cant_eval_'+c)] == 0)
-            {
-              row = row.concat('badge-danger">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]); 
-            }else
-              if(data[i][('cant_eval_'+c)] > 0 && data[i][('cant_eval_'+c)] < data[i][('cant_a_gestionar_'+c)])
-              {
-                 row = row.concat('badge-warning">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]);
-              }else{
-                row = row.concat('badge-success">'+data[i][('cant_eval_'+c)]+'   /   '+data[i][('cant_a_gestionar_'+c)]);
-              }
-            }
-            row = row.concat('</a>\n</td>');
-            row = row.concat('\n<tr>');
+            for (var c = 0; c <  data[0]['cant_campanias']; c++) {
+	            row = row.concat('\n<td class="text-center align-middle">');
 
+	            if(data[i][('tiene_grabaciones_'+c)] == "1" && data[i][('se_gestiona_'+c)] == "1")
+	      		{	
+		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
+
+		            if(data[i][('cant_evaluaciones_'+c)] == 0)
+		            {
+		              row = row.concat('badge-danger">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]); 
+		            }else
+		            {
+		              if(data[i][('cant_evaluaciones_'+c)] > 0 && data[i][('cant_evaluaciones_'+c)] < data[i][('total_gestionar_'+c)])
+		              {
+		                 row = row.concat('badge-warning">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+		              }else{
+		                row = row.concat('badge-success">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+		              }
+		            }
+		            row = row.concat('</a>');
+		        }else
+		        {
+		        	if(data[i][('se_gestiona_'+c)] == "1")
+	      			{
+	      				row = row.concat('<i data-feather="phone-off"></i>');
+	      			}
+		        }
+		        row = row.concat('\n</td>');
+        	}
+
+            row = row.concat('\n</tr>');
             $("#tbodyEAC").append(row);
           }
+          feather.replace()
         }
       }
     });
@@ -136,6 +152,7 @@
 	    var botonGrabacion = document.getElementById("btnCambiarGrabacion");
 	    var idEAC = botonGrabacion.dataset.ideac;
 	    var idCampania = botonGrabacion.dataset.idcampania;
+	    var codCampania = botonGrabacion.dataset.codcampania;
 
      	var baseurl = window.origin + '/Evaluacion/listarGrabacionesUsu';
 
@@ -143,7 +160,7 @@
 	    type: "POST",
 	    url: baseurl,
 	    dataType: 'json',
-	    data: {idEAC: idEAC, idCampania, idCampania},
+	    data: {idEAC: idEAC, codCampania, codCampania},
 	    success: function(data) {
 	      if (data.length > 0)
 	      {

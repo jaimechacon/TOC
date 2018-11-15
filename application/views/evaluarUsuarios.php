@@ -3,7 +3,7 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
-	//var_dump(isset($evaluaciones[0]['cant_a_gestionar_2_1']));
+	//var_dump($evaluaciones);
 ?>
 
 <div class="row">
@@ -106,7 +106,7 @@
 			      <th scope="col" class="text-center align-middle">ID EAC</th>
 			      <th scope="col" class="text-left align-middle">Nombre EAC</th>
 			      <?php
-			      	for ($i=1; $i <=  $evaluaciones[0]['cant_campanias']; $i++) { 
+			      	for ($i=0; $i <  $evaluaciones[0]['cant_campanias']; $i++) { 
 			      		echo '<th scope="col" class="text-center align-middle">'.$evaluaciones[0][('nombre_camp_'.$i)].'</th>';
 			      	}
 			      ?>
@@ -118,34 +118,49 @@
 					        <th scope="row" class="text-center align-middle"><?php echo $evaluacion['cod_usuario']; ?></th>
 					        <td class="text-left align-middle"><?php echo $evaluacion['eac']; ?></td>
 					         <?php
-//					         	var_dump($evaluacion);
-						      	for ($i=1; $i <=  $evaluaciones[0]['cant_campanias']; $i++) { 
+					         	
+								//$tiene_grabaciones = (!isset($evaluacion['tiene_grabaciones_'.$i])) ? $evaluacion['tiene_grabaciones_'.$i] : 'asdf' ;
+					      		//var_dump($tiene_grabaciones);
+
+						      	for ($i=0; $i < $evaluaciones[0]['cant_campanias']; $i++) { 
 						      		//var_dump($evaluacion['cod_usuario']);
-						      		echo '<td class="text-center align-middle">
-					        	<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill ';
+						      		//var_dump($evaluacion[('tiene_grabaciones_'.($i))]);
 
-					        	$total_gestiones = 0;
+						      		echo '<td class="text-center align-middle">';
 
-					        	if(isset($evaluacion[('cant_a_gestionar_2_'.$i)]) && ($evaluacion[('cant_a_gestionar_2_'.$i)]) == 0 && isset($evaluacion[('cant_a_gestionar_usuario_'.$i)]))
-					        	{
-					        		$total_gestiones = $evaluacion[('cant_a_gestionar_usuario_'.($i-1))];
-					        	}else
-					        	{
-					        		$total_gestiones = $evaluacion[('cant_a_gestionar_'.$i)];
-					        	}
+						      		//var_dump(!is_null($evaluacion[('total_gestionar_'.($i))]));
+						      		//var_dump('total grabaciones: '.$evaluacion[('tiene_grabaciones_'.($i))]);
 
-					        	if($evaluacion[('cant_eval_'.$i)] == 0)
-					        	{
-					        		echo 'badge-danger'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$total_gestiones;	
-					        	}else
-					        		if($evaluacion[('cant_eval_'.$i)] > 0 && $evaluacion[('cant_eval_'.$i)] < $total_gestiones)
-					        		{
-					        			echo 'badge-warning'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$total_gestiones;
-					        		}else{
-					        			echo 'badge-success'.'">'.$evaluacion[('cant_eval_'.$i)].'   /   '.$total_gestiones;
-					        		}
+						      		if($evaluacion[('tiene_grabaciones_'.($i))] == "1" && $evaluacion[('se_gestiona_'.($i))] == "1")
+						      		{		      			
+							        	echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'&codCamp='.$evaluacion[('cod_camp_'.$i)].'" data-toggle="tooltip" data-placement="top" title="click para gestionar" class="badge badge-pill ';
+
+							        	$total_gestiones = $evaluacion[('total_gestionar_'.($i))];
+							        	$gestiones = $evaluacion[('cant_evaluaciones_'.($i))];
+
+
+							        	if($evaluacion[('cant_evaluaciones_'.$i)] == 0)
+							        	{
+							        		echo 'badge-danger'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;	
+							        	}else{
+							        		if($evaluacion[('cant_evaluaciones_'.$i)] > 0 && $evaluacion[('cant_evaluaciones_'.$i)] < $total_gestiones)
+							        		{
+							        			echo 'badge-warning'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
+							        		}else{
+							        			echo 'badge-success'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
+							        		}
+								      	}
+								      	echo '</a>';
+						      		}else
+						      		{
+						      			//echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill badge-secondary">sin grabaciones</a>';
+						      			if($evaluacion[('se_gestiona_'.($i))] == "1")
+						      			{
+						      				echo '<i data-feather="phone-off"></i>';
+						      			}
+						      		}
+						      		echo '</td>';
 						      	}
-						      	echo '</a></td>';
 						      ?>
 
 				    	</tr>

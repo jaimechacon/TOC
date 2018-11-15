@@ -4,7 +4,7 @@
 	//var_dump($ruta);
 	//var_dump($pauta);
 	//var_dump(isset($grabacion));
-	 //$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
+	//$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
 	if(!$id_usuario){
 	  redirect('Login');
 	}
@@ -132,7 +132,7 @@
 					    	<audio id="grabacion" class="grabacion" src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="metadata" data-duracionseg="<?php echo $grabacion['DuracionSegundo']; ?>" data-duracionmin="<?php echo $grabacion['DuracionMinutos']; ?>" data-grabacion="<?php echo $grabacion['Grabacion']; ?>" controls></audio>
 					    </div>
 					    <div class="col-sm-4 col-lg-3 col-xl-2 pt-2 ">
-					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
+					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>"  data-codcampania="<?php echo (isset($codCampania) ? $codCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
 					    	<!--/*data-toggle="modal" data-target="#modalCambiarGrabacion"-->
 					    </div>
 				    </div>
@@ -202,7 +202,7 @@
 				</div>
 				<div id="botones" class="row m-3">
 					<div class="col-sm-6 text-left">
-						<a class="btn btn-link"  href="<?php echo base_url();?>Evaluacion/ListarEvaluaciones">Volver</a>
+						<a class="btn btn-link"  href="<?php echo base_url();?>Evaluacion/EvaluarUsuarios">Volver</a>
 					</div>
 					<div  class="col-sm-6 text-right">
 					 	<button id="btnAgregarEvaluacion" type="button" class="btn btn-primary ">Guardar Evaluacion</button>

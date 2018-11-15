@@ -16,23 +16,49 @@ class Grabacion_model extends CI_Model
 		$sql = '';
         if($cod_campania == 8)
         {
-        	$sql = "select clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
-			from clg_prechequeogt pre inner join clg_traficollamada clg on pre.idgestion = clg.IdVenta
-			where pre.user_neotel = ".$id_usuario."
-			and clg.cola = ".$cod_campania."
-			and (TIMESTAMPDIFF(DAY, clg.FechaCarga,now())) <= 15
-			group by clg.Idllamada, pre.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
-			order by clg.FechaCarga desc;";
+        	$sql = "select clg.Idllamada as idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
+			from clg_prechequeogt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
+			inner join clg_tipoventa tv on vg.tipo = tv.id
+			where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
+			and vg.user_neotel is not null
+			and vg.user_neotel = ".$id_usuario."
+			and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+			group by clg.Idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa;";
         }else
         {
-        	$sql = "select vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
-				from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.Idllamada
-				where vg.user_neotel = ".$id_usuario."
-				and clg.cola = ".$cod_campania."
-				and (TIMESTAMPDIFF(DAY, clg.FechaCarga,now())) <= 15
-				group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
-				order by clg.FechaCarga desc;";
+			$sql = "select vg.idllamada, vg.user_neotel, clg.FechaCarga, vg.tipo, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
+			from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
+			inner join clg_tipoventa tv on vg.tipo = tv.id
+			where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
+			and vg.user_neotel is not null
+			and vg.user_neotel = ".$id_usuario."
+			and vg.tipo = ".$cod_campania."
+			and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+			group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa;";
         }
+		$query = $this->db_b->query($sql);
+		return $query->result_array();
+	}
+
+	public function obtenerUsuariosGrabacion()
+	{
+		$sql = '';
+		$sql = "select 8 as tipo, group_concat(user_neotel) as users
+from (select vg.user_neotel
+from clg_prechequeogt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
+inner join clg_tipoventa tv on vg.tipo = tv.id
+where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
+and vg.user_neotel is not null
+and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+group by vg.user_neotel) as hola
+union
+select vg.tipo, group_concat(vg.user_neotel) as users
+from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
+inner join clg_tipoventa tv on vg.tipo = tv.id
+where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
+and vg.user_neotel is not null
+and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+group by vg.tipo;";
 		$query = $this->db_b->query($sql);
 		return $query->result_array();
 	}
