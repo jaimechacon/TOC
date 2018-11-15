@@ -156,7 +156,7 @@
 						      			//echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill badge-secondary">sin grabaciones</a>';
 						      			if($evaluacion[('se_gestiona_'.($i))] == "1")
 						      			{
-						      				echo '<i data-feather="phone-off"></i>';
+						      				echo '<i data-feather="phone-off" class="telefono_gestiones" ></i>';
 						      			}
 						      		}
 						      		echo '</td>';

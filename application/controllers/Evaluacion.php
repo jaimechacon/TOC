@@ -31,34 +31,36 @@ class Evaluacion extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 
-		$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();
-
 		
-		$seAgregaUsuario = $this->evaluacion_model->truncarUsuariosGrabacion();
-		//var_dump($usuariosGrabaciones);
-		mysqli_next_result($this->db->conn_id);
-		foreach ($usuariosGrabaciones as $usuarioGrabacion) {
-			$usuarios = explode(",", $usuarioGrabacion["users"]);
-			$u_cod_campania = $usuarioGrabacion["tipo"];
-			//var_dump(count($usuarios)); 
-			//var_dump(count($usuarios));
-			for ($i=0; $i < count($usuarios); $i++) {
-				$u_cod_usuario = $usuarios[$i];
-				$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
-				mysqli_next_result($this->db->conn_id);
-			}
-		}
 		if($usuario){
 			$rango = 2;
-
-			
 
 			if($this->input->post('rango'))
 			{
 				$rango = $this->input->post('rango');
 				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango));		
-			}else{				
-				
+			}else{	
+
+				// inicio proceso de copiado a tabla temporal usuarios grabaciones
+				$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();
+		
+				$seAgregaUsuario = $this->evaluacion_model->truncarUsuariosGrabacion();
+				//var_dump($usuariosGrabaciones);
+				mysqli_next_result($this->db->conn_id);
+				foreach ($usuariosGrabaciones as $usuarioGrabacion) {
+					$usuarios = explode(",", $usuarioGrabacion["users"]);
+					$u_cod_campania = $usuarioGrabacion["tipo"];
+					//var_dump(count($usuarios)); 
+					//var_dump(count($usuarios));
+					for ($i=0; $i < count($usuarios); $i++) {
+						$u_cod_usuario = $usuarios[$i];
+						$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
+						mysqli_next_result($this->db->conn_id);
+					}
+				}
+
+				// fin proceso de copiado a tabla temporal usuarios grabaciones
+
 				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango);
 				//var_dump($evaluaciones);
 				//var_dump($evaluaciones);
@@ -517,6 +519,22 @@ class Evaluacion extends CI_Controller {
 			}
 		}
 		echo json_encode($evaluacion);
+	}
+
+	public function listarGestionesUsuario()
+	{
+		$usuario = $this->session->userdata();
+		$gestiones[] = array();
+		unset($gestiones);
+
+		if($usuario)
+		{
+			$rango = "2";
+			if(!is_null($this->input->post('rango')))
+				$rango = $this->input->post('rango');
+			$gestiones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango);
+		}
+		echo json_encode($gestiones);
 	}
 
 

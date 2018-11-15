@@ -89,7 +89,7 @@
 
  	$("#gestionEvaluacion").change(function() {
     idRango= $("#gestionEvaluacion").val();
-    var baseurl = window.origin + '/Evaluacion/evaluarUsuarios';
+    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
     jQuery.ajax({
       type: "POST",
       url: baseurl,
@@ -109,7 +109,7 @@
 
 	            if(data[i][('tiene_grabaciones_'+c)] == "1" && data[i][('se_gestiona_'+c)] == "1")
 	      		{	
-		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'" class="badge badge-pill ');
+		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'" class="badge badge-pill ');
 
 		            if(data[i][('cant_evaluaciones_'+c)] == 0)
 		            {
@@ -128,7 +128,7 @@
 		        {
 		        	if(data[i][('se_gestiona_'+c)] == "1")
 	      			{
-	      				row = row.concat('<i data-feather="phone-off"></i>');
+	      				row = row.concat('<i data-feather="phone-off" class="telefono_gestiones"></i>');
 	      			}
 		        }
 		        row = row.concat('\n</td>');
