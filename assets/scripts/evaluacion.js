@@ -102,7 +102,7 @@
           for (var i = 0; i < data.length; i++){
             var row = '<tr>';
             row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
-            row = row.concat('\n<td class="text-center align-middle">'+data[i]['eac']+'</td>');
+            row = row.concat('\n<td class="text-left align-middle">'+data[i]['eac']+'</td>');
 
             for (var c = 0; c <  data[0]['cant_campanias']; c++) {
 	            row = row.concat('\n<td class="text-center align-middle">');
@@ -111,12 +111,12 @@
 	      		{	
 		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'" class="badge badge-pill ');
 
-		            if(data[i][('cant_evaluaciones_'+c)] == 0)
+		            if(data[i][('cant_evaluaciones_'+c)] == "0")
 		            {
 		              row = row.concat('badge-danger">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]); 
 		            }else
 		            {
-		              if(data[i][('cant_evaluaciones_'+c)] > 0 && data[i][('cant_evaluaciones_'+c)] < data[i][('total_gestionar_'+c)])
+		              if(parseInt(data[i][('cant_evaluaciones_'+c)]) > 0 && parseInt(data[i][('cant_evaluaciones_'+c)]) < parseInt(data[i][('total_gestionar_'+c)]))
 		              {
 		                 row = row.concat('badge-warning">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
 		              }else{

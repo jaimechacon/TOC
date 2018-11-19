@@ -78,7 +78,7 @@
   $('#eliminarUsuario').click(function(e){
     idUsuario = $('#tituloEU').data('idusuario');
     //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    var baseurl = window.origin + '/Usuario/eliminarUsuario';
+    var baseurl = window.origin + '/gestion_calidad/Usuario/eliminarUsuario';
 
     jQuery.ajax({
     type: "POST",
@@ -132,7 +132,7 @@
     {
       event.preventDefault();
 
-      var baseurl = window.origin + '/Usuario/guardarUsuario';
+      var baseurl = window.origin + '/gestion_calidad/Usuario/guardarUsuario';
       var nombreUsuario = $('#inputNombre').val();
       var puntuacionUsuario = $('#inputPuntuacion').val();
       var observacionesUsuario = $('#inputObservaciones').val();
@@ -186,7 +186,7 @@
 
   function listarUsuarios(filtro)
   {
-    var baseurl = window.origin + '/Usuario/buscarUsuario';
+    var baseurl = window.origin + '/gestion_calidad/Usuario/buscarUsuario';
     jQuery.ajax({
     type: "POST",
     url: baseurl,

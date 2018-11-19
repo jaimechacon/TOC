@@ -4,7 +4,7 @@
 	//var_dump($ruta);
 	//var_dump($pauta);
 	//var_dump(isset($grabacion));
-	//$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
+	$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
 	if(!$id_usuario){
 	  redirect('Login');
 	}
