@@ -242,6 +242,7 @@ class Evaluacion extends CI_Controller {
 
 				$resultado = $this->evaluacion_model->guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $usuario["id_usuario"]);
 				//var_dump($resultado);
+
 				if($resultado[0] > 0)
 				{
 					//var_dump($resultado[0]);
@@ -274,10 +275,11 @@ class Evaluacion extends CI_Controller {
 									{
 										$idplacatpre = (int)$pregunta[0];
 										$respuesta = $pregunta[1];
-										//var_dump($idEvaluacion.' - '.$idplacatpre.' - '.$respuesta);
+										//var_dump($idEvaluacion.' - '.$idplacatpre.' - '.$respuesta.' - '.$usuario["id_usuario"]);
+
 										mysqli_next_result($this->db->conn_id);
 										$resultadoARE = $this->evaluacion_model->guardarRespuestaPreguntaEvaluacion($idEvaluacion, $idplacatpre, $respuesta, $usuario["id_usuario"]);
-
+										//var_dump($resultadoARE);
 										if($resultadoARE > 0)
 										{
 											$cantRes ++;
@@ -386,13 +388,6 @@ class Evaluacion extends CI_Controller {
 			
 		if($usuario)
 		{
-			
-			/*var_dump($this->evaluacion_model->obtenerUsuariosRespEvaluaciones("131", "null", "null"));
-			mysqli_next_result($this->db->conn_id);
-			var_dump($this->evaluacion_model->obtenerCampaniasEvaluaciones("131", "null", "null"));
-			mysqli_next_result($this->db->conn_id);
-			var_dump($this->evaluacion_model->obtenerUsuariosRespEvaluaciones("131", "null", "null"));
-			mysqli_next_result($this->db->conn_id);*/
 			$idCampania = "null";
 			$idEAC = "null";
 
@@ -402,7 +397,23 @@ class Evaluacion extends CI_Controller {
 			if(!is_null($this->input->GET('idEAC')))
 				$idEAC = $this->input->GET('idEAC');
 
-			$analistas = $this->evaluacion_model->obtenerUsuariosRespEvaluaciones('null', $idCampania, $idEAC);
+			$idAnalista = 'null';
+			$esAnalista = $this->evaluacion_model->esAnalista($usuario["id_usuario"]);
+				
+			//var_dump($esAnalista);
+			//var_dump(isset($esAnalista[0]));
+			//var_dump($esAnalista[0]["es_analista"] == "1");
+			if($esAnalista && isset($esAnalista[0]["es_analista"]) && $esAnalista[0]["es_analista"] == "1")
+			{
+				$idAnalista = $usuario['id_usuario'];
+				$usuario["esAnalista"] = "1";
+				$usuario["idAnalista"] = $idAnalista;
+			}
+
+
+			mysqli_next_result($this->db->conn_id);
+			$analistas = $this->evaluacion_model->obtenerUsuariosRespEvaluaciones($idAnalista, $idCampania, $idEAC);
+
 			$usuario['analistas'] = $analistas;
 			$usuario['controller'] = 'evaluacion';
 			mysqli_next_result($this->db->conn_id);
@@ -414,11 +425,11 @@ class Evaluacion extends CI_Controller {
 			mysqli_next_result($this->db->conn_id);
 			//$eacs = $this->evaluacion_model->obtener_usuarios_eacs();
 			
-			$eacs = $this->evaluacion_model->obtenerUsuariosEACEvaluaciones('null', $idCampania, 'null');
+			$eacs = $this->evaluacion_model->obtenerUsuariosEACEvaluaciones($idAnalista, $idCampania, 'null');
 			$usuario['eacs'] = $eacs;
 			//var_dump($this->evaluacion_model->obtenerUsuariosEACEvaluaciones('null', 'null', 'null'));
 			mysqli_next_result($this->db->conn_id);
-			$evaluaciones = $this->listaEvaluacionesFiltros('null', $idCampania, $idEAC);
+			$evaluaciones = $this->listaEvaluacionesFiltros($idAnalista, $idCampania, $idEAC);
 			$usuario['evaluaciones'] = $evaluaciones;
 
 			$this->load->view('temp/header');

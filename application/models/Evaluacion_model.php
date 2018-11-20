@@ -134,4 +134,12 @@ group by e.id_evaluacion, e.id_usuario, e.id_usuario_responsable, e.ev_fecha, us
 		$query = $this->db->query("call `gestion_calidad`.`agregarUsuarioGrabacion`('".$c_cod_campania."', '".$u_cod_usuario."');");
 		return $query->result_array();
 	}
+
+	public function esAnalista($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`esAnalista`(".$idUsuario.");");
+		return $query->result_array();
+	}
+
+	
 }	

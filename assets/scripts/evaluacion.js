@@ -80,7 +80,6 @@
 	              $("#parrafoME").empty();
 	              $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
 	              $("#parrafoME").append(data['mensaje']);
-	              
 	              if(!$("#inputIdEvaluacion").val())
 	              {
 	                //$("#agregarEvaluacion")[0].reset();

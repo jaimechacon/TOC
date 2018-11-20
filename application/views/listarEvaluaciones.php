@@ -14,13 +14,21 @@
 						<span>Analista</span>
 					</div>
 					<div class="col-sm-8">
-						<select id="analistas" class="custom-select custom-select-sm selectFiltros">
+						<select id="analistas" class="custom-select custom-select-sm selectFiltros"
+							<?php echo (isset($esAnalista) && $esAnalista == "1" ? ' disabled': ''); ?>>
 						    <option value="-1">Seleccione una Analista</option>
 							<?php
 							if($analistas)
 							{
 								foreach ($analistas as $analista) {
-									echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
+									//echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
+									if(isset($idAnalista) && (int)$analista['id_usuario'] == $idAnalista)
+									{
+										echo '<option value="'.$analista['id_usuario'].'" selected>'.$analista['nombre_completo'].'</option>';
+									}else
+									{
+										echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
+									}
 								}
 							}
 							?>
