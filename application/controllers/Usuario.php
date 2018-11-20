@@ -29,7 +29,7 @@ class Usuario extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			$usuarios = $this->usuario_model->listarUsuarios();
+			$usuarios = $this->usuario_model->buscarUsuario('', (int)$usuario["id_usuario"]);
 			$usuario['usuarios'] = $usuarios;
 			$usuario['controller'] = 'usuario';
 			$this->load->view('temp/header');
@@ -43,10 +43,10 @@ class Usuario extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			$usuario = "";
+			$filtroUsuario = "";
 			if($this->input->POST('usuario'))
-				$usuario = $this->input->POST('usuario');
-			echo json_encode($this->usuario_model->buscarUsuario($usuario));
+				$filtroUsuario = $this->input->POST('usuario');
+			echo json_encode($this->usuario_model->buscarUsuario($filtroUsuario, (int)$usuario["id_usuario"]));
 		}
 	}
 
@@ -57,7 +57,7 @@ class Usuario extends CI_Controller {
 			$usuario['titulo'] = 'Agregar Usuario';
 			$usuario['controller'] = 'usuario';
 			
-			$perfiles =  $this->perfil_model->listarPerfilUsuario((int)$usuario["id_usuario"]);
+			$perfiles =  $this->perfil_model->obtenerPerfiles($usuario["id_usuario"]);
 			if($perfiles)
 				$usuario['perfiles'] = $perfiles;
 
@@ -81,18 +81,45 @@ class Usuario extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-			if(!is_null($this->input->POST('nombreUsuario')))
+			if(!is_null($this->input->POST('nombres')))
 			{
-				if(!is_null($this->input->POST('puntuacionUsuario')))
+				if(!is_null($this->input->POST('apellidos')))
 				{
-					$nombre = trim($this->input->POST('nombreUsuario'));
-					$puntuacion = trim($this->input->POST('puntuacionUsuario'));
-					$observaciones = "";
-					$accion = 'agregado';
-					if(!is_null($this->input->POST('observacionesUsuario')))
-						$observaciones = trim($this->input->POST('observacionesUsuario'));
-					$idUsuario = 'null';
+					$rut = "null";
+					if(!is_null($this->input->POST('rut')) && trim($this->input->POST('rut')) != "")
+						$rut = trim($this->input->POST('rut'));
 
+					$idEmpresa = "null";
+					if(!is_null($this->input->POST('idEmpresa')) && trim($this->input->POST('idEmpresa')) != "")
+						$idEmpresa = trim($this->input->POST('idEmpresa'));
+
+					$nombres = "null";
+					if(!is_null($this->input->POST('nombres')) && trim($this->input->POST('nombres')) != "")
+						$nombres = trim($this->input->POST('nombres'));
+
+					$apellidos = "null";
+					if(!is_null($this->input->POST('apellidos')) && trim($this->input->POST('apellidos')) != "")
+						$apellidos = trim($this->input->POST('apellidos'));
+						
+					$email = "null";
+					if(!is_null($this->input->POST('email')) && trim($this->input->POST('email')) != "")
+						$email = trim($this->input->POST('email'));
+
+					$codUsuario = "null";
+					if(!is_null($this->input->POST('codUsuario')) && trim($this->input->POST('codUsuario')) != "")
+						$codUsuario = trim($this->input->POST('codUsuario'));
+
+					$idPerfil = "null";
+					if(!is_null($this->input->POST('idPerfil')) && trim($this->input->POST('idPerfil')) != "")
+						$idPerfil = trim($this->input->POST('idPerfil'));
+
+					$contabilizar = "null";
+					if(!is_null($this->input->POST('contabilizar')) && trim($this->input->POST('contabilizar')) != "")
+						$contabilizar = trim($this->input->POST('contabilizar'));
+
+					$accion = 'agregado';
+					
+					$idUsuario = 'null';
 					if(!is_null($this->input->POST('idUsuario')) && is_numeric($this->input->POST('idUsuario')))
 					{
 						$idUsuario = $this->input->POST('idUsuario');
@@ -102,7 +129,7 @@ class Usuario extends CI_Controller {
 					$respuesta = 0;
 					$mensaje = '';
 
-					$resultado = $this->usuario_model->guardarUsuario($idUsuario, $nombre, $puntuacion, $observaciones, $usuario["id_usuario"]);
+					$resultado = $this->usuario_model->guardarUsuario($idUsuario, $rut, $idEmpresa, $nombres, $apellidos, $email, $codUsuario, $contabilizar, $idPerfil,  $usuario["id_usuario"]);
 
 					if($resultado[0] > 0)
 					{
@@ -113,7 +140,7 @@ class Usuario extends CI_Controller {
 								$idUsuario = (int)$resultado[0]['idUsuario'];
 							
 							$respuesta = 1;
-							$mensaje = 'Se ha '.$accion.' la categor&iacute;a exitosamente.';
+							$mensaje = 'Se ha '.$accion.' el usuario exitosamente.';
 						}
 					}else
 					{
@@ -149,7 +176,6 @@ class Usuario extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		if($usuario){
-
 			$usuario['titulo'] = 'Modificar Usuario';
 			$usuario['controller'] = 'usuario';
 
@@ -157,9 +183,23 @@ class Usuario extends CI_Controller {
 			{
 				//mysqli_next_result($this->db->conn_id);
 				$idUsuario = $this->input->GET('idUsuario');
-				$usuario =  $this->usuario_model->obtenerUsuario($idUsuario);
-				$usuario['usuario'] = $usuario[0];
-				
+				$usuarioSeleccionado =  $this->usuario_model->obtenerUsuario($idUsuario);
+				$usuario['usuarioSeleccionado'] = $usuarioSeleccionado[0];
+
+				mysqli_next_result($this->db->conn_id);
+				$perfiles =  $this->perfil_model->obtenerPerfiles($usuario["id_usuario"]);
+				if($perfiles)
+					$usuario['perfiles'] = $perfiles;
+
+				mysqli_next_result($this->db->conn_id);
+
+				$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
+				if($empresas)
+				{
+					$usuario['empresas'] = $empresas;
+				}
+
+
 				//var_dump($equipo[0]);
 				
 				//$eacs = array_unique(array_column($equipo, 'nombre'), array_column($equipo, 'abreviacion'), array_column($equipo, 'descripcion'));

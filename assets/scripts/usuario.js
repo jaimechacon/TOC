@@ -1,6 +1,6 @@
  $(document).ready(function() {
 
-  $.validator.addMethod(
+  /*$.validator.addMethod(
         "rutInvalido",
          function (value, element) {
           var re = new RegExp('(0?[1-9]{1,2})(?>((\.\d{3}){2,}\-)|((\d{3}){2,}\-)|((\d{3}){2,}))([\dkK])');
@@ -19,11 +19,6 @@
       $(element).removeClass("is-invalid");
     },
     rules: {
-      inputCodigo: {
-        required: false,
-        minlength: 0,
-        maxlength: 10
-      },
       inputNombres: {
         required: true,
         minlength: 1,
@@ -47,19 +42,9 @@
         required: "Se requiere un Nombre de Usuario.",
         minlength: "Se requieren m&iacute;nimo {0} caracteres.",
         maxlength: "Se requiere no mas de {0} caracteres."
-      },
-      inputPuntuacion: {
-        required: "Se requiere una Puntuación para la Usuario.",
-         number: "Se debe ingresar sólo números.",
-        min: "Se requiere un valor mayor que {0}.",
-        max: "Se requiere un valor menor que {0}."
-       
-      },
-      inputObservaciones: {
-        maxlength: "Se requiere no mas de {0} caracteres."
-      },
+      }
     }
-  });
+  });*/
 
   $('#modalEliminarUsuario').on('show.bs.modal', function(e) {
     //get data-id attribute of the clicked element
@@ -71,6 +56,8 @@
 
     $("#tituloEU").removeData("idusuario");
     $("#tituloEU").attr("data-idusuario", idUsuario);
+
+    
     //$("#tituloEE").removeData("nombreequipo");
     //$("#tituloEE").attr("data-nombreEquipo", nombreEquipo);
   });
@@ -78,7 +65,7 @@
   $('#eliminarUsuario').click(function(e){
     idUsuario = $('#tituloEU').data('idusuario');
     //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    var baseurl = window.origin + '/gestion_calidad/Usuario/eliminarUsuario';
+    var baseurl = window.origin + '/Usuario/eliminarUsuario';
 
     jQuery.ajax({
     type: "POST",
@@ -127,16 +114,23 @@
     var loader = document.getElementById("loader");
     loader.removeAttribute('hidden');
     /*$("div.loader").addClass('show');*/
-    var validacion = $("#agregarUsuario").validate();
-    if(validacion.numberOfInvalids() == 0)
-    {
+    //var validacion = $("#agregarUsuario").validate();
+    //if(validacion.numberOfInvalids() == 0)
+    //{
       event.preventDefault();
 
-      var baseurl = window.origin + '/gestion_calidad/Usuario/guardarUsuario';
-      var nombreUsuario = $('#inputNombre').val();
-      var puntuacionUsuario = $('#inputPuntuacion').val();
-      var observacionesUsuario = $('#inputObservaciones').val();
+      var baseurl = window.origin + '/Usuario/guardarUsuario';
+      var rut = $('#inputRut').val();
+      var idEmpresa = $('#selectEmpresa').val();
+      var nombres = $('#inputNombres').val();
+      var apellidos = $('#inputApellidos').val();
+      var email = $('#inputEmail').val();
+      var codUsuario = $('#inputCodUsuario').val();
+      var idPerfil = $('#selectPerfil').val();
+      var checkContabilizar = document.getElementById('checkContabilizar');
+      var contabilizar = checkContabilizar.checked;
       var idUsuario = null;
+
       if($("#inputIdUsuario").val())
         idUsuario = $('#inputIdUsuario').val();
 
@@ -144,7 +138,7 @@
       type: "POST",
       url: baseurl,
       dataType: 'json',
-      data: {idUsuario: idUsuario, nombreUsuario: nombreUsuario, puntuacionUsuario: puntuacionUsuario, observacionesUsuario: observacionesUsuario },
+      data: {idUsuario: idUsuario, rut: rut, idEmpresa: idEmpresa, nombres: nombres, apellidos: apellidos, email: email, codUsuario: codUsuario, idPerfil: idPerfil, contabilizar, contabilizar },
       success: function(data) {
         if (data)
         {
@@ -178,15 +172,15 @@
         }
       }
       });
-    }else
+    /*}else
     {
       loader.setAttribute('hidden', '');
-    }
+    }*/
   });
 
   function listarUsuarios(filtro)
   {
-    var baseurl = window.origin + '/gestion_calidad/Usuario/buscarUsuario';
+    var baseurl = window.origin + '/Usuario/buscarUsuario';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -203,7 +197,7 @@
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['apellidos'],'</td>');
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['rut'],'</td>');
           row = row.concat('\n<td class="text-center align-middle registro">',data[i]['email'],'</td>');
-          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['empresa'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['pf_nombre'],'</td>');
           row = row.concat('\n<td class="text-right align-middle registro">');
           row = row.concat('\n<a id="trash_',data[i]['id_usuario'],'" class="trash" href="#" data-id="',data[i]['id_usuario'],'" data-nombre="',data[i]['nombres'], ' ', data[i]['apellidos'],'" data-toggle="modal" data-target="#modalEliminarUsuario">');
           row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');

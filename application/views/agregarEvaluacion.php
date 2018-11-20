@@ -202,7 +202,7 @@
 				</div>
 				<div id="botones" class="row m-3">
 					<div class="col-sm-6 text-left">
-						<a class="btn btn-link"  href="<?php echo base_url();?>Evaluacion/EvaluarUsuarios">Volver</a>
+						<a class="btn btn-link" id="volverEvaluacion" href="<?php echo base_url();?>Evaluacion/EvaluarUsuarios">Volver</a>
 					</div>
 					<div  class="col-sm-6 text-right">
 					 	<button id="btnAgregarEvaluacion" type="button" class="btn btn-primary ">Guardar Evaluacion</button>
@@ -225,8 +225,6 @@
 		?>
 	</div>
 </div>
-
-<div id="loader" class="loader" hidden></div>
 
 <!-- Modal Mensaje -->
 <div class="modal fade" id="modalMensajeEvaluacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

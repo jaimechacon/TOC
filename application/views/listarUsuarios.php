@@ -30,7 +30,7 @@
 			      <th scope="col" class="text-center align-middle registro">Apellidos</th>
 			      <th scope="col" class="text-center align-middle registro">Rut</th>
 			      <th scope="col" class="text-center align-middle registro">Email</th>
-			      <th scope="col" class="text-center align-middle registro">Empresa</th>
+			      <th scope="col" class="text-center align-middle registro">Perfil</th>
 			      <th scope="col" class="text-right align-middle registro"></th>
 			    </tr>
 			  </thead>
@@ -42,7 +42,7 @@
 					        <td class="text-center align-middle registro"><?php echo $usuario['apellidos']; ?></td>
 					        <td class="text-center align-middle registro"><?php echo $usuario['rut']; ?></td>
 					        <td class="text-center align-middle registro"><?php echo $usuario['email']; ?></td>
-					        <td class="text-center align-middle registro"><?php echo $usuario['empresa']; ?></td>
+					        <td class="text-center align-middle registro"><?php echo $usuario['pf_nombre']; ?></td>
 					        <td class="text-right align-middle registro">
 								<button id="trash_<?php echo $usuario['id_usuario']; ?>" class="btn btn-link btn-sm trash" type="link" data-id="<?php echo $usuario['id_usuario']; ?>" data-nombre="<?php echo $usuario['nombres'].' '.$usuario['apellidos']; ?>" data-toggle="modal" data-target="#modalEliminarUsuario">
 									<i class="trash" data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar" ></i>

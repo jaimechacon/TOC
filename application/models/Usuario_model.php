@@ -57,27 +57,9 @@ class Usuario_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function listarUsuarios()
+	public function buscarUsuario($usuario, $idUsuario)
 	{
-		$query = $this->db->query("select usu.id_usuario,
-		    usu.u_rut as rut,
-		    usu.u_nombres as nombres,
-		    usu.u_apellidos as apellidos,
-		    usu.u_email as email,
-		    usu.u_cod_usuario as cod_usuario,
-		    usu.id_empresa,
-		    e.e_razon_social as empresa
-		from usuarios usu inner join empresas e on usu.id_empresa = e.id_empresa
-				inner join usuarios_perfiles up on usu.id_usuario = up.id_usuario
-						  inner join perfiles p on up.id_perfil = p.id_perfil
-		where usu.u_fecha_baja is null
-		and usu.id_usuario <> 1;");
-		return $query->result_array();
-	}
-
-	public function buscarUsuario($usuario)
-	{
-		$query = $this->db->query("call `gestion_calidad`.`buscarUsuario`('".$usuario."');");
+		$query = $this->db->query("call `gestion_calidad`.`buscarUsuario`('".$usuario."', ".$idUsuario.");");
 		return $query->result_array();
 	}
 
@@ -87,9 +69,9 @@ class Usuario_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function guardarUsuario($idUsuarioG, $nombreUsuario, $puntuacionUsuario, $observacionesUsuario, $idUsuario)
+	public function guardarUsuario($idUsuario, $rut, $idEmpresa, $nombres, $apellidos, $email, $codUsuario, $contabilizar, $idPerfil, $idUsuarioCreador)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`agregarUsuario`(".$idUsuarioG.", '".$nombreUsuario."', ".$puntuacionUsuario.", '".$observacionesUsuario."', ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`agregarUsuario`(".$idUsuario.", ".($rut == "null" ? $rut : ("'".$rut."'")).", ".$idEmpresa.", ".($nombres == "null" ? $nombres : ("'".$nombres."'")).", ".($apellidos == "null" ? $apellidos : ("'".$apellidos."'")).", ".($email == "null" ? $email : ("'".$email."'")).", ".($codUsuario == "null" ? $codUsuario : ("'".$codUsuario."'")).", ".$contabilizar.", ".$idPerfil.", ".$idUsuarioCreador.");");
 
 		return $query->result_array();
 	}

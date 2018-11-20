@@ -1,5 +1,18 @@
  $(document).ready(function() {
 
+	$('#modalMensajeEvaluacion').on('hidden.bs.modal', function(e) {
+	     //$(document.getElementById('volverEvaluacion')).click();
+		var loader = document.getElementById("loader");
+    	loader.removeAttribute('hidden');
+	    var url = window.location.href.split("?")[0].replace("AgregarEvaluacion", "EvaluarUsuarios");
+	    window.location.href = url;
+	    //var ruta = window.location.href.replace("AgregarEvaluacion", "EvaluarUsuarios");
+	    //var url = ruta + 'Evaluacion/ListarEvaluaciones?idCampania=' + e.dataPoint.idCampania + '&idEAC='+e.dataPoint.id_usuario;
+	    //$.redirectPost(window.location.href.replace("Inicio", url), {idCampania: e.dataPoint.idCampania, idEAC: e.dataPoint.id_usuario});
+	    //window.location.href = url;
+	     //window.location.replace("Evaluacion/EvaluarUsuarios");
+ 	});
+
  	$("#btnAgregarEvaluacion").on('click', function(e) {
  		var listaPreguntas = document.getElementById('listaPreguntas');
  		//var observacionesEvaluacion = $('#observacionEvaluacion').val();
@@ -61,7 +74,7 @@
 		success: function(data) {
 			if (data)
 			{
-				if(data['respuesta'] == '1')
+				if(data['respuesta'] && parseInt(data['respuesta']) > 0)
 	            {
 	              $('#tituloME').empty();
 	              $("#parrafoME").empty();
@@ -78,7 +91,9 @@
 	              }
 	              //loader.setAttribute('hidden', '');
 	              $('#modalMensajeEvaluacion').modal({
-	                show: true
+	                show: true,
+	                backdrop: 'static',
+	                keyboard: false
 	              });
 
 				}

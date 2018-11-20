@@ -26,4 +26,10 @@ class Perfil_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function obtenerPerfiles($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerPerfiles`(".$idUsuario.");");
+		return $query->result_array();
+	}
+
 }	
