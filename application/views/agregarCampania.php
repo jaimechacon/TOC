@@ -36,12 +36,12 @@
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="inputFechaInicio">Fecha Inicio</label>
-						<input type="date" class="form-control  form-control-sm" id="inputFechaInicio" name="inputFechaInicio" placeholder="Ingrese Fecha Inicio de Campa&ntilde;a" value="<?php if(isset($campania['c_fecha_inicio'])): echo date("Y-m-d", strtotime($campania['c_fecha_inicio'])); endif; ?>">
+						<input type="date" class="form-control  form-control-sm" id="inputFechaInicio" name="inputFechaInicio" placeholder="Ingrese Fecha Inicio de Campa&ntilde;a" value="<?php if(isset($campania['c_fecha_inicio'])): echo $campania['c_fecha_inicio']; endif; ?>">
 						<!--<span>Se requiere una Abreviaci&oacute;n para el Campania.</span>-->
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputFechaFin">Fecha Fin</label>
-						<input type="date" class="form-control  form-control-sm" id="inputFechaFin" name="inputFechaFin" placeholder="Ingrese Fecha Fin de Campa&ntilde;a" value="<?php if(isset($campania['c_fecha_fin'])): echo date("Y-m-d", strtotime($campania['c_fecha_fin'])); endif; ?>">
+						<input type="date" class="form-control  form-control-sm" id="inputFechaFin" name="inputFechaFin" placeholder="Ingrese Fecha Fin de Campa&ntilde;a" value="<?php if(isset($campania['c_fecha_fin'])): echo $campania['c_fecha_fin']; endif; ?>">
 						<!--<span>Se requiere una Abreviaci&oacute;n para el Campania.</span>-->
 					</div>
 				</div>
