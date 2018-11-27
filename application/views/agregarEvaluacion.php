@@ -92,7 +92,7 @@
 											<td><?php echo $pauta[0]['empresa']; ?></td>
 										</tr>
 										<tr>
-											<td>Fecha</td>
+											<td>Fecha Grabaci&oacute;n</td>
 											<td id="fecha"><?php echo $grabacion['FechaCarga']; ?>
 											</td>
 										</tr>
