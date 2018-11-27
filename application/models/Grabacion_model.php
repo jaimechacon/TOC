@@ -33,6 +33,7 @@ class Grabacion_model extends CI_Model
 			and vg.user_neotel is not null
 			and vg.user_neotel = ".$id_usuario."
 			and vg.tipo = ".$cod_campania."
+			and vg.Estado = 6
 			and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
 			group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
 			order by clg.FechaCarga desc;";
@@ -50,7 +51,7 @@ from clg_prechequeogt vg inner join clg_traficollamada clg on vg.idllamada = clg
 inner join clg_tipoventa tv on vg.tipo = tv.id
 where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
 and vg.user_neotel is not null
-and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+and clg.Campania not in ('SE CORTA LLAMADO','CONSULTA PORTA')
 group by vg.user_neotel) as hola
 union
 select vg.tipo, group_concat(vg.user_neotel) as users
@@ -58,6 +59,7 @@ from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.idl
 inner join clg_tipoventa tv on vg.tipo = tv.id
 where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
 and vg.user_neotel is not null
+and vg.Estado = 6
 and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
 group by vg.tipo;";
 		$query = $this->db_b->query($sql);
