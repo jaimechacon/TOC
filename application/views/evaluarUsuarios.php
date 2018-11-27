@@ -3,6 +3,8 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
+
+	var_dump($evaluacion);
 ?>
 
 <div class="row">
