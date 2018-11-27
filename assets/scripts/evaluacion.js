@@ -26,6 +26,7 @@
  		var duracionMinutos = grabacion.data('duracionmin');
  		var idLlamada = $(document.getElementById('idLlamada')).text();
  		var nombreGrabacion = grabacion.data('grabacion');
+ 		var fechaGrabacion = grabacion.data('fecha');
  		var observacionesEvaluacion = $('#observacionEvaluacion').val();
  		var preguntasEvaluacion = [];
  		var idEvaluacion = null;
@@ -77,7 +78,7 @@
 		type: "POST",
 		url: baseurl,
 		dataType: 'json',
-		data: {idEvaluacion: idEvaluacion, idEAC: idEAC, idCampania: idCampania, idLlamada: idLlamada, nombreGrabacion: nombreGrabacion, duracionSegundos: duracionSegundos, duracionMinutos: duracionMinutos,/*idGrabacion: idGrabacion,*/ observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion, idUsuResp: idUsuResp},
+		data: {idEvaluacion: idEvaluacion, idEAC: idEAC, idCampania: idCampania, idLlamada: idLlamada, nombreGrabacion: nombreGrabacion, fechaGrabacion: fechaGrabacion, duracionSegundos: duracionSegundos, duracionMinutos: duracionMinutos,/*idGrabacion: idGrabacion,*/ observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion, idUsuResp: idUsuResp},
 		success: function(data) {
 			if (data)
 			{
@@ -110,17 +111,19 @@
    	});
 
  	$("#gestionEvaluacion").change(function() {
-    idRango= $("#gestionEvaluacion").val();
-    idUsuarioAnalista = $("#selectAnalistas").val();
-    //idRango= $("#gestionEvaluacion").val();
+ 		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+	    idRango= $("#gestionEvaluacion").val();
+	    idUsuarioAnalista = $("#selectAnalistas").val();
+	    ciclo = $("#selectCantCiclos").val();
 
-    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
-    jQuery.ajax({
-      type: "POST",
-      url: baseurl,
-      dataType: 'json',
-      data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista },
-      success: function(data) {
+	    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista, ciclo: ciclo },
+		success: function(data) {
         if (data)
         {
 
@@ -183,6 +186,7 @@
             $("#tbodyEvaluaciones").append(row);
           }
           feather.replace()
+          loader.setAttribute('hidden', '');
         }
       }
     });
@@ -191,16 +195,19 @@
 
 
   	$("#selectAnalistas").change(function() {
-    idRango= $("#gestionEvaluacion").val();
-    idUsuarioAnalista = $("#selectAnalistas").val();
+  		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+		idRango= $("#gestionEvaluacion").val();
+		idUsuarioAnalista = $("#selectAnalistas").val();
+		ciclo = $("#selectCantCiclos").val();
 
-    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
-    jQuery.ajax({
-      type: "POST",
-      url: baseurl,
-      dataType: 'json',
-      data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista },
-      success: function(data) {
+		var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
+		jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista, ciclo: ciclo },
+		success: function(data) {
         if (data)
         {
         	if(data[0]['resultado'] == "1")
@@ -267,8 +274,95 @@
 			{
 				$("#dvTResponsive").empty();
 			}
-          
-          feather.replace()
+			feather.replace()
+			loader.setAttribute('hidden', '');
+        }
+      }
+    });
+  	});
+
+  	$("#selectCantCiclos").change(function() {
+  		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+    idRango= $("#gestionEvaluacion").val();
+    idUsuarioAnalista = $("#selectAnalistas").val();
+    ciclo = $("#selectCantCiclos").val();
+
+    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
+    jQuery.ajax({
+      type: "POST",
+      url: baseurl,
+      dataType: 'json',
+      data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista, ciclo: ciclo },
+      success: function(data) {
+        if (data)
+        {
+        	if(data[0]['resultado'] == "1")
+        	{
+        		if($('#tEvaluacionesPendientes').length == 0)
+				{
+					var tabla = '<table id="tEvaluacionesPendientes" class="table table-sm table-hover ">\n';
+					tabla = tabla.concat('<thead>\n');
+					tabla = tabla.concat('<tr>\n');
+					tabla = tabla.concat('<th scope="col" class="text-center align-middle">ID EAC</th>\n');
+					tabla = tabla.concat('<th scope="col" class="text-left align-middle">Nombre EAC</th>\n');
+				      
+					for (var t=0; t < data[0]['cant_campanias']; t++) { 
+						tabla = tabla.concat('<th scope="col" class="text-center align-middle">',data[0][('nombre_camp_'+t)],'</th>\n');
+					}
+					tabla = tabla.concat('</tr>\n');
+					tabla = tabla.concat('</thead>\n');
+					tabla = tabla.concat('<tbody id="tbodyEvaluaciones">\n');
+					tabla = tabla.concat('</tbody>\n');
+					tabla = tabla.concat('</table>\n');
+					$("#dvTResponsive").append(tabla);
+				}
+
+				$("#tbodyEvaluaciones").empty();
+				for (var i = 0; i < data.length; i++){
+					var row = '<tr>';
+					row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
+					row = row.concat('\n<td class="text-left align-middle">'+data[i]['eac']+'</td>');
+
+					for (var c = 0; c <  data[0]['cant_campanias']; c++) {
+					    row = row.concat('\n<td class="text-center align-middle">');
+
+					    if(data[i][('tiene_grabaciones_'+c)] == "1" && data[i][('se_gestiona_'+c)] == "1")
+							{	
+					        row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'&idUsuResp='+data[i]['id_usuario_responsable']+'" class="badge badge-pill ');
+
+					        if(data[i][('cant_evaluaciones_'+c)] == "0")
+					        {
+					          row = row.concat('badge-danger">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]); 
+					        }else
+					        {
+					          if(parseInt(data[i][('cant_evaluaciones_'+c)]) > 0 && parseInt(data[i][('cant_evaluaciones_'+c)]) < parseInt(data[i][('total_gestionar_'+c)]))
+					          {
+					             row = row.concat('badge-warning">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+					          }else{
+					            row = row.concat('badge-success">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+					          }
+					        }
+					        row = row.concat('</a>');
+					    }else
+					    {
+					    	if(data[i][('se_gestiona_'+c)] == "1")
+								{
+									row = row.concat('<i data-feather="phone-off" class="telefono_gestiones"></i>');
+								}
+					    }
+					    row = row.concat('\n</td>');
+					}
+
+					row = row.concat('\n</tr>');
+					$("#tbodyEvaluaciones").append(row);
+				}
+        	}else
+			{
+				$("#dvTResponsive").empty();
+			}          
+			feather.replace()
+			loader.setAttribute('hidden', '');
         }
       }
     });
@@ -363,6 +457,7 @@
 			document.getElementById('grabacion').setAttribute('data-duracionseg', DuracionSegundo);
 			document.getElementById('grabacion').setAttribute('data-duracionmin', DuracionMinutos);
 			document.getElementById('grabacion').setAttribute('data-grabacion', ruta);
+			document.getElementById('grabacion').setAttribute('data-fecha', fecha);
 	    	$('#modalCambiarGrabacion').modal('hide');
 	    }
 

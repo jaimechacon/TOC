@@ -26,9 +26,9 @@ class Evaluacion_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuResp, $idUsuario)
+	public function guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $fechaGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuResp, $idUsuario)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`agregarEvaluacion`(".$idEvaluacion.", '".$idEAC."', ".$idCampania.", '".$idLlamada."','".$nombreGrabacion."', ".$duracionSegundos.", ".$duracionMinutos.", '".$observacionesEvaluacion."', ".$idUsuResp.", ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`agregarEvaluacion`(".$idEvaluacion.", '".$idEAC."', ".$idCampania.", '".$idLlamada."', '".$nombreGrabacion."', '".$fechaGrabacion."', ".$duracionSegundos.", ".$duracionMinutos.", '".$observacionesEvaluacion."', ".$idUsuResp.", ".$idUsuario.");");
 
 		return $query->result_array();
 	}

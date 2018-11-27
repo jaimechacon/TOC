@@ -37,7 +37,7 @@ class Evaluacion extends CI_Controller {
 			if($this->input->post('rango'))
 			{
 				$rango = $this->input->post('rango');
-				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 1, $usuario["id_usuario"]));
+				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 3, $usuario["id_usuario"]));
 			}else{	
 
 				// inicio proceso de copiado a tabla temporal usuarios grabaciones
@@ -65,7 +65,7 @@ class Evaluacion extends CI_Controller {
 
 
 				//mysqli_next_result($this->db->conn_id);
-				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 1, $usuario["id_usuario"]);
+				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 3, $usuario["id_usuario"]);
 
 				//var_dump(!isset($evaluaciones['resultado']));
 				
@@ -207,6 +207,7 @@ class Evaluacion extends CI_Controller {
 				$duracionSegundos = "";
 				$duracionMinutos = "";
 				$nombreGrabacion = "";
+				$fechaGrabacion = "";
 				$duracionMinutos = "";
 				$idUsuResp = "null";
 
@@ -228,6 +229,9 @@ class Evaluacion extends CI_Controller {
 				
 				if(!is_null($this->input->POST('nombreGrabacion')))
 					$nombreGrabacion = trim($this->input->POST('nombreGrabacion'));
+
+				if(!is_null($this->input->POST('fechaGrabacion')))
+					$fechaGrabacion = trim($this->input->POST('fechaGrabacion'));
 
 				if(!is_null($this->input->POST('idCampania')))
 					$idCampania = trim($this->input->POST('idCampania'));
@@ -261,7 +265,7 @@ class Evaluacion extends CI_Controller {
 				//var_dump($idPlantilla, $nombre, $abreviacion, $observaciones);
 				//mysqli_next_result($this->db->conn_id);
 
-				$resultado = $this->evaluacion_model->guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuResp, $usuario["id_usuario"]);
+				$resultado = $this->evaluacion_model->guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $fechaGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuResp, $usuario["id_usuario"]);
 				//var_dump($resultado);
 
 				if($resultado[0] > 0)
@@ -565,13 +569,17 @@ class Evaluacion extends CI_Controller {
 		{
 			$rango = "2";
 			$idUsuarioAnalista = $usuario["id_usuario"];
+			$ciclo = "null";
 			if(!is_null($this->input->post('rango')))
 				$rango = $this->input->post('rango');
 
 			if(!is_null($this->input->post('idUsuarioAnalista')))
 				$idUsuarioAnalista = $this->input->post('idUsuarioAnalista');
 
-			$gestiones = $this->evaluacion_model->listar_evaluaciones($idUsuarioAnalista, $rango, 1, $usuario["id_usuario"]);
+			if(!is_null($this->input->post('ciclo')))
+				$ciclo = $this->input->post('ciclo');
+
+			$gestiones = $this->evaluacion_model->listar_evaluaciones($idUsuarioAnalista, $rango, $ciclo, $usuario["id_usuario"]);
 		}
 		echo json_encode($gestiones);
 	}

@@ -67,8 +67,9 @@
 				</div>
 			</div>
 		</div>
-	<?php if(isset($usuariosAnalistas) && sizeof($usuariosAnalistas) > 1) { ?>
 		<div class="row justify-content-around mb-1">
+	<?php if(isset($usuariosAnalistas) && sizeof($usuariosAnalistas) > 1) { ?>
+		
 			<div class="col-sm-4">
 				<div class="row">
 					<div class="col-sm-4">
@@ -100,9 +101,23 @@
 					</div>
 				</div>
 			</div>
-				<div class="col-sm-4"></div>
-		</div>
 	<?php } ?>
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-4">
+						<span >Ciclo</span>
+					</div>
+					<div class="col-sm-6">
+						<select id="selectCantCiclos" class="custom-select custom-select-sm">
+						    <option value="1">1</option>
+						    <option value="2">2</option>
+						    <option value="3">3</option>
+						    <option value="4">4</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div id="tDatos" class="col-sm-12 m-3">
@@ -205,4 +220,5 @@
 	?>
 		</div>
 	</div>
+	<div id="loader" class="loader" hidden></div>
 </div>

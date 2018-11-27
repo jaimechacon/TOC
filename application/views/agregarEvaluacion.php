@@ -93,7 +93,7 @@
 										</tr>
 										<tr>
 											<td>Fecha Grabaci&oacute;n</td>
-											<td id="fecha"><?php echo $grabacion['FechaCarga']; ?>
+											<td id="fecha"><?php echo $grabacion['Inicio']; ?>
 											</td>
 										</tr>
 									</tbody>
@@ -137,7 +137,7 @@
 					<div class="row">
 						<div class="col-sm-8 col-lg-9 col-xl-10">
 					    	<!--<audio id="grabacion" class="grabacion" src="http://calidad.gsbpo.cl/grabaciones/985885966-1137884-20180730145738.mp3" preload="metadata" controls>-->
-					    	<audio id="grabacion" class="grabacion" src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="metadata" data-duracionseg="<?php echo $grabacion['DuracionSegundo']; ?>" data-duracionmin="<?php echo $grabacion['DuracionMinutos']; ?>" data-grabacion="<?php echo $grabacion['Grabacion']; ?>" controls></audio>
+					    	<audio id="grabacion" class="grabacion" src="<?php echo $ruta.$grabacion['Grabacion']; ?>" preload="metadata" data-duracionseg="<?php echo $grabacion['DuracionSegundo']; ?>" data-duracionmin="<?php echo $grabacion['DuracionMinutos']; ?>" data-grabacion="<?php echo $grabacion['Grabacion']; ?>" data-fecha="<?php echo $grabacion['Inicio']; ?>" controls></audio>
 					    </div>
 					    <div class="col-sm-4 col-lg-3 col-xl-2 pt-2 ">
 					    	<button id="btnCambiarGrabacion" type="button" class="btn btn-outline-dark" data-ideac="<?php echo (isset($idEAC) ? $idEAC: ''); ?>" data-idcampania="<?php echo (isset($idCampania) ? $idCampania: ''); ?>"  data-codcampania="<?php echo (isset($codCampania) ? $codCampania: ''); ?>">Cambiar grabaci&oacute;n</button>
