@@ -358,7 +358,7 @@
 	    	var DuracionMinutos = grabacion.data('duracionmin');
 			$(document.getElementById('idLlamada')).text(idLlamada);
 	    	$(document.getElementById('fecha')).text(fecha);
-	    	var url = document.getElementById('grabacion').currentSrc.substr(0, document.getElementById('grabacion').currentSrc.lastIndexOf('grabaciones/') + 12) + ruta;
+	    	var url = document.getElementById('grabacion').currentSrc.substr(0, document.getElementById('grabacion').currentSrc.lastIndexOf('grabaciones/MONITOREO/') + 12) + ruta;
 	    	document.getElementById('grabacion').setAttribute('src', url);
 			document.getElementById('grabacion').setAttribute('data-duracionseg', DuracionSegundo);
 			document.getElementById('grabacion').setAttribute('data-duracionmin', DuracionMinutos);
