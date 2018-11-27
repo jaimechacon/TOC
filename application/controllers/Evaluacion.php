@@ -41,7 +41,7 @@ class Evaluacion extends CI_Controller {
 			}else{	
 
 				// inicio proceso de copiado a tabla temporal usuarios grabaciones
-				/*$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();		
+				$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();		
 				$seEliminanUsuarios = $this->evaluacion_model->truncarUsuariosGrabacion();
 				//var_dump($usuariosGrabaciones);
 				mysqli_next_result($this->db->conn_id);
@@ -56,7 +56,7 @@ class Evaluacion extends CI_Controller {
 						mysqli_next_result($this->db->conn_id);
 					}
 				}
-					*/
+					
 				// fin proceso de copiado a tabla temporal usuarios grabaciones
 
 				//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
