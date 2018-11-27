@@ -99,7 +99,7 @@
 				  <thead>
 				    <tr>
 				      <th scope="col" class="text-center align-middle registro"># ID</th>			      
-				      <th scope="col" class="text-center align-middle registro">Fecha</th>
+				      <th scope="col" class="text-center align-middle registro">Fecha Evaluaci&oacute;n</th>
 				      <th scope="col" class="text-center align-middle registro">Duracion Min.</th>
 				      <th scope="col" class="text-center align-middle registro">Id Llamada</th>
 				      <th scope="col" class="text-center align-middle registro">Campa&ntilde;a</th>
