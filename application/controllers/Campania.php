@@ -8,6 +8,7 @@ class Campania extends CI_Controller {
 		parent::__construct();
 		$this->load->model('campania_model');
 		$this->load->model('plantilla_model');
+		$this->load->model('equipo_model');
 		$this->load->model('usuario_model');
 	}
 
@@ -28,18 +29,27 @@ class Campania extends CI_Controller {
 
 	public function asignarCampania()
 	{
-		$usuario = $this->session->userdata();
-		if($usuario){
+		$usuario = $this->session->userdata();			
+		if($usuario)
+		{
+			$analistas = $this->usuario_model->obtenerUsuariosAnalista($usuario["id_usuario"]);
+			$usuario['analistas'] = $analistas;
+			$usuario['controller'] = 'campania';
+			mysqli_next_result($this->db->conn_id);
 			$campanias = $this->usuario_model->listarCampaniasUsu($usuario["id_usuario"]);
 			$usuario['campanias'] = $campanias;
+			
 			mysqli_next_result($this->db->conn_id);
-			$usuarios = $this->usuario_model->listarAnalistaUsu();
-			$usuario['usuarios'] = $usuarios;
-				
+			$equipos = $this->equipo_model->listarEquipos();
+			$usuario['equipos'] = $equipos;
+
+			$campanasUsuariosEquipos = $this->campania_model->listarCampaniasUsuariosEquipos($usuario["id_usuario"], 'null', 'null', 'null');
+			$usuario['campanasUsuariosEquipos'] = $campanasUsuariosEquipos;
+			//var_dump($campanasUsuariosEquipos);
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('asignarCampania', $usuario);
-			$this->load->view('temp/footer');
+			$this->load->view('temp/footer', $usuario);
 		}else
 		{
 			//$data['message'] = 'Verifique su email y contrase&ntilde;a.';
@@ -260,61 +270,32 @@ class Campania extends CI_Controller {
 		echo json_encode($eacs);
 	}
 
-	public function modificarCampania()
+	public function filtrarUsuCampEqui()
 	{
-		$usuario = $this->session->userdata();
-		if($usuario){
-			$eacs = $this->campania_model->listarEAC();
-			if($eacs)
-				$usuario['eacs'] = $eacs;
+		$usuario = $this->session->userdata();			
+		if($usuario)
+		{
+			$analista = "null";
+			$campania = "null";
+			$equipo = "null";
+			if (!is_null($this->input->POST('analista')) && $this->input->POST('analista') != "" && $this->input->POST('analista') != -1)
+				$analista = $this->input->POST('analista');
 
-			//mysqli_next_result($this->db->conn_id);
-			$plantillas = $this->plantilla_model->buscarPlantilla('');
-			$usuario['plantillas'] = $plantillas;
-			$usuario['titulo'] = 'Modificar Campania';
-			$usuario['controller'] = 'campania';
+			if(!is_null($this->input->POST('campania')) && $this->input->POST('campania') != "" && $this->input->POST('campania') != -1)
+				$campania = $this->input->POST('campania');
 
-			/*mysqli_next_result($this->db->conn_id);
-			$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
-			if($empresas)
-			{
-				$usuario['empresas'] = $empresas;
-			}*/
-
-			//mysqli_next_result($this->db->conn_id);
-			mysqli_next_result($this->db->conn_id);
-			$tipoCampanias = $this->campania_model->buscarTipoCampania('');
-			$usuario['tipoCampanias'] = $tipoCampanias;
-
-			if($this->input->GET('idCampania') && $this->input->GET('idCampania'))
-			{
-				
-				$idCampania = $this->input->GET('idCampania');
-				mysqli_next_result($this->db->conn_id);
-				$campania =  $this->campania_model->obtenerCampania($idCampania);
-				$usuario['campania'] = $campania[0];
-				//var_dump($campania[0]);
-				$eacsCampania = array_unique(array_column($campania, 'id_usuario'));
-				$usuario['eacsCampania'] = $eacsCampania;
-				//$eacs = array_unique(array_column($campania, 'nombre'), array_column($campania, 'abreviacion'), array_column($campania, 'descripcion'));
-				//$eacs = array_unique(array_map("serialize", $campania));
-				//var_dump($temp);
-				/*$cat_pauta = array_intersect_key($pauta, $temp);
-				$usuario['cat_pauta'] = $cat_pauta;*/
-			}
-
-			mysqli_next_result($this->db->conn_id);
-			$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
-			if($empresas)
-			{
-				$usuario['empresas'] = $empresas;
-			}
-
-			$this->load->view('temp/header');
-			$this->load->view('temp/menu', $usuario);
-			$this->load->view('agregarCampania', $usuario);
-			$this->load->view('temp/footer', $usuario);
+			if(!is_null($this->input->POST('equipo')) && $this->input->POST('equipo') != "" && $this->input->POST('equipo') != -1)
+				$equipo = $this->input->POST('equipo');
+			
+			$datos[] = array();
+			unset($datos);
+			$usuCampEqui = $this->campania_model->listarCampaniasUsuariosEquipos($usuario['id_usuario'], $analista, $campania, $equipo);
+			
+			$datos['usuCampEqui'] = $usuCampEqui;
 		}
+
+		echo json_encode($datos);
 	}
+	
 	
 }

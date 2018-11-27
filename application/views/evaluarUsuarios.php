@@ -3,7 +3,6 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
-	//var_dump($evaluaciones);
 ?>
 
 <div class="row">
@@ -68,39 +67,62 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="row justify-content-around mb-1">
-			<div class="col-sm-4">
-			</div>
+	<?php if(isset($usuariosAnalistas) && sizeof($usuariosAnalistas) > 1) { ?>
+		<div class="row justify-content-around mb-1">
 			<div class="col-sm-4">
 				<div class="row">
 					<div class="col-sm-4">
-						<span >N° Ciclo</span>
+						<span >Agente</span>
 					</div>
-					<div class=" col-sm-6">
-						<select id="numCiclo" class="custom-select custom-select-sm">
-						    <option value="1">1</option>
-						    <option value="1">2</option>
-						    <option value="2">3</option>
-						    <option value="2">4</option>
+					<div class="col-sm-6">
+						<select id="selectAnalistas" class="custom-select custom-select-sm">
+							<option value="-1">Seleccione un Analista</option>
+							<?php 
+							if($usuariosAnalistas)
+							{
+								//var_dump($usuariosAnalistas);
+								foreach ($usuariosAnalistas as $analista) {
+
+
+									if(isset($id_usuario) && (int)$analista['id_usuario'] == $id_usuario)
+									{
+										echo '<option value="'.$analista['id_usuario'].'" selected>'.$analista['nombre_completo'].'</option>';
+									}else
+									{
+										echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
+									}
+
+									//echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
+								}
+							}
+							?>
 						</select>
 					</div>
 				</div>
 			</div>
-		</div>-->
+				<div class="col-sm-4"></div>
+		</div>
+	<?php } ?>
 	</div>
 
 	<div id="tDatos" class="col-sm-12 m-3">
-		<div class="table-responsive">
+		<div id="dvTResponsive" class="table-responsive">
 
-	<?php if(!$evaluaciones)
-	{
-		echo '<div class="alert alert-warning" role="alert">
-		      	El usuario no posee campa&ntilde;s asociadas.
-			  </div>';
+	<?php 
+	 //var_dump($evaluaciones[0]["resultado"]);
+	 //var_dump(!isset($evaluaciones));
+	if(isset($evaluaciones) && $evaluaciones[0]["resultado"] == "0")
+	{ ?>
+		<div class="alert alert-warning" role="alert">
+			<?php echo $evaluaciones[0]["mensaje"]; ?>
+		</div>
+	<?php 
 	}else
 	{
+		if(isset($evaluaciones) && $evaluaciones[0]["resultado"] == "1" && $evaluaciones[0]["mensaje"] == "")
+		{
 	?>
-			<table class="table table-sm table-hover ">
+			<table id="tEvaluacionesPendientes" class="table table-sm table-hover ">
 			  <thead>
 			    <tr>
 			      <th scope="col" class="text-center align-middle">ID EAC</th>
@@ -112,62 +134,73 @@
 			      ?>
 			    </tr>
 			  </thead>
-			  <tbody id="tbodyEAC">
-			  		<?php foreach ($evaluaciones as $evaluacion): ?>
-			  			<tr>
-					        <th scope="row" class="text-center align-middle"><?php echo $evaluacion['cod_usuario']; ?></th>
-					        <td class="text-left align-middle"><?php echo $evaluacion['eac']; ?></td>
-					         <?php
-					         	
-								//$tiene_grabaciones = (!isset($evaluacion['tiene_grabaciones_'.$i])) ? $evaluacion['tiene_grabaciones_'.$i] : 'asdf' ;
-					      		//var_dump($tiene_grabaciones);
+			  <tbody id="tbodyEvaluaciones">
+			  		<?php 
+				  		foreach ($evaluaciones as $evaluacion): ?>
+				  			<tr>
+						        <th scope="row" class="text-center align-middle"><?php echo $evaluacion['cod_usuario']; ?></th>
+						        <td class="text-left align-middle"><?php echo $evaluacion['eac']; ?></td>
+						         <?php
+						         	
+									//$tiene_grabaciones = (!isset($evaluacion['tiene_grabaciones_'.$i])) ? $evaluacion['tiene_grabaciones_'.$i] : 'asdf' ;
+						      		//var_dump($tiene_grabaciones);
 
-						      	for ($i=0; $i < $evaluaciones[0]['cant_campanias']; $i++) { 
-						      		//var_dump($evaluacion['cod_usuario']);
-						      		//var_dump($evaluacion[('tiene_grabaciones_'.($i))]);
+							      	for ($i=0; $i < $evaluaciones[0]['cant_campanias']; $i++) { 
+							      		//var_dump($evaluacion['cod_usuario']);
+							      		//var_dump($evaluacion[('tiene_grabaciones_'.($i))]);
 
-						      		echo '<td class="text-center align-middle">';
+							      		echo '<td class="text-center align-middle">';
 
-						      		//var_dump(!is_null($evaluacion[('total_gestionar_'.($i))]));
-						      		//var_dump('total grabaciones: '.$evaluacion[('tiene_grabaciones_'.($i))]);
+							      		//var_dump(!is_null($evaluacion[('total_gestionar_'.($i))]));
+							      		//var_dump('total grabaciones: '.$evaluacion[('tiene_grabaciones_'.($i))]);
 
-						      		if($evaluacion[('tiene_grabaciones_'.($i))] == "1" && $evaluacion[('se_gestiona_'.($i))] == "1")
-						      		{		      			
-							        	echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'&codCamp='.$evaluacion[('cod_camp_'.$i)].'" data-toggle="tooltip" data-placement="top" title="click para gestionar" class="badge badge-pill ';
+							      		if($evaluacion[('tiene_grabaciones_'.($i))] == "1" && $evaluacion[('se_gestiona_'.($i))] == "1")
+							      		{		      			
+								        	echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'&codCamp='.$evaluacion[('cod_camp_'.$i)].'" data-toggle="tooltip" data-placement="top" title="click para gestionar" class="badge badge-pill ';
 
-							        	$total_gestiones = $evaluacion[('total_gestionar_'.($i))];
-							        	$gestiones = $evaluacion[('cant_evaluaciones_'.($i))];
+								        	$total_gestiones = $evaluacion[('total_gestionar_'.($i))];
+								        	$gestiones = $evaluacion[('cant_evaluaciones_'.($i))];
 
 
-							        	if($evaluacion[('cant_evaluaciones_'.$i)] == 0)
-							        	{
-							        		echo 'badge-danger'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;	
-							        	}else{
-							        		if($evaluacion[('cant_evaluaciones_'.$i)] > 0 && $evaluacion[('cant_evaluaciones_'.$i)] < $total_gestiones)
-							        		{
-							        			echo 'badge-warning'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
-							        		}else{
-							        			echo 'badge-success'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
-							        		}
-								      	}
-								      	echo '</a>';
-						      		}else
-						      		{
-						      			//echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'" class="badge badge-pill badge-secondary">sin grabaciones</a>';
-						      			if($evaluacion[('se_gestiona_'.($i))] == "1")
-						      			{
-						      				echo '<i data-feather="phone-off" class="telefono_gestiones" ></i>';
-						      			}
-						      		}
-						      		echo '</td>';
-						      	}
-						      ?>
+								        	if($evaluacion[('cant_evaluaciones_'.$i)] == 0)
+								        	{
+								        		echo 'badge-danger'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;	
+								        	}else{
+								        		if($evaluacion[('cant_evaluaciones_'.$i)] > 0 && $evaluacion[('cant_evaluaciones_'.$i)] < $total_gestiones)
+								        		{
+								        			echo 'badge-warning'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
+								        		}else{
+								        			echo 'badge-success'.'">'.$evaluacion[('cant_evaluaciones_'.$i)].'   /   '.$total_gestiones;
+								        		}
+									      	}
+									      	echo '</a>';
+							      		}else
+							      		{
+							      			if($evaluacion[('se_gestiona_'.($i))] == "1")
+							      			{
+							      				echo '<i data-feather="phone-off" class="telefono_gestiones" ></i>';
+							      			}
+							      		}
+							      		echo '</td>';
+							      	}
+							      ?>
 
-				    	</tr>
-			  		<?php endforeach ?>
+					    	</tr>
+				  		<?php endforeach; ?>
 			  </tbody>
 			</table>
 	<?php 
+		}else
+  		{
+  			if (isset($evaluaciones) && $evaluaciones[0]["resultado"] == "1" && $evaluaciones[0]["es_administrador"] == "1") {
+  				
+  			}else
+  			{?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $evaluaciones[0]["mensaje"]; ?>
+				</div>
+	<?php	}
+		}
 	}
 	?>
 		</div>

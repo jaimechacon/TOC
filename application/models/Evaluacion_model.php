@@ -8,9 +8,9 @@ class Evaluacion_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function listar_evaluaciones($id_usuario, $rango)
+	public function listar_evaluaciones($id_usuario, $rango, $ciclo , $id_usuarioResponsable)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu4`(".$id_usuario.", ".$rango.", 2);");
+		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu4`(".$id_usuario.", ".$rango.", ".$ciclo.", ".$id_usuarioResponsable.");");
 		return $query->result_array();
 	}
 
@@ -26,9 +26,9 @@ class Evaluacion_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuario)
+	public function guardarEvaluacion($idEvaluacion, $idEAC, $idCampania, $idLlamada, $nombreGrabacion, $duracionSegundos, $duracionMinutos, $observacionesEvaluacion, $idUsuResp, $idUsuario)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`agregarEvaluacion`(".$idEvaluacion.", '".$idEAC."', ".$idCampania.", '".$idLlamada."','".$nombreGrabacion."', ".$duracionSegundos.", ".$duracionMinutos.", '".$observacionesEvaluacion."', ".$idUsuario.");");
+		$query = $this->db->query("call `gestion_calidad`.`agregarEvaluacion`(".$idEvaluacion.", '".$idEAC."', ".$idCampania.", '".$idLlamada."','".$nombreGrabacion."', ".$duracionSegundos.", ".$duracionMinutos.", '".$observacionesEvaluacion."', ".$idUsuResp.", ".$idUsuario.");");
 
 		return $query->result_array();
 	}
@@ -141,5 +141,4 @@ group by e.id_evaluacion, e.id_usuario, e.id_usuario_responsable, e.ev_fecha, us
 		return $query->result_array();
 	}
 
-	
 }	

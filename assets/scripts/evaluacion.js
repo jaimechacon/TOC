@@ -4,8 +4,9 @@
 	     //$(document.getElementById('volverEvaluacion')).click();
 		var loader = document.getElementById("loader");
     	loader.removeAttribute('hidden');
-	    var url = window.location.href.split("?")[0].replace("AgregarEvaluacion", "EvaluarUsuarios");
+	    var url = window.location.href.split("?")[0].replace("AgregarEvaluacion/", "EvaluarUsuarios");	    
 	    window.location.href = url;
+
 	    //var ruta = window.location.href.replace("AgregarEvaluacion", "EvaluarUsuarios");
 	    //var url = ruta + 'Evaluacion/ListarEvaluaciones?idCampania=' + e.dataPoint.idCampania + '&idEAC='+e.dataPoint.id_usuario;
 	    //$.redirectPost(window.location.href.replace("Inicio", url), {idCampania: e.dataPoint.idCampania, idEAC: e.dataPoint.id_usuario});
@@ -14,6 +15,9 @@
  	});
 
  	$("#btnAgregarEvaluacion").on('click', function(e) {
+ 		$(document.getElementById('btnAgregarEvaluacion')).attr('disabled', 'disabled');
+ 		var loader = document.getElementById("loader");
+ 		loader.removeAttribute('hidden');
  		var listaPreguntas = document.getElementById('listaPreguntas');
  		//var observacionesEvaluacion = $('#observacionEvaluacion').val();
 
@@ -28,6 +32,9 @@
  		var botonGrabacion = document.getElementById("btnCambiarGrabacion");
 	    var idEAC = botonGrabacion.dataset.ideac;
 	    var idCampania = botonGrabacion.dataset.idcampania;
+	    var idUsuResp = null;
+	    if(document.getElementById('idUsuResp').dataset.idusuresp > 0)
+          idUsuResp = document.getElementById('idUsuResp').dataset.idusuresp;
 
 	 	if($("#inputIdEvaluacion").val())
 	        idEvaluacion = $('#inputIdEvaluacion').val();
@@ -70,7 +77,7 @@
 		type: "POST",
 		url: baseurl,
 		dataType: 'json',
-		data: {idEvaluacion: idEvaluacion, idEAC: idEAC, idCampania: idCampania, idLlamada: idLlamada, nombreGrabacion: nombreGrabacion, duracionSegundos: duracionSegundos, duracionMinutos: duracionMinutos,/*idGrabacion: idGrabacion,*/ observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion },
+		data: {idEvaluacion: idEvaluacion, idEAC: idEAC, idCampania: idCampania, idLlamada: idLlamada, nombreGrabacion: nombreGrabacion, duracionSegundos: duracionSegundos, duracionMinutos: duracionMinutos,/*idGrabacion: idGrabacion,*/ observacionesEvaluacion: observacionesEvaluacion, preguntasEvaluacion: preguntasEvaluacion, idUsuResp: idUsuResp},
 		success: function(data) {
 			if (data)
 			{
@@ -80,6 +87,7 @@
 	              $("#parrafoME").empty();
 	              $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
 	              $("#parrafoME").append(data['mensaje']);
+	              $(document.getElementById('btnAgregarEvaluacion')).removeAttr('disabled');
 	              if(!$("#inputIdEvaluacion").val())
 	              {
 	                //$("#agregarEvaluacion")[0].reset();
@@ -88,7 +96,7 @@
 	                //document.getElementById('agregarEvaluacion').dataset.idplantilla = null;
 
 	              }
-	              //loader.setAttribute('hidden', '');
+	              loader.setAttribute('hidden', '');
 	              $('#modalMensajeEvaluacion').modal({
 	                show: true,
 	                backdrop: 'static',
@@ -103,16 +111,39 @@
 
  	$("#gestionEvaluacion").change(function() {
     idRango= $("#gestionEvaluacion").val();
+    idUsuarioAnalista = $("#selectAnalistas").val();
+    //idRango= $("#gestionEvaluacion").val();
+
     var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
     jQuery.ajax({
       type: "POST",
       url: baseurl,
       dataType: 'json',
-      data: {rango: idRango},
+      data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista },
       success: function(data) {
         if (data)
         {
-          $("#tbodyEAC").empty();
+
+          if($('#tEvaluacionesPendientes').length == 0)
+          {
+          	var tabla = '<table id="tEvaluacionesPendientes" class="table table-sm table-hover ">\n';
+			tabla = tabla.concat('<thead>\n');
+			tabla = tabla.concat('<tr>\n');
+			tabla = tabla.concat('<th scope="col" class="text-center align-middle">ID EAC</th>\n');
+			tabla = tabla.concat('<th scope="col" class="text-left align-middle">Nombre EAC</th>\n');
+			      
+	      	for (var t=0; t < data[0]['cant_campanias']; t++) { 
+	      		tabla = tabla.concat('<th scope="col" class="text-center align-middle">',data[0][('nombre_camp_'+t)],'</th>\n');
+	      	}
+		    tabla = tabla.concat('</tr>\n');
+			tabla = tabla.concat('</thead>\n');
+			tabla = tabla.concat('<tbody id="tbodyEvaluaciones">\n');
+			tabla = tabla.concat('</tbody>\n');
+			tabla = tabla.concat('</table>\n');
+          	$("#dvTResponsive").append(tabla);
+          }
+
+          $("#tbodyEvaluaciones").empty();
           for (var i = 0; i < data.length; i++){
             var row = '<tr>';
             row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
@@ -123,7 +154,7 @@
 
 	            if(data[i][('tiene_grabaciones_'+c)] == "1" && data[i][('se_gestiona_'+c)] == "1")
 	      		{	
-		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'" class="badge badge-pill ');
+		            row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'&idUsuResp='+data[i]['id_usuario_responsable']+'" class="badge badge-pill ');
 
 		            if(data[i][('cant_evaluaciones_'+c)] == "0")
 		            {
@@ -149,8 +180,94 @@
         	}
 
             row = row.concat('\n</tr>');
-            $("#tbodyEAC").append(row);
+            $("#tbodyEvaluaciones").append(row);
           }
+          feather.replace()
+        }
+      }
+    });
+  	});
+
+
+
+  	$("#selectAnalistas").change(function() {
+    idRango= $("#gestionEvaluacion").val();
+    idUsuarioAnalista = $("#selectAnalistas").val();
+
+    var baseurl = window.origin + '/Evaluacion/listarGestionesUsuario';
+    jQuery.ajax({
+      type: "POST",
+      url: baseurl,
+      dataType: 'json',
+      data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista },
+      success: function(data) {
+        if (data)
+        {
+        	if(data[0]['resultado'] == "1")
+        	{
+        		if($('#tEvaluacionesPendientes').length == 0)
+				{
+					var tabla = '<table id="tEvaluacionesPendientes" class="table table-sm table-hover ">\n';
+					tabla = tabla.concat('<thead>\n');
+					tabla = tabla.concat('<tr>\n');
+					tabla = tabla.concat('<th scope="col" class="text-center align-middle">ID EAC</th>\n');
+					tabla = tabla.concat('<th scope="col" class="text-left align-middle">Nombre EAC</th>\n');
+				      
+					for (var t=0; t < data[0]['cant_campanias']; t++) { 
+						tabla = tabla.concat('<th scope="col" class="text-center align-middle">',data[0][('nombre_camp_'+t)],'</th>\n');
+					}
+					tabla = tabla.concat('</tr>\n');
+					tabla = tabla.concat('</thead>\n');
+					tabla = tabla.concat('<tbody id="tbodyEvaluaciones">\n');
+					tabla = tabla.concat('</tbody>\n');
+					tabla = tabla.concat('</table>\n');
+					$("#dvTResponsive").append(tabla);
+				}
+
+				$("#tbodyEvaluaciones").empty();
+				for (var i = 0; i < data.length; i++){
+					var row = '<tr>';
+					row = row.concat('\n<th scope="row" class="text-center align-middle">'+data[i]['cod_usuario']+'</th>');
+					row = row.concat('\n<td class="text-left align-middle">'+data[i]['eac']+'</td>');
+
+					for (var c = 0; c <  data[0]['cant_campanias']; c++) {
+					    row = row.concat('\n<td class="text-center align-middle">');
+
+					    if(data[i][('tiene_grabaciones_'+c)] == "1" && data[i][('se_gestiona_'+c)] == "1")
+							{	
+					        row = row.concat('\n<a href="AgregarEvaluacion/?idEAC='+data[i]['cod_usuario']+'&idCamp='+data[i][('id_camp_'+c)]+'&codCamp='+data[i][('cod_camp_'+c)]+'&idUsuResp='+data[i]['id_usuario_responsable']+'" class="badge badge-pill ');
+
+					        if(data[i][('cant_evaluaciones_'+c)] == "0")
+					        {
+					          row = row.concat('badge-danger">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]); 
+					        }else
+					        {
+					          if(parseInt(data[i][('cant_evaluaciones_'+c)]) > 0 && parseInt(data[i][('cant_evaluaciones_'+c)]) < parseInt(data[i][('total_gestionar_'+c)]))
+					          {
+					             row = row.concat('badge-warning">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+					          }else{
+					            row = row.concat('badge-success">'+data[i][('cant_evaluaciones_'+c)]+'   /   '+data[i][('total_gestionar_'+c)]);
+					          }
+					        }
+					        row = row.concat('</a>');
+					    }else
+					    {
+					    	if(data[i][('se_gestiona_'+c)] == "1")
+								{
+									row = row.concat('<i data-feather="phone-off" class="telefono_gestiones"></i>');
+								}
+					    }
+					    row = row.concat('\n</td>');
+					}
+
+					row = row.concat('\n</tr>');
+					$("#tbodyEvaluaciones").append(row);
+				}
+        	}else
+			{
+				$("#dvTResponsive").empty();
+			}
+          
           feather.replace()
         }
       }
@@ -548,7 +665,7 @@ $('#eacs').on('change',function(e){
     success: function(data) {
 	    if (data)
 	    {
-	    	var url = 'http://calidad.gsbpo.cl/grabaciones/';
+	    	var url = 'http://calidad.gsbpo.cl/grabaciones/MONITOREO/';
 	    	url = url.concat(data["pauta"][0]['g_nombre']);
 	    	$(document.getElementById('puntaje')).text(data["pauta"][0]['puntuacion'] + " %");
 	    	$(document.getElementById('empresa')).text(data["pauta"][0]['empresa']);

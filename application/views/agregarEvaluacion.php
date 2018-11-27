@@ -4,7 +4,7 @@
 	//var_dump($ruta);
 	//var_dump($pauta);
 	//var_dump(isset($grabacion));
-	$ruta = 'http://calidad.gsbpo.cl/grabaciones/';
+	$ruta = 'http://calidad.gsbpo.cl/grabaciones/MONITOREO/';
 	if(!$id_usuario){
 	  redirect('Login');
 	}
@@ -83,8 +83,8 @@
 									<tbody>
 										<tr>
 											<td>Agente</td>
-											<td>
-												<?php if(isset($u_nombres)) { echo $u_nombres; } ?> <?php if(isset($u_apellidos)) { echo $u_apellidos; } ?>
+											<td id="idUsuResp" data-idUsuResp="<?php if(isset($idUsuResp)) { echo $idUsuResp; } ?>">
+												<?php if(isset($u_nombres_resp)) { echo $u_nombres_resp; } if(isset($u_apellidos_resp)) { echo $u_apellidos_resp; } ?>
 											</td>
 										</tr>
 										<tr>
@@ -109,6 +109,14 @@
 							<div class="row">
 								<table class="table table-sm table-bordered">
 									<tbody>
+										<tr>
+											<td>Id EAC</td>
+											<td><?php echo $pauta[0]['u_cod_usuario']; ?></td>
+										</tr>
+										<tr>
+											<td>Rut EAC</td>
+											<td><?php echo $pauta[0]['u_rut']; ?></td>
+										</tr>
 										<tr>
 											<td>EAC</td>
 											<td><?php echo $pauta[0]['nombre_eac']; ?></td>

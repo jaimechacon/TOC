@@ -85,5 +85,10 @@ class Campania_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function listarCampaniasUsuariosEquipos($idUsuario, $idUsuarioAnalista, $idCampania, $idEquipo)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`listarCampaniasUsuariosEquipos`(".$idUsuario.", ".$idUsuarioAnalista.", ".$idCampania.", ".$idEquipo.");");
+		return $query->result_array();
+	}
 
 }

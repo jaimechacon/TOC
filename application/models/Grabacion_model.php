@@ -22,7 +22,7 @@ class Grabacion_model extends CI_Model
 			where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
 			and vg.user_neotel is not null
 			and vg.user_neotel = ".$id_usuario."
-			and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
+			and clg.Campania not in ('SE CORTA LLAMADO','CONSULTA PORTA')
 			group by clg.Idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa;";
         }else
         {
@@ -34,7 +34,8 @@ class Grabacion_model extends CI_Model
 			and vg.user_neotel = ".$id_usuario."
 			and vg.tipo = ".$cod_campania."
 			and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
-			group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa;";
+			group by vg.idllamada, vg.user_neotel, clg.FechaCarga, clg.Cola, clg.Inicio, clg.Conexion, clg.Fin, clg.Grabacion, clg.hora_llamada, clg.tramo_horario, clg.DuracionSegundo, clg.DuracionMinutos, clg.tmo, clg.asa
+			order by clg.FechaCarga desc;";
         }
 		$query = $this->db_b->query($sql);
 		return $query->result_array();

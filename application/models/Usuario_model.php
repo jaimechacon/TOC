@@ -82,4 +82,16 @@ class Usuario_model extends CI_Model
 
 		return $query->result_array();
 	}
+
+	public function obtenerUsuariosAnalista($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerUsuariosAnalista`(".$idUsuario.");");
+		return $query->result_array();
+	}
+
+	public function obtenerUsuariosEvaluadores($idUsuario)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerUsuariosEvaluadores`(".$idUsuario.");");
+		return $query->result_array();
+	}
 }	

@@ -309,7 +309,6 @@
       if($("#inputIdCampania").val())
         idCampania = $('#inputIdCampania').val();
 
-
       jQuery.ajax({
       type: "POST",
       url: baseurl,
@@ -361,6 +360,175 @@
 
   $('#modalMensajeCampania').on('hidden.bs.modal', function (e) {
     
+  });
+
+  $('#selectAnalistas').on('change',function(e){
+      analista = null;
+      campania = null;
+      equipo = null;
+
+      if($('#selectAnalistas').val().length > 0 && $('#selectAnalistas').val() != -1)
+         analista = $('#selectAnalistas').val(); 
+
+      if($('#selectCampanias').val().length > 0 && $('#selectCampanias').val() != -1)
+        campania = $('#selectCampanias').val();
+
+      //if($('#selectEquipos').val().length > 0 && $('#selectEquipos').val() != -1)
+        //equipo = $('#selectEquipos').val();
+
+      listarUsuCampEqui(analista, campania, equipo);
+  });
+
+  $('#selectCampanias').on('change',function(e){
+    analista = null;
+    campania = null;
+    equipo = null;
+
+    if($('#selectAnalistas').val().length > 0 && $('#selectAnalistas').val() != -1)
+       analista = $('#selectAnalistas').val(); 
+
+    if($('#selectCampanias').val().length > 0 && $('#selectCampanias').val() != -1)
+      campania = $('#selectCampanias').val();
+
+    //if($('#selectEquipos').val().length > 0 && $('#selectEquipos').val() != -1)
+      //equipo = $('#selectEquipos').val();
+
+    listarUsuCampEqui(analista, campania, equipo);
+  });
+
+  /*$('#selectEquipos').on('change',function(e){
+    analista = null;
+    campania = null;
+    equipo = null;
+
+    if($('#selectAnalistas').val().length > 0 && $('#selectAnalistas').val() != -1)
+       analista = $('#selectAnalistas').val(); 
+
+    if($('#selectCampanias').val().length > 0 && $('#selectCampanias').val() != -1)
+      campania = $('#selectCampanias').val();
+
+    if($('#selectEquipos').val().length > 0 && $('#selectEquipos').val() != -1)
+      equipo = $('#selectEquipos').val();
+
+    listarUsuCampEqui(analista, campania, null);
+  });*/
+
+
+  function listarUsuCampEqui(analista, campania, equipo)
+  {
+    var baseurl = window.origin + '/Campania/filtrarUsuCampEqui';
+    jQuery.ajax({
+    type: "POST",
+    url: baseurl,
+    dataType: 'json',
+    data: {analista: analista, campania: campania, equipo: equipo},
+    success: function(data) {
+    if (data)
+    {
+      $("#tbodyUsuCampEqui").empty();
+      for (var i = 0; i < data["usuCampEqui"].length; i++){
+        var row = '<tr>';
+        row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data["usuCampEqui"][i]['id_usuario'],'</th>');
+        row = row.concat('\n<td class="text-center align-middle registro">',data["usuCampEqui"][i]['nombre_completo'],'</td>');
+        row = row.concat('\n<td class="text-center align-middle registro">',data["usuCampEqui"][i]['c_nombre'],'</td>');
+        row = row.concat('\n<td class="text-center align-middle registro">',data["usuCampEqui"][i]['eq_nombre'],'</td>');
+        row = row.concat('\n<td class="text-right align-middle registro">');
+        row = row.concat('\n<a id="view_',data["usuCampEqui"][i]['id_usuario_campania'],'" class="view" href="#" data-id="',data["usuCampEqui"][i]['id_usuario_campania'],'" data-nombreAnalista="',data["usuCampEqui"][i]['nombre_completo'],'" data-nombreCampania="',data["usuCampEqui"][i]['c_nombre'],'" data-nombreEquipo="',data["usuCampEqui"][i]['eq_nombre'],'" data-toggle="modal" data-target="#modalEliminarUsuCampEqui">');
+        row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
+        row = row.concat('\n</a>');
+        row = row.concat('\n</td>')
+        row = row.concat('\n<tr>');
+        $("#tbodyUsuCampEqui").append(row);
+      }
+
+      if(analista != null && campania != null && data["usuCampEqui"].length == 1)
+      {
+        var btnAgregar = document.getElementById('btnAgregar');
+        btnAgregar.classList.remove('btn-success');
+        btnAgregar.classList.add('btn-secondary');
+        btnAgregar.innerText = 'Modificar';
+        btnAgregar.removeAttribute('data-idusucampequi');
+        btnAgregar.removeAttribute('data-idequipo');
+        btnAgregar.setAttribute('data-idusucampequi', data["usuCampEqui"][0]['id_usuario_campania']);
+        btnAgregar.setAttribute('data-idequipo', data["usuCampEqui"][0]['id_equipo']);
+      }else{
+        var btnAgregar = document.getElementById('btnAgregar');
+        btnAgregar.classList.remove('btn-secondary');
+        btnAgregar.classList.add('btn-success');
+        btnAgregar.innerText = 'Agregar';
+        btnAgregar.removeAttribute('data-idusucampequi');
+        btnAgregar.removeAttribute('data-idequipo');
+      }
+
+      feather.replace()
+      $('[data-toggle="tooltip"]').tooltip()
+    }
+    }
+    });
+  }
+
+  $("#btnAgregar").on('click', function(e) {
+    var loader = document.getElementById("loader");
+    loader.removeAttribute('hidden');
+
+    analista = null;
+    campania = null;
+    equipo = null;
+
+    if($('#selectAnalistas').val().length > 0 && $('#selectAnalistas').val() != -1)
+       analista = $('#selectAnalistas').val(); 
+
+    if($('#selectCampanias').val().length > 0 && $('#selectCampanias').val() != -1)
+      campania = $('#selectCampanias').val();
+
+    if($('#selectEquipos').val().length > 0 && $('#selectEquipos').val() != -1)
+      equipo = $('#selectEquipos').val();
+
+    if(analista != null && campania != null)
+      {
+        var btnAgregar = document.getElementById('btnAgregar');
+        var idEquipo = (btnAgregar.getAttribute('data-idequipo').trim() == "" ? null: btnAgregar.getAttribute('data-idequipo').trim());
+        
+        if(equipo == idEquipo)
+        {
+          var usuarioAnalista = $("#selectAnalistas option:selected").text();
+          var mensaje = '';
+          mensaje = mensaje.concat('El Usuario ', usuarioAnalista ,' ya posee la configuraci&oacute;n que desea modificar.');
+          $('#tituloMUCE').empty();
+          $("#parrafoMUCE").empty();
+          $("#tituloMUCE").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
+          $("#parrafoMUCE").append(mensaje);
+          loader.setAttribute('hidden', '');
+          $('#modalMensajeUsuCampEqui').modal({
+            show: true
+          });          
+        }else
+        {
+           loader.setAttribute('hidden', '');
+        }
+      }else{
+        var mensaje = '';
+        if(analista == null)
+        {
+          mensaje = 'Debe seleccionar un Analista para Agregar la configuraci&oacute;n.';
+        }else{
+          if(campania == null)
+          {
+            mensaje = 'Debe seleccionar una Campa&ntilde;a para Agregar la configuraci&oacute;n.';
+          }
+        }
+
+        $('#tituloMUCE').empty();
+        $("#parrafoMUCE").empty();
+        $("#tituloMUCE").append('<i class="plusTituloError mb-2" data-feather="x-circle"></i> Error!!!');
+        $("#parrafoMUCE").append(mensaje);
+        loader.setAttribute('hidden', '');
+        $('#modalMensajeUsuCampEqui').modal({
+          show: true
+        });
+      }
+      feather.replace()
+      $('[data-toggle="tooltip"]').tooltip()
   });
 
 });
