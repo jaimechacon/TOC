@@ -156,7 +156,7 @@
 
 							      		if($evaluacion[('tiene_grabaciones_'.($i))] == "1" && $evaluacion[('se_gestiona_'.($i))] == "1")
 							      		{		      			
-								        	echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'&codCamp='.$evaluacion[('cod_camp_'.$i)].'" data-toggle="tooltip" data-placement="top" title="click para gestionar" class="badge badge-pill ';
+								        	echo '<a href="'.base_url().'Evaluacion/AgregarEvaluacion/?idEAC='.$evaluacion['cod_usuario'].'&idCamp='.$evaluacion[('id_camp_'.$i)].'&codCamp='.$evaluacion[('cod_camp_'.$i)].'&idUsuResp='.$idUsuResp." data-toggle="tooltip" data-placement="top" title="click para gestionar" class="badge badge-pill ';
 
 								        	$total_gestiones = $evaluacion[('total_gestionar_'.($i))];
 								        	$gestiones = $evaluacion[('cant_evaluaciones_'.($i))];
