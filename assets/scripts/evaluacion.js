@@ -98,6 +98,7 @@
 
 	              }
 	              loader.setAttribute('hidden', '');
+	              feather.replace();
 	              $('#modalMensajeEvaluacion').modal({
 	                show: true,
 	                backdrop: 'static',
