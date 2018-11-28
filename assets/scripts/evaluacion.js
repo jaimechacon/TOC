@@ -61,6 +61,7 @@
 				{
 					alert('Debe responder la pregunta ' + numPregunta);
 					loader.setAttribute('hidden', '');
+					$(document.getElementById('btnAgregarEvaluacion')).removeAttr('disabled');
 					return;
 					break;
 				}else{
