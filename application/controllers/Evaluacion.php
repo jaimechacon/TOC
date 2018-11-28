@@ -167,7 +167,7 @@ class Evaluacion extends CI_Controller {
 				if(sizeof($grabaciones) > 0)
 					$usuario['grabacion'] = $grabaciones[0];
 
-				$ruta = base_url().'grabaciones/MONITOREO/';
+				$ruta = base_url().'grabaciones/';
 				$usuario['ruta'] = $ruta;
 				$usuario['idEAC'] = $idEAC;
 			}else{
@@ -418,7 +418,7 @@ class Evaluacion extends CI_Controller {
 			$idAnalista = 'null';
 			$esAnalista = $this->evaluacion_model->esAnalista($usuario["id_usuario"]);
 				
-			$ruta = base_url().'grabaciones/MONITOREO/';
+			$ruta = base_url().'grabaciones/';
 			$usuario['ruta'] = $ruta;
 			//var_dump($esAnalista);
 			//var_dump(isset($esAnalista[0]));
