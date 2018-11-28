@@ -60,6 +60,7 @@
 				if(!respuestaNo.checked && !respuestaSi.checked)
 				{
 					alert('Debe responder la pregunta ' + numPregunta);
+					loader.setAttribute('hidden', '');
 					return;
 					break;
 				}else{
