@@ -34,70 +34,63 @@ class Evaluacion extends CI_Controller {
 		if($usuario){
 			
 			$rango = 2;
-			if($this->input->post('rango'))
+
+			// inicio proceso de copiado a tabla temporal usuarios grabaciones
+			$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();
+			$seEliminanUsuarios = $this->evaluacion_model->truncarUsuariosGrabacion();
+			//var_dump($usuariosGrabaciones);
+			mysqli_next_result($this->db->conn_id);
+			foreach ($usuariosGrabaciones as $usuarioGrabacion) {
+				$usuarios = explode(",", $usuarioGrabacion["users"]);
+				$u_cod_campania = $usuarioGrabacion["tipo"];
+				//var_dump(count($usuarios)); 
+				//var_dump(count($usuarios));
+				for ($i=0; $i < count($usuarios); $i++) {
+					$u_cod_usuario = $usuarios[$i];
+					$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
+					mysqli_next_result($this->db->conn_id);
+				}
+			}
+				
+			// fin proceso de copiado a tabla temporal usuarios grabaciones
+
+			//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
+			
+			$ciclos = $this->evaluacion_model->obtenerCiclos();
+			$usuario['ciclos'] = $ciclos[0];
+
+
+			mysqli_next_result($this->db->conn_id);
+			$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, $ciclos[0]['ciclo_actual'], $usuario["id_usuario"]);
+
+			//var_dump(!isset($evaluaciones['resultado']));
+			
+
+			//var_dump($evaluaciones);
+			if(isset($evaluaciones[0]['resultado']) && $evaluaciones[0]['resultado'] == "1")
 			{
-				$rango = $this->input->post('rango');
-				echo json_encode($this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 3, $usuario["id_usuario"]));
-			}else{	
-
-				// inicio proceso de copiado a tabla temporal usuarios grabaciones
-				$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();		
-				$seEliminanUsuarios = $this->evaluacion_model->truncarUsuariosGrabacion();
-				//var_dump($usuariosGrabaciones);
-				mysqli_next_result($this->db->conn_id);
-				foreach ($usuariosGrabaciones as $usuarioGrabacion) {
-					$usuarios = explode(",", $usuarioGrabacion["users"]);
-					$u_cod_campania = $usuarioGrabacion["tipo"];
-					//var_dump(count($usuarios)); 
-					//var_dump(count($usuarios));
-					for ($i=0; $i < count($usuarios); $i++) {
-						$u_cod_usuario = $usuarios[$i];
-						$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
-						mysqli_next_result($this->db->conn_id);
-					}
-				}
-					
-				// fin proceso de copiado a tabla temporal usuarios grabaciones
-
-				//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
-				
-
-
-
-				//mysqli_next_result($this->db->conn_id);
-				$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, 3, $usuario["id_usuario"]);
-
-				//var_dump(!isset($evaluaciones['resultado']));
-				
-
 				//var_dump($evaluaciones);
-				if(isset($evaluaciones[0]['resultado']) && $evaluaciones[0]['resultado'] == "1")
+				$usuario['evaluaciones'] = $evaluaciones;
+
+				mysqli_next_result($this->db->conn_id);
+				$usuariosAnalistas = $this->usuario_model->obtenerUsuariosEvaluadores($usuario["id_usuario"]);
+				if($usuariosAnalistas)
+					$usuario["usuariosAnalistas"] = $usuariosAnalistas;
+				//var_dump($usuariosAnalistas);
+
+				mysqli_next_result($this->db->conn_id);
+				$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
+				if($empresas)
 				{
-					//var_dump($evaluaciones);
-					$usuario['evaluaciones'] = $evaluaciones;
-
-					mysqli_next_result($this->db->conn_id);
-					$usuariosAnalistas = $this->usuario_model->obtenerUsuariosEvaluadores($usuario["id_usuario"]);
-					if($usuariosAnalistas)
-						$usuario["usuariosAnalistas"] = $usuariosAnalistas;
-					//var_dump($usuariosAnalistas);
-
-					mysqli_next_result($this->db->conn_id);
-					$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
-					if($empresas)
-					{
-						$usuario['empresas'] = $empresas;
-					}
+					$usuario['empresas'] = $empresas;
 				}
-
-				$usuario['controller'] = 'evaluacion';
-				$this->load->view('temp/header');
-				$this->load->view('temp/menu', $usuario);
-				$this->load->view('evaluarUsuarios', $usuario);
-				$this->load->view('temp/footer', $usuario);
 			}
 
-			
+			$usuario['controller'] = 'evaluacion';
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu', $usuario);
+			$this->load->view('evaluarUsuarios', $usuario);
+			$this->load->view('temp/footer', $usuario);			
 		}else
 		{
 			$data['message'] = 'Verifique su email y contrase&ntilde;a.';

@@ -141,4 +141,10 @@ group by e.id_evaluacion, e.id_usuario, e.id_usuario_responsable, e.ev_fecha, us
 		return $query->result_array();
 	}
 
+	public function obtenerCiclos()
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerCiclos`();");
+		return $query->result_array();
+	}
+
 }	

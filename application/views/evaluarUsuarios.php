@@ -3,6 +3,8 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
+	//var_dump($ciclos['cant_ciclos']);
+	//var_dump($ciclos['ciclo_actual']);
 ?>
 
 <div class="row">
@@ -24,7 +26,7 @@
 						<span class="">Gestionar</span>
 					</div>
 					<div class="col-sm-6">
-						<select id="gestion" class="custom-select custom-select-sm disabled">
+						<select id="gestion" class="custom-select custom-select-sm" disabled>
 						    <option value="1">EAC</option>
 						    <option value="2">CICLO</option>
 						    <option value="3">FASE</option>
@@ -81,10 +83,7 @@
 							<?php 
 							if($usuariosAnalistas)
 							{
-								//var_dump($usuariosAnalistas);
 								foreach ($usuariosAnalistas as $analista) {
-
-
 									if(isset($id_usuario) && (int)$analista['id_usuario'] == $id_usuario)
 									{
 										echo '<option value="'.$analista['id_usuario'].'" selected>'.$analista['nombre_completo'].'</option>';
@@ -92,8 +91,6 @@
 									{
 										echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
 									}
-
-									//echo '<option value="'.$analista['id_usuario'].'">'.$analista['nombre_completo'].'</option>';
 								}
 							}
 							?>
@@ -101,7 +98,9 @@
 					</div>
 				</div>
 			</div>
-	<?php } ?>
+	<?php }else{
+		echo '<div class="col-sm-4"></div>';
+	} ?>
 			<div class="col-sm-4">
 				<div class="row">
 					<div class="col-sm-4">
@@ -109,10 +108,20 @@
 					</div>
 					<div class="col-sm-6">
 						<select id="selectCantCiclos" class="custom-select custom-select-sm">
-						    <option value="1">1</option>
-						    <option value="2">2</option>
-						    <option value="3">3</option>
-						    <option value="4">4</option>
+							<?php 
+							if(isset($ciclos) && isset($ciclos['ciclo_actual']))
+							{
+								for ($i=1; $i <= $ciclos['cant_ciclos']; $i++) { 
+									if((int)$ciclos['ciclo_actual'] == $i)
+									{
+										echo '<option value="'.$i.'" selected>'.$i.'</option>';
+									}else
+									{
+										echo '<option value="'.$i.'">'.$i.'</option>';
+									}
+								}
+							}
+							?>
 						</select>
 					</div>
 				</div>
