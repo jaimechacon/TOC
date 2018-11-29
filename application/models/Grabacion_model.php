@@ -54,7 +54,7 @@ and vg.user_neotel is not null
 and clg.Campania not in ('SE CORTA LLAMADO','CONSULTA PORTA')
 group by vg.user_neotel) as hola
 union
-select gts.nombre, group_concat(users) as users
+select gts.nombre as tipo, group_concat(users) as users
 from (
 select tv.nombre, vg.user_neotel as users
 from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
