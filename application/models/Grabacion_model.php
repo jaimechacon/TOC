@@ -54,17 +54,14 @@ and vg.user_neotel is not null
 and clg.Campania not in ('SE CORTA LLAMADO','CONSULTA PORTA')
 group by vg.user_neotel) as hola
 union
-select gts.nombre as tipo, group_concat(users) as users
-from (
-select tv.nombre, vg.user_neotel as users
+select vg.tipo, group_concat(vg.user_neotel) as users
 from clg_ventasgt vg inner join clg_traficollamada clg on vg.idllamada = clg.idllamada
 inner join clg_tipoventa tv on vg.tipo = tv.id
 where (TIMESTAMPDIFF(DAY, vg.fechaactualiza, now())) <= 15
 and vg.user_neotel is not null
 and vg.Estado = 6
 and clg.Campania not in ('PRECHEQUEO','SE CORTA LLAMADO','CONSULTA PORTA')
-group by vg.tipo, vg.user_neotel) as gts
-group by gts.nombre;";
+group by vg.tipo;";
 		$query = $this->db_b->query($sql);
 		return $query->result_array();
 	}
