@@ -46,6 +46,9 @@ class Evaluacion extends CI_Controller {
 				$usuariosEAC = explode(",", $usuariosGrabaciones[$e]["users"]);
 				$u_cod_campania = $usuariosGrabaciones[$e]["tipo"];
 
+				var_dump($u_cod_campania);
+				var_dump($usuariosEAC);
+
 				for ($i=0; $i < count($usuariosEAC); $i++) {
 
 					$u_cod_usuario = $usuariosEAC[$i];
@@ -112,12 +115,12 @@ class Evaluacion extends CI_Controller {
 		$usuario = $this->session->userdata();
 		$usuario['controller'] = 'evaluacion';
 
-		$config['hostname'] = '192.168.158.5';
+		/*$config['hostname'] = '192.168.158.5';
 		$config['username'] = 'client1';
 		$config['password'] = 'neopass';
 		$config['debug']    = TRUE;
 		$config['port']     = 21;
-		$config['passive']  = FALSE;
+		$config['passive']  = FALSE;*/
 
 		//mysqli_next_result($this->db->conn_id);
 		//$resultado = $this->ftp->connect($config);

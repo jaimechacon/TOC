@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	http://calidad.gsbpo.cl/'
 
 */
-$config['base_url'] = 'https://calidad.gsbpo.cl/';
+$config['base_url'] = 'http://calidad.gsbpo.cl/';
 
 /*
 |--------------------------------------------------------------------------
@@ -526,7 +526,8 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+/*
 $config['hostname'] = '192.168.158.5';
 $config['username'] = 'client1';
 $config['password'] = 'neopass';
-$config['debug'] = TRUE;
+$config['debug'] = TRUE;*/
