@@ -46,8 +46,8 @@ class Evaluacion extends CI_Controller {
 				$usuariosEAC = explode(",", $usuariosGrabaciones[$e]["users"]);
 				$u_cod_campania = $usuariosGrabaciones[$e]["tipo"];
 
-				var_dump($u_cod_campania);
-				var_dump($usuariosEAC);
+				//var_dump($u_cod_campania);
+				//var_dump($usuariosEAC);
 
 				for ($i=0; $i < count($usuariosEAC); $i++) {
 
