@@ -32,26 +32,27 @@ class Evaluacion extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();		
 		if($usuario){
-			
 			$rango = 2;
 
 			// inicio proceso de copiado a tabla temporal usuarios grabaciones
 			$usuariosGrabaciones = $this->grabacion_model->obtenerUsuariosGrabacion();
 			$seEliminanUsuarios = $this->evaluacion_model->truncarUsuariosGrabacion();
+
 			//var_dump($usuariosGrabaciones);
+
 			mysqli_next_result($this->db->conn_id);
-			foreach ($usuariosGrabaciones as $usuarioGrabacion) {
-				$usuarios = explode(",", $usuarioGrabacion["users"]);
-				$u_cod_campania = $usuarioGrabacion["tipo"];
-				//var_dump(count($usuarios)); 
-				//var_dump(count($usuarios));
-				for ($i=0; $i < count($usuarios); $i++) {
-					$u_cod_usuario = $usuarios[$i];
+
+			for ($e=0; $e < count($usuariosGrabaciones); $e++) {
+				$usuariosEAC = explode(",", $usuariosGrabaciones[$e]["users"]);
+				$u_cod_campania = $usuariosGrabaciones[$e]["tipo"];
+
+				for ($i=0; $i < count($usuariosEAC); $i++) {
+
+					$u_cod_usuario = $usuariosEAC[$i];
 					$seAgregaUsuario = $this->evaluacion_model->agregarUsuarioGrabacion($u_cod_campania, $u_cod_usuario);
 					mysqli_next_result($this->db->conn_id);
 				}
 			}
-				
 			// fin proceso de copiado a tabla temporal usuarios grabaciones
 
 			//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
