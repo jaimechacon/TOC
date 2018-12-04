@@ -57,15 +57,18 @@ class Evaluacion extends CI_Controller {
 				}
 			}
 			// fin proceso de copiado a tabla temporal usuarios grabaciones
-
+			
 			//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
 			
-			$ciclos = $this->evaluacion_model->obtenerCiclos();
+			$ciclos = $this->evaluacion_model->obtenerCiclos("null");
 			$usuario['ciclos'] = $ciclos[0];
 
+			mysqli_next_result($this->db->conn_id);
+			$fases = $this->evaluacion_model->obtenerFases("null");
+			$usuario['fases'] = $fases;
 
 			mysqli_next_result($this->db->conn_id);
-			$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, $ciclos[0]['ciclo_actual'], $usuario["id_usuario"]);
+			$evaluaciones = $this->evaluacion_model->listar_evaluaciones($usuario["id_usuario"], $rango, $ciclos[0]['ciclo_actual'], $usuario["id_usuario"], "null");
 
 			//var_dump(!isset($evaluaciones['resultado']));
 			
@@ -567,6 +570,8 @@ class Evaluacion extends CI_Controller {
 			$rango = "2";
 			$idUsuarioAnalista = $usuario["id_usuario"];
 			$ciclo = "null";
+			$fase = "null";
+
 			if(!is_null($this->input->post('rango')))
 				$rango = $this->input->post('rango');
 
@@ -576,9 +581,26 @@ class Evaluacion extends CI_Controller {
 			if(!is_null($this->input->post('ciclo')))
 				$ciclo = $this->input->post('ciclo');
 
-			$gestiones = $this->evaluacion_model->listar_evaluaciones($idUsuarioAnalista, $rango, $ciclo, $usuario["id_usuario"]);
+			if(!is_null($this->input->post('fase')))
+				$fase = $this->input->post('fase');
+
+			$gestiones = $this->evaluacion_model->listar_evaluaciones($idUsuarioAnalista, $rango, $ciclo, $usuario["id_usuario"], $fase);
 		}
 		echo json_encode($gestiones);
+	}
+
+	public function obtenerCiclos()
+	{
+		$usuario = $this->session->userdata();
+		$ciclos = [];
+		if($usuario)
+		{
+			$fechaFase = "null";
+			if(!is_null($this->input->post('fase')))
+				$fechaFase = $this->input->post('fase');
+			$ciclos = $this->evaluacion_model->obtenerCiclos($fechaFase);
+		}
+		echo json_encode($ciclos[0]);
 	}
 
 

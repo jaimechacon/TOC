@@ -8,9 +8,9 @@ class Evaluacion_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function listar_evaluaciones($id_usuario, $rango, $ciclo , $id_usuarioResponsable)
+	public function listar_evaluaciones($id_usuario, $rango, $ciclo , $id_usuarioResponsable, $fechaFase)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu4`(".$id_usuario.", ".$rango.", ".$ciclo.", ".$id_usuarioResponsable.");");
+		$query = $this->db->query("call `gestion_calidad`.`listarEvaluacionesUsu4`(".$id_usuario.", ".$rango.", ".$ciclo.", ".$id_usuarioResponsable.", ".($fechaFase == "null" ? $fechaFase : ("'".$fechaFase."'")).");");
 		return $query->result_array();
 	}
 
@@ -141,9 +141,15 @@ group by e.id_evaluacion, e.id_usuario, e.id_usuario_responsable, e.ev_fecha, us
 		return $query->result_array();
 	}
 
-	public function obtenerCiclos()
+	public function obtenerCiclos($fechaFase)
 	{
-		$query = $this->db->query("call `gestion_calidad`.`obtenerCiclos`();");
+		$query = $this->db->query("call `gestion_calidad`.`obtenerCiclos`(".($fechaFase == "null" ? $fechaFase : ("'".$fechaFase."'")).");");
+		return $query->result_array();
+	}
+
+	public function obtenerFases($fechaFase)
+	{
+		$query = $this->db->query("call `gestion_calidad`.`obtenerFases`(".($fechaFase == "null" ? $fechaFase : ("'".$fechaFase."'")).");");
 		return $query->result_array();
 	}
 

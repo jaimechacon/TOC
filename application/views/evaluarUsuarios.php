@@ -3,6 +3,7 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
+
 	//var_dump($ciclos['cant_ciclos']);
 	//var_dump($ciclos['ciclo_actual']);
 ?>
@@ -118,6 +119,35 @@
 									}else
 									{
 										echo '<option value="'.$i.'">'.$i.'</option>';
+									}
+								}
+							}
+							?>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-around mb-1">
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-4">
+						<span >Fase</span>
+					</div>
+					<div class="col-sm-6">
+						<select id="selectFase" class="custom-select custom-select-sm">
+							<?php
+							if(isset($fases) && isset($fases[0]['faseActual']))
+							{
+								for ($i=0; $i < count($fases); $i++) { 
+									if($fases[$i]['faseActual'] == $fases[$i]['faseNum'])
+									{
+										echo '<option value="'.$fases[$i]['faseNum'].'" selected>'.ucwords($fases[$i]['faseNombre']).'</option>';
+									}else
+									{
+										echo '<option value="'.$fases[$i]['faseNum'].'">'.ucwords($fases[$i]['faseNombre']).'</option>';
 									}
 								}
 							}
