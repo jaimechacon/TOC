@@ -125,7 +125,7 @@
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
-		dataType: 'json',
+		//dataType: 'json',
 		data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista, ciclo: ciclo, fase: fase },
 		success: function(data) {
         if (data)
@@ -417,7 +417,7 @@
 		jQuery.ajax({
 		type: "POST",
 		url: baseurl,
-		dataType: 'json',
+		//dataType: 'json',
 		data: {rango: idRango, idUsuarioAnalista: idUsuarioAnalista, ciclo: ciclo, fase: fase },
 		success: function(data) {
 		if (data)
@@ -637,9 +637,13 @@
 
 
 $('#analistas').on('change',function(e){
+	var loader = document.getElementById("loader");
+	loader.removeAttribute('hidden');
     analista = null;
     campania = null;
     eac = null;
+    fechaDesde = null;
+    fechaHasta = null;
 
     if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
        analista = $('#analistas').val(); 
@@ -647,8 +651,14 @@ $('#analistas').on('change',function(e){
     if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
    		campania = $('#campanias').val();
 
-	  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+  	if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
    		eac = $('#eacs').val();
+
+   	if($('#fechaDesde').val().length > 0 && $('#fechaDesde').val() != -1)
+   		fechaDesde = $('#fechaDesde').val();
+
+   	if($('#fechaHasta').val().length > 0 && $('#fechaHasta').val() != -1)
+   		fechaHasta = $('#fechaHasta').val();
 
    	if(campania)
    		$(document.getElementById('campanias')).attr('disabled', 'disabled');
@@ -684,13 +694,17 @@ $('#analistas').on('change',function(e){
 		   		else
 		   			document.getElementById('analistas').dataset.num = 1;
 
-    listarEvaluaciones(analista, campania, eac);
+    listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta);
 });
 
 $('#campanias').on('change',function(e){
+    var loader = document.getElementById("loader");
+	loader.removeAttribute('hidden');
     analista = null;
     campania = null;
     eac = null;
+    fechaDesde = null;
+    fechaHasta = null;
 
     if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
        analista = $('#analistas').val();
@@ -699,8 +713,14 @@ $('#campanias').on('change',function(e){
    		campania = $('#campanias').val();
 
 
-  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+    if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
    		eac = $('#eacs').val();
+
+   	if($('#fechaDesde').val().length > 0 && $('#fechaDesde').val() != -1)
+   		fechaDesde = $('#fechaDesde').val();
+
+   	if($('#fechaHasta').val().length > 0 && $('#fechaHasta').val() != -1)
+   		fechaHasta = $('#fechaHasta').val();
 
    	if(analista)
    		$(document.getElementById('analistas')).attr('disabled', 'disabled');
@@ -735,14 +755,18 @@ $('#campanias').on('change',function(e){
 		   		else
 		   			document.getElementById('campanias').dataset.num = 1;
 
-    listarEvaluaciones(analista, campania, eac);
+    listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta);
 });
 
 
 $('#eacs').on('change',function(e){
+	var loader = document.getElementById("loader");
+	loader.removeAttribute('hidden');
     analista = null;
     campania = null;
     eac = null;
+    fechaDesde = null;
+    fechaHasta = null;
 
     if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
        analista = $('#analistas').val(); 
@@ -750,9 +774,14 @@ $('#eacs').on('change',function(e){
     if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
    		campania = $('#campanias').val();       
 
-
-  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+    if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
    		eac = $('#eacs').val();
+
+   	if($('#fechaDesde').val().length > 0 && $('#fechaDesde').val() != -1)
+   		fechaDesde = $('#fechaDesde').val();
+
+   	if($('#fechaHasta').val().length > 0 && $('#fechaHasta').val() != -1)
+   		fechaHasta = $('#fechaHasta').val();
 
    	if(analista)
    		$(document.getElementById('analistas')).attr('disabled', 'disabled');
@@ -787,21 +816,145 @@ $('#eacs').on('change',function(e){
 				else
 		   			document.getElementById('eacs').dataset.num = 1;
 
-    listarEvaluaciones(analista, campania, eac);
+    listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta);
 });
 
-	
-  function listarEvaluaciones(analista, campania, eac)
+$('#fechaDesde').on('change',function(e){
+	var loader = document.getElementById("loader");
+	loader.removeAttribute('hidden');
+    analista = null;
+    campania = null;
+    eac = null;
+    fechaDesde = null;
+    fechaHasta = null;
+
+    if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
+       analista = $('#analistas').val(); 
+
+    if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
+   		campania = $('#campanias').val();
+
+	  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+   		eac = $('#eacs').val();
+
+   	if($('#fechaDesde').val().length > 0 && $('#fechaDesde').val() != -1)
+   		fechaDesde = $('#fechaDesde').val();
+
+   	if($('#fechaHasta').val().length > 0 && $('#fechaHasta').val() != -1)
+   		fechaHasta = $('#fechaHasta').val();
+
+   	if(campania)
+   		$(document.getElementById('campanias')).attr('disabled', 'disabled');
+
+   	if(eac)
+   		$(document.getElementById('eacs')).attr('disabled', 'disabled');
+
+
+   	if (!analista)
+   	{
+   		document.getElementById('analistas').dataset.num = "";
+   		if(document.getElementById('campanias').dataset.num == 2)
+   			$(document.getElementById('campanias')).removeAttr('disabled');
+   		else
+	   		if(document.getElementById('eacs').dataset.num == 2)
+	   			$(document.getElementById('eacs')).removeAttr('disabled');
+	   		else
+	   			if($("#campanias").data('num') == 1)
+		   			$(document.getElementById('campanias')).removeAttr('disabled');
+		   		else
+			   		if(document.getElementById('eacs').dataset.num == 1)
+			   			$(document.getElementById('eacs')).removeAttr('disabled');			   		
+   	}
+	else
+	   	if(campania && eac)
+	   		document.getElementById('analistas').dataset.num = 3;
+	   	else
+	   		if(campania) 
+	   			document.getElementById('analistas').dataset.num = 2;
+	   		else
+	   			if(eac) 
+		   			document.getElementById('analistas').dataset.num = 2;
+		   		else
+		   			document.getElementById('analistas').dataset.num = 1;
+
+    listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta);
+});
+
+
+$('#fechaHasta').on('change',function(e){
+	var loader = document.getElementById("loader");
+	loader.removeAttribute('hidden');
+    analista = null;
+    campania = null;
+    eac = null;
+    fechaDesde = null;
+    fechaHasta = null;
+
+    if($('#analistas').val().length > 0 && $('#analistas').val() != -1)
+       analista = $('#analistas').val(); 
+
+    if($('#campanias').val().length > 0 && $('#campanias').val() != -1)
+   		campania = $('#campanias').val();
+
+	  if($('#eacs').val().length > 0 && $('#eacs').val() != -1)
+   		eac = $('#eacs').val();
+
+   	if($('#fechaDesde').val().length > 0 && $('#fechaDesde').val() != -1)
+   		fechaDesde = $('#fechaDesde').val();
+
+   	if($('#fechaHasta').val().length > 0 && $('#fechaHasta').val() != -1)
+   		fechaHasta = $('#fechaHasta').val();
+
+   	if(campania)
+   		$(document.getElementById('campanias')).attr('disabled', 'disabled');
+
+   	if(eac)
+   		$(document.getElementById('eacs')).attr('disabled', 'disabled');
+
+
+   	if (!analista)
+   	{
+   		document.getElementById('analistas').dataset.num = "";
+   		if(document.getElementById('campanias').dataset.num == 2)
+   			$(document.getElementById('campanias')).removeAttr('disabled');
+   		else
+	   		if(document.getElementById('eacs').dataset.num == 2)
+	   			$(document.getElementById('eacs')).removeAttr('disabled');
+	   		else
+	   			if($("#campanias").data('num') == 1)
+		   			$(document.getElementById('campanias')).removeAttr('disabled');
+		   		else
+			   		if(document.getElementById('eacs').dataset.num == 1)
+			   			$(document.getElementById('eacs')).removeAttr('disabled');			   		
+   	}
+	else
+	   	if(campania && eac)
+	   		document.getElementById('analistas').dataset.num = 3;
+	   	else
+	   		if(campania) 
+	   			document.getElementById('analistas').dataset.num = 2;
+	   		else
+	   			if(eac) 
+		   			document.getElementById('analistas').dataset.num = 2;
+		   		else
+		   			document.getElementById('analistas').dataset.num = 1;
+
+    listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta);
+});
+
+  function listarEvaluaciones(analista, campania, eac, fechaDesde, fechaHasta)
   {
     var baseurl = window.origin + '/Evaluacion/filtrarEvaluaciones';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
     dataType: 'json',
-    data: {analista: analista, campania: campania, eac: eac},
+    data: {analista: analista, campania: campania, eac: eac, fechaDesde: fechaDesde, fechaHasta: fechaHasta },
     success: function(data) {
     if (data)
     {
+    	var loader = document.getElementById("loader");
+    	loader.setAttribute('hidden', '');
     	if(!analista)
     	{
     		$(document.getElementById("analistas").options).remove();
@@ -867,6 +1020,8 @@ $('#eacs').on('change',function(e){
       feather.replace()
       $('[data-toggle="tooltip"]').tooltip()
     }
+    var loader = document.getElementById("loader");
+    	loader.setAttribute('hidden', '');
     }
     });
   }

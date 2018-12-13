@@ -57,7 +57,6 @@ class Evaluacion extends CI_Controller {
 				}
 			}
 			// fin proceso de copiado a tabla temporal usuarios grabaciones
-			
 			//$cantCampanias = $this->campania_model->listarCampaniasUsu($usuario["id_usuario"]);
 			
 			$ciclos = $this->evaluacion_model->obtenerCiclos("null");
@@ -456,7 +455,7 @@ class Evaluacion extends CI_Controller {
 			$usuario['eacs'] = $eacs;
 			//var_dump($this->evaluacion_model->obtenerUsuariosEACEvaluaciones('null', 'null', 'null'));
 			mysqli_next_result($this->db->conn_id);
-			$evaluaciones = $this->listaEvaluacionesFiltros($idAnalista, $idCampania, $idEAC);
+			$evaluaciones = $this->listaEvaluacionesFiltros($idAnalista, $idCampania, $idEAC, "null", "null");
 			$usuario['evaluaciones'] = $evaluaciones;
 
 			$this->load->view('temp/header');
@@ -471,7 +470,7 @@ class Evaluacion extends CI_Controller {
 	}
 
 
-	public function listaEvaluacionesFiltros($analistaFiltro, $campaniaFiltro, $eacFiltro)
+	public function listaEvaluacionesFiltros($analistaFiltro, $campaniaFiltro, $eacFiltro, $fechaDesdeIn, $fechaHastaIn)
 	{
 		$usuario = $this->session->userdata();
 		$evaluaciones = [];
@@ -480,6 +479,9 @@ class Evaluacion extends CI_Controller {
 			$analista = "null";
 			$campania = "null";
 			$eac = "null";
+			$fechaDesde = "null";
+			$fechaHasta = "null";
+
 			if(!is_null($analistaFiltro) && $analistaFiltro != "" && $analistaFiltro != -1)
 				$analista = $analistaFiltro;
 
@@ -489,7 +491,16 @@ class Evaluacion extends CI_Controller {
 			if(!is_null($eacFiltro) && $eacFiltro != "" && $eacFiltro != -1)
 				$eac = $eacFiltro;
 
-			$evaluaciones = $this->evaluacion_model->listaEvaluaciones($analista, $campania, $eac);
+			if(!is_null($eacFiltro) && $eacFiltro != "" && $eacFiltro != -1)
+				$eac = $eacFiltro;
+
+			if(!is_null($fechaDesdeIn) && $fechaDesdeIn != "" && $fechaDesdeIn != -1)
+				$fechaDesde = $fechaDesdeIn;
+
+			if(!is_null($fechaHastaIn) && $fechaHastaIn != "" && $fechaHastaIn != -1)
+				$fechaHasta = $fechaHastaIn;
+
+			$evaluaciones = $this->evaluacion_model->listaEvaluaciones($analista, $campania, $eac, $fechaDesde, $fechaHasta);
 		}
 
 		return $evaluaciones;
@@ -504,6 +515,8 @@ class Evaluacion extends CI_Controller {
 			$analista = "null";
 			$campania = "null";
 			$eac = "null";
+			$fechaDesde = "null";
+			$fechaHasta = "null";
 			if (!is_null($this->input->POST('analista')) && $this->input->POST('analista') != "" && $this->input->POST('analista') != -1)
 				$analista = $this->input->POST('analista');
 
@@ -512,11 +525,17 @@ class Evaluacion extends CI_Controller {
 
 			if(!is_null($this->input->POST('eac')) && $this->input->POST('eac') != "" && $this->input->POST('eac') != -1)
 				$eac = $this->input->POST('eac');
-			
+
+			if(!is_null($this->input->POST('fechaDesde')) && $this->input->POST('fechaDesde') != "" && $this->input->POST('fechaDesde') != -1)
+				$fechaDesde = $this->input->POST('fechaDesde');
+
+			if(!is_null($this->input->POST('fechaHasta')) && $this->input->POST('fechaHasta') != "" && $this->input->POST('fechaHasta') != -1)
+				$fechaHasta = $this->input->POST('fechaHasta');
+
 			$datos[] = array();
 			unset($datos);
-			$evaluaciones = $this->listaEvaluacionesFiltros($analista, $campania, $eac);
-			//mysqli_next_result($this->db->conn_id);
+			$evaluaciones = $this->listaEvaluacionesFiltros($analista, $campania, $eac, $fechaDesde, $fechaHasta);
+			mysqli_next_result($this->db->conn_id);
 			$analistas = $this->evaluacion_model->obtenerUsuariosRespEvaluaciones($analista, $campania, $eac);
 			mysqli_next_result($this->db->conn_id);
 			$campanias = $this->evaluacion_model->obtenerCampaniasEvaluaciones($analista, $campania, $eac);

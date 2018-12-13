@@ -14,7 +14,7 @@
 						<span>Analista</span>
 					</div>
 					<div class="col-sm-8">
-						<select id="analistas" class="custom-select custom-select-sm selectFiltros"
+						<select id="analistas" class="form-control form-control-sm selectFiltros"
 							<?php echo (isset($esAnalista) && $esAnalista == "1" ? ' disabled': ''); ?>>
 						    <option value="-1">Seleccione una Analista</option>
 							<?php
@@ -43,7 +43,7 @@
 						<span class="">Campa&ntilde;a</span>
 					</div>
 					<div class="col-sm-6">
-						<select id="campanias" class="custom-select custom-select-sm selectFiltros" <?php echo (isset($id_campania) && $id_campania != "null" ? 'data-num="1" disabled': ''); ?>>
+						<select id="campanias" class=" form-control  form-control-sm selectFiltros" <?php echo (isset($id_campania) && $id_campania != "null" ? 'data-num="1" disabled': ''); ?>>
 						    <option value="-1">Seleccione una Campa&ntilde;a</option>
 							<?php
 							if($campanias)
@@ -69,7 +69,7 @@
 						<span >EAC</span>
 					</div>
 					<div class="col-sm-6">
-						<select id="eacs" class="custom-select custom-select-sm selectFiltros" <?php echo (isset($id_eac) && $id_eac != "null" ? 'data-num="2"': ''); ?>>
+						<select id="eacs" class=" form-control  form-control-sm selectFiltros" <?php echo (isset($id_eac) && $id_eac != "null" ? 'data-num="2"': ''); ?>>
 							<option value="-1">Seleccione un EAC</option>
 							<?php
 							if($eacs)
@@ -87,6 +87,30 @@
 							?>
 							?>
 						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-1 text-center">
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-4">
+						<span>Fecha Desde</span>
+					</div>
+					<div class="col-sm-6">
+						<input id="fechaDesde" type="date" class="form-control  form-control-sm selectFiltros" id="inputFechaInicio" name="inputFechaInicio" placeholder="Ingrese Fecha Inicio de Campa&ntilde;a" value="<?php if(isset($evaluaciones[0]["fecha_desde"])): echo $evaluaciones[0]["fecha_desde"]; endif; ?>">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-4">
+						<span >Fecha Hasta</span>
+					</div>
+					<div class="col-sm-6">
+						<input id="fechaHasta" type="date" class="form-control  form-control-sm selectFiltros" id="inputFechaInicio" name="inputFechaInicio" placeholder="Ingrese Fecha Inicio de Campa&ntilde;a" value="<?php if(isset($evaluaciones[0]["fecha_hasta"])): echo $evaluaciones[0]["fecha_hasta"]; endif; ?>">
 					</div>
 				</div>
 			</div>
@@ -258,3 +282,4 @@
 	  </div>
 	</div>
 </div>
+<div id="loader" class="loader" hidden></div>
