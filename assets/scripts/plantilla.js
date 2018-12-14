@@ -578,6 +578,8 @@
 
   */
   $('#categorias').on('click', '.eliminarPregunta', function(e) {//$('.eliminarPregunta').on('click', function(e){
+    var tooltip = $('.tooltip.fade.show')
+    $(tooltip).removeClass('show');
     idpregunta = $(e.currentTarget).data('idpregunta');
     idcategoria = $(e.currentTarget).data('idcategoria');
     var preguntas = [];
