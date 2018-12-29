@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	https://calidad.gsbpo.cl/'
 
 */
-$config['base_url'] = 'https://calidad.gsbpo.cl/';
+$config['base_url'] = 'http://localhost/minsal/';
 
 /*
 |--------------------------------------------------------------------------

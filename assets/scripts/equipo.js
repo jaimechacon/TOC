@@ -66,7 +66,7 @@
   $('#eliminarEquipo').click(function(e){
     idEquipo = $('#tituloEE').data('idequipo');
     //var nombreEquipo = $('#tituloEE').data('nombreequipo');
-    var baseurl = window.origin + '/Equipo/eliminarEquipo';
+    var baseurl = window.origin + '/gestion_calidad/Equipo/eliminarEquipo';
 
     jQuery.ajax({
     type: "POST",
@@ -115,7 +115,7 @@
 
   function listarEquipos(filtro)
   {
-    var baseurl = window.origin + '/Equipo/buscarEquipo';
+    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEquipo';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -159,7 +159,7 @@
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-    var baseurl = window.origin + '/Equipo/buscarEAC';   
+    var baseurl = window.origin + '/gestion_calidad/Equipo/buscarEAC';   
 
     jQuery.ajax({
     type: "POST",
@@ -282,7 +282,7 @@
         else
           eacsEquipo = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-      var baseurl = (window.origin + '/Equipo/guardarEquipo');
+      var baseurl = (window.origin + '/gestion_calidad/Equipo/guardarEquipo');
       var nombreEquipo = $('#inputNombre').val();
       var abreviacionEquipo = $('#inputAbreviacion').val();
       var observacionesEquipo = $('#inputObservaciones').val();

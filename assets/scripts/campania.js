@@ -74,7 +74,7 @@
   $('#eliminarCampania').click(function(e){
     idCampania = $('#tituloEC').data('idcampania');
     //var nombreCampania = $('#tituloEC').data('nombrecampania');
-    var baseurl = window.origin + '/Campania/eliminarCampania';
+    var baseurl = window.origin + '/gestion_calidad/Campania/eliminarCampania';
 
     jQuery.ajax({
     type: "POST",
@@ -123,7 +123,7 @@
 
   function listarCampanias(filtro)
   {
-    var baseurl = window.origin + '/Campania/buscarCampania';
+    var baseurl = window.origin + '/gestion_calidad/Campania/buscarCampania';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -169,7 +169,7 @@
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-    var baseurl = window.origin + '/Campania/buscarEAC';   
+    var baseurl = window.origin + '/gestion_calidad/Campania/buscarEAC';   
 
     jQuery.ajax({
     type: "POST",
@@ -286,7 +286,7 @@
     {
       event.preventDefault();
     
-      var baseurl = (window.origin + '/Campania/guardarCampania');
+      var baseurl = (window.origin + '/gestion_calidad/Campania/guardarCampania');
       var nombreCampania = $('#inputNombre').val();
       var tituloCampania = $('#inputTitulo').val();
       var fechaInicio = $('#inputFechaInicio').val();
@@ -416,7 +416,7 @@
 
   function listarUsuCampEqui(analista, campania, equipo)
   {
-    var baseurl = window.origin + '/Campania/filtrarUsuCampEqui';
+    var baseurl = window.origin + '/gestion_calidad/Campania/filtrarUsuCampEqui';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
