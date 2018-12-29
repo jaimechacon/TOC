@@ -9,7 +9,7 @@
 	    cuenta = $("#cuenta").val();
 	    item = $("#item").val();
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
+	    var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -28,7 +28,7 @@
       	}
     	});
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumen';
+	    var baseurl = window.origin + '/Reporte/listarReporteResumen';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -67,7 +67,7 @@
 			    cuenta = $("#cuenta").val();
 			    item = $("#item").val();
 
-		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGasto';
+		    	var baseurl = window.origin + '/Reporte/listarReporteResumenGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -122,7 +122,7 @@
 	    cuenta = $("#cuenta").val();
 	    item = $("#item").val();
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
+	    var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -141,7 +141,7 @@
       	}
     	});
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumen';
+	    var baseurl = window.origin + '/Reporte/listarReporteResumen';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -180,7 +180,7 @@
 			    cuenta = $("#cuenta").val();
 			    item = $("#item").val();
 
-		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGasto';
+		    	var baseurl = window.origin + '/Reporte/listarReporteResumenGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -235,7 +235,7 @@
 	    cuenta = $("#cuenta").val();
 	    item = $("#item").val();
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
+	    var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -254,7 +254,7 @@
       	}
     	});
 
-	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumen';
+	    var baseurl = window.origin + '/Reporte/listarReporteResumen';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -293,7 +293,7 @@
 			    cuenta = $("#cuenta").val();
 			    item = $("#item").val();
 
-		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGasto';
+		    	var baseurl = window.origin + '/Reporte/listarReporteResumenGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
