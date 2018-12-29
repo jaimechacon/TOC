@@ -10,7 +10,7 @@ class Hospital_model extends CI_Model
 
 	public function listarHospitalesUsu($id_usuario, $id_institucion)
 	{
-		$query = $this->db->query('CALL `institucion_minsal`.`listarHospitalesUsu`('.$id_usuario.', '.$id_institucion.');');
+		$query = $this->db->query('CALL `institucionminsal`.`listarHospitalesUsu`('.$id_usuario.', '.$id_institucion.');');
 		return $query->result_array();
 	}
 

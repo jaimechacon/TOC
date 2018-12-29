@@ -10,7 +10,7 @@ class Institucion_model extends CI_Model
 
 	public function listarInstitucionesUsu($id_usuario)
 	{
-		$query = $this->db->query('CALL `institucion_minsal`.`listarInstitucionesUsu`('.$id_usuario.');');
+		$query = $this->db->query('CALL `institucionminsal`.`listarInstitucionesUsu`('.$id_usuario.');');
 		return $query->result_array();
 	}
 

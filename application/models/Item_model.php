@@ -10,7 +10,7 @@ class Item_model extends CI_Model
 
 	public function listarItemsUsu($id_usuario, $id_cuenta)
 	{
-		$query = $this->db->query('CALL `institucion_minsal`.`listarItemsUsu`('.$id_usuario.', '.$id_cuenta.');');
+		$query = $this->db->query('CALL `institucionminsal`.`listarItemsUsu`('.$id_usuario.', '.$id_cuenta.');');
 		return $query->result_array();
 	}
 
