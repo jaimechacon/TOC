@@ -18,12 +18,12 @@
 		success: function(data) {
 	        if (data)
 	        {			
-				$("#hospitales").empty();
+				$("#hospital").empty();
 				var row = '<option value="-1">Seleccione un Hospital</option>';
 				for (var i = 0; i < data.length; i++) {
 					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
 				}
-				$("#hospitales").append(row);
+				$("#hospital").append(row);
 	        }
       	}
     	});
