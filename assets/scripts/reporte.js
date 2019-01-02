@@ -19,7 +19,7 @@
 	        if (data)
 	        {			
 				$("#hospital").empty();
-				var row = '<option value="-1">Seleccione un Hospital</option>';
+				var row = '<option value="-1">Todos</option>';
 				for (var i = 0; i < data.length; i++) {
 					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
 				}
@@ -132,7 +132,7 @@
 	        if (data)
 	        {			
 				$("#hospitales").empty();
-				var row = '<option value="-1">Seleccione un Hospital</option>';
+				var row = '<option value="-1">Todos</option>';
 				for (var i = 0; i < data.length; i++) {
 					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
 				}
