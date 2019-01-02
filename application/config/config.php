@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	https://calidad.gsbpo.cl/'
 
 */
-$config['base_url'] = 'https://www.divpre.info';
+$config['base_url'] = 'http://www.divpre.info';
 
 /*
 |--------------------------------------------------------------------------
