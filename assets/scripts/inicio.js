@@ -1,5 +1,5 @@
 window.onload = function () {
-  var baseurl = window.origin + '/minsal/Inicio/listarPromedioEvaluacionesCampanias';
+  var baseurl = window.origin + '/Inicio/listarPromedioEvaluacionesCampanias';
   var campaniasData = {};
   campaniasOptions = {};
   var dataPoints = [];
