@@ -90,7 +90,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'institucionminsal.cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
+	'hostname' => 'institucionminsal-cluster.cluster-cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
 	'username' => 'psandoval',
 	'password' => 'black.Hole2019$$',
 	'database' => 'institucionminsal',
