@@ -103,12 +103,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7 pt-3 pb-3">
+			<div class="col-sm-12 pt-3 pb-3">
 				<div class="card">
 					<div class="card-header">
 						I. Equilibrio Financiero (Vista en M$)
 					</div>
 				</div>
+			</div>
+			<div class="col-sm-7 pt-3 pb-3">
 				<div id="tablaReporteResumen" class="row">
 					<div class="col-sm-12">
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
@@ -125,7 +127,7 @@
 							<tbody id="tbodyReporteResumen">
 
 								<?php	
-								if(isset($reporteResumenes) && isset($reporteResumenes["resultado"]))
+								if(isset($reporteResumenes) && !isset($reporteResumenes["resultado"]))
 								{								
 									foreach ($reporteResumenes as $reporteResumen) {
 										if($reporteResumen['nombre'] == "Total" )
@@ -169,27 +171,27 @@
 							<tbody id="tbodyReporteResumenGasto">
 
 								<?php
-									if(isset($reporteResumenesGastos) && isset($reporteResumenesGastos["resultado"]))
+									if(isset($reporteResumenesGastos) && !isset($reporteResumenesGastos["resultado"]))
 									{
 										foreach ($reporteResumenesGastos as $reporteResumenGasto) {
-											if($reporteResumen['nombre'] == "Total" )
+											if($reporteResumenGasto['nombre'] == "Total" )
 										{
 											echo '<tr>
-													<th class="registro">'.$reporteResumenGasto['nombre'].'</th>
-													<th class="text-center">'.'----'.'</th>
-													<th class="text-right">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</th>
-													<th class="text-center">'.'----'.'</th>
-													<th class="text-right">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</th>
-													<th class="text-center">'.$reporteResumenGasto['var_18_17'].'%</th>
+													<th class=""><p class="texto-pequenio">'.$reporteResumenGasto['nombre'].'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></th>
 													</tr>';
 											}else{
 												echo '<tr>
-													<td class="">'.$reporteResumenGasto['codigo']." ".$reporteResumenGasto['nombre'].'</td>
-													<td class="text-center">'.'----'.'</td>
-													<td class="text-right">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</td>
-													<td class="text-center">'.'----'.'</td>
-													<td class="text-right">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</td>
-													<td class="text-center">'.$reporteResumenGasto['var_18_17'].'%</td>
+													<td class=""><p class="texto-pequenio">'.$reporteResumenGasto['codigo']." ".$reporteResumenGasto['nombre'].'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></td>
 													</tr>';
 											}
 										}
