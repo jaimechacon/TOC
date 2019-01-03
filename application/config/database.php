@@ -72,10 +72,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-'instanciamysql.cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
+	'hostname' => 'institucionminsal-cluster.cluster-cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
 	'username' => 'psandoval',
-	'password' => 'black.Hole2018$$',
-	'database' => 'gestion_calidad',
+	'password' => 'black.Hole2019$$',
+	'database' => 'institucionminsal',
 
 
     'hostname' => '20.0.1.58',

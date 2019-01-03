@@ -103,7 +103,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7 pt-3 pb-3">				
+			<div class="col-sm-7 pt-3 pb-3">
 				<div class="card">
 					<div class="card-header">
 						I. Equilibrio Financiero (Vista en M$)
@@ -199,6 +199,87 @@
 						</table>
 					</div>
 				</div>				
+			</div>
+			<div class="col-sm-5 pt-3 pb-3">
+				<div id="tablaReporteResumenTipo" class="row">
+					<div class="col-sm-12">
+						<table id="tReporteResumenTipo" class="table table-sm table-hover table-bordered">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center texto-pequenio" scope="col">Transferencias</th>
+									<th class="text-center texto-pequenio" scope="col">Presupuesto</th>
+									<th class="text-center texto-pequenio" scope="col">Recaudado</th>
+									<th class="text-center texto-pequenio" scope="col">%</th>
+									<th class="text-center texto-pequenio" scope="col">Duodec</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyReporteResumenTipo">								
+								<?php
+								if(isset($reporteResumenesTipo))
+								{								
+									foreach ($reporteResumenesTipo as $reporteResumenTipo) {
+										if($reporteResumenTipo['nombre'] == "Total" )
+										{
+											echo '<tr>
+													<th class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+												 </tr>';
+										}else{
+											echo '<tr>
+													<td class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+												 </tr>';
+										}
+									}
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-12">
+						<table id="tReporteResumenGastoTipo" class="table table-hover table-bordered table-sm">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center texto-pequenio" scope="col">Ingresos Propios</th>
+									<th class="text-center texto-pequenio" scope="col">I. Recaudado</th>
+									<th class="text-center texto-pequenio" scope="col">G. Devevengado</th>
+									<th class="text-center texto-pequenio" scope="col">I. Por Percibir</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyReporteResumenGastoTipo">
+								<?php
+								if(isset($reporteResumenesTipoGasto))
+								{								
+									foreach ($reporteResumenesTipoGasto as $reporteResumenTipoGasto) {
+										if($reporteResumenTipoGasto['nombre'] == "Total" )
+										{
+											echo '<tr>
+													<th class=""><p class="texto-pequenio">'.$reporteResumenTipoGasto['abreviacion'].'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['recaudado'], 0, ",", ".").'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['devengado'], 0, ",", ".").'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['por_percibir'], 0, ",", ".").'</p></th>
+												 </tr>';
+										}else{
+											echo '<tr>
+													<td class=""><p class="texto-pequenio">'.$reporteResumenTipoGasto['abreviacion'].'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['recaudado'], 0, ",", ".").'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['devengado'], 0, ",", ".").'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['por_percibir'], 0, ",", ".").'</p></td>
+												 </tr>';
+										}
+									}
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

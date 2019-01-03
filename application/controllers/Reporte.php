@@ -64,6 +64,16 @@ class Reporte extends CI_Controller {
 			if($reporteResumenesGastos)
 				$usuario["reporteResumenesGastos"] = $reporteResumenesGastos;
 
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesTipo = $this->reporte_model->listarReporteResumenTipo($usuario["id_usuario"], "null", "null", "null");
+			if($reporteResumenesTipo)
+				$usuario["reporteResumenesTipo"] = $reporteResumenesTipo;
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesTipoGasto = $this->reporte_model->listarReporteResumenTipoGasto($usuario["id_usuario"], "null", "null", "null");
+			if($reporteResumenesTipoGasto)
+				$usuario["reporteResumenesTipoGasto"] = $reporteResumenesTipoGasto;
+
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportes', $usuario);
@@ -114,6 +124,7 @@ class Reporte extends CI_Controller {
 		echo json_encode($reporteResumenes);
 	}
 
+
 	public function listarReporteResumenGasto()
 	{
 		$usuario = $this->session->userdata();
@@ -140,6 +151,63 @@ class Reporte extends CI_Controller {
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
 		}
 		echo json_encode($reporteResumenesGastos);
+	}
+
+
+	public function listarReporteResumenTipo()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenesTipo = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$item = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('item')) && $this->input->post('item') != "-1")
+				$item = $this->input->post('item');
+
+			$reporteResumenesTipo = $this->reporte_model->listarReporteResumenTipo($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+		}
+		echo json_encode($reporteResumenesTipo);
+	}
+
+	public function listarReporteResumenTipoGasto()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenesTipoGasto = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$item = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('item')) && $this->input->post('item') != "-1")
+				$item = $this->input->post('item');
+
+			$reporteResumenesTipoGasto = $this->reporte_model->listarReporteResumenTipoGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+		}
+		echo json_encode($reporteResumenesTipoGasto);
 	}
 	
 }
