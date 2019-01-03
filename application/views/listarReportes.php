@@ -110,7 +110,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7 pt-3 pb-3">
+			<div class="col-sm-7">
 				<div id="tablaReporteResumen" class="row">
 					<div class="col-sm-12">
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
@@ -202,7 +202,7 @@
 					</div>
 				</div>				
 			</div>
-			<div class="col-sm-5 pt-3 pb-3">
+			<div class="col-sm-5">
 				<div id="tablaReporteResumenTipo" class="row">
 					<div class="col-sm-12">
 						<table id="tReporteResumenTipo" class="table table-sm table-hover table-bordered">
