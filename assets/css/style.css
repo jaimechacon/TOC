@@ -97,6 +97,8 @@ top : 0;
 
 .trash{
 	padding: 0px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
  .edit{
@@ -154,4 +156,5 @@ top : 0;
 .texto-pequenio{
   font-size: 0.7rem !important;
   margin-bottom: 0rem !important;
+  width: auto !important;
 }

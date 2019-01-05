@@ -23,7 +23,7 @@
 								<span class="">Instituci&oacute;n</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="institucion" class="custom-select custom-select-sm">
+								<select id="institucionItem" class="custom-select custom-select-sm">
 								   	<option value="-1">Todos</option>
 									<?php 
 									if($instituciones)
@@ -43,7 +43,7 @@
 								<span class="">Area</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="hospital" class="custom-select custom-select-sm">
+								<select id="hospitalItem" class="custom-select custom-select-sm">
 								    <option value="-1">Todos</option>
 									<?php 
 									if($hospitales)
@@ -59,50 +59,13 @@
 					</div>
 				</div>
 			</div>
-			<!--<div class="col-sm-12 pt-3">	
+			<div class="col-sm-12 pt-3">
 				<div class="row">			
-					<div class="col-sm-6">
-						<div class="row">
-							<div class="col-sm-3">
-								<span class="">Subtitulo</span>
-							</div>
-							<div class="col-sm-9">
-								<select id="cuenta" class="custom-select custom-select-sm">
-								   	<option value="-1">Todos</option>
-									<?php
-									/*if($cuentas)
-									{
-										foreach ($cuentas as $cuenta) {
-											echo '<option value="'.$cuenta['id_cuenta'].'">'.$cuenta['nombre'].'</option>';
-										}
-									}*/
-									?>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6" hidden>
-						<div class="row">
-							<div class="col-sm-3">
-								<span class="">Item</span>
-							</div>
-							<div class="col-sm-9">
-								<select id="items" class="custom-select custom-select-sm">
-								    <option value="-1">Todos</option>
-									<?php 
-									/*if($items)
-									{
-										foreach ($items as $item) {
-											echo '<option value="'.$item['id_item'].'">'.$item['nombre'].'</option>';
-										}
-									}*/
-									?>
-								</select>
-							</div>
-						</div>
+					<div class="col-sm-12 text-left">
+						<p id="cuentaSeleccion" data-id="<?php echo $cuentaSeleccion["id_cuenta"]; ?>" data-nombre="<?php echo $cuentaSeleccion["nombre"]; ?>" data-codigo="<?php echo $cuentaSeleccion["codigo"]; ?>">Cuenta Seleccionada: <?php echo $cuentaSeleccion["codigo"].' '.$cuentaSeleccion["nombre"]; ?></p>
 					</div>
 				</div>
-			</div>-->
+			</div>
 			<div class="col-sm-12 pt-3 pb-3">
 				<div class="card">
 					<div class="card-header">
@@ -110,7 +73,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7">
+			<div class="col-sm-12">
 				<div id="tablaReporteResumen" class="row">
 					<div class="col-sm-12">
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
@@ -134,7 +97,7 @@
 										if($reporteResumen['nombre'] == "Total" )
 										{
 											echo '<tr>
-													<th class="text-left"><p class="texto-pequenio">'.(substr($reporteResumen['nombre'], 0, 30)).'</p></th>
+													<th class="text-left"><p class="texto-pequenio">'.$reporteResumen['nombre'].'</p></th>
 													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
 													<th class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado_2018'], 0, ",", ".").'</p></th>
 													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
@@ -144,15 +107,13 @@
 													</tr>';
 										}else{
 											echo '<tr>
-													<td class="text-left"><p class="texto-pequenio">'.(substr($reporteResumen['codigo'].' '.$reporteResumen['nombre'], 0, 30)).'</p></td>
+													<td class="text-left"><p class="texto-pequenio">'.$reporteResumen['codigo'].' '.$reporteResumen['nombre'].'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</td>
 													<td class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado_2018'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado_2017_con_mult'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.$reporteResumen['var_18_17'].'%</p></td>
-													<td class="text-center">
-														<a href="'.base_url().'Reporte/listarReportesItem/?idCuenta='.$reporteResumen['id_cuenta'].'" title="click para ver detalle de cuenta"><i data-feather="search" class="trash"></i></a>
-													</td>
+													<td class="text-center"><a href="#" data-toggle="modal" data-target="#modalDetalle"><i data-feather="search" class="trash"></i></a></td>
 													</tr>';
 										}
 									}
@@ -199,9 +160,7 @@
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></td>
-													<td class="text-center">
-														<a href="'.base_url().'Reporte/listarReportesItem/?idCuenta='.$reporteResumenGasto['id_cuenta'].'" title="click para ver detalle de cuenta"><i data-feather="search" class="trash"></i></a>
-													</td>
+													<td class="text-center"><a href="#" data-toggle="modal" data-target="#modalDetalle"><i data-feather="search" class="trash"></i></a></td>
 													</tr>';
 											}
 										}
@@ -212,86 +171,8 @@
 					</div>
 				</div>				
 			</div>
-			<div class="col-sm-5">
-				<div id="tablaReporteResumenTipo" class="row">
-					<div class="col-sm-12">
-						<table id="tReporteResumenTipo" class="table table-sm table-hover table-bordered">
-							<thead class="thead-dark">
-								<tr>
-									<th class="text-center texto-pequenio" scope="col">Transferencias</th>
-									<th class="text-center texto-pequenio" scope="col">Presupuesto</th>
-									<th class="text-center texto-pequenio" scope="col">Recaudado</th>
-									<th class="text-center texto-pequenio" scope="col">%</th>
-									<th class="text-center texto-pequenio" scope="col">Duodec</th>
-								</tr>
-							</thead>
-							<tbody id="tbodyReporteResumenTipo">								
-								<?php
-								if(isset($reporteResumenesTipo))
-								{								
-									foreach ($reporteResumenesTipo as $reporteResumenTipo) {
-										if($reporteResumenTipo['nombre'] == "Total" )
-										{
-											echo '<tr>
-													<th class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></th>
-													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
-													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></th>
-													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
-													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
-												 </tr>';
-										}else{
-											echo '<tr>
-													<td class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></td>
-													<td class="text-center"><p class="texto-pequenio">'.'----'.'</td>
-													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></td>
-													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
-													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
-												 </tr>';
-										}
-									}
-								}
-								?>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-sm-12">
-						<table id="tReporteResumenGastoTipo" class="table table-hover table-bordered table-sm">
-							<thead class="thead-dark">
-								<tr>
-									<th class="text-center texto-pequenio" scope="col">Ingresos Propios</th>
-									<th class="text-center texto-pequenio" scope="col">I. Recaudado</th>
-									<th class="text-center texto-pequenio" scope="col">G. Devevengado</th>
-									<th class="text-center texto-pequenio" scope="col">I. Por Percibir</th>
-								</tr>
-							</thead>
-							<tbody id="tbodyReporteResumenGastoTipo">
-								<?php
-								if(isset($reporteResumenesTipoGasto))
-								{								
-									foreach ($reporteResumenesTipoGasto as $reporteResumenTipoGasto) {
-										if($reporteResumenTipoGasto['nombre'] == "Total" )
-										{
-											echo '<tr>
-													<th class=""><p class="texto-pequenio">'.$reporteResumenTipoGasto['abreviacion'].'</p></th>
-													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['recaudado'], 0, ",", ".").'</p></th>
-													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['devengado'], 0, ",", ".").'</p></th>
-													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['por_percibir'], 0, ",", ".").'</p></th>
-												 </tr>';
-										}else{
-											echo '<tr>
-													<td class=""><p class="texto-pequenio">'.$reporteResumenTipoGasto['abreviacion'].'</p></td>
-													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['recaudado'], 0, ",", ".").'</p></td>
-													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['devengado'], 0, ",", ".").'</p></td>
-													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipoGasto['por_percibir'], 0, ",", ".").'</p></td>
-												 </tr>';
-										}
-									}
-								}
-								?>
-							</tbody>
-						</table>
-					</div>
-				</div>
+			<div id="botones" class="row m-3">
+					<a class="btn btn-link"  href="<?php echo base_url();?>Reporte/listarReportes">Volver</a>
 			</div>
 		</div>
 	</div>

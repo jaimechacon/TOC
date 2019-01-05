@@ -14,5 +14,11 @@ class Cuenta_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function obtenerCuenta($id_cuenta)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`obtenerCuenta`('.$id_cuenta.');');
+		return $query->result_array();
+	}
+
 
 }

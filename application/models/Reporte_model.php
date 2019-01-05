@@ -38,4 +38,10 @@ class Reporte_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function listarReporteResumenItem($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteResumenItem`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$id_tipo.');');
+		return $query->result_array();
+	}
+
 }

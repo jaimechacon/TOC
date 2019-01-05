@@ -20,7 +20,7 @@ class Reporte extends CI_Controller {
 		if($usuario){
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
-			$this->load->view('listarReporte', $usuario);
+			$this->load->view('inicio', $usuario);
 			$this->load->view('temp/footer');
 		}else
 		{
@@ -44,7 +44,7 @@ class Reporte extends CI_Controller {
 			if($hospitales)
 				$usuario["hospitales"] = $hospitales;
 
-			mysqli_next_result($this->db->conn_id);
+			/*mysqli_next_result($this->db->conn_id);
 			$cuentas = $this->cuenta_model->listarCuentasUsu($usuario["id_usuario"]);
 			if($cuentas)
 				$usuario["cuentas"] = $cuentas;
@@ -52,7 +52,7 @@ class Reporte extends CI_Controller {
 			mysqli_next_result($this->db->conn_id);
 			$items = $this->item_model->listarItemsUsu($usuario["id_usuario"], "null");
 			if($items)
-				$usuario["items"] = $items;
+				$usuario["items"] = $items;*/
 
 			mysqli_next_result($this->db->conn_id);
 			$reporteResumenes = $this->reporte_model->listarReporteResumen($usuario["id_usuario"], "null", "null", "null");
@@ -77,6 +77,71 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportes', $usuario);
+			$this->load->view('temp/footer', $usuario);
+		}
+	}
+
+	public function listarReportesItem()
+	{
+		$usuario = $this->session->userdata();
+		if($usuario){
+			$usuario['controller'] = 'reporte';
+
+			$idInstitucion = "null";
+			$idArea = "null";
+			$idCuenta = "null";
+
+			if($this->input->GET('idInstitucion') && $this->input->GET('idInstitucion'))
+            {
+            	$idInstitucion = $this->input->GET('idInstitucion');
+			}
+
+			if($this->input->GET('idArea') && $this->input->GET('idArea'))
+            {
+            	$idArea = $this->input->GET('idArea');
+			}
+
+			if($this->input->GET('idCuenta') && $this->input->GET('idCuenta'))
+            {
+            	$idCuenta = $this->input->GET('idCuenta');
+			}
+
+			$instituciones = $this->institucion_model->listarInstitucionesUsu($usuario["id_usuario"]);
+			if($instituciones)
+				$usuario["instituciones"] = $instituciones;
+
+			mysqli_next_result($this->db->conn_id);
+			$hospitales = $this->hospital_model->listarHospitalesUsu($usuario["id_usuario"], "null");
+			if($hospitales)
+				$usuario["hospitales"] = $hospitales;
+
+			/*mysqli_next_result($this->db->conn_id);
+			$cuentas = $this->cuenta_model->listarCuentasUsu($usuario["id_usuario"]);
+			if($cuentas)
+				$usuario["cuentas"] = $cuentas;
+
+			mysqli_next_result($this->db->conn_id);
+			$items = $this->item_model->listarItemsUsu($usuario["id_usuario"], "null");
+			if($items)
+				$usuario["items"] = $items;*/
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenes = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $idInstitucion, $idArea, $idCuenta, 2);
+			if($reporteResumenes)
+				$usuario["reporteResumenes"] = $reporteResumenes;
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $idInstitucion, $idArea, $idCuenta, 1);
+			if($reporteResumenesGastos)
+				$usuario["reporteResumenesGastos"] = $reporteResumenesGastos;
+
+			mysqli_next_result($this->db->conn_id);
+			$cuenta = $this->cuenta_model->obtenerCuenta($idCuenta);
+			$usuario['cuentaSeleccion'] = $cuenta[0];
+			
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu', $usuario);
+			$this->load->view('listarReportesItem', $usuario);
 			$this->load->view('temp/footer', $usuario);
 		}
 	}
@@ -124,6 +189,34 @@ class Reporte extends CI_Controller {
 		echo json_encode($reporteResumenes);
 	}
 
+	public function listarReporteResumenItem()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenes = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$item = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('item')) && $this->input->post('item') != "-1")
+				$item = $this->input->post('item');
+
+			$reporteResumenes = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $institucion, $hospital, $cuenta, 2);
+		}
+		echo json_encode($reporteResumenes);
+	}
+
 
 	public function listarReporteResumenGasto()
 	{
@@ -149,6 +242,34 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+		}
+		echo json_encode($reporteResumenesGastos);
+	}
+
+	public function listarReporteResumenItemGasto()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenesGastos = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$item = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('item')) && $this->input->post('item') != "-1")
+				$item = $this->input->post('item');
+
+			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $institucion, $hospital, $cuenta, 1);
 		}
 		echo json_encode($reporteResumenesGastos);
 	}
