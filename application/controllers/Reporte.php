@@ -402,7 +402,7 @@ class Reporte extends CI_Controller {
 				$usuario["instituciones"] = $instituciones;
 
 			mysqli_next_result($this->db->conn_id);
-			$hospitales = $this->hospital_model->listarHospitalesUsu($usuario["id_usuario"], "null");
+			$hospitales = $this->hospital_model->listarHospitalesUsu($usuario["id_usuario"], $idInstitucion);
 			if($hospitales)
 				$usuario["hospitales"] = $hospitales;
 

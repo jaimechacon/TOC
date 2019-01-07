@@ -92,6 +92,29 @@
     	});    	
 	});
 
+	$("#institucionEspecifico").change(function() {
+		institucion = $("#institucionEspecifico").val();
+		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#hospitalEspecifico").empty();
+				var row = '<option value="-1">Todos</option>';
+				for (var i = 0; i < data.length; i++) {
+					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
+				}
+				$("#hospitalEspecifico").append(row);
+				listarReportesEspecifico();
+	        }
+      	}
+    	});    	
+	});
+
  	$("#hospital").change(function() {
 		listarReportes();
 	});
@@ -106,6 +129,10 @@
 
 	$("#hospitalSubAsignacion").change(function() {
 		listarReportesSubAsignacion();
+	});
+
+	$("#hospitalEspecifico").change(function() {
+		listarReportesEspecifico();
 	});
 
 	$("#cuenta").change(function() {
@@ -408,8 +435,8 @@
 	    loader.removeAttribute('hidden');
 	    institucion = $("#institucionAsignacion").val();
 	    hospital = $("#hospitalAsignacion").val();
-	    cuenta = -1;
 	    itemSeleccion = $(document.getElementById('itemSeleccion'));
+	    cuenta = itemSeleccion.data('idcuenta');
 		item = itemSeleccion.data('id');
 
 	    var baseurl = window.origin + '/Reporte/listarReporteResumenAsignacion';
@@ -455,7 +482,7 @@
 		        institucion = $("#institucionAsignacion").val();
 			    hospital = $("#hospitalAsignacion").val();
 			    itemSeleccion = $(document.getElementById('itemSeleccion'));
-			    cuenta = -1;
+			    cuenta = itemSeleccion.data('idcuenta');
 				item = itemSeleccion.data('id');
 
 		    	var baseurl = window.origin + '/Reporte/listarReporteResumenAsignacionGasto';
@@ -512,9 +539,9 @@
 	    loader.removeAttribute('hidden');
 	    institucion = $("#institucionSubAsignacion").val();
 	    hospital = $("#hospitalSubAsignacion").val();
-	    cuenta = -1;
-	    item = -1;
 	    asignacionSeleccion = $(document.getElementById('asignacionSeleccion'));
+	    cuenta = asignacionSeleccion.data('idcuenta');
+	    item = asignacionSeleccion.data('iditem');
 		asignacion = asignacionSeleccion.data('id');
 	    //item = -1;//$("#item").val();
 
@@ -560,9 +587,9 @@
 
 		        institucion = $("#institucionSubAsignacion").val();
 			    hospital = $("#hospitalSubAsignacion").val();
-			    cuenta = -1;
-			    item = -1;
 			    asignacionSeleccion = $(document.getElementById('asignacionSeleccion'));
+			    cuenta = asignacionSeleccion.data('idcuenta');
+			    item = asignacionSeleccion.data('iditem');
 				asignacion = asignacionSeleccion.data('id');
 
 		    	var baseurl = window.origin + '/Reporte/listarReporteResumenSubAsignacionGasto';
@@ -618,14 +645,13 @@
   	{ 	
  		var loader = document.getElementById("loader");
 	    loader.removeAttribute('hidden');
-	    institucion = $("#institucionSubAsignacion").val();
-	    hospital = $("#hospitalSubAsignacion").val();
-	    cuenta = -1;
-	    item = -1;
-	    asignacion = -1;
+	    institucion = $("#institucionEspecifico").val();
+	    hospital = $("#hospitalEspecifico").val();
 	    subasignacionSeleccion = $(document.getElementById('subasignacionSeleccion'));
-		subAsignacion = subasignacionSeleccion.data('id');
-	    //item = -1;//$("#item").val();
+	    cuenta = subasignacionSeleccion.data('idcuenta');
+	    item = subasignacionSeleccion.data('iditem');
+	    asignacion = subasignacionSeleccion.data('idasignacion');
+	    subAsignacion = subasignacionSeleccion.data('id');
 
 	    var baseurl = window.origin + '/Reporte/listarReporteResumenEspecifico';
 	    jQuery.ajax({
@@ -665,13 +691,13 @@
 		        }
 
 
-		        institucion = $("#institucionSubAsignacion").val();
-			    hospital = $("#hospitalSubAsignacion").val();
-			    cuenta = -1;
-			    item = -1;
-			    asignacion = -1;
+		        institucion = $("#institucionEspecifico").val();
+			    hospital = $("#hospitalEspecifico").val();
 			    subasignacionSeleccion = $(document.getElementById('subasignacionSeleccion'));
-				subAsignacion = subasignacionSeleccion.data('id');
+			    cuenta = subasignacionSeleccion.data('idcuenta');
+			    item = subasignacionSeleccion.data('iditem');
+			    asignacion = subasignacionSeleccion.data('idasignacion');
+			    subAsignacion = subasignacionSeleccion.data('id');
 
 		    	var baseurl = window.origin + '/Reporte/listarReporteResumenEspecificoGasto';
 			    jQuery.ajax({
