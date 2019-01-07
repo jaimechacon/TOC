@@ -44,4 +44,22 @@ class Reporte_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function listarReporteResumenAsignacion($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $id_item, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteResumenAsignacion`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$id_item.', '.$id_tipo.');');
+		return $query->result_array();
+	}
+
+	public function listarReporteResumenSubAsignacion($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $id_item, $id_asignacion, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteResumenSubAsignacion`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$id_item.', '.$id_asignacion.', '.$id_tipo.');');
+		return $query->result_array();
+	}
+
+	public function listarReporteResumenEspecifico($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $id_item, $id_asignacion, $id_sub_asignacion, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteResumenEspecifico`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$id_item.', '.$id_asignacion.', '.$id_sub_asignacion.', '.$id_tipo.');');
+		return $query->result_array();
+	}
+
 }

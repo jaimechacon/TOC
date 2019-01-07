@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Item_model extends CI_Model
+class Sub_asignacion_model extends CI_Model
 {
 	public function __construct()
 	{
@@ -8,9 +8,9 @@ class Item_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function obtenerItem($id_item)
+	public function obtenerSubAsignacion($id_sub_asignacion)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerItem`('.$id_item.');');
+		$query = $this->db->query('CALL `institucionminsal`.`obtenerSubAsignacion`('.$id_sub_asignacion.');');
 		return $query->result_array();
 	}
 

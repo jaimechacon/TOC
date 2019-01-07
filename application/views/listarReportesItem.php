@@ -29,7 +29,13 @@
 									if($instituciones)
 									{
 										foreach ($instituciones as $institucion) {
-											echo '<option value="'.$institucion['id_institucion'].'">'.$institucion['nombre'].'</option>';
+											if(isset($idInstitucion) && (int)$institucion['id_institucion'] == $idInstitucion)
+	                                        {
+	                                                echo '<option value="'.$institucion['id_institucion'].'" selected>'.$institucion['nombre'].'</option>';
+	                                        }else
+	                                        {
+	                                                echo '<option value="'.$institucion['id_institucion'].'">'.$institucion['nombre'].'</option>';
+	                                        }
 										}
 									}
 									?>
@@ -49,7 +55,13 @@
 									if($hospitales)
 									{
 										foreach ($hospitales as $hospital) {
-											echo '<option value="'.$hospital['id_hospital'].'">'.$hospital['nombre'].'</option>';
+											if(isset($idHospital) && (int)$hospital['id_hospital'] == $idHospital)
+											{
+                                                echo '<option value="'.$hospital['id_hospital'].'" selected>'.$hospital['nombre'].'</option>';
+	                                        }else
+	                                        {
+                                                echo '<option value="'.$hospital['id_hospital'].'">'.$hospital['nombre'].'</option>';
+	                                        }
 										}
 									}
 									?>
@@ -113,7 +125,10 @@
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado_2017_con_mult'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.$reporteResumen['var_18_17'].'%</p></td>
-													<td class="text-center"><a href="#" data-toggle="modal" data-target="#modalDetalle"><i data-feather="search" class="trash"></i></a></td>
+													<td class="text-center botonTabla">
+														<button type="button botonTabla" class="btn btn-link redireccionarAsignacion botonTabla" data-id="'.$reporteResumen["id_item"].'"><i data-feather="search" class="trash"></i></button>
+														<!--<a href="'.base_url().'Reporte/listarReportesAsignacion/?idItem='.$reporteResumen['id_item'].'" title="click para ver detalle del item"><i data-feather="search" class="trash"></i></a>-->
+													</td>
 													</tr>';
 										}
 									}
@@ -154,13 +169,16 @@
 													</tr>';
 											}else{
 												echo '<tr>
-													<td class=""><p class="texto-pequenio">'.(substr($reporteResumenGasto['codigo']." ".$reporteResumenGasto['nombre'], 0, 30)).'</p></td>
+													<td class=""><p class="texto-pequenio">'.($reporteResumenGasto['codigo']." ".$reporteResumenGasto['nombre']).'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></td>
-													<td class="text-center"><a href="#" data-toggle="modal" data-target="#modalDetalle"><i data-feather="search" class="trash"></i></a></td>
+													<td class="text-center botonTabla">
+														<button type="button botonTabla" class="btn btn-link redireccionarAsignacion botonTabla" data-id="'.$reporteResumenGasto["id_item"].'"><i data-feather="search" class="trash"></i></button>
+														<!--<a href="'.base_url().'Reporte/listarReportesAsignacion/?idItem='.$reporteResumenGasto['id_item'].'" title="click para ver detalle del item"><i data-feather="search" class="trash"></i></a>-->
+													</td>
 													</tr>';
 											}
 										}
@@ -172,7 +190,8 @@
 				</div>				
 			</div>
 			<div id="botones" class="row m-3">
-					<a class="btn btn-link"  href="<?php echo base_url();?>Reporte/listarReportes">Volver</a>
+				<button type="button" class="btn btn-link redireccionarSubtitulo" data-id="<?php echo $cuentaSeleccion["id_cuenta"]; ?>"><i data-feather="chevron-left" class="trash"></i> Volver</button>
+				<!--<a class="btn btn-link"  href="<?php echo base_url();?>Reporte/listarReportes">Volver</a>-->
 			</div>
 		</div>
 	</div>

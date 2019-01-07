@@ -158,3 +158,8 @@ top : 0;
   margin-bottom: 0rem !important;
   width: auto !important;
 }
+
+.botonTabla{
+  padding: 0px !important;
+  margin: 0px !important;
+}
