@@ -144,6 +144,89 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-sm-12">
+				<div id="tablaReporteResumen" class="row">
+					<div class="col-sm-12">
+						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center texto-pequenio" scope="col">Ingresos</th>
+									<th class="text-center texto-pequenio" scope="col">Ppto. Vigente</th>
+									<th id="idAnio" class="text-center texto-pequenio" scope="col" >I. Rec. <?php echo (isset($anioSeleccionado) ? $anioSeleccionado : "" ); ?></th>
+								</tr>
+							</thead>
+							<tbody id="tbodyReporteResumen">
+								<?php	
+								if(isset($reporteResumenes) && !isset($reporteResumenes["resultado"]))
+								{								
+									foreach ($reporteResumenes as $reporteResumen) {
+										if($reporteResumen['nombre'] == "Total" )
+										{
+											echo '<tr>
+													<th class="text-left"><p class="texto-pequenio">'.$reporteResumen['nombre'].'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado'], 0, ",", ".").'</p></th>
+													</tr>';
+										}else{
+											echo '<tr>
+													<td class="text-left"><p class="texto-pequenio">'.$reporteResumen['codigo'].' '.$reporteResumen['nombre'].'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</td>
+													<td class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumen['Recaudado'], 0, ",", ".").'</p></td>
+													</tr>';
+													/*<td class="text-center botonTabla">
+														<!--<button type="button botonTabla" class="btn btn-link redireccionarAsignacion botonTabla" data-id="'.$reporteResumen["id_item"].'"><i data-feather="search" class="trash"></i></button>
+														<a href="'.base_url().'Reporte/listarReportesAsignacion/?idItem='.$reporteResumen['id_item'].'" title="click para ver detalle del item"><i data-feather="search" class="trash"></i></a>-->
+													</td>
+													</tr>';*/
+										}
+									}
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-12">
+						<table id="tReporteResumenGasto" class="table table-hover table-bordered table-sm">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center texto-pequenio" scope="col">Gastos</th>
+									<th class="text-center texto-pequenio" scope="col">Ppto. Vigente</th>
+									<th class="text-center texto-pequenio" scope="col">G. Dev.
+									<?php echo (isset($anioSeleccionado) ? $anioSeleccionado : "" ); ?></th>
+								</tr>
+							</thead>
+							<tbody id="tbodyReporteResumenGasto">
+
+								<?php
+									if(isset($reporteResumenesGastos) && !isset($reporteResumenesGastos["resultado"]))
+									{
+										foreach ($reporteResumenesGastos as $reporteResumenGasto) {
+											if($reporteResumenGasto['nombre'] == "Total" )
+										{
+											echo '<tr>
+													<th class=""><p class="texto-pequenio">'.$reporteResumenGasto['nombre'].'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado'], 0, ",", ".").'</p></th>'.
+													'</tr>';
+											}else{
+												echo '<tr>
+													<td class=""><p class="texto-pequenio">'.($reporteResumenGasto['codigo']." ".$reporteResumenGasto['nombre']).'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado'], 0, ",", ".").'</p></td>'.
+													/*<td class="text-center botonTabla">
+														<button type="button botonTabla" class="btn btn-link redireccionarAsignacion botonTabla" data-id="'.$reporteResumenGasto["id_item"].'"><i data-feather="search" class="trash"></i></button>
+														<!--<a href="'.base_url().'Reporte/listarReportesAsignacion/?idItem='.$reporteResumenGasto['id_item'].'" title="click para ver detalle del item"><i data-feather="search" class="trash"></i></a>-->
+													</td>*/
+													'</tr>';
+											}
+										}
+									}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>				
+			</div>
 		</div>
 	</div>
 </div>
