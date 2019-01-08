@@ -115,6 +115,29 @@
     	});    	
 	});
 
+	$("#institucionFecha").change(function() {
+		institucion = $("#institucionFecha").val();
+		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#hospitalFecha").empty();
+				var row = '<option value="-1">Todos</option>';
+				for (var i = 0; i < data.length; i++) {
+					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
+				}
+				$("#hospitalFecha").append(row);
+				listarReportesFecha();
+	        }
+      	}
+    	});    	
+	});
+
  	$("#hospital").change(function() {
 		listarReportes();
 	});
@@ -135,9 +158,26 @@
 		listarReportesEspecifico();
 	});
 
+	$("#hospitalFecha").change(function() {
+		listarReportesFecha();
+	});
+
 	$("#cuenta").change(function() {
 		listarReportes();
 	});
+
+	$("#mes").change(function() {
+		listarReportesFecha();
+	});
+
+	$("#anio").change(function() {
+		listarReportesFecha();
+	});
+
+	$('#inflactor').on('change',function(e){
+    	listarReportesFecha();
+	});
+
 
  	function listarReportes()
   	{ 	
@@ -731,6 +771,90 @@
 					            //row = row.concat('\n<td class="text-center">');
 								//row = row.concat('\n<a href="listarReportesEspecifico/?idSubAsignacion=',data[i]['id_sub_asignacion'],'" title="click para ver detalle de Sub asignaci&oacute;n"><i data-feather="search" class="trash"></i></a>');
 								//row = row.concat('\n</td>');
+				        	}
+				            row = row.concat('\n</tr>');
+				          $("#tbodyReporteResumenGasto").append(row);
+				        }
+				        feather.replace()
+      					loader.setAttribute('hidden', '');
+			        }
+		      	}
+		    	});
+	        }
+      	}
+    	});
+  	};
+
+  	function listarReportesFecha()
+  	{ 	
+ 		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+	    institucion = $("#institucionFecha").val();
+	    hospital = $("#hospitalFecha").val();
+		cuenta = -1;
+	    item = -1;
+	    mes = $("#mes").val();
+	    anio = $("#anio").val();
+		inflactor = ($('#inflactor').val().length == 0 ? -1 : $('#inflactor').val());
+
+	    var baseurl = window.origin + '/Reporte/listarReporteResumenFecha';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion, hospital: hospital, cuenta: cuenta, mes: mes, anio: anio, inflactor: inflactor },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#tbodyReporteResumen").empty();
+				for (var i = 0; i < data.length; i++){
+		            var row = '';
+		            row = row.concat('<tr>');
+		            if(data[i]['nombre'] == 'Total')
+		            {
+		            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+			            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">','----','</p></th>');
+			            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado']),'</p></th>');
+		            }else{
+		            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['codigo'],' ', data[i]['nombre'],'</p></td>');
+			            row = row.concat('\n<td class="text-center"><p class="texto-pequenio">','----','</p></td>');
+			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado']),'</p></td>');
+		            }
+		            row = row.concat('\n<tr>');
+		          $("#tbodyReporteResumen").append(row);
+		        }
+
+
+		        institucion = $("#institucionFecha").val();
+			    hospital = $("#hospitalFecha").val();
+				cuenta = -1;
+			    item = -1;
+			    mes = $("#mes").val();
+			    anio = $("#anio").val();
+			    inflactor = ($('#inflactor').val().length == 0 ? -1 : $('#inflactor').val());
+
+		    	var baseurl = window.origin + '/Reporte/listarReporteResumenFechaGasto';
+			    jQuery.ajax({
+				type: "POST",
+				url: baseurl,
+				dataType: 'json',
+				data: {institucion: institucion, hospital: hospital, cuenta: cuenta, mes: mes, anio: anio, inflactor: inflactor },
+				success: function(data) {
+			        if (data)
+			        {			
+						$("#tbodyReporteResumenGasto").empty();
+						for (var i = 0; i < data.length; i++){
+				            var row = '';
+				            row = row.concat('<tr>');
+				            if(data[i]['nombre'] == 'Total')
+				            {
+				            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+					            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">','----','</p></th>');
+					            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado']),'</p></th>');
+				            }else{
+					            row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['codigo'],' ', data[i]['nombre'],'</p></td>');
+					            row = row.concat('\n<td class="text-center"><p class="texto-pequenio">','----','</p></td>');
+					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado']),'</p></td>');
 				        	}
 				            row = row.concat('\n</tr>');
 				          $("#tbodyReporteResumenGasto").append(row);

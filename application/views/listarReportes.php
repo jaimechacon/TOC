@@ -307,6 +307,16 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-sm-12 pt-3 pb-3">
+				<div class="card">
+					<div class="card-header">
+						II. Gastos (Vista en M$)
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				Graficos
+			</div>
 		</div>
 	</div>
 </div>

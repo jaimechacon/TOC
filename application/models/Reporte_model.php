@@ -62,4 +62,17 @@ class Reporte_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function obtenerAniosTransacciones()
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`obtenerAniosTransacciones`;');
+		return $query->result_array();
+	}
+
+	public function listarReporteResumenFecha($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $mes, $anio, $inflactor, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteResumenFecha`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$mes.', '.$anio.', '.$inflactor.', '.$id_tipo.');');
+		return $query->result_array();
+	}
+
+	
 }

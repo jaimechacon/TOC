@@ -612,6 +612,41 @@ class Reporte extends CI_Controller {
 		echo json_encode($reporteResumenes);
 	}
 
+	public function listarReporteResumenFecha()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenes = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$mes = "null";
+			$anio = "null";
+			$inflactor = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('mes')) && $this->input->post('mes') != "-1")
+				$mes = $this->input->post('mes');
+
+			if(!is_null($this->input->post('anio')) && $this->input->post('anio') != "-1")
+				$anio = $this->input->post('anio');
+
+			if(!is_null($this->input->post('inflactor')) && $this->input->post('inflactor') != "-1")
+				$inflactor = $this->input->post('inflactor');
+
+			$reporteResumenes = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $institucion, $hospital, $cuenta, $mes, $anio, $inflactor, 2);
+		}
+		echo json_encode($reporteResumenes);
+	}
 
 	public function listarReporteResumenGasto()
 	{
@@ -765,6 +800,42 @@ class Reporte extends CI_Controller {
 		echo json_encode($reporteResumenesGastos);
 	}
 
+	public function listarReporteResumenFechaGasto()
+	{
+		$usuario = $this->session->userdata();
+		$reporteResumenesGastos = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$mes = "null";
+			$anio = "null";
+			$inflactor = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('mes')) && $this->input->post('mes') != "-1")
+				$mes = $this->input->post('mes');
+
+			if(!is_null($this->input->post('anio')) && $this->input->post('anio') != "-1")
+				$anio = $this->input->post('anio');
+
+			if(!is_null($this->input->post('inflactor')) && $this->input->post('inflactor') != "-1")
+				$inflactor = $this->input->post('inflactor');
+
+			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $institucion, $hospital, $cuenta, $mes, $anio, $inflactor, 1);
+		}
+		echo json_encode($reporteResumenesGastos);
+	}
+
 
 	public function listarReporteResumenTipo()
 	{
@@ -820,6 +891,99 @@ class Reporte extends CI_Controller {
 			$reporteResumenesTipoGasto = $this->reporte_model->listarReporteResumenTipoGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
 		}
 		echo json_encode($reporteResumenesTipoGasto);
+	}
+
+	public function listarReportesFecha()
+	{
+		$usuario = $this->session->userdata();
+		if($usuario){
+			$usuario['controller'] = 'reporte';
+
+			$idInstitucion = "null";
+			$idArea = "null";
+			$idCuenta = "null";
+			$mes = "null";
+			$anio = "null";
+			$inflactor = "null";
+
+			if(!is_null($this->input->GET('idInstitucion')) && $this->input->GET('idInstitucion'))
+			{
+            	$idInstitucion = $this->input->GET('idInstitucion');
+            	$usuario['idInstitucion'] = $idInstitucion;
+			}
+
+			if(!is_null($this->input->GET('idArea')) && $this->input->GET('idArea'))
+			{
+            	$idArea = $this->input->GET('idArea');
+            	$usuario['idHospital'] = $idArea;
+            }
+
+            if(!is_null($this->input->GET('idArea')) && $this->input->GET('idArea'))
+			{
+            	$idArea = $this->input->GET('idArea');
+            	$usuario['idHospital'] = $idArea;
+            }
+
+			$instituciones = $this->institucion_model->listarInstitucionesUsu($usuario["id_usuario"]);
+			if($instituciones)
+				$usuario["instituciones"] = $instituciones;
+
+			mysqli_next_result($this->db->conn_id);
+			$hospitales = $this->hospital_model->listarHospitalesUsu($usuario["id_usuario"], $idInstitucion);
+			if($hospitales)
+				$usuario["hospitales"] = $hospitales;
+
+			mysqli_next_result($this->db->conn_id);
+			$mesesAnios = $this->reporte_model->obtenerAniosTransacciones();
+			$anios[] = array();
+         	unset($anios[0]);
+
+			foreach ($mesesAnios as $mesAnio) {	
+
+				$anioEncontrado = array();
+         		unset($anioEncontrado);
+
+         		$anioEncontrado['idAnio'] = $mesAnio['idAnio'];
+         		$anioEncontrado['nombreAnio'] = $mesAnio['nombreAnio'];
+
+         		if(!in_array($anioEncontrado, $anios))
+                	array_push($anios, $anioEncontrado);
+			}
+			$usuario['anios'] = $anios;
+
+			$meses[] = array();
+         	unset($meses[0]);
+
+			foreach ($mesesAnios as $mes) {	
+
+				$mesEncontrado = array();
+         		unset($mesEncontrado);
+
+         		$mesEncontrado['idMes'] = $mes['idMes'];
+         		$mesEncontrado['nombreMes'] = $mes['nombreMes'];
+
+         		if(!in_array($mesEncontrado, $meses))
+                	array_push($meses, $mesEncontrado);
+			}
+			$usuario['meses'] = $meses;
+			$usuario['anioSeleccionado'] = $mesesAnios[0]["anioSeleccionado"];
+			$usuario['mesSeleccionado'] = $mesesAnios[0]["mesSeleccionado"];
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenes = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $idInstitucion, $idArea, $idCuenta, $mesesAnios[0]["mesSeleccionado"], $mesesAnios[0]["anioSeleccionado"], $inflactor, 2);
+			if($reporteResumenes)
+				$usuario["reporteResumenes"] = $reporteResumenes;
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $idInstitucion, $idArea, $idCuenta, $mesesAnios[0]["mesSeleccionado"], $mesesAnios[0]["anioSeleccionado"], $inflactor, 1);
+			if($reporteResumenesGastos)
+				$usuario["reporteResumenesGastos"] = $reporteResumenesGastos;
+
+			$this->load->view('temp/header');
+			$this->load->view('temp/menu', $usuario);
+			$this->load->view('listarReportesFecha', $usuario);
+			$this->load->view('temp/footer', $usuario);
+		}
 	}
 	
 }
