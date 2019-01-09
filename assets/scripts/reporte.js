@@ -1214,17 +1214,17 @@ window.onload = function () {
 				},
 				data: [{
 					type: "column",
-					name: '2017',
-					legendText: "2017",
+					name: "2017 Subt. 21",
+					legendText: "2017 Subt. 21",
 					showInLegend: true,
 					toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
 					dataPoints: dataPointsSub21_2017
 				},
 				{
 					type: "column",	
-					name: "2018",
+					name: "2018 Subt. 21",
 					axisYType: "secondary",
-					legendText: "2018",
+					legendText: "2018 Subt. 21",
 					showInLegend: true,
 					toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
 					dataPoints: dataPointsSub21_2018
@@ -1263,17 +1263,17 @@ window.onload = function () {
 				},
 				data: [{
 					type: "column",
-					name: '2017',
-					legendText: "2017",
+					name: "2017 Subt. 22",
+					legendText: "2017 Subt. 22",
 					showInLegend: true,
 					toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
 					dataPoints: dataPointsSub22_2017
 				},
 				{
 					type: "column",	
-					name: "2018",
+					name: "2018 Subt. 22",
 					axisYType: "secondary",
-					legendText: "2018",
+					legendText: "2018 Subt. 22",
 					showInLegend: true,
 					toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
 					dataPoints: dataPointsSub22_2018
