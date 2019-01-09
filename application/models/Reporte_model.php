@@ -74,5 +74,9 @@ class Reporte_model extends CI_Model
 		return $query->result_array();
 	}
 
-	
+	public function listarReporteGrafico($id_usuario, $id_institucion, $id_hospital, $id_cuenta, $id_tipo)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteGrafico`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_cuenta.', '.$id_tipo.');');
+		return $query->result_array();
+	}	
 }

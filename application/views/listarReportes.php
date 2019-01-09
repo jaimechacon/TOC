@@ -315,12 +315,14 @@
 				</div>
 			</div>
 			<div class="col-sm-12">
-				Graficos
+				<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 			</div>
 		</div>
 	</div>
 </div>
 <div id="loader" class="loader" hidden></div>
+
+<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 
 
 

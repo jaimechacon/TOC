@@ -1114,9 +1114,216 @@
 		n = String(n).replace(/\D/g, "");
 	  return n === '' ? n : Number(n).toLocaleString();
 	}
+
 	Number.addEventListener('keyup', (e) => {
 		const element = e.target;
 		const value = element.value;
 	  element.value = formatNumber(value);
 	});
 });
+
+
+window.onload = function () {
+	var idInstitucion = $("#institucion").val();
+	var idArea = $("#hospital").val();
+	var idCuenta = -1;//$("#asignacionSeleccion").data('idcuenta');
+	var tipo = 1;
+
+	var baseurl = window.origin + '/Reporte/listarReporteGrafico';
+	var dataPointsSub21_a = [];
+	var dataPointsSub21_b = [];
+
+	jQuery.ajax({
+	type: "POST",
+	url: baseurl,
+	dataType: 'json',
+	data: {idInstitucion: idInstitucion, idArea: idArea, idCuenta: idCuenta, tipo :tipo},
+	success: function(data) {
+		if(data)
+		{
+			for (var i = 0; i < data.length; i++) {
+				if(data[i]["anio"] == 2017)
+				{
+					dataPointsSub21_a.push({
+					label: data[i]["nombreMes"],
+					y: parseFloat(data[i]["total"]),
+					anio: data[i]["anio"]
+					});
+				}
+
+				if(data[i]["anio"] == 2018)
+				{
+					dataPointsSub21_b.push({
+					label: data[i]["nombreMes"],
+					y: parseFloat(data[i]["total"]),
+					anio: data[i]["anio"]
+					});
+				}
+			}
+
+			    var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				title:{
+					text: "Subt. 21"
+				},
+				axisY: {
+					title: "Vista por M$",
+					titleFontColor: "#4F81BC",
+					lineColor: "#4F81BC",
+					labelFontColor: "#4F81BC",
+					tickColor: "#4F81BC",
+					valueFormatString: "$ #.###.###"
+				},
+				axisY2: {
+					title: "Vista por M$",
+					titleFontColor: "#C0504E",
+					lineColor: "#C0504E",
+					labelFontColor: "#C0504E",
+					tickColor: "#C0504E",
+					valueFormatString: "$ #.###.###"
+				},	
+				toolTip: {
+					shared: true
+				},
+				legend: {
+					cursor:"pointer",
+					itemclick: toggleDataSeries
+				},
+				data: [{
+					type: "column",
+					name: '2017',
+					legendText: "2017",
+					showInLegend: true,
+					toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
+					dataPoints: dataPointsSub21_a
+				},
+				{
+					type: "column",	
+					name: "2018",
+					axisYType: "secondary",
+					legendText: "2018",
+					showInLegend: true,
+					toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
+					dataPoints: dataPointsSub21_b
+				}]
+			});
+
+
+			var idInstitucion = $("#institucion").val();
+			var idArea = $("#hospital").val();
+			var idCuenta = -1;//$("#asignacionSeleccion").data('idcuenta');
+			var tipo = 2;
+
+			var baseurl = window.origin + '/Reporte/listarReporteGrafico';
+			var dataPointsSub21_c = [];
+			var dataPointsSub21_d = [];
+
+			jQuery.ajax({
+			type: "POST",
+			url: baseurl,
+			dataType: 'json',
+			data: {idInstitucion: idInstitucion, idArea: idArea, idCuenta: idCuenta, tipo :tipo},
+			success: function(data) {
+			if(data)
+			{
+				for (var i = 0; i < data.length; i++) {
+					if(data[i]["anio"] == 2017)
+					{
+						dataPointsSub21_c.push({
+						label: data[i]["nombreMes"],
+						y: parseFloat(data[i]["total"]),
+						anio: data[i]["anio"]
+						});
+					}
+
+					if(data[i]["anio"] == 2018)
+					{
+						dataPointsSub21_d.push({
+						label: data[i]["nombreMes"],
+						y: parseFloat(data[i]["total"]),
+						anio: data[i]["anio"]
+						});
+					}
+				}
+				var chart2 = new CanvasJS.Chart("chartContainer2", {
+					animationEnabled: true,
+					title:{
+						text: "Subt. 22"
+					},
+					axisY: {
+						title: "Vista por M$",
+						titleFontColor: "#4F81BC",
+						lineColor: "#4F81BC",
+						labelFontColor: "#4F81BC",
+						tickColor: "#4F81BC",
+						valueFormatString: "$ #.###.###"
+					},
+					axisY2: {
+						title: "Vista por M$",
+						titleFontColor: "#C0504E",
+						lineColor: "#C0504E",
+						labelFontColor: "#C0504E",
+						tickColor: "#C0504E",
+						valueFormatString: "$ #.###.###"
+					},	
+					toolTip: {
+						shared: true
+					},
+					legend: {
+						cursor:"pointer",
+						itemclick: toggleDataSeries
+					},
+					data: [{
+						type: "column",
+						name: '2017',
+						legendText: "2017",
+						showInLegend: true,
+						toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
+						dataPoints: dataPointsSub21_c
+					},
+					{
+						type: "column",	
+						name: "2018",
+						axisYType: "secondary",
+						legendText: "2018",
+						showInLegend: true,
+						toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
+						dataPoints: dataPointsSub21_d
+					}]
+				});
+
+				chart.render();
+				chart2.render();
+
+				function toggleDataSeries(e) {
+					if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+						e.dataSeries.visible = false;
+					}
+					else {
+						e.dataSeries.visible = true;
+					}
+					chart.render();
+					chart2.render();
+				}
+			}
+		}
+		});
+			function toggleDataSeries(e) {
+				if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+					e.dataSeries.visible = false;
+				}
+				else {
+					e.dataSeries.visible = true;
+				}
+				chart.render();
+				chart2.render();
+			}
+		}
+	}
+	});
+
+
+		
+
+		
+	}

@@ -985,5 +985,39 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/footer', $usuario);
 		}
 	}
+
+	public function listarReporteGrafico()
+	{
+		$usuario = $this->session->userdata();
+		$listarReporteGrafico = [];
+		if($usuario)
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$cuenta = "null";
+			$item = "null";
+			$tipo = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('cuenta')) && $this->input->post('cuenta') != "-1")
+				$cuenta = $this->input->post('cuenta');
+
+			if(!is_null($this->input->post('item')) && $this->input->post('item') != "-1")
+				$item = $this->input->post('item');
+
+			if(!is_null($this->input->post('tipo')) && $this->input->post('tipo') != "-1")
+				$tipo = $this->input->post('tipo');
+
+			$listarReporteGrafico = $this->reporte_model->listarReporteGrafico($usuario["id_usuario"], $institucion, $hospital, $cuenta, $tipo);
+		}
+		echo json_encode($listarReporteGrafico);
+	}
+
+	
 	
 }
