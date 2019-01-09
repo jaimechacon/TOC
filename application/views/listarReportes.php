@@ -320,6 +320,82 @@
 			<div class="col-sm-6">
 				<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 			</div>
+			<div class="col-sm-6 pt-3">
+				<table id="tReporteResumenGrafico" class="table table-sm table-hover table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th class="text-center texto-pequenio" scope="col">&Iacute;tems / Asignaciones Subtitulo 21</th>
+							<th class="text-center texto-pequenio" scope="col" >Ejec. 2017</th>
+							<th class="text-center texto-pequenio" scope="col">Ejec. 2018</th>
+							<th class="text-center texto-pequenio" scope="col">Var 18-17</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyReporteResumenGrafico">
+
+						<?php	
+						if(isset($reporteResumenesGraficos) && !isset($reporteResumenesGraficos["resultado"]))
+						{								
+							foreach ($reporteResumenesGraficos as $reporteResumenGrafico) {
+								if($reporteResumenGrafico['nivel'] == "1" )
+								{
+									echo '<tr>
+											<th class="text-left"><p class="texto-pequenio">'.$reporteResumenGrafico['nombre'].'</p></th>
+											<th class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico['total_2017'], 0, ",", ".").'</p></th>
+											<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico['total_2018'], 0, ",", ".").'</p></th>
+											<th class="text-center"><p class="texto-pequenio">'.$reporteResumenGrafico['var'].'%</p></th>
+											</tr>';
+								}else{
+									echo '<tr>
+											<td class="text-left"><p class="texto-pequenio">'.$reporteResumenGrafico['nombreAsignacion'].'</p></td>
+											<td class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico['total_2017'], 0, ",", ".").'</p></td>
+											<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico['total_2018'], 0, ",", ".").'</p></td>
+											<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGrafico['var'].'%</p></td>
+											</tr>';
+								}
+							}
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-6 pt-3">
+				<table id="tReporteResumenGrafico22" class="table table-sm table-hover table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th class="text-center texto-pequenio" scope="col">&Iacute;tems / Asignaciones Subtitulo 21</th>
+							<th class="text-center texto-pequenio" scope="col" >Ejec. 2017</th>
+							<th class="text-center texto-pequenio" scope="col">Ejec. 2018</th>
+							<th class="text-center texto-pequenio" scope="col">Var 18-17</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyReporteResumen22">
+
+						<?php	
+						if(isset($reporteResumenesGraficos22) && !isset($reporteResumenesGraficos22["resultado"]))
+						{								
+							foreach ($reporteResumenesGraficos22 as $reporteResumenGrafico22) {
+								if($reporteResumenGrafico22['nivel'] == "1" )
+								{
+									echo '<tr>
+											<th class="text-left"><p class="texto-pequenio">'.$reporteResumenGrafico22['nombre'].'</p></th>
+											<th class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico22['total_2017'], 0, ",", ".").'</p></th>
+											<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico22['total_2018'], 0, ",", ".").'</p></th>
+											<th class="text-center"><p class="texto-pequenio">'.$reporteResumenGrafico22['var'].'%</p></th>
+											</tr>';
+								}else{
+									echo '<tr>
+											<td class="text-left"><p class="texto-pequenio">'.$reporteResumenGrafico22['nombreAsignacion'].'</p></td>
+											<td class="text-right" ><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico22['total_2017'], 0, ",", ".").'</p></td>
+											<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGrafico22['total_2018'], 0, ",", ".").'</p></td>
+											<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGrafico22['var'].'%</p></td>
+											</tr>';
+								}
+							}
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

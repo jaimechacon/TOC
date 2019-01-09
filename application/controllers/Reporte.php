@@ -91,6 +91,16 @@ class Reporte extends CI_Controller {
 			if($reporteResumenesTipoGasto)
 				$usuario["reporteResumenesTipoGasto"] = $reporteResumenesTipoGasto;
 
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesGraficos = $this->reporte_model->listarReporteResumenGrafico($usuario["id_usuario"], $idInstitucion, $idArea, 1);
+			if($reporteResumenesGraficos)
+				$usuario["reporteResumenesGraficos"] = $reporteResumenesGraficos;
+
+			mysqli_next_result($this->db->conn_id);
+			$reporteResumenesGraficos22 = $this->reporte_model->listarReporteResumenGrafico($usuario["id_usuario"], $idInstitucion, $idArea, 2);
+			if($reporteResumenesGraficos22)
+				$usuario["reporteResumenesGraficos22"] = $reporteResumenesGraficos22;
+
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportes', $usuario);
