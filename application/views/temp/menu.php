@@ -1,5 +1,5 @@
 <body>
-	<div class="container">
+	<div class="container-full">
 		<div id="menu">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light pt-0 pb-0">
 				<a class="navbar-brand" href="<?php echo base_url();?>Inicio">

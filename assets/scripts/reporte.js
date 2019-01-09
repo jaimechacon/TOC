@@ -1224,10 +1224,11 @@ function cargarGraficos(){
 						legendText: "2017 Subt. 21",
 						showInLegend: true,
 						indexLabel: "${y}",
-						indexLabelFontWeight: "bold",
+						//indexLabelFontWeight: "bold",
 						indexLabelPlacement: "inside",
 						indexLabelOrientation: "vertical",
 						indexLabelFontColor: "#ffffff",
+						indexLabelFontSize: 11,
 						toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
 						dataPoints: dataPointsSub21_2017
 					},
@@ -1238,10 +1239,11 @@ function cargarGraficos(){
 						legendText: "2018 Subt. 21",
 						showInLegend: true,
 						indexLabel: "${y}",
-						indexLabelFontWeight: "bold",
+						//indexLabelFontWeight: "bold",
 						indexLabelPlacement: "inside",
 						indexLabelOrientation: "vertical",
 						indexLabelFontColor: "#ffffff",
+						indexLabelFontSize: 11,
 						toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
 						dataPoints: dataPointsSub21_2018
 					}]
@@ -1283,10 +1285,11 @@ function cargarGraficos(){
 						legendText: "2017 Subt. 22",
 						showInLegend: true,
 						indexLabel: "${y}",
-						indexLabelFontWeight: "bold",
+						//indexLabelFontWeight: "bold",
 						indexLabelPlacement: "inside",
 						indexLabelOrientation: "vertical",
 						indexLabelFontColor: "#ffffff",
+						indexLabelFontSize: 11,
 						toolTipContent: "<span style='\"'color: #4F81BC;'\"'>{anio}:<strong>${y}</strong></span>",
 						dataPoints: dataPointsSub22_2017
 					},
@@ -1297,10 +1300,11 @@ function cargarGraficos(){
 						legendText: "2018 Subt. 22",
 						showInLegend: true,
 						indexLabel: "${y}",
-						indexLabelFontWeight: "bold",
+						//indexLabelFontWeight: "bold",
 						indexLabelPlacement: "inside",
 						indexLabelOrientation: "vertical",
 						indexLabelFontColor: "#ffffff",
+						indexLabelFontSize: 11,
 						toolTipContent: "<span style='\"'color: #C0504E;'\"'>{anio}:<strong>${y}</strong></span>",
 						dataPoints: dataPointsSub22_2018
 					}]
