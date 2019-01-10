@@ -21,6 +21,7 @@
       	}
     	});
 		listarReportes();
+		listarReporteResumenGrafico();
 		cargarGraficos();
 	});
 
@@ -141,6 +142,7 @@
 
  	$("#hospital").change(function() {
 		listarReportes();
+		listarReporteResumenGrafico();
 		cargarGraficos();
 	});
 
@@ -860,6 +862,87 @@
 				        	}
 				            row = row.concat('\n</tr>');
 				          $("#tbodyReporteResumenGasto").append(row);
+				        }
+				        feather.replace()
+      					loader.setAttribute('hidden', '');
+			        }
+		      	}
+		    	});
+	        }
+      	}
+    	});
+  	};
+
+  	function listarReporteResumenGrafico()
+  	{ 	
+ 		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+	    institucion = $("#institucion").val();
+	    hospital = $("#hospital").val();
+	    tipo = 1;
+	  
+
+	    var baseurl = window.origin + '/Reporte/listarReporteResumenGrafico';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion, hospital: hospital, tipo: tipo },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#tbodyReporteResumenGrafico").empty();
+				for (var i = 0; i < data.length; i++){
+		            var row = '';
+		            row = row.concat('<tr>');
+		            if(data[i]['nivel'] == '1')
+		            {
+		            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+			            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
+			            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
+			            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
+		            }else{
+		            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></td>');
+			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></td>');
+			            row = row.concat('\n<td class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
+		            }
+		            row = row.concat('\n<tr>');
+		          $("#tbodyReporteResumenGrafico").append(row);
+		        }
+
+
+		        institucion = $("#institucion").val();
+	    		hospital = $("#hospital").val();
+	    		tipo = 2;
+
+			    var baseurl = window.origin + '/Reporte/listarReporteResumenGrafico';
+			    jQuery.ajax({
+				type: "POST",
+				url: baseurl,
+				dataType: 'json',
+				data: {institucion: institucion, hospital: hospital, tipo: tipo },
+				success: function(data) {
+			        if (data)
+			        {			
+						$("#tbodyReporteResumen22").empty();
+						for (var i = 0; i < data.length; i++){
+				            var row = '';
+				            row = row.concat('<tr>');
+				            if(data[i]['nivel'] == '1')
+				            {
+				            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+					            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
+					            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
+					            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
+				            }else{
+				            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></td>');
+					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></td>');
+					            row = row.concat('\n<td class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
+				            }
+				            row = row.concat('\n</tr>');
+				          $("#tbodyReporteResumen22").append(row);
 				        }
 				        feather.replace()
       					loader.setAttribute('hidden', '');
