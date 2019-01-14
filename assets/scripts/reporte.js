@@ -216,7 +216,7 @@
 			            row = row.concat('\n<th class="text-center table-active"></th>');
 		            }else{
 		            	row = row.concat('\n<td class=""><p class="texto-pequenio">');
-		            	row = row.concat((data[i]['codigo'] + ' ' + data[i]['nombre']).substring(0, 30));
+		            	row = row.concat((data[i]['codigo'] + ' ' + data[i]['nombre']));
 		            	row = row.concat('</p></td>');
 			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['ppto_vigente']),'</p></td>');
 			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado_2018']),'</p></td>');
@@ -263,7 +263,7 @@
 					            row = row.concat('\n<th class="text-center table-active"></th>');
 				            }else{
 					            row = row.concat('\n<td class=""><p class="texto-pequenio">');
-				            	row = row.concat((data[i]['codigo'] + ' ' + data[i]['nombre']).substring(0, 30));
+				            	row = row.concat((data[i]['codigo'] + ' ' + data[i]['nombre']));
 				            	row = row.concat('</p></td>');
 					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['ppto_vigente']),'</p></td>');
 					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['Recaudado_2018']),'</p></td>');
@@ -280,7 +280,6 @@
 				          $("#tbodyReporteResumenGasto").append(row);
 				        }
 
-				        loader.removeAttribute('hidden');
 
 				        institucion = $("#institucion").val();
 					    hospital = $("#hospital").val();
@@ -305,7 +304,7 @@
 						            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['abreviacion'],'</p></th>');
 							            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['presupuesto']),'</p></th>');
 							            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['recaudado']),'</p></th>');
-							            row = row.concat('\n<th class="text-center"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
+							            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
 							            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">','----','</p></th>');
 						            }else{
 							            row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['abreviacion'],'</p></td>');
@@ -875,9 +874,7 @@
   	};
 
   	function listarReporteResumenGrafico()
-  	{ 	
- 		var loader = document.getElementById("loader");
-	    loader.removeAttribute('hidden');
+  	{
 	    institucion = $("#institucion").val();
 	    hospital = $("#hospital").val();
 	    tipo = 1;
@@ -898,15 +895,15 @@
 		            row = row.concat('<tr>');
 		            if(data[i]['nivel'] == '1')
 		            {
-		            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
-			            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
-			            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
-			            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
+		            	row = row.concat('\n<th class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+			            row = row.concat('\n<th class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
+			            row = row.concat('\n<th class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
+			            row = row.concat('\n<th class="text-center"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
 		            }else{
-		            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+		            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombreAsignacion'],'</p></th>');
 			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></td>');
 			            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></td>');
-			            row = row.concat('\n<td class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
+			            row = row.concat('\n<td class="text-center"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
 		            }
 		            row = row.concat('\n<tr>');
 		          $("#tbodyReporteResumenGrafico").append(row);
@@ -932,21 +929,19 @@
 				            row = row.concat('<tr>');
 				            if(data[i]['nivel'] == '1')
 				            {
-				            	row = row.concat('\n<th class="table-active"><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
-					            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
-					            row = row.concat('\n<th class="text-right table-active"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
-					            row = row.concat('\n<th class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
+				            	row = row.concat('\n<th class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+					            row = row.concat('\n<th class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></th>');
+					            row = row.concat('\n<th class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></th>');
+					            row = row.concat('\n<th class="text-center"><p class="texto-pequenio">',data[i]['var'],'%</p></th>');
 				            }else{
-				            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombre'],'</p></th>');
+				            	row = row.concat('\n<td class=""><p class="texto-pequenio">',data[i]['nombreAsignacion'],'</p></th>');
 					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2017']),'</p></td>');
 					            row = row.concat('\n<td class="text-right"><p class="texto-pequenio">$ ',formatNumber(data[i]['total_2018']),'</p></td>');
-					            row = row.concat('\n<td class="text-center table-active"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
+					            row = row.concat('\n<td class="text-center"><p class="texto-pequenio">',data[i]['var'],'%</p></td>');
 				            }
 				            row = row.concat('\n</tr>');
 				          $("#tbodyReporteResumen22").append(row);
 				        }
-				        feather.replace()
-      					loader.setAttribute('hidden', '');
 			        }
 		      	}
 		    	});
