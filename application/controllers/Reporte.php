@@ -19,14 +19,13 @@ class Reporte extends CI_Controller {
 	public function index()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('inicio', $usuario);
 			$this->load->view('temp/footer');
 		}else
 		{
-			//$data['message'] = 'Verifique su email y contrase&ntilde;a.';
 			redirect('Inicio');
 		}
 	}
@@ -34,7 +33,9 @@ class Reporte extends CI_Controller {
 	public function listarReportes()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		
+		if($this->session->userdata('id_usuario'))
+		{
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -105,13 +106,16 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportes', $usuario);
 			$this->load->view('temp/footer', $usuario);
+		}else
+		{
+			redirect('Login');
 		}
 	}
 
 	public function listarReportesItem()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -180,13 +184,16 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportesItem', $usuario);
 			$this->load->view('temp/footer', $usuario);
+		}else
+		{
+			redirect('Login');
 		}
 	}
 
 	public function listarReportesAsignacion()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -264,13 +271,16 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportesAsignacion', $usuario);
 			$this->load->view('temp/footer', $usuario);
+		}else
+		{
+			redirect('Login');
 		}
 	}
 	
 	public function listarReportesSubAsignacion()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -355,13 +365,16 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportesSubAsignacion', $usuario);
 			$this->load->view('temp/footer', $usuario);
+		}else
+		{
+			redirect('Login');
 		}
 	}
 
 	public function listarReportesEspecifico()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -452,6 +465,9 @@ class Reporte extends CI_Controller {
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('listarReportesEspecifico', $usuario);
 			$this->load->view('temp/footer', $usuario);
+		}else
+		{
+			redirect('Login');
 		}
 	}
 
@@ -459,22 +475,25 @@ class Reporte extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		$hospitales = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
 				$institucion = $this->input->post('institucion');
 
 			$hospitales = $this->hospital_model->listarHospitalesUsu($usuario["id_usuario"], $institucion);
+			echo json_encode($hospitales);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($hospitales);
 	}
 
 	public function listarReporteResumen()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -502,7 +521,7 @@ class Reporte extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -522,15 +541,19 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenes = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $institucion, $hospital, $cuenta, 2);
+
+			echo json_encode($reporteResumenes);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenes);
 	}
 
 	public function listarReporteResumenAsignacion()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -550,15 +573,19 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenes = $this->reporte_model->listarReporteResumenAsignacion($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, 2);
+
+			echo json_encode($reporteResumenes);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenes);
 	}
 
 	public function listarReporteResumenSubAsignacion()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -582,15 +609,19 @@ class Reporte extends CI_Controller {
 				$asignacion = $this->input->post('asignacion');
 
 			$reporteResumenes = $this->reporte_model->listarReporteResumenSubAsignacion($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, $asignacion, 2);
+
+			echo json_encode($reporteResumenes);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenes);
 	}
 
 	public function listarReporteResumenEspecifico()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -618,15 +649,19 @@ class Reporte extends CI_Controller {
 				$subAsignacion = $this->input->post('subAsignacion');
 
 			$reporteResumenes = $this->reporte_model->listarReporteResumenEspecifico($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, $asignacion, $subAsignacion, 2);
+		
+			echo json_encode($reporteResumenes);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenes);
 	}
 
 	public function listarReporteResumenFecha()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenes = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -654,15 +689,20 @@ class Reporte extends CI_Controller {
 				$inflactor = $this->input->post('inflactor');
 
 			$reporteResumenes = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $institucion, $hospital, $cuenta, $mes, $anio, $inflactor, 2);
+
+			echo json_encode($reporteResumenes);
 		}
-		echo json_encode($reporteResumenes);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteResumenGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -682,15 +722,20 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+
+			echo json_encode($reporteResumenesGastos);
 		}
-		echo json_encode($reporteResumenesGastos);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteResumenItemGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -710,15 +755,20 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenItem($usuario["id_usuario"], $institucion, $hospital, $cuenta, 1);
+
+			echo json_encode($reporteResumenesGastos);
 		}
-		echo json_encode($reporteResumenesGastos);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteResumenAsignacionGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -738,15 +788,19 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenAsignacion($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, 1);
+
+			echo json_encode($reporteResumenesGastos);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenesGastos);
 	}
 
 	public function listarReporteResumenSubAsignacionGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -770,15 +824,19 @@ class Reporte extends CI_Controller {
 				$asignacion = $this->input->post('asignacion');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenSubAsignacion($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, $asignacion, 1);
+
+			echo json_encode($reporteResumenesGastos);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenesGastos);
 	}
 
 	public function listarReporteResumenEspecificoGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -806,15 +864,19 @@ class Reporte extends CI_Controller {
 				$subAsignacion = $this->input->post('subAsignacion');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenEspecifico($usuario["id_usuario"], $institucion, $hospital, $cuenta, $item, $asignacion, $subAsignacion, 1);
+
+			echo json_encode($reporteResumenesGastos);
+		}else
+		{
+			redirect('Login');
 		}
-		echo json_encode($reporteResumenesGastos);
 	}
 
 	public function listarReporteResumenFechaGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesGastos = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -842,8 +904,13 @@ class Reporte extends CI_Controller {
 				$inflactor = $this->input->post('inflactor');
 
 			$reporteResumenesGastos = $this->reporte_model->listarReporteResumenFecha($usuario["id_usuario"], $institucion, $hospital, $cuenta, $mes, $anio, $inflactor, 1);
+
+			echo json_encode($reporteResumenesGastos);
 		}
-		echo json_encode($reporteResumenesGastos);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 
@@ -851,7 +918,7 @@ class Reporte extends CI_Controller {
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesTipo = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -871,15 +938,20 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesTipo = $this->reporte_model->listarReporteResumenTipo($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+
+			echo json_encode($reporteResumenesTipo);
 		}
-		echo json_encode($reporteResumenesTipo);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteResumenTipoGasto()
 	{
 		$usuario = $this->session->userdata();
 		$reporteResumenesTipoGasto = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -899,14 +971,19 @@ class Reporte extends CI_Controller {
 				$item = $this->input->post('item');
 
 			$reporteResumenesTipoGasto = $this->reporte_model->listarReporteResumenTipoGasto($usuario["id_usuario"], $institucion, $hospital, $cuenta);
+
+			echo json_encode($reporteResumenesTipoGasto);
 		}
-		echo json_encode($reporteResumenesTipoGasto);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReportesFecha()
 	{
 		$usuario = $this->session->userdata();
-		if($usuario){
+		if($this->session->userdata('id_usuario')){
 			$usuario['controller'] = 'reporte';
 
 			$idInstitucion = "null";
@@ -994,13 +1071,17 @@ class Reporte extends CI_Controller {
 			$this->load->view('listarReportesFecha', $usuario);
 			$this->load->view('temp/footer', $usuario);
 		}
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteGrafico()
 	{
 		$usuario = $this->session->userdata();
 		$listarReporteGrafico = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -1024,15 +1105,20 @@ class Reporte extends CI_Controller {
 				$tipo = $this->input->post('tipo');
 
 			$listarReporteGrafico = $this->reporte_model->listarReporteGrafico($usuario["id_usuario"], $institucion, $hospital, $cuenta, $tipo);
+
+			echo json_encode($listarReporteGrafico);
 		}
-		echo json_encode($listarReporteGrafico);
+		else
+		{
+			redirect('Login');
+		}
 	}
 
 	public function listarReporteResumenGrafico()
 	{
 		$usuario = $this->session->userdata();
 		$listarReportResumeneGrafico = [];
-		if($usuario)
+		if($this->session->userdata('id_usuario'))
 		{
 			$institucion = "null";
 			$hospital = "null";
@@ -1056,8 +1142,13 @@ class Reporte extends CI_Controller {
 				$tipo = $this->input->post('tipo');
 
 			$listarReportResumeneGrafico = $this->reporte_model->listarReporteResumenGrafico($usuario["id_usuario"], $institucion, $hospital, $tipo);
+
+			echo json_encode($listarReportResumeneGrafico);
 		}
-		echo json_encode($listarReportResumeneGrafico);
+		else
+		{
+			redirect('Login');
+		}
 	}
 	
 	

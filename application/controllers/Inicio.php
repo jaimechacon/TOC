@@ -17,8 +17,6 @@ class Inicio extends CI_Controller {
 		if($this->session->has_userdata('id_usuario'))
 		{			
 			$perfil = $this->usuario_model->traerPerfilUsu($usuario["id_usuario"]);
-			//$resultados = $this->inicio_model->listarPromedioEvaluacioCampania(5);
-			//var_dump($resultados);
 			$usuario['controller'] = 'inicio';
 			$usuario['perfil'] = $perfil[0];
 			$this->load->view('temp/header');
@@ -52,20 +50,4 @@ class Inicio extends CI_Controller {
 		}
 
 	}
-
-	public function listarPromedioEvaluacionesCampanias()
-	{
-		$usuario = $this->session->userdata();
-		if($usuario){
-			$resultado = $this->inicio_model->listarPromedioEvaluacionesCampanias();
-			if(count($resultado) > 0)
-				for ($i=0; $i < count($resultado); $i++) {
-					$id_campania = $resultado[$i]["id_campania"];
-					$eacs = $this->inicio_model->listarPromedioEvaluacioCampania($id_campania);
-					$resultado[$i]["eacs"] = $eacs;				
-				}			
-		}
-		echo json_encode($resultado);
-	}
-
 }

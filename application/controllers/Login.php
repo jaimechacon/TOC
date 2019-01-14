@@ -45,7 +45,6 @@ class Login extends CI_Controller {
 	private function obtener_menu($id_usuario)
 	{
 		$data = $this->usuario_model->obtener_menu_usuario($id_usuario);
-			
 		$menus[] = array();
 		unset($menus);
 		$cont = 0;

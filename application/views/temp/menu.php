@@ -1,10 +1,12 @@
 <body>
 	<div class="container-full">
 		<div id="menu">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light pt-0 pb-0">
-				<a class="navbar-brand" href="<?php echo base_url();?>Inicio">
-					<img src="<?php echo base_url();?>assets/img/logo.png" width="50" class="d-inline-block align-top" alt="">
-				</a>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="<?php echo base_url();?>Inicio"><img src="<?php echo base_url();?>assets/img/logo.png" width="50" class="d-inline-block align-top" alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				 	</button>
+					
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto">
 
