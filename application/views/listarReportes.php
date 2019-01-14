@@ -157,7 +157,6 @@
 													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['ppto_vigente'], 0, ",", ".").'</p></th>
 													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2018'], 0, ",", ".").'</p></th>
 													<th class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['ejec'].'%</p></th>
-													<th></th>
 													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenGasto['Recaudado_2017_con_mult'], 0, ",", ".").'</p></th>
 													<th class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></th>
 													<th></th>
@@ -172,7 +171,6 @@
 													<td class="text-center"><p class="texto-pequenio">'.$reporteResumenGasto['var_18_17'].'%</p></td>
 													<td class="text-center botonTabla">
 														<button type="button" class="btn btn-link redireccionarItem botonTabla" data-id="'.$reporteResumenGasto["id_cuenta"].'" data-toggle="tooltip" title="click para ver detalle de cuenta"><i data-feather="search" class="trash"></i></button>
-														<!--<a href="'.base_url().'Reporte/listarReportesItem/?idCuenta='.$reporteResumenGasto['id_cuenta'].'" title="click para ver detalle de cuenta"><i data-feather="search" class="trash"></i></a>-->
 													</td>
 													</tr>';
 											}
@@ -206,17 +204,17 @@
 										{
 											echo '<tr>
 													<th class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></th>
-													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['presupuesto'], 0, ",", ".").'</p></th>
 													<th class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></th>
-													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
+													<th class="text-center"><p class="texto-pequenio">'.$reporteResumenTipo['var'].'%</p></th>
 													<th class="text-center"><p class="texto-pequenio">'.'----'.'</p></th>
 												 </tr>';
 										}else{
 											echo '<tr>
 													<td class=""><p class="texto-pequenio">'.$reporteResumenTipo['abreviacion'].'</p></td>
-													<td class="text-center"><p class="texto-pequenio">'.'----'.'</td>
+													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['presupuesto'], 0, ",", ".").'</p></td>
 													<td class="text-right"><p class="texto-pequenio">'.'$ '.number_format($reporteResumenTipo['recaudado'], 0, ",", ".").'</p></td>
-													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
+													<td class="text-center"><p class="texto-pequenio">'.$reporteResumenTipo['var'].'%</p></td>
 													<td class="text-center"><p class="texto-pequenio">'.'----'.'</p></td>
 												 </tr>';
 										}
