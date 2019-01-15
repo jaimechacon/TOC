@@ -826,6 +826,8 @@
 		            }
 		            row = row.concat('\n<tr>');
 		          $("#tbodyReporteResumen").append(row);
+		          $('#idAnio').text("I. Rec. " + anio);
+		          $('#idAnioGasto').text("G. Dev. " + anio);
 		        }
 
 
@@ -1280,7 +1282,8 @@ function cargarGraficos(){
 						lineColor: "#4F81BC",
 						labelFontColor: "#4F81BC",
 						tickColor: "#4F81BC",
-						valueFormatString: "$ #.###.###"
+						//labelFormatter: "#,###,,.##M",
+						valueFormatString: "$#,###,,.##M"
 					},
 					axisY2: {
 						title: "Vista por M$",
@@ -1288,7 +1291,8 @@ function cargarGraficos(){
 						lineColor: "#C0504E",
 						labelFontColor: "#C0504E",
 						tickColor: "#C0504E",
-						valueFormatString: "$ #.###.###"
+						//labelFormatter: "#,###,,.##M",
+						valueFormatString: "$#,###,,.##M"
 					},	
 					toolTip: {
 						shared: true
@@ -1341,7 +1345,7 @@ function cargarGraficos(){
 						lineColor: "#4F81BC",
 						labelFontColor: "#4F81BC",
 						tickColor: "#4F81BC",
-						valueFormatString: "$ #.###.###"
+						valueFormatString: "$#,###,,.##M"
 					},
 					axisY2: {
 						title: "Vista por M$",
@@ -1349,7 +1353,7 @@ function cargarGraficos(){
 						lineColor: "#C0504E",
 						labelFontColor: "#C0504E",
 						tickColor: "#C0504E",
-						valueFormatString: "$ #.###.###"
+						valueFormatString: "$#,###,,.##M"
 					},	
 					toolTip: {
 						shared: true

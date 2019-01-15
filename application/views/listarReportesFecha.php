@@ -191,7 +191,7 @@
 								<tr>
 									<th class="text-center texto-pequenio" scope="col">Gastos</th>
 									<th class="text-center texto-pequenio" scope="col">Ppto. Vigente</th>
-									<th class="text-center texto-pequenio" scope="col">G. Dev.
+									<th id="idAnioGasto" class="text-center texto-pequenio" scope="col">G. Dev.
 									<?php echo (isset($anioSeleccionado) ? $anioSeleccionado : "" ); ?></th>
 								</tr>
 							</thead>
