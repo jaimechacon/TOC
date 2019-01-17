@@ -1025,6 +1025,15 @@ class Reporte extends CI_Controller {
 			$anios[] = array();
          	unset($anios[0]);
 
+
+			$idInstitucion = 1;
+         	mysqli_next_result($this->db->conn_id);
+			$listarReporteGrafico22 = $this->reporte_model->listarReporteGrafico22($usuario["id_usuario"], $idInstitucion, $idArea);
+			if($listarReporteGrafico22)
+				$usuario["listarReporteGrafico22"] = $listarReporteGrafico22;
+
+			var_dump($listarReporteGrafico22);
+
 			foreach ($mesesAnios as $mesAnio) {	
 
 				$anioEncontrado = array();
