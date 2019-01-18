@@ -14,5 +14,11 @@ class Hospital_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function listarHospitalesUsuPagos($id_usuario, $id_institucion)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarHospitalesUsuPagos`('.$id_usuario.', '.$id_institucion.');');
+		return $query->result_array();
+	}
+
 
 }

@@ -23,7 +23,7 @@
 								<span class="">Instituci&oacute;n</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="institucionFecha" class="custom-select custom-select-sm">
+								<select id="institucionPago" class="custom-select custom-select-sm">
 								   	<option value="-1">Todos</option>
 									<?php 
 									if($instituciones)
@@ -49,7 +49,7 @@
 								<span class="">Area</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="hospitalFecha" class="custom-select custom-select-sm">
+								<select id="hospitalPago" class="custom-select custom-select-sm">
 								    <option value="-1">Todos</option>
 									<?php 
 									if($hospitales)
@@ -73,13 +73,13 @@
 			</div>
 			<div class="col-sm-12 mt-3">
 				<div class="row">			
-					<div class="col-sm-6">
+					<div class="col-sm-3">
 						<div class="row">
 							<div class="col-sm-3 text-right">
 								<span class="">Mes</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="mes" class="custom-select custom-select-sm">
+								<select id="mesPago" class="custom-select custom-select-sm">
 								   	<option value="-1">Todos</option>
 									<?php 
 									if($meses)
@@ -99,13 +99,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-3">
 						<div class="row">
 							<div class="col-sm-3 text-right">
 								<span class="">A&ntilde;o</span>
 							</div>
 							<div class="col-sm-9">
-								<select id="anio" class="custom-select custom-select-sm">
+								<select id="anioPago" class="custom-select custom-select-sm">
 								   	<option value="-1">Todos</option>
 									<?php 
 									if($anios)
@@ -117,6 +117,32 @@
 	                                        }else
 	                                        {
 	                                            echo '<option value="'.$anio['idAnio'].'">'.$anio['nombreAnio'].'</option>';
+	                                        }
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-3 text-right">
+								<span class="">Proveedor</span>
+							</div>
+							<div class="col-sm-9">
+								<select id="principalPago" class="custom-select custom-select-sm">
+								   	<option value="-1">Todos</option>
+									<?php 
+									if($principales)
+									{
+										foreach ($principales as $principal) {
+											if(isset($idPrincipal) && (int)$principal['id_principal'] == $idPrincipal)
+	                                        {
+	                                                echo '<option value="'.$principal['id_principal'].'" selected>'.$principal['nombre'].'</option>';
+	                                        }else
+	                                        {
+	                                                echo '<option value="'.$principal['id_principal'].'">'.$principal['nombre'].'</option>';
 	                                        }
 										}
 									}
