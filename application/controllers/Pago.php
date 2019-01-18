@@ -145,12 +145,21 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->post('proveedor')) && $this->input->post('proveedor') != "-1")
 				$proveedor = $this->input->post('proveedor');
 
+			if(is_null($this->input->post('proveedor')))
+			{
+				$principales = $this->pago_model->listarPrincipalesUsu($usuario["id_usuario"], 'null', 'null');
+				if($principales && sizeof($principales) == 1 && $principales[0]["dedicado"] == 1)
+					$proveedor = $principales[0]["id_principal"];
+			}
+
+
 			if(!is_null($this->input->post('mes')) && $this->input->post('mes') != "-1")
 				$mes = $this->input->post('mes');
 
 			if(!is_null($this->input->post('anio')) && $this->input->post('anio') != "-1")
 				$anio = $this->input->post('anio');
 
+			mysqli_next_result($this->db->conn_id);
 			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor, $mes, $anio);
 
 			echo json_encode($pagos);
