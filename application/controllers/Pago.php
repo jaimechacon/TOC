@@ -68,6 +68,9 @@ class Pago extends CI_Controller {
 			if($principales)
 				$usuario["principales"] = $principales;
 
+			if(sizeof($principales) == 1)
+				$idPrincipal = $principales[0]["id_principal"];
+
 			mysqli_next_result($this->db->conn_id);
 			$mesesAnios = $this->pago_model->obtenerAniosPagos();
 			$anios[] = array();

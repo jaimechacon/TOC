@@ -13,7 +13,7 @@
 				<h3>Listado de Pagos Realizados</h3>
 			</div>
 		</div>
-		<hr class="my-4">
+		<hr class="my-3">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row">			
@@ -73,7 +73,7 @@
 			</div>
 			<div class="col-sm-12 mt-3">
 				<div class="row">			
-					<div class="col-sm-3">
+					<div class="<?php echo (sizeof($principales) > 1) ? 'col-sm-3' : 'col-sm-6'; ?>">
 						<div class="row">
 							<div class="col-sm-3 text-right">
 								<span class="">Mes</span>
@@ -99,7 +99,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="<?php echo (sizeof($principales) > 1) ? 'col-sm-3' : 'col-sm-6'; ?>">
 						<div class="row">
 							<div class="col-sm-3 text-right">
 								<span class="">A&ntilde;o</span>
@@ -125,6 +125,9 @@
 							</div>
 						</div>
 					</div>
+					<?php 
+						if (sizeof($principales) > 1) {
+					?>
 					<div class="col-sm-6">
 						<div class="row">
 							<div class="col-sm-3 text-right">
@@ -151,16 +154,17 @@
 							</div>
 						</div>
 					</div>
+				<?php }?>
 				</div>
 			</div>
-			<div class="col-sm-12 pt-3 pb-3">
+			<!--<div class="col-sm-12 pt-3 pb-3">
 				<div class="card">
 					<div class="card-header">
-						1621 Servicio de Salud Iquique - 01 noviembre 2018 al 30 noviembre 2018 - jueves 17 enero 2019 09:29:47
+						
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-12">
+			</div>-->
+			<div class="col-sm-12 pt-3">
 				<div id="tablaReporteResumen" class="row">
 					<div class="col-sm-12">
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
