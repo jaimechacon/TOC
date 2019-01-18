@@ -157,4 +157,47 @@ class Pago extends CI_Controller {
 			redirect('Login');
 		}
 	}
+
+	public function listarHospitalesInstitucion()
+	{
+		$usuario = $this->session->userdata();
+		$hospitales = [];
+		if($this->session->userdata('id_usuario'))
+		{
+			$institucion = "null";
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			$hospitales = $this->hospital_model->listarHospitalesUsuPagos($usuario["id_usuario"], $institucion);
+			echo json_encode($hospitales);
+		}else
+		{
+			redirect('Login');
+		}
+	}
+
+	public function listarProveedores()
+	{
+		$usuario = $this->session->userdata();
+		$proveedores = [];
+		if($this->session->userdata('id_usuario'))
+		{
+			$institucion = "null";
+			$hospital = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			$proveedores = $this->pago_model->listarPrincipalesUsu($usuario["id_usuario"], $institucion, $hospital);
+
+			echo json_encode($proveedores);
+		}
+		else
+		{
+			redirect('Login');
+		}
+	}	
 }

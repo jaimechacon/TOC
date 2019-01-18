@@ -1,8 +1,8 @@
  $(document).ready(function() {
 
  	$("#institucionPago").change(function() {
-		/*institucion = $("#institucion").val();
-		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
+		institucion = $("#institucionPago").val();
+		var baseurl = window.origin + '/Pago/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -11,20 +11,62 @@
 		success: function(data) {
 	        if (data)
 	        {			
-				$("#hospital").empty();
+				$("#hospitalPago").empty();
 				var row = '<option value="-1">Todos</option>';
 				for (var i = 0; i < data.length; i++) {
 					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
 				}
-				$("#hospital").append(row);
+				$("#hospitalPago").append(row);
 	        }
       	}
-    	});*/
+    	});
+
+    	institucion = $("#institucionPago").val();
+    	hospital =  $("#hospitalPago").val();
+		var baseurl = window.origin + '/Pago/listarProveedores';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion, hospital: hospital },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#principalPago").empty();
+				var row = '<option value="-1">Todos</option>';
+				for (var i = 0; i < data.length; i++) {
+					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
+				}
+				$("#principalPago").append(row);
+	        }
+      	}
+    	});
+
 		listarReportes();
 	});
 
 
  	$("#hospitalPago").change(function() {
+ 		institucion = $("#institucionPago").val();
+    	hospital =  $("#hospitalPago").val();
+		var baseurl = window.origin + '/Pago/listarProveedores';
+	    jQuery.ajax({
+		type: "POST",
+		url: baseurl,
+		dataType: 'json',
+		data: {institucion: institucion, hospital: hospital },
+		success: function(data) {
+	        if (data)
+	        {			
+				$("#principalPago").empty();
+				var row = '<option value="-1">Todos</option>';
+				for (var i = 0; i < data.length; i++) {
+					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
+				}
+				$("#principalPago").append(row);
+	        }
+      	}
+    	});
 		listarReportes();
 	});
 
