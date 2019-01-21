@@ -20,7 +20,7 @@ class Pago extends CI_Controller {
 	public function index()
 	{
 		$usuario = $this->session->userdata();
-		if($thiss->session->userdata('id_usuario')){
+		if($this->session->userdata('id_usuario')){
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('inicio', $usuario);
@@ -46,6 +46,8 @@ class Pago extends CI_Controller {
 			$instituciones = $this->institucion_model->listarInstitucionesUsuPagos($usuario["id_usuario"]);
 			if($instituciones)
 				$usuario["instituciones"] = $instituciones;
+
+			$usuario['idInstitucion'] = $instituciones[0]['id_institucion'];
 
 			if(!is_null($this->input->GET('idInstitucion')) && $this->input->GET('idInstitucion'))
 			{
@@ -143,7 +145,7 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
 				$hospital = $this->input->post('hospital');
 
-			if(!is_null($this->input->post('proveedor')) && $this->input->post('proveedor') != "-1")
+			if(!is_null($this->input->post('proveedor')) && $this->input->post('proveedor') != "-1" && is_numeric($this->input->post('proveedor')))
 				$proveedor = $this->input->post('proveedor');
 
 			if(is_null($this->input->post('proveedor')))
@@ -234,7 +236,7 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->get('hospital')) && $this->input->get('hospital') != "-1")
 				$hospital = $this->input->get('hospital');
 
-			if(!is_null($this->input->get('proveedor')) && $this->input->get('proveedor') != "-1")
+			if(!is_null($this->input->get('proveedor')) && $this->input->get('proveedor') != "-1" && is_numeric($this->input->post('proveedor')))
 				$proveedor = $this->input->get('proveedor');
 
 			if(is_null($this->input->get('proveedor')))

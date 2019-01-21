@@ -129,9 +129,9 @@
 					row = row.concat('\n<td class="text-left"><p class="texto-pequenio">',data[i]['tipo_cambio'],'</p></td>');
 		            row = row.concat('\n<tr>');
 		          $("#tbodyReporteResumen").append(row);
-		        }		
+		        }
 		        feather.replace()
-					loader.setAttribute('hidden', '');
+				loader.setAttribute('hidden', '');
 	        }
       	}
     	});
