@@ -137,6 +137,21 @@
     	});
   	};
 
+  	$("#btnExportarExcel, #imgExportarExcel").on('click', function() {
+		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+	    institucion = $("#institucionPago").val();
+	    hospital = $("#hospitalPago").val();
+	    mes = $("#mesPago").val();
+	    anio = $("#anioPago").val();
+		proveedor = $('#principalPago').val();
+
+		//var url = window.location.href.replace("ListarPagos", "exportarexcel");
+	    var urlFinal = window.location.href.replace("ListarPagos", "exportarexcel") + "?institucion=" + institucion + "&hospital=" + hospital + "&mes=" + mes + "&anio=" + anio + "&proveedor=" + proveedor;
+	    window.location.href = urlFinal;
+	    loader.setAttribute('hidden', '');
+  	});
+
   	
 
 	function formatNumber (n) {

@@ -9,8 +9,12 @@
 <div class="row pt-3">
 	<div class="col-sm-12">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-7">
 				<h3>Listado de Pagos Realizados</h3>
+			</div>
+			<div class="col-sm-5 text-right">
+				<button id="btnExportarExcel" type="button" class="btn btn-link">Exportar a Excel</button>
+				<img  id="imgExportarExcel" src="<?php echo base_url();?>assets/img/icons/excel.png" width="30" class="d-inline-block align-top" alt="">
 			</div>
 		</div>
 		<hr class="my-3">
