@@ -13,8 +13,10 @@
 				<h3>Listado de Pagos Realizados</h3>
 			</div>
 			<div class="col-sm-5 text-right">
-				<button id="btnExportarExcel" type="button" class="btn btn-link">Exportar a Excel</button>
-				<img  id="imgExportarExcel" src="<?php echo base_url();?>assets/img/icons/excel.png" width="30" class="d-inline-block align-top" alt="">
+				<button id="btnExportarExcel" type="button" class="btn btn-link">Exportar a CSV
+					<i style="margin-bottom: 5px;" data-feather="download"></i>
+				</button>
+				<!--<img  id="imgExportarExcel" src="<?php //echo base_url();?>assets/img/icons/excel.png" width="30" class="d-inline-block align-top" alt="">-->
 			</div>
 		</div>
 		<hr class="my-3">
@@ -171,6 +173,16 @@
 			<div class="col-sm-12 pt-3">
 				<div id="tablaReporteResumen" class="row">
 					<div class="col-sm-12">
+						<!--<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+						  </ul>
+						</nav>-->
+						 <?php //echo $this->pagination->create_links(); ?>
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
 							<thead class="thead-dark">
 								<tr>

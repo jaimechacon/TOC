@@ -15,6 +15,7 @@ class Pago extends CI_Controller {
 		$this->load->model('pago_model');
 		$this->load->model('usuario_model');
 		$this->load->library('excel');
+		$this->load->library('pagination');
 	}
 
 	public function index()
@@ -108,13 +109,44 @@ class Pago extends CI_Controller {
 			}
 
 			mysqli_next_result($this->db->conn_id);
-			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal, $mesesAnios[0]["mesSeleccionado"], $mesesAnios[0]["anioSeleccionado"]);
+			$cantPagos = $this->pago_model->listarCantPagos($usuario["id_usuario"], "null", $idArea, $idPrincipal, "null", $mesesAnios[0]["idAnio"]);
+
+			$config = array();
+			$config["base_url"] = base_url()."Pago/ListarPagos";
+  			$config["total_rows"] = (int)$cantPagos[0]["cantPagos"];
+			$config["per_page"] = 100;
+			$config["uri_segment"] = 5;
+			$config["use_page_numbers"] = TRUE;
+			$config["full_tag_open"] = '<nav aria-label="Page navigation example"><ul class="pagination">';
+			$config["full_tag_close"] = '</ul></nav>';
+			$config["first_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Principio';
+			$config["first_tag_close"] = '</a></li>';
+			$config["last_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Final';
+			$config["last_tag_close"] = '</a></li>';
+			$config["next_link"] = '';
+			$config["next_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Siguiente';
+			$config["next_tag_close"] = '</a></li>';
+			$config["prev_link"] = '';
+			$config["prev_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Anterior';
+			$config["prev_tag_close"] = '</a></li>';
+			$config["cur_tag_open"] = '<li class="page-item active" aria-current="page"><a class="page-link" href="#">';
+			$config["cur_tag_close"] = '</a></li>';
+			$config["num_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
+			$config["num_tag_close"] = '</a></li>';
+			$config["num_links"] = 4;
+			$this->pagination->initialize($config);
+			$page = $this->uri->segment(3);
+
+
+			//$links = $this->pagination->create_links();
+			mysqli_next_result($this->db->conn_id);
+			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal, $mesesAnios[0]["idMes"], $mesesAnios[0]["idAnio"], 0, 100);
 			if($pagos)
 				$usuario["pagos"] = $pagos;
 
 			$usuario['meses'] = $meses;
-			$usuario['anioSeleccionado'] = $mesesAnios[0]["anioSeleccionado"];
-			$usuario['mesSeleccionado'] = $mesesAnios[0]["mesSeleccionado"];
+			$usuario['anioSeleccionado'] = $mesesAnios[0]["idAnio"];
+			$usuario['mesSeleccionado'] = $mesesAnios[0]["idMes"];
 
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
@@ -163,8 +195,17 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->post('anio')) && $this->input->post('anio') != "-1")
 				$anio = $this->input->post('anio');
 
+			$inicio = 1;
+			$tamanio = 100;
+
+			if(!is_null($this->input->post('inicio')) && $this->input->post('inicio') != "-1")
+				$inicio = $this->input->post('inicio');
+
+			if(!is_null($this->input->post('tamanio')) && $this->input->post('tamanio') != "-1")
+				$tamanio = $this->input->post('tamanio');
+
 			//mysqli_next_result($this->db->conn_id);
-			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor, $mes, $anio);
+			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor, $mes, $anio, $inicio, $tamanio);
 
 			echo json_encode($pagos);
 		}
@@ -222,8 +263,6 @@ class Pago extends CI_Controller {
 		$pagos = [];
 		if($this->session->userdata('id_usuario'))
 		{
-			
-			
 			$institucion = "null";
 			$hospital = "null";
 			$mes = "null";
@@ -239,14 +278,12 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->get('proveedor')) && $this->input->get('proveedor') != "-1" && is_numeric($this->input->post('proveedor')))
 				$proveedor = $this->input->get('proveedor');
 
-			if(is_null($this->input->get('proveedor')))
+			$principales = $this->pago_model->listarPrincipalesUsu($usuario["id_usuario"], 'null', 'null');
+			if($principales)
 			{
-				$principales = $this->pago_model->listarPrincipalesUsu($usuario["id_usuario"], 'null', 'null');
-				if($principales && sizeof($principales) == 1 && $principales[0]["dedicado"] == 1)
-					$proveedor = $principales[0]["id_principal"];
-				mysqli_next_result($this->db->conn_id);
+				if(sizeof($principales) == 1)
+				$proveedor = $principales[0]["id_principal"];
 			}
-
 
 			if(!is_null($this->input->get('mes')) && $this->input->get('mes') != "-1")
 				$mes = $this->input->get('mes');
@@ -254,10 +291,12 @@ class Pago extends CI_Controller {
 			if(!is_null($this->input->get('anio')) && $this->input->get('anio') != "-1")
 				$anio = $this->input->get('anio');
 
-			//mysqli_next_result($this->db->conn_id);
-			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor, $mes, $anio);			
+			mysqli_next_result($this->db->conn_id);
+			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor, $mes, $anio, "null", "null");
 			
 			$this->excel->getActiveSheet()->setTitle('ListadoPagosRealizados');
+			#var_dump($institucion, $hospital, $proveedor, $mes, $anio);
+			#var_dump($pagos);
 	        //Contador de filas
 	        $contador = 1;
 	        //Le aplicamos ancho las columnas.
@@ -269,6 +308,8 @@ class Pago extends CI_Controller {
 	        #$this->excel->getActiveSheet()->getStyle("B{$contador}")->getFont()->setBold(true);
 	        #$this->excel->getActiveSheet()->getStyle("C{$contador}")->getFont()->setBold(true);
 	        //Definimos los títulos de la cabecera.
+	        
+
 	        
 	        $this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Area Transaccional');
 			$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Folio');

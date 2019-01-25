@@ -145,7 +145,7 @@
 	    mes = $("#mesPago").val();
 	    anio = $("#anioPago").val();
 		proveedor = $('#principalPago').val();
-
+		
 		//var url = window.location.href.replace("ListarPagos", "exportarexcel");
 	    var urlFinal = window.location.href.replace("ListarPagos", "exportarexcel") + "?institucion=" + institucion + "&hospital=" + hospital + "&mes=" + mes + "&anio=" + anio + "&proveedor=" + proveedor;
 	    window.location.href = urlFinal;
