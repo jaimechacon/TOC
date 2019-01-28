@@ -326,7 +326,7 @@ class Pago extends CI_Controller {
 	        ->getFill()
 	        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 	        ->getStartColor()
-	        ->setRGB('819FF7');
+	        ->setRGB('006CB8');
 
 	        $this->excel->getActiveSheet()->getRowDimension(6)->setRowHeight(20);
 			$this->excel->getActiveSheet()->mergeCells("A1:I5");
@@ -339,7 +339,7 @@ class Pago extends CI_Controller {
         	$styleTitulo = array('alignment' => array(
             				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
             			    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER),
-        	'font' => array('size' => 20, 'bold' => true, 'color' => array('rgb' => '819FF7')));
+        	'font' => array('size' => 20, 'bold' => true, 'color' => array('rgb' => '006CB8')));
 
         	$this->excel->getActiveSheet()->getStyle('A1:I5')->applyFromArray($styleTitulo);
         	 $this->excel->getActiveSheet()->setCellValue("A1", 'Listado de Pagos Realizados');
@@ -358,32 +358,7 @@ class Pago extends CI_Controller {
 
 			$objDrawing->setWorksheet($this->excel->getActiveSheet());
 
-			  $this->excel->getActiveSheet()->getStyle('A1');
-	        //Le aplicamos negrita a los títulos de la cabecera.
-	        /*$this->excel->getActiveSheet()->getStyle("A{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("B{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("C{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("D{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("E{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("F{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("G{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("H{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("I{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("J{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("K{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("L{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("M{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("N{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("O{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("P{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("Q{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("R{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("S{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("T{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("U{$contador}")->getFont()->setBold(true);
-	        $this->excel->getActiveSheet()->getStyle("V{$contador}")->getFont()->setBold(true);*/
-	        //Definimos los títulos de la cabecera.     
-
+			$this->excel->getActiveSheet()->getStyle('A6');
 	        
 	        $this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Area Transaccional');
 			$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Folio');
@@ -440,13 +415,13 @@ class Pago extends CI_Controller {
 	        }
 
 	        //Le ponemos un nombre al archivo que se va a generar.
-	        $archivo = "listadoPagosRealizados_{$contador}.xls";
+	        $archivo = "listadoPagosRealizados_{$contador}.xlsx";
 	        header('Content-Type: application/force-download');
 	        header('Content-Disposition: attachment;filename="'.$archivo.'"');
 	        header('Cache-Control: max-age=0');
 
 	        #$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'excel2007');
 	        //Hacemos una salida al navegador con el archivo Excel.
 	        $objWriter->save('php://output'); 
 		}
