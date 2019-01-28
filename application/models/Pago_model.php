@@ -14,9 +14,9 @@ class Pago_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function obtenerAniosPagos()
+	public function obtenerAniosPagos($id_usuario, $id_institucion, $id_hospital, $id_principal)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerAniosPagos`;');
+		$query = $this->db->query('CALL `institucionminsal`.`obtenerAniosPagos`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_principal.');');
 		return $query->result_array();
 	}
 

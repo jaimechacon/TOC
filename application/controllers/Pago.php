@@ -49,6 +49,7 @@ class Pago extends CI_Controller {
 				$usuario["instituciones"] = $instituciones;
 
 			$usuario['idInstitucion'] = $instituciones[0]['id_institucion'];
+			$idInstitucion = $instituciones[0]['id_institucion'];
 
 			if(!is_null($this->input->GET('idInstitucion')) && $this->input->GET('idInstitucion'))
 			{
@@ -76,7 +77,7 @@ class Pago extends CI_Controller {
 				$idPrincipal = $principales[0]["id_principal"];
 
 			mysqli_next_result($this->db->conn_id);
-			$mesesAnios = $this->pago_model->obtenerAniosPagos();
+			$mesesAnios = $this->pago_model->obtenerAniosPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal);
 			$anios[] = array();
          	unset($anios[0]);
 
@@ -140,13 +141,13 @@ class Pago extends CI_Controller {
 
 			//$links = $this->pagination->create_links();
 			mysqli_next_result($this->db->conn_id);
-			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal, $mesesAnios[0]["idMes"], $mesesAnios[0]["idAnio"], 0, 100);
+			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal, "null", "null", "null", "null");
 			if($pagos)
 				$usuario["pagos"] = $pagos;
 
 			$usuario['meses'] = $meses;
-			$usuario['anioSeleccionado'] = $mesesAnios[0]["idAnio"];
-			$usuario['mesSeleccionado'] = $mesesAnios[0]["idMes"];
+			#$usuario['anioSeleccionado'] = $mesesAnios[0]["idAnio"];
+			#$usuario['mesSeleccionado'] = $mesesAnios[0]["idMes"];
 
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
@@ -197,6 +198,9 @@ class Pago extends CI_Controller {
 
 			$inicio = 1;
 			$tamanio = 100;
+
+			$inicio = "null";
+			$tamanio = "null";
 
 			if(!is_null($this->input->post('inicio')) && $this->input->post('inicio') != "-1")
 				$inicio = $this->input->post('inicio');
@@ -298,28 +302,98 @@ class Pago extends CI_Controller {
 			#var_dump($institucion, $hospital, $proveedor, $mes, $anio);
 			#var_dump($pagos);
 	        //Contador de filas
-	        $contador = 1;
+	        $contador = 7;
 	        //Le aplicamos ancho las columnas.
-	        #$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-	        #$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-	        #$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(100);
+	        $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
+	        $this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('i')->setWidth(30);
+	        $this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(30);
+	        $this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(30);
+	        $this->excel->getActiveSheet()->getColumnDimension('L')->setWidth(30);
+	        $this->excel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('N')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('R')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('S')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('T')->setWidth(25);
+	        $this->excel->getActiveSheet()->getColumnDimension('V')->setWidth(20);
+
+	        $this->excel->getActiveSheet()->getStyle('A7:V7')
+	        ->getFill()
+	        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+	        ->getStartColor()
+	        ->setRGB('819FF7');
+
+	        $this->excel->getActiveSheet()->getRowDimension(6)->setRowHeight(20);
+			$this->excel->getActiveSheet()->mergeCells("A1:I5");
+
+			$style = array('alignment' => array(
+            				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            			    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER),
+        	'font' => array('size' => 12, 'color' => array('rgb' => 'ffffff')));
+
+        	$styleTitulo = array('alignment' => array(
+            				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            			    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER),
+        	'font' => array('size' => 20, 'bold' => true, 'color' => array('rgb' => '819FF7')));
+
+        	$this->excel->getActiveSheet()->getStyle('A1:I5')->applyFromArray($styleTitulo);
+        	 $this->excel->getActiveSheet()->setCellValue("A1", 'Listado de Pagos Realizados');
+
+			//apply the style on column A row 1 to Column B row 1
+			 $this->excel->getActiveSheet()->getStyle('A7:V7')->applyFromArray($style);
+
+			$gdImage = imagecreatefrompng(base_url()."assets/img/logo.png");
+			$objDrawing = new PHPExcel_Worksheet_MemoryDrawing();
+			$objDrawing->setImageResource($gdImage);
+			$objDrawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG);
+			$objDrawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT);
+			$objDrawing->setHeight(100);
+			$objDrawing->setwidth(100);
+			$objDrawing->setCoordinates('A1');
+
+			$objDrawing->setWorksheet($this->excel->getActiveSheet());
+
+			  $this->excel->getActiveSheet()->getStyle('A1');
 	        //Le aplicamos negrita a los títulos de la cabecera.
-	        #$this->excel->getActiveSheet()->getStyle("A{$contador}")->getFont()->setBold(true);
-	        #$this->excel->getActiveSheet()->getStyle("B{$contador}")->getFont()->setBold(true);
-	        #$this->excel->getActiveSheet()->getStyle("C{$contador}")->getFont()->setBold(true);
-	        //Definimos los títulos de la cabecera.
-	        
+	        /*$this->excel->getActiveSheet()->getStyle("A{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("B{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("C{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("D{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("E{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("F{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("G{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("H{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("I{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("J{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("K{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("L{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("M{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("N{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("O{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("P{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("Q{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("R{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("S{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("T{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("U{$contador}")->getFont()->setBold(true);
+	        $this->excel->getActiveSheet()->getStyle("V{$contador}")->getFont()->setBold(true);*/
+	        //Definimos los títulos de la cabecera.     
 
 	        
 	        $this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Area Transaccional');
 			$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Folio');
 			$this->excel->getActiveSheet()->setCellValue("C{$contador}", 'Tipo Operacion');
-			$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Fecha Generaci&oacute;n');
-			$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Cuenta Contable');
+			$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Fecha Generación');
+			$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Cta. Contable');
 			$this->excel->getActiveSheet()->setCellValue("F{$contador}", 'Tipo Documento');
 			$this->excel->getActiveSheet()->setCellValue("G{$contador}", 'Nro. Documento');
 			$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Fecha Cumplimiento');
-			$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Combinaci&oacute;n Catalogo');
+			$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Combinación Catalogo');
 			$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Principal');
 			$this->excel->getActiveSheet()->setCellValue("K{$contador}", 'Principal Relacionado');
 			$this->excel->getActiveSheet()->setCellValue("L{$contador}", 'Beneficiario');
@@ -360,13 +434,13 @@ class Pago extends CI_Controller {
 				$this->excel->getActiveSheet()->setCellValue("Q{$contador}", $pago['nro_documento_pago']);
 				$this->excel->getActiveSheet()->setCellValue("R{$contador}", $pago['fecha_emision']);
 				$this->excel->getActiveSheet()->setCellValue("S{$contador}", $pago['estado_documento']);
-				$this->excel->getActiveSheet()->setCellValue("T{$contador}", number_format($pago['monto'], 0, ",", "."));
+				$this->excel->getActiveSheet()->setCellValue("T{$contador}", $pago['monto']);
 				$this->excel->getActiveSheet()->setCellValue("U{$contador}", $pago['moneda']);
 				$this->excel->getActiveSheet()->setCellValue("V{$contador}", $pago['tipo_cambio']);
 	        }
 
 	        //Le ponemos un nombre al archivo que se va a generar.
-	        $archivo = "llamadas_cliente_{$contador}.xls";
+	        $archivo = "listadoPagosRealizados_{$contador}.xls";
 	        header('Content-Type: application/force-download');
 	        header('Content-Disposition: attachment;filename="'.$archivo.'"');
 	        header('Cache-Control: max-age=0');
@@ -379,4 +453,71 @@ class Pago extends CI_Controller {
 			redirect('Login');
 		}
     }
+
+
+    public function listarMesesAnios()
+	{
+		$usuario = $this->session->userdata();
+		$meseAnio = [];
+		$mesesAnios = [];
+		if($this->session->userdata('id_usuario'))
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$proveedor = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('proveedor')) && $this->input->post('proveedor') != "-1")
+				$proveedor = $this->input->post('proveedor');
+
+			$mesesAnios = $this->pago_model->obtenerAniosPagos($usuario["id_usuario"], $institucion, $hospital, $proveedor);
+
+			$anios[] = array();
+         	unset($anios[0]);
+
+
+         	foreach ($mesesAnios as $mesAnio) {
+
+				$anioEncontrado = array();
+         		unset($anioEncontrado);
+
+         		$anioEncontrado['idAnio'] = $mesAnio['idAnio'];
+         		$anioEncontrado['nombreAnio'] = $mesAnio['nombreAnio'];
+
+         		if(!in_array($anioEncontrado, $anios))
+                	array_push($anios, $anioEncontrado);
+			}
+			$meseAnio['anios'] = $anios;
+
+			$meses[] = array();
+         	unset($meses[0]);
+
+			foreach ($mesesAnios as $mes) {	
+
+				$mesEncontrado = array();
+         		unset($mesEncontrado);
+
+         		$mesEncontrado['idMes'] = $mes['idMes'];
+         		$mesEncontrado['nombreMes'] = $mes['nombreMes'];
+
+         		if(!in_array($mesEncontrado, $meses))
+                	array_push($meses, $mesEncontrado);
+			}
+			$meseAnio['meses'] = $meses;
+
+			echo json_encode($meseAnio);
+		}
+		else
+		{
+			redirect('Login');
+		}
+	}
+
+
+
 }

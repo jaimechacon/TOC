@@ -17,32 +17,65 @@
 					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
 				}
 				$("#hospitalPago").append(row);
+
+				institucion = $("#institucionPago").val();
+		    	hospital =  $("#hospitalPago").val();
+				var baseurl = window.origin + '/Pago/listarProveedores';
+			    jQuery.ajax({
+				type: "POST",
+				url: baseurl,
+				dataType: 'json',
+				data: {institucion: institucion, hospital: hospital },
+				success: function(data) {
+			        if (data)
+			        {			
+						$("#principalPago").empty();
+						var row = '<option value="-1">Todos</option>';
+						for (var i = 0; i < data.length; i++) {
+							row = row.concat('\n<option value="',data[i]["id_principal"],'">',data[i]["nombre_principal"], '</option>');
+						}
+						$("#principalPago").append(row);
+
+						institucion = $("#institucionPago").val();
+				    	hospital =  $("#hospitalPago").val();
+				    	proveedor =  $("#principalPago").val();
+						var baseurl = window.origin + '/Pago/listarMesesAnios';
+					    jQuery.ajax({
+						type: "POST",
+						url: baseurl,
+						dataType: 'json',
+						data: {institucion: institucion, hospital: hospital, proveedor: proveedor },
+						success: function(data) {
+					        if (data)
+					        {			
+								$("#mesPago").empty();
+								var row = '<option value="-1">Todos</option>';
+								for (var i = 1; i <= Object.keys(data["meses"]).length; i++) {
+									row = row.concat('\n<option value="',data["meses"][i]["idMes"],'">',data["meses"][i]["nombreMes"], '</option>');
+								}
+								$("#mesPago").append(row);
+
+								$("#anioPago").empty();
+								var row = '<option value="-1">Todos</option>';
+								for (var i = 1; i <= Object.keys(data["anios"]).length; i++) {
+									row = row.concat('\n<option value="',data["anios"][i]["idAnio"],'">',data["anios"][i]["nombreAnio"], '</option>');
+								}
+								$("#anioPago").append(row);
+
+								
+
+								listarReportes();
+					        }
+				      	}
+				    	});
+			        }
+		      	}
+		    	});
 	        }
       	}
     	});
 
-    	institucion = $("#institucionPago").val();
-    	hospital =  $("#hospitalPago").val();
-		var baseurl = window.origin + '/Pago/listarProveedores';
-	    jQuery.ajax({
-		type: "POST",
-		url: baseurl,
-		dataType: 'json',
-		data: {institucion: institucion, hospital: hospital },
-		success: function(data) {
-	        if (data)
-	        {			
-				$("#principalPago").empty();
-				var row = '<option value="-1">Todos</option>';
-				for (var i = 0; i < data.length; i++) {
-					row = row.concat('\n<option value="',data[i]["id_hospital"],'">',data[i]["nombre"], '</option>');
-				}
-				$("#principalPago").append(row);
-	        }
-      	}
-    	});
-
-		listarReportes();
+		
 	});
 
 
@@ -127,7 +160,7 @@
 					row = row.concat('\n<td class="text-right"><p class="texto-pequenio">','$ ',formatNumber(data[i]['monto']),'</p></td>');
 					row = row.concat('\n<td class="text-left"><p class="texto-pequenio">',data[i]['moneda'],'</p></td>');
 					row = row.concat('\n<td class="text-left"><p class="texto-pequenio">',data[i]['tipo_cambio'],'</p></td>');
-		            row = row.concat('\n<tr>');
+		            row = row.concat('\n</tr>');
 		          $("#tbodyReporteResumen").append(row);
 		        }
 		        feather.replace()
