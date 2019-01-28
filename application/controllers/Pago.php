@@ -422,7 +422,8 @@ class Pago extends CI_Controller {
 	        header('Cache-Control: max-age=0');
 
 	        #$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+	        $objWriter = PHPExcel_Writer_Excel2007($this->excel);
+	        //$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
 
 	        //Hacemos una salida al navegador con el archivo Excel.
 	        ob_end_clean();
