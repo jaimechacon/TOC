@@ -16,6 +16,10 @@
 				<button id="btnExportarExcel" type="button" class="btn btn-link">Exportar a CSV
 					<i style="margin-bottom: 5px;" data-feather="download"></i>
 				</button>
+
+				<button id="btnExportarTodoExcel" type="button" class="btn btn-link">Exportar todo a CSV
+					<i style="margin-bottom: 5px;" data-feather="download"></i>
+				</button>
 				<!--<img  id="imgExportarExcel" src="<?php //echo base_url();?>assets/img/icons/excel.png" width="30" class="d-inline-block align-top" alt="">-->
 			</div>
 		</div>

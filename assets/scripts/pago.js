@@ -170,6 +170,21 @@
     	});
   	};
 
+  	$("#btnExportarTodoExcel, #imgExportarExcel").on('click', function() {
+		var loader = document.getElementById("loader");
+	    loader.removeAttribute('hidden');
+	    institucion = -1;
+	    hospital = -1;
+	    mes = -1;
+	    anio = -1;
+		proveedor = -1;
+		
+		//var url = window.location.href.replace("ListarPagos", "exportarexcel");
+	    var urlFinal = window.location.href.replace("ListarPagos", "exportarexcel") + "?institucion=" + institucion + "&hospital=" + hospital + "&mes=" + mes + "&anio=" + anio + "&proveedor=" + proveedor;
+	    window.location.href = urlFinal;
+	    loader.setAttribute('hidden', '');
+  	});
+
   	$("#btnExportarExcel, #imgExportarExcel").on('click', function() {
 		var loader = document.getElementById("loader");
 	    loader.removeAttribute('hidden');
