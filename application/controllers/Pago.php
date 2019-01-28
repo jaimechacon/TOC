@@ -441,7 +441,7 @@ class Pago extends CI_Controller {
 
 	        //Le ponemos un nombre al archivo que se va a generar.
 	        $archivo = "listadoPagosRealizados_{$contador}.xlsx";
-	        #header('Content-Type: application/force-download');
+	        header('Content-Type: application/force-download');
 	        header('Content-Disposition: attachment;filename="'.$archivo.'"');
 	        header('Cache-Control: max-age=0');
 
