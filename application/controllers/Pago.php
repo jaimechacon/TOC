@@ -326,7 +326,7 @@ class Pago extends CI_Controller {
 	        ->getFill()
 	        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
 	        ->getStartColor()
-	        ->setRGB('006CB8');
+	        ->setRGB('819FF7');
 
 	        $this->excel->getActiveSheet()->getRowDimension(6)->setRowHeight(20);
 			$this->excel->getActiveSheet()->mergeCells("A1:I5");
@@ -339,7 +339,7 @@ class Pago extends CI_Controller {
         	$styleTitulo = array('alignment' => array(
             				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
             			    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER),
-        	'font' => array('size' => 20, 'bold' => true, 'color' => array('rgb' => '006CB8')));
+        	'font' => array('size' => 20, 'bold' => true, 'color' => array('rgb' => '819FF7')));
 
         	$this->excel->getActiveSheet()->getStyle('A1:I5')->applyFromArray($styleTitulo);
         	 $this->excel->getActiveSheet()->setCellValue("A1", 'Listado de Pagos Realizados');
@@ -402,7 +402,7 @@ class Pago extends CI_Controller {
 			$this->excel->getActiveSheet()->setCellValue("O{$contador}", 'Medio Pago');
 			$this->excel->getActiveSheet()->setCellValue("P{$contador}", 'Tipo Medio Pago');
 			$this->excel->getActiveSheet()->setCellValue("Q{$contador}", 'Nro. Documento Pago');
-			$this->excel->getActiveSheet()->setCellValue("R{$contador}", 'Fecha Emisión');
+			$this->excel->getActiveSheet()->setCellValue("R{$contador}", 'Fecha Emisi&oacute;n');
 			$this->excel->getActiveSheet()->setCellValue("S{$contador}", 'Estado Documento');
 			$this->excel->getActiveSheet()->setCellValue("T{$contador}", 'Monto');
 			$this->excel->getActiveSheet()->setCellValue("U{$contador}", 'Moneda');
@@ -440,13 +440,13 @@ class Pago extends CI_Controller {
 	        }
 
 	        //Le ponemos un nombre al archivo que se va a generar.
-	        $archivo = "listadoPagosRealizados_{$contador}.xlsx";
+	        $archivo = "listadoPagosRealizados_{$contador}.xls";
 	        header('Content-Type: application/force-download');
 	        header('Content-Disposition: attachment;filename="'.$archivo.'"');
 	        header('Cache-Control: max-age=0');
 
 	        #$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
 	        //Hacemos una salida al navegador con el archivo Excel.
 	        $objWriter->save('php://output'); 
 		}
