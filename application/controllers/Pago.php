@@ -415,30 +415,15 @@ class Pago extends CI_Controller {
 	        }
 
 	        //Le ponemos un nombre al archivo que se va a generar.
-	        $archivo = "listadoPagosRealizados_{$contador}.xlsx";
-	       #header('Content-Type: application/force-download');
-	        /*header('Content-Type: application/vnd.ms-excel');
+	        $archivo = "listadoPagosRealizados_{$contador}.xls";
+	        header('Content-Type: application/force-download');
 	        header('Content-Disposition: attachment;filename="'.$archivo.'"');
 	        header('Cache-Control: max-age=0');
 
 	        #$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-	        $objWriter = PHPExcel_Writer_Excel2007($this->excel);
-	        //$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
-
+	        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
 	        //Hacemos una salida al navegador con el archivo Excel.
-	        ob_end_clean();
-	        $objWriter->save('php://output'); */
-	        header("Pragma: public");
-			header("Expires: 0");
-			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			header("Content-Type: application/force-download");
-			header("Content-Type: application/octet-stream");
-			header("Content-Type: application/download");;
-			header("Content-Disposition: attachment;filename=$filename.xls");
-			header("Content-Transfer-Encoding: binary ");
-			$objWriter = new PHPExcel_Writer_Excel2007($this->excel); 
-			$objWriter->setOffice2003Compatibility(true);
-			$objWriter->save('php://output');
+	        $objWriter->save('php://output'); 
 		}
 		else
 		{
