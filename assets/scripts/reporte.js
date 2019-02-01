@@ -1211,6 +1211,7 @@ window.onload = function () {
 }
 
 function cargarGraficos(){
+
 		var institucion = $("#institucion").val();
 		var hospital = $("#hospital").val();
 		var cuenta = -1;//$("#asignacionSeleccion").data('idcuenta');
@@ -1393,10 +1394,429 @@ function cargarGraficos(){
 					}]
 				});
 
-				chart.render();
-				chart2.render();
 
-					
+				var baseurlGraficoProduccion = window.origin + '/Reporte/listarReporteResumenGraficoProduccion';
+				var dataPointsGrafico1 = [];
+				var dataPointsGrafico2 = [];
+				var dataPointsGrafico3 = [];
+				var dataPointsGrafico4 = [];
+				var dataPointsGrafico5 = [];
+				var dataPointsGrafico6 = [];
+
+				var dataPointsGeneral1 = [];
+				var dataPoints11 = [];
+				var dataPoints12 = [];
+
+				var dataPointsGeneral2 = [];
+				var dataPoints21 = [];
+				var dataPoints22 = [];
+
+				var dataPointsGeneral3 = [];
+				var dataPoints31 = [];
+				var dataPoints32 = [];
+
+				var dataPointsGeneral4 = [];
+				var dataPoints41 = [];
+				var dataPoints42 = [];
+
+				var dataPointsGeneral5 = [];
+				var dataPoints51 = [];
+				var dataPoints52 = [];
+
+				var dataPointsGeneral6 = [];
+				var dataPoints61 = [];
+				var dataPoints62 = [];
+
+				jQuery.ajax({
+				type: "POST",
+				url: baseurlGraficoProduccion,
+				dataType: 'json',
+				data: {institucion: institucion, hospital: hospital, grupo :"-1"},
+				success: function(data) {
+					if(data)
+					{
+						for (var i = 0; i < data.length; i++) {
+							var id_grupo_prestacion = data[i]["id_grupo_prestacion"];
+							switch(id_grupo_prestacion) {
+		  						case "1":
+		  							dataPointsGrafico1.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto: parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+		  						case "2":
+		  							dataPointsGrafico2.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto:  parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+		  						case "3":
+		  							dataPointsGrafico3.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto:  parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+		  						case "4":
+									dataPointsGrafico5.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto: parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+		  						case "5":
+		  							dataPointsGrafico4.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto: parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+		  						case "6":
+		  							dataPointsGrafico6.push({
+										anio: data[i]['anio'],
+										mes: data[i]['mes'],
+										nombreMes: data[i]['nombreMes'],
+										monto: parseFloat(data[i]['monto']),
+										id_grupo_prestacion: data[i]['id_grupo_prestacion'],
+										nombre_grupo: data[i]['nombre_grupo']
+									});
+		  						break;
+
+		  					}
+						}
+
+						var anio1 = dataPointsGrafico1[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico1.length; i++) {
+							if(anio1 != dataPointsGrafico1[i]["anio"] || (i + 1) == dataPointsGrafico1.length){
+								dataPoints12.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio1,
+									dataPoints: dataPoints11
+								});
+								dataPointsGeneral1.push(dataPoints12[0]);
+								dataPoints11 = [];
+								dataPoints12 = [];
+								anio1 = dataPointsGrafico1[i]["anio"];
+								dataPoints11.push({
+									label: dataPointsGrafico1[i]['nombreMes'],
+									y: dataPointsGrafico1[i]['monto']
+								});
+							}else{
+								dataPoints11.push({
+									label: dataPointsGrafico1[i]['nombreMes'],
+									y: dataPointsGrafico1[i]['monto']
+								});
+							}
+						}
+
+						var anio2 = dataPointsGrafico2[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico2.length; i++) {
+							if(anio2 != dataPointsGrafico2[i]["anio"] || (i + 1) == dataPointsGrafico2.length){
+								dataPoints22.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio2,
+									dataPoints: dataPoints21
+								});
+								dataPointsGeneral2.push(dataPoints22[0]);
+								dataPoints21 = [];
+								dataPoints22 = [];
+								anio2 = dataPointsGrafico2[i]["anio"];
+								dataPoints21.push({
+									label: dataPointsGrafico2[i]['nombreMes'],
+									y: dataPointsGrafico2[i]['monto']
+								});
+							}else{
+								dataPoints21.push({
+									label: dataPointsGrafico2[i]['nombreMes'],
+									y: dataPointsGrafico2[i]['monto']
+								});
+							}
+						}
+
+						var anio3 = dataPointsGrafico3[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico3.length; i++) {
+							if(anio3 != dataPointsGrafico3[i]["anio"] || (i + 1) == dataPointsGrafico3.length){
+								dataPoints32.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio3,
+									dataPoints: dataPoints31
+								});
+								dataPointsGeneral3.push(dataPoints32[0]);
+								dataPoints31 = [];
+								dataPoints32 = [];
+								anio3 = dataPointsGrafico3[i]["anio"];
+								dataPoints31.push({
+									label: dataPointsGrafico3[i]['nombreMes'],
+									y: dataPointsGrafico3[i]['monto']
+								});
+							}else{
+								dataPoints31.push({
+									label: dataPointsGrafico3[i]['nombreMes'],
+									y: dataPointsGrafico3[i]['monto']
+								});
+							}
+						}
+
+						var anio4 = dataPointsGrafico4[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico4.length; i++) {
+							if(anio4 != dataPointsGrafico4[i]["anio"] || (i + 1) == dataPointsGrafico4.length){
+								dataPoints42.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio4,
+									dataPoints: dataPoints41
+								});
+								dataPointsGeneral4.push(dataPoints42[0]);
+								dataPoints41 = [];
+								dataPoints42 = [];
+								anio4 = dataPointsGrafico4[i]["anio"];
+								dataPoints41.push({
+									label: dataPointsGrafico4[i]['nombreMes'],
+									y: dataPointsGrafico4[i]['monto']
+								});
+							}else{
+								dataPoints41.push({
+									label: dataPointsGrafico4[i]['nombreMes'],
+									y: dataPointsGrafico4[i]['monto']
+								});
+							}
+						}
+
+						var anio5 = dataPointsGrafico5[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico5.length; i++) {
+							if(anio5 != dataPointsGrafico5[i]["anio"] || (i + 1) == dataPointsGrafico5.length){
+								dataPoints52.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio5,
+									dataPoints: dataPoints51
+								});
+								dataPointsGeneral5.push(dataPoints52[0]);
+								dataPoints51 = [];
+								dataPoints52 = [];
+								anio5 = dataPointsGrafico5[i]["anio"];
+								dataPoints51.push({
+									label: dataPointsGrafico5[i]['nombreMes'],
+									y: dataPointsGrafico5[i]['monto']
+								});
+							}else{
+								dataPoints51.push({
+									label: dataPointsGrafico5[i]['nombreMes'],
+									y: dataPointsGrafico5[i]['monto']
+								});
+							}
+						}
+
+						var anio6 = dataPointsGrafico6[0]["anio"];
+						for (var i = 0; i < dataPointsGrafico6.length; i++) {
+							if(anio6 != dataPointsGrafico6[i]["anio"] || (i + 1) == dataPointsGrafico6.length){
+								dataPoints62.push({
+									type: "spline",
+									showInLegend: true,
+									//yValueFormatString: "##.00mn",
+									name: anio6,
+									dataPoints: dataPoints61
+								});
+								dataPointsGeneral6.push(dataPoints62[0]);
+								dataPoints61 = [];
+								dataPoints62 = [];
+								anio6 = dataPointsGrafico6[i]["anio"];
+								dataPoints61.push({
+									label: dataPointsGrafico6[i]['nombreMes'],
+									y: dataPointsGrafico6[i]['monto']
+								});
+							}else{
+								dataPoints61.push({
+									label: dataPointsGrafico6[i]['nombreMes'],
+									y: dataPointsGrafico6[i]['monto']
+								});
+							}
+						}
+
+						var chart3 = new CanvasJS.Chart("chartContainer3", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico1[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral1
+						});
+
+						var chart4 = new CanvasJS.Chart("chartContainer4", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico2[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral2
+						});
+
+						var chart5 = new CanvasJS.Chart("chartContainer5", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico3[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral3
+						});
+
+						var chart6 = new CanvasJS.Chart("chartContainer6", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico4[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral4
+						});
+
+						var chart7 = new CanvasJS.Chart("chartContainer7", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico5[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral5
+						});
+
+						var chart8 = new CanvasJS.Chart("chartContainer8", {
+							theme:"light2",
+							animationEnabled: true,
+							title:{
+								text: dataPointsGrafico6[0]["nombre_grupo"]
+							},
+							axisY :{
+								includeZero: false,
+								title: "Valores"//,
+								//suffix: "mn"
+							},
+							toolTip: {
+								shared: "true"
+							},
+							legend:{
+								cursor:"pointer",
+								itemclick : toggleDataSeries
+							},
+							data: dataPointsGeneral6
+						});
+
+
+					}
+
+					chart.render();
+					chart2.render();
+					chart3.render();
+					chart4.render();
+					chart5.render();
+					chart6.render();
+					chart7.render();
+					chart8.render();
+
+						
+					function toggleDataSeries(e) {
+						if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+							e.dataSeries.visible = false;
+						}
+						else {
+							e.dataSeries.visible = true;
+						}
+						chart.render();
+						chart2.render();
+						chart3.render();
+						chart4.render();
+						chart5.render();
+						chart6.render();
+						chart7.render();
+						chart8.render();
+					}
+
+				}
+				});
+
 				function toggleDataSeries(e) {
 					if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 						e.dataSeries.visible = false;
@@ -1406,7 +1826,14 @@ function cargarGraficos(){
 					}
 					chart.render();
 					chart2.render();
+					chart3.render();
+					chart4.render();
+					chart5.render();
+					chart6.render();
+					chart7.render();
+					chart8.render();
 				}
+				
 			}
 		}
 		});

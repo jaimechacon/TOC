@@ -89,6 +89,12 @@ class Reporte_model extends CI_Model
 	public function listarReporteGrafico22($id_usuario, $id_institucion, $id_hospital)
 	{
 		$query = $this->db->query('CALL `institucionminsal`.`listarReporteGrafico22`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.');');
-		return $query->fetch_assoc();
+		return $query->result_array();
+	}
+
+	public function listarReporteGraficoProduccion($id_usuario, $id_institucion, $id_hospital, $id_grupo_prestacion)
+	{
+		$query = $this->db->query('CALL `institucionminsal`.`listarReporteGraficoProduccion`('.$id_usuario.', '.$id_institucion.', '.$id_hospital.', '.$id_grupo_prestacion.');');
+		return $query->result_array();
 	}
 }	

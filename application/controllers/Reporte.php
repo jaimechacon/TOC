@@ -1026,13 +1026,13 @@ class Reporte extends CI_Controller {
          	unset($anios[0]);
 
 
-			$idInstitucion = 1;
+			/*$idInstitucion = 1;
          	mysqli_next_result($this->db->conn_id);
 			$listarReporteGrafico22 = $this->reporte_model->listarReporteGrafico22($usuario["id_usuario"], $idInstitucion, $idArea);
 			if($listarReporteGrafico22)
 				$usuario["listarReporteGrafico22"] = $listarReporteGrafico22;
-
-			var_dump($listarReporteGrafico22);
+*/
+			//var_dump($listarReporteGrafico22);
 
 			foreach ($mesesAnios as $mesAnio) {	
 
@@ -1151,6 +1151,37 @@ class Reporte extends CI_Controller {
 				$tipo = $this->input->post('tipo');
 
 			$listarReportResumeneGrafico = $this->reporte_model->listarReporteResumenGrafico($usuario["id_usuario"], $institucion, $hospital, $tipo);
+
+			echo json_encode($listarReportResumeneGrafico);
+		}
+		else
+		{
+			redirect('Login');
+		}
+	}
+
+
+
+	public function listarReporteResumenGraficoProduccion()
+	{
+		$usuario = $this->session->userdata();
+		$listarReportResumeneGrafico = [];
+		if($this->session->userdata('id_usuario'))
+		{
+			$institucion = "null";
+			$hospital = "null";
+			$grupo = "null";
+
+			if(!is_null($this->input->post('institucion')) && $this->input->post('institucion') != "-1")
+				$institucion = $this->input->post('institucion');
+
+			if(!is_null($this->input->post('hospital')) && $this->input->post('hospital') != "-1")
+				$hospital = $this->input->post('hospital');
+
+			if(!is_null($this->input->post('grupo')) && $this->input->post('grupo') != "-1")
+				$grupo = $this->input->post('grupo');
+
+			$listarReportResumeneGrafico = $this->reporte_model->listarReporteGraficoProduccion($usuario["id_usuario"], $institucion, $hospital, $grupo);
 
 			echo json_encode($listarReportResumeneGrafico);
 		}

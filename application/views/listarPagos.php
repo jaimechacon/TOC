@@ -187,6 +187,9 @@
 						  </ul>
 						</nav>-->
 						 <?php //echo $this->pagination->create_links(); ?>
+
+						  <?php if (isset($links)) { ?>
+                		  <?php echo $links; }?>
 						<table id="tReporteResumen" class="table table-sm table-hover table-bordered">
 							<thead class="thead-dark">
 								<tr>

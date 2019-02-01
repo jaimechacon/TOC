@@ -115,30 +115,50 @@ class Pago extends CI_Controller {
 			$config = array();
 			$config["base_url"] = base_url()."Pago/ListarPagos";
   			$config["total_rows"] = (int)$cantPagos[0]["cantPagos"];
-			$config["per_page"] = 100;
-			$config["uri_segment"] = 5;
+			$config["per_page"] = 5;
+			$config["uri_segment"] = 4;
+
+			
+			$this->pagination->initialize($config);
+
+			$this->pagination->create_links();
+
+
+
 			$config["use_page_numbers"] = TRUE;
+
 			$config["full_tag_open"] = '<nav aria-label="Page navigation example"><ul class="pagination">';
-			$config["full_tag_close"] = '</ul></nav>';
-			$config["first_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Principio';
+			$config["full_tag_close"] = '</nav>';
+
+			/*$config['first_link'] = 'Principio';
+			$config["first_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
 			$config["first_tag_close"] = '</a></li>';
-			$config["last_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Final';
+
+			$config['first_link'] = 'Final';
+			$config["last_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
 			$config["last_tag_close"] = '</a></li>';
-			$config["next_link"] = '';
-			$config["next_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Siguiente';
+
+			$config["next_link"] = 'Siguiente';
+			$config["next_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
 			$config["next_tag_close"] = '</a></li>';
-			$config["prev_link"] = '';
+
+			$config["prev_link"] = 'Anterior';
 			$config["prev_tag_open"] = '<li class="page-item"><a class="page-link" href="#">Anterior';
 			$config["prev_tag_close"] = '</a></li>';
+
 			$config["cur_tag_open"] = '<li class="page-item active" aria-current="page"><a class="page-link" href="#">';
 			$config["cur_tag_close"] = '</a></li>';
+
 			$config["num_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
 			$config["num_tag_close"] = '</a></li>';
+
 			$config["num_links"] = 4;
+
 			$this->pagination->initialize($config);
-			$page = $this->uri->segment(3);
-
-
+            $page = $this->uri->segment(3); */
+            // build paging links
+            $usuario['links'] = $this->pagination->create_links();
+			
 			//$links = $this->pagination->create_links();
 			mysqli_next_result($this->db->conn_id);
 			$pagos = $this->pago_model->listarPagos($usuario["id_usuario"], $idInstitucion, $idArea, $idPrincipal, "null", "null", "null", "null");
@@ -317,6 +337,9 @@ class Pago extends CI_Controller {
 	        $this->excel->getActiveSheet()->getColumnDimension('L')->setWidth(30);
 	        $this->excel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 	        $this->excel->getActiveSheet()->getColumnDimension('N')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('P')->setWidth(20);
+	        $this->excel->getActiveSheet()->getColumnDimension('Q')->setWidth(20);
 	        $this->excel->getActiveSheet()->getColumnDimension('R')->setWidth(25);
 	        $this->excel->getActiveSheet()->getColumnDimension('S')->setWidth(25);
 	        $this->excel->getActiveSheet()->getColumnDimension('T')->setWidth(25);

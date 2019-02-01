@@ -352,6 +352,24 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer3" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer4" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer5" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer6" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer7" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="chartContainer8" style="height: 300px; width: 100%;"></div>
+			</div>
 		</div>
 	</div>
 </div>
