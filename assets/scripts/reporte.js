@@ -1504,6 +1504,7 @@ function cargarGraficos(){
 
 						var anio1 = dataPointsGrafico1[0]["anio"];
 						var row1 = "";
+						$("#tbody1").empty();
 						row1 = row1.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico1[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico1.length; i++) {
 
@@ -1539,6 +1540,7 @@ function cargarGraficos(){
 
 						var anio2 = dataPointsGrafico2[0]["anio"];
 						var row2 = "";
+						$("#tbody2").empty();
 						row2 = row2.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico2[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico2.length; i++) {
 							if(anio2 != dataPointsGrafico2[i]["anio"] || (i + 1) == dataPointsGrafico2.length){
@@ -1571,6 +1573,7 @@ function cargarGraficos(){
 
 						var anio3 = dataPointsGrafico3[0]["anio"];
 						var row3 = "";
+						$("#tbody3").empty();
 						row3 = row3.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico3[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico3.length; i++) {
 							if(anio3 != dataPointsGrafico3[i]["anio"] || (i + 1) == dataPointsGrafico3.length){
@@ -1603,6 +1606,7 @@ function cargarGraficos(){
 
 						var anio4 = dataPointsGrafico4[0]["anio"];
 						var row4 = "";
+						$("#tbody4").empty();
 						row4 = row4.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico4[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico4.length; i++) {
 							if(anio4 != dataPointsGrafico4[i]["anio"] || (i + 1) == dataPointsGrafico4.length){
@@ -1635,6 +1639,7 @@ function cargarGraficos(){
 
 						var anio5 = dataPointsGrafico5[0]["anio"];
 						var row5 = "";
+						$("#tbody5").empty();
 						row5 = row5.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico5[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico5.length; i++) {
 							if(anio5 != dataPointsGrafico5[i]["anio"] || (i + 1) == dataPointsGrafico5.length){
@@ -1667,6 +1672,7 @@ function cargarGraficos(){
 
 						var anio6 = dataPointsGrafico6[0]["anio"];
 						var row6 = "";
+						$("#tbody6").empty();
 						row6 = row6.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico6[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico6.length; i++) {
 							if(anio6 != dataPointsGrafico6[i]["anio"] || (i + 1) == dataPointsGrafico6.length){
