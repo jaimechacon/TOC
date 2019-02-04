@@ -1503,8 +1503,14 @@ function cargarGraficos(){
 						}
 
 						var anio1 = dataPointsGrafico1[0]["anio"];
+						var row1 = "";
+						row1 = row1.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico1[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico1.length; i++) {
+
 							if(anio1 != dataPointsGrafico1[i]["anio"] || (i + 1) == dataPointsGrafico1.length){
+								var row1 = row1.concat('</tr>');
+								$("#tbody1").append(row1);
+								var row1 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico1[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico1[i]['monto']),'</p></td>');
 								dataPoints12.push({
 									type: "spline",
 									showInLegend: true,
@@ -1512,6 +1518,7 @@ function cargarGraficos(){
 									name: anio1,
 									dataPoints: dataPoints11
 								});
+
 								dataPointsGeneral1.push(dataPoints12[0]);
 								dataPoints11 = [];
 								dataPoints12 = [];
@@ -1520,7 +1527,9 @@ function cargarGraficos(){
 									label: dataPointsGrafico1[i]['nombreMes'],
 									y: dataPointsGrafico1[i]['monto']
 								});
+
 							}else{
+								row1 = row1.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico1[i]["monto"]),'</p></td>');
 								dataPoints11.push({
 									label: dataPointsGrafico1[i]['nombreMes'],
 									y: dataPointsGrafico1[i]['monto']
@@ -1529,8 +1538,13 @@ function cargarGraficos(){
 						}
 
 						var anio2 = dataPointsGrafico2[0]["anio"];
+						var row2 = "";
+						row2 = row2.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico2[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico2.length; i++) {
 							if(anio2 != dataPointsGrafico2[i]["anio"] || (i + 1) == dataPointsGrafico2.length){
+								var row2 = row2.concat('</tr>');
+								$("#tbody2").append(row2);
+								var row2 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico2[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico2[i]['monto']),'</p></td>');
 								dataPoints22.push({
 									type: "spline",
 									showInLegend: true,
@@ -1547,6 +1561,7 @@ function cargarGraficos(){
 									y: dataPointsGrafico2[i]['monto']
 								});
 							}else{
+								row2 = row2.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico2[i]["monto"]),'</p></td>');
 								dataPoints21.push({
 									label: dataPointsGrafico2[i]['nombreMes'],
 									y: dataPointsGrafico2[i]['monto']
@@ -1555,8 +1570,13 @@ function cargarGraficos(){
 						}
 
 						var anio3 = dataPointsGrafico3[0]["anio"];
+						var row3 = "";
+						row3 = row3.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico3[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico3.length; i++) {
 							if(anio3 != dataPointsGrafico3[i]["anio"] || (i + 1) == dataPointsGrafico3.length){
+								var row3 = row3.concat('</tr>');
+								$("#tbody3").append(row3);
+								var row3 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico3[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico3[i]['monto']),'</p></td>');
 								dataPoints32.push({
 									type: "spline",
 									showInLegend: true,
@@ -1573,6 +1593,7 @@ function cargarGraficos(){
 									y: dataPointsGrafico3[i]['monto']
 								});
 							}else{
+								row3 = row3.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico3[i]["monto"]),'</p></td>');
 								dataPoints31.push({
 									label: dataPointsGrafico3[i]['nombreMes'],
 									y: dataPointsGrafico3[i]['monto']
@@ -1581,8 +1602,13 @@ function cargarGraficos(){
 						}
 
 						var anio4 = dataPointsGrafico4[0]["anio"];
+						var row4 = "";
+						row4 = row4.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico4[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico4.length; i++) {
 							if(anio4 != dataPointsGrafico4[i]["anio"] || (i + 1) == dataPointsGrafico4.length){
+								var row4 = row4.concat('</tr>');
+								$("#tbody4").append(row4);
+								var row4 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico4[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico4[i]['monto']),'</p></td>');
 								dataPoints42.push({
 									type: "spline",
 									showInLegend: true,
@@ -1599,6 +1625,7 @@ function cargarGraficos(){
 									y: dataPointsGrafico4[i]['monto']
 								});
 							}else{
+								row4 = row4.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico4[i]["monto"]),'</p></td>');
 								dataPoints41.push({
 									label: dataPointsGrafico4[i]['nombreMes'],
 									y: dataPointsGrafico4[i]['monto']
@@ -1607,8 +1634,13 @@ function cargarGraficos(){
 						}
 
 						var anio5 = dataPointsGrafico5[0]["anio"];
+						var row5 = "";
+						row5 = row5.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico5[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico5.length; i++) {
 							if(anio5 != dataPointsGrafico5[i]["anio"] || (i + 1) == dataPointsGrafico5.length){
+								var row5 = row5.concat('</tr>');
+								$("#tbody5").append(row5);
+								var row5 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico5[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico5[i]['monto']),'</p></td>');
 								dataPoints52.push({
 									type: "spline",
 									showInLegend: true,
@@ -1625,6 +1657,7 @@ function cargarGraficos(){
 									y: dataPointsGrafico5[i]['monto']
 								});
 							}else{
+								row5 = row5.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico5[i]["monto"]),'</p></td>');
 								dataPoints51.push({
 									label: dataPointsGrafico5[i]['nombreMes'],
 									y: dataPointsGrafico5[i]['monto']
@@ -1633,8 +1666,13 @@ function cargarGraficos(){
 						}
 
 						var anio6 = dataPointsGrafico6[0]["anio"];
+						var row6 = "";
+						row6 = row6.concat('<tr>\n<td scope="row"><p class="texto-pequenio-grafico">',dataPointsGrafico6[0]["anio"],'</p></td>');
 						for (var i = 0; i < dataPointsGrafico6.length; i++) {
 							if(anio6 != dataPointsGrafico6[i]["anio"] || (i + 1) == dataPointsGrafico6.length){
+								var row6 = row6.concat('</tr>');
+								$("#tbody6").append(row6);
+								var row6 = '<tr>\n<td scope="row"><p class="texto-pequenio-grafico">'.concat(dataPointsGrafico6[i]["anio"],'</p></td>', '<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico6[i]['monto']),'</p></td>');
 								dataPoints62.push({
 									type: "spline",
 									showInLegend: true,
@@ -1651,6 +1689,7 @@ function cargarGraficos(){
 									y: dataPointsGrafico6[i]['monto']
 								});
 							}else{
+								row6 = row6.concat('\n<td scope="row"><p class="texto-pequenio-grafico">', formatNumber(dataPointsGrafico6[i]["monto"]),'</p></td>');
 								dataPoints61.push({
 									label: dataPointsGrafico6[i]['nombreMes'],
 									y: dataPointsGrafico6[i]['monto']
@@ -1666,7 +1705,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1687,7 +1726,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1708,7 +1747,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1729,7 +1768,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1750,7 +1789,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1771,7 +1810,7 @@ function cargarGraficos(){
 							},
 							axisY :{
 								includeZero: false,
-								title: "Valores"//,
+								title: "Cantidades"//,
 								//suffix: "mn"
 							},
 							toolTip: {
@@ -1838,3 +1877,14 @@ function cargarGraficos(){
 		}
 		});
 	};
+
+	function formatNumber (n) {
+		n = String(n).replace(/\D/g, "");
+	  return n === '' ? n : Number(n).toLocaleString();
+	}
+
+	Number.addEventListener('keyup', (e) => {
+		const element = e.target;
+		const value = element.value;
+	  element.value = formatNumber(value);
+	});

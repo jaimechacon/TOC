@@ -159,6 +159,12 @@ top : 0;
   width: auto !important;
 }
 
+.texto-pequenio-grafico{
+  font-size: 0.6rem !important;
+  margin-bottom: 0rem !important;
+  width: auto !important;
+}
+
 .botonTabla{
   padding: 0px !important;
   margin: 0px !important;

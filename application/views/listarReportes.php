@@ -352,23 +352,177 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-sm-12 col-md-6">
+			<div class="col-sm-12 pt-3 pb-3 pt-3"">
+				<div class="card">
+					<div class="card-header">
+						IV. Producción
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3"">
 				<div id="chartContainer3" style="height: 300px; width: 100%;"></div>
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<div id="chartContainer4" style="height: 300px; width: 100%;"></div>
 			</div>
-			<div class="col-sm-12 col-md-6">
+			<div class="col-sm-12 col-md-6 pt-3 pb-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody1">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody2">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 pb-3">
+				<hr class="my-1">
+			</div>
+			<div class="col-sm-12 col-md-6  pt-3">
 				<div id="chartContainer5" style="height: 300px; width: 100%;"></div>
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<div id="chartContainer6" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3 pb-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody3">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody4">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 pb-3">
+				<hr class="my-1">
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<div id="chartContainer7" style="height: 300px; width: 100%;"></div>
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<div id="chartContainer8" style="height: 300px; width: 100%;"></div>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3 pb-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody5">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 col-md-6 pt-3">
+				<table class="table table-sm table-bordered">
+					<thead>
+						<tr>
+							<th scope="col"><p class="texto-pequenio">A&ntilde;o</p></th>
+							<th scope="col"><p class="texto-pequenio">Ene</p></th>
+							<th scope="col"><p class="texto-pequenio">Feb</p></th>
+							<th scope="col"><p class="texto-pequenio">Mar</p></th>
+							<th scope="col"><p class="texto-pequenio">Abr</p></th>
+							<th scope="col"><p class="texto-pequenio">May</p></th>
+							<th scope="col"><p class="texto-pequenio">Jun</p></th>
+							<th scope="col"><p class="texto-pequenio">Jul</p></th>
+							<th scope="col"><p class="texto-pequenio">Ago</p></th>
+							<th scope="col"><p class="texto-pequenio">Sep</p></th>
+							<th scope="col"><p class="texto-pequenio">Oct</p></th>
+							<th scope="col"><p class="texto-pequenio">Nov</p></th>
+							<th scope="col"><p class="texto-pequenio">Dic</p></th>
+						</tr>
+					</thead>
+					<tbody id="tbody6">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 pb-3">
+				<hr class="my-1">
 			</div>
 		</div>
 	</div>
