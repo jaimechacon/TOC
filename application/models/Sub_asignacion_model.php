@@ -10,7 +10,7 @@ class Sub_asignacion_model extends CI_Model
 
 	public function obtenerSubAsignacion($id_sub_asignacion)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerSubAsignacion`('.$id_sub_asignacion.');');
+		$query = $this->db->query('CALL `institucion_minsal`.`obtenerSubAsignacion`('.$id_sub_asignacion.');');
 		return $query->result_array();
 	}
 

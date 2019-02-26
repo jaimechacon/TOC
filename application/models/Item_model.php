@@ -10,7 +10,7 @@ class Item_model extends CI_Model
 
 	public function obtenerItem($id_item)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerItem`('.$id_item.');');
+		$query = $this->db->query('CALL `institucion_minsal`.`obtenerItem`('.$id_item.');');
 		return $query->result_array();
 	}
 

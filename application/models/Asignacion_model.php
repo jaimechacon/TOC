@@ -10,7 +10,7 @@ class Asignacion_model extends CI_Model
 
 	public function obtenerAsignacion($id_asignacion)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerAsignacion`('.$id_asignacion.');');
+		$query = $this->db->query('CALL `institucion_minsal`.`obtenerAsignacion`('.$id_asignacion.');');
 		return $query->result_array();
 	}
 

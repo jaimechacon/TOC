@@ -2,7 +2,7 @@
 
  	$("#institucion").change(function() {
 		institucion = $("#institucion").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -27,7 +27,7 @@
 
 	$("#institucionItem").change(function() {
 		institucion = $("#institucionItem").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -50,7 +50,7 @@
 
 	$("#institucionAsignacion").change(function() {
 		institucion = $("#institucionAsignacion").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -73,7 +73,7 @@
 
 	$("#institucionSubAsignacion").change(function() {
 		institucion = $("#institucionSubAsignacion").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -96,7 +96,7 @@
 
 	$("#institucionEspecifico").change(function() {
 		institucion = $("#institucionEspecifico").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -119,7 +119,7 @@
 
 	$("#institucionFecha").change(function() {
 		institucion = $("#institucionFecha").val();
-		var baseurl = window.origin + '/Reporte/listarHospitalesInstitucion';
+		var baseurl = window.origin + '/minsal/Reporte/listarHospitalesInstitucion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -192,7 +192,7 @@
 	    cuenta = $("#cuenta").val();
 	    item = $("#item").val();
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumen';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumen';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -239,7 +239,7 @@
 			    cuenta = $("#cuenta").val();
 			    item = $("#item").val();
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -286,7 +286,7 @@
 					    cuenta = $("#cuenta").val();
 					    item = $("#item").val();
 
-				    	var baseurl = window.origin + '/Reporte/listarReporteResumenTipo';
+				    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenTipo';
 					    jQuery.ajax({
 						type: "POST",
 						url: baseurl,
@@ -323,7 +323,7 @@
 							    cuenta = $("#cuenta").val();
 							    item = $("#item").val();
 
-						    	var baseurl = window.origin + '/Reporte/listarReporteResumenTipoGasto';
+						    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenTipoGasto';
 							    jQuery.ajax({
 								type: "POST",
 								url: baseurl,
@@ -379,7 +379,7 @@
 		cuenta = cuentaSeleccion.data('id');
 	    item = -1;//$("#item").val();
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenItem';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenItem';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -425,7 +425,7 @@
 				cuenta = cuentaSeleccion.data('id');
 			    item = -1;//$("#item").val();
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenItemGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenItemGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -483,7 +483,7 @@
 	    cuenta = itemSeleccion.data('idcuenta');
 		item = itemSeleccion.data('id');
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenAsignacion';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenAsignacion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -529,7 +529,7 @@
 			    cuenta = itemSeleccion.data('idcuenta');
 				item = itemSeleccion.data('id');
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenAsignacionGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenAsignacionGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -589,7 +589,7 @@
 		asignacion = asignacionSeleccion.data('id');
 	    //item = -1;//$("#item").val();
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenSubAsignacion';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenSubAsignacion';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -636,7 +636,7 @@
 			    item = asignacionSeleccion.data('iditem');
 				asignacion = asignacionSeleccion.data('id');
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenSubAsignacionGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenSubAsignacionGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -697,7 +697,7 @@
 	    asignacion = subasignacionSeleccion.data('idasignacion');
 	    subAsignacion = subasignacionSeleccion.data('id');
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenEspecifico';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenEspecifico';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -743,7 +743,7 @@
 			    asignacion = subasignacionSeleccion.data('idasignacion');
 			    subAsignacion = subasignacionSeleccion.data('id');
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenEspecificoGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenEspecificoGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -801,7 +801,7 @@
 	    anio = $("#anio").val();
 		inflactor = ($('#inflactor').val().length == 0 ? -1 : $('#inflactor').val());
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenFecha';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenFecha';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -839,7 +839,7 @@
 			    anio = $("#anio").val();
 			    inflactor = ($('#inflactor').val().length == 0 ? -1 : $('#inflactor').val());
 
-		    	var baseurl = window.origin + '/Reporte/listarReporteResumenFechaGasto';
+		    	var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenFechaGasto';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -882,7 +882,7 @@
 	    tipo = 1;
 	  
 
-	    var baseurl = window.origin + '/Reporte/listarReporteResumenGrafico';
+	    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGrafico';
 	    jQuery.ajax({
 		type: "POST",
 		url: baseurl,
@@ -916,7 +916,7 @@
 	    		hospital = $("#hospital").val();
 	    		tipo = 2;
 
-			    var baseurl = window.origin + '/Reporte/listarReporteResumenGrafico';
+			    var baseurl = window.origin + '/minsal/Reporte/listarReporteResumenGrafico';
 			    jQuery.ajax({
 				type: "POST",
 				url: baseurl,
@@ -1217,7 +1217,7 @@ function cargarGraficos(){
 		var cuenta = -1;//$("#asignacionSeleccion").data('idcuenta');
 		var tipo = 1;
 
-		var baseurl = window.origin + '/Reporte/listarReporteGrafico';
+		var baseurl = window.origin + '/minsal/Reporte/listarReporteGrafico';
 		var dataPointsSub21_2017 = [];
 		var dataPointsSub21_2018 = [];
 		var dataPointsSub22_2017 = [];
@@ -1395,7 +1395,7 @@ function cargarGraficos(){
 				});
 
 
-				var baseurlGraficoProduccion = window.origin + '/Reporte/listarReporteResumenGraficoProduccion';
+				var baseurlGraficoProduccion = window.origin + '/minsal/Reporte/listarReporteResumenGraficoProduccion';
 				var dataPointsGrafico1 = [];
 				var dataPointsGrafico2 = [];
 				var dataPointsGrafico3 = [];

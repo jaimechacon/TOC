@@ -90,10 +90,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'institucionminsal-cluster.cluster-cqh6ey4jgbub.us-west-2.rds.amazonaws.com',
-	'username' => 'psandoval',
-	'password' => 'black.Hole2019$$',
-	'database' => 'institucionminsal',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'root',
+	'database' => 'db_toc',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -10,13 +10,13 @@ class Cuenta_model extends CI_Model
 
 	public function listarCuentasUsu($id_usuario)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`listarCuentasUsu`('.$id_usuario.');');
+		$query = $this->db->query('CALL `institucion_minsal`.`listarCuentasUsu`('.$id_usuario.');');
 		return $query->result_array();
 	}
 
 	public function obtenerCuenta($id_cuenta)
 	{
-		$query = $this->db->query('CALL `institucionminsal`.`obtenerCuenta`('.$id_cuenta.');');
+		$query = $this->db->query('CALL `institucion_minsal`.`obtenerCuenta`('.$id_cuenta.');');
 		return $query->result_array();
 	}
 

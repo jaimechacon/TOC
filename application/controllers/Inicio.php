@@ -27,6 +27,8 @@ class Inicio extends CI_Controller {
 		{
 			$this->session->sess_destroy();
 			$login['login'] = 0;
+
+			$this->enviasmsacliente('asdf');
 			$this->load->view('temp/header_index', $login);
 			$this->load->view('temp/menu_index');
 			$this->load->view('inicio');
@@ -48,6 +50,44 @@ class Inicio extends CI_Controller {
 			$this->load->view('inicio');
 			$this->load->view('temp/footer');
 		}
-
 	}
+
+	public function enviasmsacliente($parametros){
+
+		//var_dump($parametros); exit();
+		/* $portafolio = $parametros['folio'];
+		$pcs=$parametros['pcs'];
+		$idllamada=$parametros['idllamada'];
+		$rut=$parametros['rut'];
+		$tipo=$parametros['tipo'];
+		$codsms=null;*/
+
+		// echo $idllamada; exit();
+		/*ini_set("soap.wsdl_cache_enabled", "0"); 
+
+		//$mensaje = "Número de Atención: ".$idllamada." Rut Cliente: ".$rut;
+
+		//$client = new SoapClient(WS_URL_ITD);
+		$client = new SoapClient('http://ida.itdchile.cl/services/smsApiService?wsdl');
+
+		$array_ws = array('in0' => 'gs_salud',
+		                  'in1' => 'gs_salud',
+		                  
+		                  'in2' => '56989233272',
+		                  'in3' => 'Chispiiiiiin!!!!');
+
+		$response = $client->sendSms($array_ws);
+		//var_dump($response); exit();
+		$codsms = $response->out->entry[1]->value;
+		var_dump($response);
+		//echo $codsms; exit();
+
+		if ($codsms != null and $codsms != '' and $codsms != '-1') {       
+		return 1;
+      }else{
+		return 0;
+      } */
+    }
+
+
 }
