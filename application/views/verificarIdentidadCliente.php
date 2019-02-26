@@ -15,7 +15,15 @@
                     <input type="file" class="custom-file-input" id="validatedCustomFile" required>
                     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                     <div class="invalid-feedback">Example invalid custom file feedback</div>
-                  </div>
+                </div>
+
+
+                <video id="video"></video>
+                <br>
+                 <button id="guardar" class="btn btn-primary pull-right">Tomar foto</button>
+                <p id="estado"></p>
+                <canvas id="canvas" style="display: none;"></canvas>
+
 
                 <div class="form-group">
                     <label class="label-form" for="nombre">Nombre perfil</label>
