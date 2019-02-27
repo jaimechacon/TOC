@@ -1,14 +1,14 @@
 <?php
     $id_usuario=$this->session->userdata('id_usuario');
      
-    if(!$id_usuario){
-      redirect('Login');
-    }
+    //if(!$id_usuario){
+      //redirect('Login');
+    //}
 ?>
 <div class="flex-row">
     <h2>Verificar Identidad del Cliente</h2>
     <div class="col-lg-12 veinte_m_t">
-        <form id="formValidarCliente" name="formValidarCliente" method="post" enctype="multipart/form-data">
+        <!--<form id="formValidarCliente" name="formValidarCliente" method="post" enctype="multipart/form-data" action="usuarioValido" >-->
             <div class="row">
                 <div class="col-sm-6">
                     <div class="col-sm-12 text-center mb-3">
@@ -43,10 +43,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-10 text-right">
-                <button id="guardar" type="submit" class="btn btn-primary pull-right">Enviar</button>
+            <div class="col-lg-10 text-right mb-3">
+                <button id="validarUsuario" type="submit" class="btn btn-primary pull-right" data-idtraspaso="<?php if(isset($idTraspaso)): echo $idTraspaso; endif; ?>" >Enviar</button>
             </div>
-        </form>
+       <!-- </form>-->
     </div>
 </div>
 
@@ -72,6 +72,25 @@
         <button id="btnRepetir" type="button" class="btn btn-primary">Repetir</button>
         <button id="btnCapturar" type="button" class="btn btn-primary">Capturar</button>
         <button id="btnGuardar" type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalMensaje" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloMM"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="parrafoMM"></p>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCerrar" type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

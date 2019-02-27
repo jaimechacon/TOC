@@ -139,9 +139,33 @@
 
   });
 
-  $("#formValidarCliente").submit(function(e) {
+  //$("#formValidarCliente").submit(function(e) {
+    $("#validarUsuario").click(function(e){
     var loader = document.getElementById("loader");
-   /* var​ form_data = ​new​ FormData();
+
+    var x = Math.floor((Math.random() * 4) + -1);
+
+    idTraspaso = document.getElementById('validarUsuario').dataset.idtraspaso;
+    idRespuesta = x;
+     
+    var baseurl = window.origin + '/Traspaso/usuarioValido';
+
+    jQuery.ajax({
+    type: "POST",
+    url: baseurl,
+    dataType: 'json',
+    data: {idTraspaso: idTraspaso, idRespuesta: x },
+    success: function(data) {
+    if (data)
+    {
+      $(document.getElementById('tituloMM')).html(data[0]['titulo']);
+      $(document.getElementById('parrafoMM')).html(data[0]['mensaje']);
+      $(document.getElementById('validarUsuario')).attr('disabled', '');
+      $('#modalMensaje').modal('show');
+    }        
+    }
+    });
+    /*var​ form_data = ​new​ FormData();
     var apiKey = "7b8a72c87f4a415b8603e16c6b6afcee";
     var docType = 'CHL2';
 
@@ -171,8 +195,8 @@
        alert('metch');          
     }fail(​function​(data) ​{
       ​//your code if fails             
-    } */
-  
+    } 
+  */
   });
 
 function tieneSoporteUserMedia() {

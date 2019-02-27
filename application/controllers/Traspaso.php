@@ -25,20 +25,20 @@ class Traspaso extends CI_Controller {
 		}
 	}
 
-	/*public function listarTraspasos()
+	public function listarTraspasos()
 	{
-		$traspaso = $this->session->userdata();
-		if($traspaso){
-			$traspasos = $this->traspaso_model->buscarTraspaso('', (int)$traspaso["id_traspaso"]);
-			$traspaso['traspasos'] = $traspasos;
-			$traspaso['controller'] = 'traspaso';
+		$usuario = $this->session->userdata();
+		if($usuario){
+			$traspasosUsuario = $this->traspaso_model->obtenerTraspasosUsu($usuario["id_usuario"], "null", "null", "null");
+			$usuario['traspasos'] = $traspasosUsuario;
+			$usuario['controller'] = 'traspaso';
 			$this->load->view('temp/header');
-			$this->load->view('temp/menu', $traspaso);
-			$this->load->view('listarTraspasos', $traspaso);
-			$this->load->view('temp/footer', $traspaso);
+			$this->load->view('temp/menu', $usuario);
+			$this->load->view('listarTraspasosUsuario', $usuario);
+			$this->load->view('temp/footer', $usuario);
 		}
 	}
-
+/*
 	public function buscarTraspaso()
 	{
 		$traspaso = $this->session->userdata();
@@ -76,12 +76,13 @@ class Traspaso extends CI_Controller {
 		}
 	}
 
-	public function verificarIdentidadCliente()
+	public function verificarIdentidadCliente($idFolio)
 	{
-		$usuario = $this->session->userdata();
-		if($usuario){
+		//$usuario = $this->session->userdata();
+		//if($usuario){
 			$usuario['titulo'] = 'Verificar Identidad';
 			$usuario['controller'] = 'traspaso';
+			$usuario['idTraspaso'] = $idFolio;
 			
 
 			/*$imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
@@ -113,16 +114,17 @@ class Traspaso extends CI_Controller {
 			'documentType' => $documentType
 			);*/
 
-			//$this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);	
-
+			//$this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
 
 
 			$this->load->view('temp/header');
-			$this->load->view('temp/menu', $usuario);
+			//$this->load->view('temp/menu', $usuario);
 			$this->load->view('verificarIdentidadCliente', $usuario);
 			$this->load->view('temp/footer', $usuario);
-		}
+		//}
 	}
+
+	
 
 	function CallAPI ($method, $url, $data = false)
 	{
@@ -240,6 +242,25 @@ class Traspaso extends CI_Controller {
 		}
 	}
 
+
+	public function usuarioValido()
+	{
+		if(!is_null($this->input->POST('idTraspaso')))
+		{
+			if(!is_null($this->input->POST('idRespuesta')))
+			{
+				$numero = (int)$this->input->POST('idRespuesta');
+				$idTraspaso = (int)$this->input->POST('idTraspaso');
+				$idRespuesta = ($numero == -1 ? 1 : ($numero == 0 ? 2 : ($numero == 1 ? 3 : 4)));
+				$respuesta = 0;
+				$mensaje = '';
+
+				$resultado = $this->traspaso_model->validarUsuario($idTraspaso, $idRespuesta);
+				echo json_encode($resultado);
+			}
+		}
+	}
+
 	public function eliminarTraspaso()
 	{
 		$traspaso = $this->session->userdata();
@@ -309,9 +330,11 @@ class Traspaso extends CI_Controller {
 	    //$tipo=$parametros['tipo'];
 	    $codsms=null;
 
-	    
+	    $nombre = explode(" ", $parametros['nombres'])[0];
+	    $apellido = explode(" ", $parametros['apellidos'])[0];
 
-	    $mensaje = 'Hola '.$parametros['nombres'].' '.$parametros['apellidos'].', bienvenido a nuestra plataforma de verificación de identidad. Favor ingresa a éste link para validar tu identidad. '.base_url().'/Traspaso/'.$parametros['idTraspaso'].' .';
+
+	    $mensaje = 'Bienvenido '.$nombre.' '.$apellido.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'/Traspaso/'.$parametros['idTraspaso'].' .';
 
 	    // echo $idllamada; exit();
 	    ini_set("soap.wsdl_cache_enabled", "0"); 

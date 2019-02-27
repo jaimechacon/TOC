@@ -21,4 +21,17 @@ class Traspaso_model extends CI_Model
 		return $query->result_array();
 	}
 
+	public function validarUsuario($idTraspaso, $idRespuesta)
+	{
+		$query = $this->db->query("call `db_toc`.`validarUsuario`(".$idTraspaso.", ".$idRespuesta.");");
+		return $query->result_array();
+	}
+
+	public function obtenerTraspasosUsu($idUsuario, $runCliente, $idFolio, $nombreCliente)
+	{
+		$query = $this->db->query("call `db_toc`.`obtenerTraspasosUsu`(".$idUsuario.", ".($runCliente == "null" ? $runCliente : ("'".$runCliente."'")).", ".$idFolio.", ".($nombreCliente == "null" ? $nombreCliente : ("'".$nombreCliente."'")).");");
+		
+		return $query->result_array();
+	}
+
 }
