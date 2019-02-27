@@ -334,7 +334,7 @@ class Traspaso extends CI_Controller {
 	    $apellido = explode(" ", $parametros['apellidos'])[0];
 
 
-	    $mensaje = 'Bienvenido '.$nombre.' '.$apellido.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'/Traspaso/'.$parametros['idTraspaso'].' .';
+	    $mensaje = 'Bienvenido '.$nombre.' '.$apellido.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$parametros['idTraspaso'].' .';
 
 	    // echo $idllamada; exit();
 	    ini_set("soap.wsdl_cache_enabled", "0"); 
