@@ -1,5 +1,85 @@
  $(document).ready(function() {
 
+
+ $('#guardarF').on('click', function(e) {
+      var botonPopUp = e.currentTarget;
+      var video = document.getElementById("videoModal"),
+      canvas = document.getElementById("canvasModal");
+
+
+      if (tieneSoporteUserMedia()) {
+        _getUserMedia(
+            {video: true},
+            function (stream) {
+              console.log("Permiso concedido");
+              //$video.src = window.URL.createObjectURL(stream);
+              video.srcObject=stream;
+              video.play();       
+          }, function (error) {
+              alert("Permiso denegado o error: ", error);
+              //$estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
+          });
+      } else {
+        alert("Lo siento. Tu navegador no soporta esta característica");
+        //$estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
+      }
+      $(document.getElementById('tituloMC')).html('Sacar Foto Superior Cedula de Identidad');
+      $('#modalCamara').modal('show');
+  });
+
+  $('#guardarB').on('click', function(e) {
+      var botonPopUp = e.currentTarget;
+      var video = document.getElementById("videoModal"),
+      canvas = document.getElementById("canvasModal");
+
+
+      if (tieneSoporteUserMedia()) {
+        _getUserMedia(
+            {video: true},
+            function (stream) {
+              console.log("Permiso concedido");
+              //$video.src = window.URL.createObjectURL(stream);
+              video.srcObject=stream;
+              video.play();       
+          }, function (error) {
+              alert("Permiso denegado o error: ", error);
+              //$estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
+          });
+      } else {
+        alert("Lo siento. Tu navegador no soporta esta característica");
+        //$estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
+      }
+
+      $(document.getElementById('tituloMC')).html('Sacar Foto Inferior Cedula de Identidad');
+      $('#modalCamara').modal('show');
+  });
+
+   $('#guardarS').on('click', function(e) {
+      var botonPopUp = e.currentTarget;
+      var video = document.getElementById("videoModal"),
+      canvas = document.getElementById("canvasModal");
+
+
+      if (tieneSoporteUserMedia()) {
+        _getUserMedia(
+            {video: true},
+            function (stream) {
+              console.log("Permiso concedido");
+              //$video.src = window.URL.createObjectURL(stream);
+              video.srcObject=stream;
+              video.play();       
+          }, function (error) {
+              alert("Permiso denegado o error: ", error);
+              //$estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
+          });
+      } else {
+        alert("Lo siento. Tu navegador no soporta esta característica");
+        //$estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
+      }
+      $(document.getElementById('tituloMC')).html('Sacar Foto Selfie');
+      $('#modalCamara').modal('show');
+  });
+
 function tieneSoporteUserMedia() {
     return !!(navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
 }
@@ -8,18 +88,27 @@ function _getUserMedia() {
 }
 
 // Declaramos elementos del DOM
-var $video = document.getElementById("video"),
+/*var $video = document.getElementById("video"),
   $canvas = document.getElementById("canvas"),
-  $boton = document.getElementById("boton"),
+  $boton = document.getElementById("guardarF"),
   $estado = document.getElementById("estado");
-  if (tieneSoporteUserMedia()) {
+
+  var $videoA = document.getElementById("videoA"),
+  $canvasA = document.getElementById("canvasA"),
+  $botonA = document.getElementById("guardarA"),
+  $estadoA = document.getElementById("estadoA");
+*/
+
+ /* if (tieneSoporteUserMedia()) {
     _getUserMedia(
         {video: true},
         function (stream) {
             console.log("Permiso concedido");
       //$video.src = window.URL.createObjectURL(stream);
       video.srcObject=stream;
+      videoA.srcObject=stream;
       $video.play();
+      $videoA.play();
 
       //Escuchar el click
       $boton.addEventListener("click", function(){
@@ -33,8 +122,13 @@ var $video = document.getElementById("video"),
         $canvas.height = $video.videoHeight;
         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
-        var foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-        $estado.innerHTML = "Enviando foto. Por favor, espera...";
+        
+        var foto = $canvas.toDataURL(); 
+
+        */
+
+        //Esta es la foto, en base 64
+        /*$estado.innerHTML = "Enviando foto. Por favor, espera...";
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "./guardar_foto.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -49,8 +143,40 @@ var $video = document.getElementById("video"),
         }
 
         //Reanudar reproducción
-        $video.play();
-      });
+        $video.play();*/
+     // });
+
+      /*$botonA.addEventListener("click", function(){
+
+        //Pausar reproducción
+        $videoA.pause();
+
+        //Obtener contexto del canvas y dibujar sobre él
+        var contexto = $canvas.getContext("2d");
+        $canvasA.width = $video.videoWidth;
+        $canvasA.height = $video.videoHeight;
+        contexto.drawImage($videoA, 0, 0, $canvasA.width, $canvasA.height);
+
+        var fotoA = $canvasA.toDataURL(); //Esta es la foto, en base 64
+        /*$estado.innerHTML = "Enviando foto. Por favor, espera...";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "./guardar_foto.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(encodeURIComponent(foto)); //Codificar y enviar
+
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                console.log("La foto fue enviada correctamente");
+                console.log(xhr);
+                $estado.innerHTML = "Foto guardada con éxito. Puedes verla <a target='_blank' href='./" + xhr.responseText + "'> aquí</a>";
+            }
+        }
+
+        //Reanudar reproducción
+        $video.play();*/
+    //  });
+
+/*
         }, function (error) {
             console.log("Permiso denegado o error: ", error);
             $estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
@@ -59,6 +185,8 @@ var $video = document.getElementById("video"),
       alert("Lo siento. Tu navegador no soporta esta característica");
       $estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
   }
+*/
+
 
 
 

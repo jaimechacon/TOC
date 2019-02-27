@@ -82,24 +82,75 @@ class Traspaso extends CI_Controller {
 		if($usuario){
 			$usuario['titulo'] = 'Verificar Identidad';
 			$usuario['controller'] = 'traspaso';
-			/*$perfiles =  $this->perfil_model->obtenerPerfiles($usuario["id_usuario"]);
-			if($perfiles)
-				$usuario['perfiles'] = $perfiles;
+			
 
-			mysqli_next_result($this->db->conn_id);
+			/*$imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
+			if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
+			//La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+			$imagenCodificadaLimpia = str_replace("data:image/jpg;base64,", "", urldecode($imagenCodificada));
+
+			//Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
+			//todo el contenido lo guardamos en un archivo
+			$imagenDecodificada = base64_decode($imagenCodificadaLimpia);
+
+			//Calcular un nombre único
+			$nombreImagenGuardada = "foto_" . uniqid() . ".jpg";
 
 
-			$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
-			if($empresas)
-			{
-				$traspaso['empresas'] = $empresas;
-			}*/
+			$id_front = file_get_contents($_FILES[ "id_front" ][ 'tmp_name' ]);
+			$id_back = file_get_contents($_FILES[ "id_back" ][ 'tmp_name' ]);
+
+			$selfie = file_get_contents($_FILES[ "selfie" ][ 'tmp_name' ]);
+
+
+			$documentType = $request->post( 'documentType' );
+			$apiKey = $session->get( '7b8a72c87f4a415b8603e16c6b6afcee' );
+			$params = array (
+			'apiKey' => $apiKey,
+			'id_front' => $id_front,
+			'id_back' => $id_back,
+			'selfie' => $selfie,
+			'documentType' => $documentType
+			);*/
+
+			//$this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);	
+
+
 
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
 			$this->load->view('verificarIdentidadCliente', $usuario);
 			$this->load->view('temp/footer', $usuario);
 		}
+	}
+
+	function CallAPI ($method, $url, $data = false)
+	{
+		$curl = curl_init();
+		switch ($method)
+		{
+			case "POST" :
+			curl_setopt($curl, CURLOPT_POST, 1 );
+			if ($data)
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+			break ;
+			case "PUT" :
+			curl_setopt($curl, CURLOPT_PUT, 1 );
+			break ;
+			default :
+			if ($data)
+			$url = sprintf( "%s?%s" , $url, http_build_query($data));
+		}
+		// Optional Authentication:
+		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($curl, CURLOPT_HTTPHEADER,
+		array ( "Content-Type:multipart/form-data" ));
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
+		$result = curl_exec($curl);
+		curl_close($curl);
+		echo $result;
 	}
 
 	public function guardarTraspaso()
