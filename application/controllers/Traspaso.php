@@ -380,7 +380,7 @@ class Traspaso extends CI_Controller {
     );
     $this->email->initialize($confing);
     $this->email->set_newline("\r\n");
-    $this->email->from('mcfly@gsbpo.cl');
+    $this->email->from('validacion@provida.cl');
     $this->email->to($emailCliente);
     $this->email->subject('AFP Provida, validacion de Identidad');
     $this->email->message($mensaje);
