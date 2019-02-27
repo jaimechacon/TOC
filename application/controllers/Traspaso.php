@@ -309,7 +309,7 @@ class Traspaso extends CI_Controller {
 	    //$tipo=$parametros['tipo'];
 	    $codsms=null;
 
-	    var $nombre = 
+	    
 
 	    $mensaje = 'Hola '.$parametros['nombres'].' '.$parametros['apellidos'].', bienvenido a nuestra plataforma de verificación de identidad. Favor ingresa a éste link para validar tu identidad. '.base_url().'/Traspaso/'.$parametros['idTraspaso'].' .';
 
