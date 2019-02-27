@@ -1,7 +1,10 @@
 body.fondo {
-      background-image: url('../img/fondo.JPG');
+      background-image: url('../img/logo.gif');
       background-repeat: no-repeat;
       background-color: #fff;
+      background-position-y: 88%;
+      background-position-x: 51%;
+      background-size: 20%;
 }
 
 input[type=radio].pauta {

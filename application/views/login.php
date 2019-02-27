@@ -19,6 +19,9 @@
       </label>
     </div>
     <button id="iniciarSesion" name="iniciarSesion" class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesi&oacute;n</button>
-    <p class="mt-5 mb-3 text-muted">&reg; AFP Provida - Sistema de Identificacion 2019</p>
+    <p class="mt-5 mb-3 text-muted" style="
+    text-size-adjust: 20px !important;
+    font-size: x-small;
+    margin-top: 150px !important;">&reg; AFP Provida - Sistema de Identificacion 2019</p>
   </form>
 </div>

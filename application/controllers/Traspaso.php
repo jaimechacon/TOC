@@ -225,6 +225,7 @@ class Traspaso extends CI_Controller {
 							$parametros['idTraspaso'] = $idTraspaso;
 							
 							$se_envio = $this->enviasmsacliente($parametros);
+							$this->enviar($email, $nombres, $apellidos, $idTraspaso);
 							$mensaje = $mensaje.'. Se ha enviado un SMS al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
 					}else
@@ -361,5 +362,33 @@ class Traspaso extends CI_Controller {
 	    return 0;
 	      } 
     }
+
+    public function enviar($emailCliente, $nombresCliente, $apellidosClientes, $idTraspaso){
+      
+       $mensaje = 'Bienvenido '.$nombresCliente.' '.$apellidosClientes.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+
+
+      $this->load->library('email');
+    $confing =array(
+    'protocol'=>'smtp',
+    'smtp_host'=>"smtp.gmail.com",
+    'smtp_port'=>465,
+    'smtp_user'=>"mcfly@gsbpo.cl",
+    'smtp_pass'=>"gsbpo2018",
+    'smtp_crypto'=>'ssl',              
+    'mailtype'=>'html'  
+    );
+    $this->email->initialize($confing);
+    $this->email->set_newline("\r\n");
+    $this->email->from('mcfly@gsbpo.cl');
+    $this->email->to($emailCliente);
+    $this->email->subject('AFP Provida, validacion de Identidad');
+    $this->email->message($mensaje);
+
+        if(!$this->email->send()) {
+                        echo json_encode(1);
+        }
+   }   
+
 
 }
