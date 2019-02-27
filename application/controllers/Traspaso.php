@@ -226,7 +226,7 @@ class Traspaso extends CI_Controller {
 							
 							$se_envio = $this->enviasmsacliente($parametros);
 							$this->enviar($email, $nombres, $apellidos, $idTraspaso);
-							$mensaje = $mensaje.'. Se ha enviado un SMS al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
+							$mensaje = $mensaje.'. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
 					}else
 					{
@@ -386,7 +386,7 @@ class Traspaso extends CI_Controller {
     $this->email->message($mensaje);
 
         if(!$this->email->send()) {
-                        echo json_encode(1);
+                        return 1;
         }
    }   
 
