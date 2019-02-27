@@ -1,43 +1,43 @@
 <?php
-	$id_usuario=$this->session->userdata('id_usuario');
-	 
-	if(!$id_usuario){
-	  redirect('Login');
-	}
+    $id_usuario=$this->session->userdata('id_usuario');
+     
+    if(!$id_usuario){
+      redirect('Login');
+    }
 ?>
 <div class="flex-row">
-	<h2>Verificar Identidad del Cliente</h2>
-	<div class="col-lg-12 veinte_m_t">
+    <h2>Verificar Identidad del Cliente</h2>
+    <div class="col-lg-12 veinte_m_t">
         <form id="formValidarCliente" name="formValidarCliente" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="col-sm-12 text-center">
-                        <video id="videoF" width="600" height="300" hidden></video>
-                        <i data-feather="camera" style="width: 200px; height: 200px;"></i>
+                    <div class="col-sm-12 text-center mb-3">
+                        <img id="imgF" width="400px" height="250px" hidden>
+                        <i id="iconoCameraF" data-feather="camera" style="width: 200px; height: 200px;"></i>
                     </div>
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center mb-3">
                         <button id="guardarF" class="btn btn-primary pull-right tomar_foto" type="button" style="width: 330px;">Tomar foto Cedula de Identidad Superior</button>
                         <canvas id="canvasF" style="display: none;"></canvas>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="col-sm-12 text-center">
-                        <video id="videoB" width="600" height="300" hidden></video>
-                        <i data-feather="camera" style="width: 200px; height: 200px;"></i>
+                    <div class="col-sm-12 text-center mb-3">
+                        <img id="imgB" width="400px" height="250px" hidden>
+                        <i id="iconoCameraB" data-feather="camera" style="width: 200px; height: 200px;"></i>
                     </div>
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center mb-3">
                         <button id="guardarB" class="btn btn-primary pull-right tomar_foto" type="button" style="width: 330px;">Tomar foto Cedula de Identidad Inferior</button>
                         <canvas id="canvasB" style="display: none;"></canvas>
                     </div>
                 </div>
 
-                <div class="col-sm-12 text-center">
-                    <div class="col-sm-12 text-center">
-                        <video id="videoS" width="600" height="300" hidden></video>
-                        <i data-feather="camera" style="width: 200px; height: 200px;"></i>
+                <div class="col-sm-12 text-center mt-3">
+                    <div class="col-sm-12 text-center mb-3">
+                        <img id="imgS" width="400px" height="250px" hidden>
+                        <i id="iconoCameraS" data-feather="camera" style="width: 200px; height: 200px;"></i>
                     </div>
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center mb-3">
                         <button id="guardarS" class="btn btn-primary pull-right tomar_foto" type="button" style="width: 330px;">Tomar foto Selfie</button>
                         <canvas id="canvasS" style="display: none;"></canvas>
                     </div>

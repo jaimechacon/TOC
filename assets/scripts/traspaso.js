@@ -6,6 +6,7 @@
       var video = document.getElementById("videoModal"),
       canvas = document.getElementById("canvasModal");
 
+      document.getElementById('tituloMC').dataset.foto = 'frontal';
 
       if (tieneSoporteUserMedia()) {
         _getUserMedia(
@@ -32,6 +33,7 @@
       var video = document.getElementById("videoModal"),
       canvas = document.getElementById("canvasModal");
 
+      document.getElementById('tituloMC').dataset.foto = 'inferior';
 
       if (tieneSoporteUserMedia()) {
         _getUserMedia(
@@ -59,6 +61,7 @@
       var video = document.getElementById("videoModal"),
       canvas = document.getElementById("canvasModal");
 
+      document.getElementById('tituloMC').dataset.foto = 'selfie';
 
       if (tieneSoporteUserMedia()) {
         _getUserMedia(
@@ -78,6 +81,98 @@
       }
       $(document.getElementById('tituloMC')).html('Sacar Foto Selfie');
       $('#modalCamara').modal('show');
+  });
+
+  $('#btnCapturar').on('click', function(e) {
+    var video = document.getElementById("videoModal"),
+      canvas = document.getElementById("canvasModal");
+      video.pause();
+      //Obtener contexto del canvas y dibujar sobre él
+      var contexto = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var foto = canvas.toDataURL("image/jpeg");
+
+      document.getElementById('tituloMC').dataset.fotoCaptura = foto;
+
+  });
+
+  $('#btnGuardar').on('click', function(e) {
+    var fotoTipo = document.getElementById('tituloMC').dataset.foto;
+    var foto = document.getElementById('tituloMC').dataset.fotoCaptura;
+    if(fotoTipo == "frontal")
+    {
+      $(document.getElementById('imgF')).attr('src', foto);
+      $(document.getElementById('imgF')).removeAttr('hidden');
+      $(document.getElementById('iconoCameraF')).attr('hidden', 'hidden');
+      $('#modalCamara').modal('hide');       
+    }else
+    {
+      if(fotoTipo == "inferior")
+      {
+        $(document.getElementById('imgB')).attr('src', foto);
+        $(document.getElementById('imgB')).removeAttr('hidden');
+        $(document.getElementById('iconoCameraB')).attr('hidden', 'hidden');
+        $('#modalCamara').modal('hide');
+      }else
+      {
+        $(document.getElementById('imgS')).attr('src', foto);
+        $(document.getElementById('imgS')).removeAttr('hidden');
+        $(document.getElementById('iconoCameraS')).attr('hidden', 'hidden');
+        $('#modalCamara').modal('hide');
+      }
+      $('#modalCamara').modal('hide');
+    }
+
+    var video = document.getElementById("videoModal"),
+      canvas = document.getElementById("canvasModal");
+      video.pause();
+      //Obtener contexto del canvas y dibujar sobre él
+      var contexto = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var foto = canvas.toDataURL("image/jpeg");
+
+      document.getElementById('tituloMC').dataset.fotoCaptura = foto;
+
+  });
+
+  $("#formValidarCliente").submit(function(e) {
+    var loader = document.getElementById("loader");
+   /* var​ form_data = ​new​ FormData();
+    var apiKey = "7b8a72c87f4a415b8603e16c6b6afcee";
+    var docType = 'CHL2';
+
+    var selfie_file = document.getElementById('imgS').src;
+    var front_file = document.getElementById('imgF').src;
+    var back_file = document.getElementById('imgB').src;
+
+    form_data.append(​'apiKey'​, apiKey);
+    form_data.append(​'documentType'​, docType);
+
+    form_data.append(​'selfie'​, selfie_file);
+
+    form_data.append(​'id_front'​, front_file); ​
+
+    // Raw bytes of the photo 
+    form_data.append(​'id_back'​, back_file); ​
+    // Raw bytes of the photo   
+    $.ajax({                 
+      url: ​"https://sandbox-api.7oc.cl/v2/face-and-document"​,
+      async: ​true​,
+      crossDomain: ​true​,
+      processData: ​false​,
+      contentType: ​false​,
+      type: ​'POST'​,
+      data: form_data              
+    }).done(​function​(data) ​{
+       alert('metch');          
+    }fail(​function​(data) ​{
+      ​//your code if fails             
+    } */
+  
   });
 
 function tieneSoporteUserMedia() {
