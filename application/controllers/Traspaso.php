@@ -187,7 +187,7 @@ class Traspaso extends CI_Controller {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
 		$result = curl_exec($curl);
 		curl_close($curl);
-		return $result;
+		return json_encode($result);
 	}
 
 	public function guardarTraspaso()
