@@ -121,6 +121,7 @@ $('body').on('click', '.api-call', function(event) {
             })
             .done(function(data) {
                 console.log(data);
+                data = JSON.parse(data);
                 var status_class = '';
                 var result_text = '';
                 var result_text_locale = '';

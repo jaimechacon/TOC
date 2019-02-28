@@ -127,7 +127,7 @@ class Traspaso extends CI_Controller {
 	public function verificarIdentidad()
 	{
 		header('Content-Type: application/json');
-		$apiKey = '060d395f8ccd4307bb0f2ec14bebe880';
+		$apiKey = '7b8a72c87f4a415b8603e16c6b6afcee';
 
 		if (isset($_POST['documentType']) && ($_FILES['id_front']['size'] != '') && ($_FILES['id_back']['size'] != '') && ($_FILES['selfie']['size'] != '')
 		 && ($_POST['documentType'] != '')) {
@@ -143,7 +143,7 @@ class Traspaso extends CI_Controller {
 		        'documentType' => $documentType
 		    );
 		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
-		    echo json_encode($apiCall);
+		    echo $apiCall;
 		} elseif (($_FILES['photo1']['size'] != '') && ($_FILES['photo2']['size'] != '')) {
 		    $photo1 =  file_get_contents($_FILES["photo1"]['tmp_name']);
 		    $photo2 = file_get_contents($_FILES["photo2"]['tmp_name']);
@@ -153,7 +153,7 @@ class Traspaso extends CI_Controller {
 		        'photo2' => $photo2
 		    );
 		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-face', $params);
-		    echo json_encode($apiCall);
+		    echo $apiCall;
 		} else {
 		    echo "Error en los datos para consumir API: (" . $_POST['documentType'] . ") (" . $_FILES['selfie']['tmp_name'] . ") (" . $_FILES['selfie']['size'] . ")";
 		}
