@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Web application for facial recognition with Toc Biometrics API">
-    <meta name="author" content="Toc Biometrics">
-    <title data-localize="title">7OC - Demo WEB API TOC</title>
+    <meta name="author" content="GSBPO">
+    <title data-localize="title">Provida - Verificaci&oacute;n de Identidad</title>
     <!-- Bootstrap core CSS -->
     <link href="../../assets/bootstrap-4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../assets/shards-1.1/css/shards.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <!-- Inicio navbar -->
         <nav class="navbar bg-light top">
-            <a class="navbar-brand" href="/"><img src="../../assets/img/7oc.png" alt=""></a>
+            <a class="navbar-brand" href="/"><img src="../../assets/img/logo.png" alt=""></a>
             <div class="lang float-right" style="padding: .6rem;">
                 <button data-lang="es" class="btn btn-sm btn-secondary btn-squared">ES</button>
                 <button data-lang="en" class="btn btn-sm btn-secondary btn-squared">EN</button>
@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="text-center" style="margin-bottom:0px;" data-localize="supported-browsers">
-                            TOC API Facial - Navegadores compatibles: Chrome, Mozilla y Opera (actualizados últimas versiones)</h4>
+                            GSBPO API Facial - Navegadores compatibles: Chrome, Mozilla y Opera (actualizados últimas versiones)</h4>
                         <h5 class="text-center" data-localize="supported-browsers-detail">Para mayor información sobre soporte, revisar <a href="https://webrtc.org/">https://webrtc.org/</a></h5>
                         <hr>
                         <div class="row justify-content-center browsers">
@@ -166,6 +166,7 @@
                                                             <i class="fa fa-undo" aria-hidden="true"></i></a>
                                                     </div>
                                                     <div class="col-10">
+                                                        <input type="text" name="id_traspaso" value="<?php if(isset($idTraspaso)): echo $idTraspaso; endif; ?>" hidden>
                                                         <input type="text" name="id_front" value="" hidden>
                                                         <img id="id_front" class="img-fluid" src="">
                                                         <div id="front-video">
@@ -379,7 +380,7 @@
     <footer class="footer">
         <div class="container">
             <div class="text-center">
-                <span class="">© 2018 TOC Biometrics</span>
+                <span class="">© 2019 GSBPO Biometrics</span>
             </div>
         </div>
     </footer>

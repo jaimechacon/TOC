@@ -1009,6 +1009,20 @@ h2 {
   }
 }
 
+.btn-dark {
+    background-color: #00659B !important;
+    border-color: #00659B !important;
+    box-shadow: none !important;
+    color: #fff !important;
+  }
+
+.btn-secondary {
+    background-color: #008DDC;
+    border-color: #008DDC ;
+    box-shadow: none;
+    color: #fff;
+}
+
 /* // Extra small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap
 

@@ -22,6 +22,6 @@
     <p class="mt-5 mb-3 text-muted" style="
     text-size-adjust: 20px !important;
     font-size: x-small;
-    margin-top: 150px !important;">&reg; AFP Provida - Sistema de Identificacion 2019</p>
+    margin-top: 150px !important;">&reg; GSBPO - Sistema de Identificacion 2019</p>
   </form>
 </div>

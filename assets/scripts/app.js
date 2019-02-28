@@ -307,7 +307,29 @@ $('body').on('click', '.api-call', function(event) {
                     $('a#result-tab').tab('show');
                     $('.api-call').hide();
                     $('.again').show();
-                } else {
+
+                    var latitude = '';
+                    var latitude = '';
+
+                     var id_traspaso = $('input[name="id_traspaso"]').val();
+
+                    if ("geolocation" in navigator){ //check geolocation available 
+                        //try to get user current location using getCurrentPosition() method
+                        navigator.geolocation.getCurrentPosition(function(position){ 
+                            latitude = position.coords.latitude;
+                            latitude = position.coords.longitude;
+                        });
+                    }
+                    
+                    var datos = {
+                        id_traspaso: id_traspaso,
+                        id_front: id_front,
+                        id_back: id_back,
+                        
+                    };
+
+
+                }else {
                     if (data.status == '201') {
                         displayErrorApi(false, true, false);
                     } else if (data.status == '202') {
@@ -336,3 +358,44 @@ $('body').on('click', '.api-call', function(event) {
         }
     }
 });
+
+
+function actualizarTraspaso(datos)
+  {
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
+    jQuery.ajax({
+    type: "POST",
+    url: baseurl,
+    dataType: 'json',
+    data: {traspaso: filtro},
+    success: function(data) {
+    if (data)
+    {
+        $("#tbodyTraspaso").empty();
+        for (var i = 0; i < data.length; i++){
+          var row = '<tr>';
+          row = row.concat('\n<th scope="row" class="text-center align-middle registro">',data[i]['id_traspaso'],'</th>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['c_nombre'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['c_titulo'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['c_muestra'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',((data[i]["c_cant_gestiones_ciclo"]) == null? '': (data[i]["c_cant_gestiones_ciclo"])),'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['plantilla'],'</td>');
+          row = row.concat('\n<td class="text-center align-middle registro">',data[i]['c_tmo'],'</td>');
+          row = row.concat('\n<td class="text-right align-middle registro">');
+          row = row.concat('\n<a id="trash_',data[i]['id_traspaso'],'" class="trash" href="#" data-id="',data[i]['id_traspaso'],'" data-nombre="',data[i]['c_nombre'],'" data-toggle="modal" data-target="#modalEliminarTraspaso">');
+          row = row.concat('\n<i data-feather="trash-2"  data-toggle="tooltip" data-placement="top" title="eliminar"></i>');
+          row = row.concat('\n</a>');
+          row = row.concat('\n<a id="edit_',data[i]['id_traspaso'],'" class="edit" type="link" href="ModificarTraspaso/?idTraspaso=',data[i]['id_traspaso'],'" data-id="',data[i]['id_traspaso'],'" data-nombre="',data[i]['c_nombre'],'">');
+          row = row.concat('\n<i data-feather="edit-3"  data-toggle="tooltip" data-placement="top" title="modificar"></i>');
+          row = row.concat('\n</a>');
+          row = row.concat('\n</td>');
+          row = row.concat('\n<tr>');
+
+        $("#tbodyTraspaso").append(row);
+      }
+      feather.replace()
+      $('[data-toggle="tooltip"]').tooltip()
+    }
+    }
+    });
+  }
