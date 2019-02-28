@@ -116,6 +116,7 @@ $('body').on('click', '.api-call', function(event) {
                 processData: false,
                 contentType: false,
                 type: 'POST',
+                dataType: 'json',
                 data: form_data
             })
             .done(function(data) {
@@ -259,12 +260,13 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('photo1', dataURItoBlob(id_front));
             form_data.append('photo2', dataURItoBlob(selfie));
             $.ajax({
-                url: 'facial.php',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
                 contentType: false,
                 type: 'POST',
+                dataType: 'json',
                 data: form_data
             })
             .done(function(data) {
