@@ -117,16 +117,51 @@ class Traspaso extends CI_Controller {
 			//$this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
 
 
-			$this->load->view('temp/header');
+			//$this->load->view('temp/header');
 			//$this->load->view('temp/menu', $usuario);
 			$this->load->view('verificarIdentidadCliente', $usuario);
-			$this->load->view('temp/footer', $usuario);
+			//$this->load->view('temp/footer', $usuario);
 		//}
+	}
+
+	public function verificarIdentidad()
+	{
+		header('Content-Type: application/json');
+		$apiKey = '060d395f8ccd4307bb0f2ec14bebe880';
+
+		if (isset($_POST['documentType']) && ($_FILES['id_front']['size'] != '') && ($_FILES['id_back']['size'] != '') && ($_FILES['selfie']['size'] != '')
+		 && ($_POST['documentType'] != '')) {
+		    $id_front =  file_get_contents($_FILES["id_front"]['tmp_name']);
+			$id_back = file_get_contents($_FILES["id_back"]['tmp_name']);
+			$selfie = file_get_contents($_FILES["selfie"]['tmp_name']);
+		    $documentType = $_POST['documentType'];
+		    $params = array(
+		        'apiKey' => $apiKey,
+		        'id_front' => $id_front,
+		        'id_back' => $id_back,
+		        'selfie' => $selfie,
+		        'documentType' => $documentType
+		    );
+		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
+		    echo json_encode($apiCall);
+		} elseif (($_FILES['photo1']['size'] != '') && ($_FILES['photo2']['size'] != '')) {
+		    $photo1 =  file_get_contents($_FILES["photo1"]['tmp_name']);
+		    $photo2 = file_get_contents($_FILES["photo2"]['tmp_name']);
+		    $params = array(
+		        'apiKey' => $apiKey,
+		        'photo1' => $photo1,
+		        'photo2' => $photo2
+		    );
+		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-face', $params);
+		    echo json_encode($apiCall);
+		} else {
+		    echo "Error en los datos para consumir API: (" . $_POST['documentType'] . ") (" . $_FILES['selfie']['tmp_name'] . ") (" . $_FILES['selfie']['size'] . ")";
+		}
 	}
 
 	
 
-	function CallAPI ($method, $url, $data = false)
+	public function CallAPI($method, $url, $data = false)
 	{
 		$curl = curl_init();
 		switch ($method)
@@ -152,7 +187,7 @@ class Traspaso extends CI_Controller {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
 		$result = curl_exec($curl);
 		curl_close($curl);
-		echo $result;
+		return $result;
 	}
 
 	public function guardarTraspaso()

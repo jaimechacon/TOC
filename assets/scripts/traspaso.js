@@ -139,6 +139,8 @@
 
   });
 
+   
+
   //$("#formValidarCliente").submit(function(e) {
     $("#validarUsuario").click(function(e){
     var loader = document.getElementById("loader");
@@ -158,13 +160,17 @@
     success: function(data) {
     if (data)
     {
-      $(document.getElementById('tituloMM')).html(data[0]['titulo']);
-      $(document.getElementById('parrafoMM')).html(data[0]['mensaje']);
-      $(document.getElementById('validarUsuario')).attr('disabled', '');
+      $(document.getElementById('tituloMM')).html('Confirmacion');
+      $(document.getElementById('parrafoMM')).html('Transaccion Realizada');
+      $(document.getElementById('btnCerrar')).attr('hidden', '');
+      $(document.getElementById('cerrarTodo')).removeAttr('hidden', '');
       $('#modalMensaje').modal('show');
     }        
     }
     });
+
+ 
+    
     /*var​ form_data = ​new​ FormData();
     var apiKey = "7b8a72c87f4a415b8603e16c6b6afcee";
     var docType = 'CHL2';
