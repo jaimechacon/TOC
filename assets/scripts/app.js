@@ -110,7 +110,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('selfie', dataURItoBlob(selfie));
             form_data.append('documentType', documentType);
             $.ajax({
-                url: '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
