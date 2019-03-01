@@ -8,6 +8,7 @@ class Traspaso extends CI_Controller {
 		parent::__construct();
 		$this->load->model('traspaso_model');
 		$this->load->model('perfil_model');
+		$this->load->library('pdf');
 	}
 
 	public function index()
@@ -56,18 +57,11 @@ class Traspaso extends CI_Controller {
 		if($usuario){
 			$usuario['titulo'] = 'Agregar Traspaso AFP a Cliente';
 			$usuario['controller'] = 'traspaso';
-			/*$perfiles =  $this->perfil_model->obtenerPerfiles($usuario["id_usuario"]);
-			if($perfiles)
-				$usuario['perfiles'] = $perfiles;
 
-			mysqli_next_result($this->db->conn_id);
-
-
-			$empresas =  $this->usuario_model->obtenerEmpresasUsu($usuario["id_usuario"]);
-			if($empresas)
-			{
-				$traspaso['empresas'] = $empresas;
-			}*/
+			$this->dompdf->loadHtml('hello world');
+			$this->dompdf->setPaper('A4', 'landscape');
+			$this->dompdf->render();
+			$this->dompdf->stream("/path-to-save-pdf-file/sample.pdf");		
 
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
@@ -143,6 +137,7 @@ class Traspaso extends CI_Controller {
 		        'documentType' => $documentType
 		    );
 		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
+		    var_dump($apiCall);
 		    echo $apiCall;
 		} elseif (($_FILES['photo1']['size'] != '') && ($_FILES['photo2']['size'] != '')) {
 		    $photo1 =  file_get_contents($_FILES["photo1"]['tmp_name']);
