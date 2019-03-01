@@ -646,7 +646,7 @@ function _getUserMedia() {
       jQuery.ajax({
       type: "POST",
       url: baseurl,
-      //dataType: 'json',
+      dataType: 'json',
       data: { idTraspaso: idTraspaso, run: run, fechaNac: fechaNac,
               nombres: nombres, apellidos: apellidos, email: email, celular: celular, telefono: telefono,
               observaciones: observaciones },
