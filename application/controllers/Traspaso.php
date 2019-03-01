@@ -296,8 +296,9 @@ class Traspaso extends CI_Controller {
 				echo json_encode($resultado);
 			}*/
 
-			var_dump($this->input->POST('datos'));
-
+			//var_dump($this->input->POST('datos'));
+			$datos = $this->input->POST('datos');
+			var_dump($datos["id_traspaso"]);
 			//echo json_encode($this->input->POST('datos'));
 		}
 	}
