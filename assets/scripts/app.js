@@ -339,7 +339,9 @@ $('body').on('click', '.api-call', function(event) {
                         raw: raw,
                         type: type,
                         status: status,
-                        toc_token: toc_token
+                        toc_token: toc_token,
+                        latitude: latitude,
+                        longitude: longitude
                     };
 
                     var loader = document.getElementById("loader");
