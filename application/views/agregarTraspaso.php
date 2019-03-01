@@ -48,12 +48,12 @@
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="inputEmail">Email</label>
-						<input type="text" class="form-control  form-control-sm" id="inputEmail" name="inputEmail" placeholder="Ingrese Email del Cliente" value="<?php if(isset($usuario['c_email'])): echo $usuario['c_email']; endif; ?>">
+						<input type="text" class="form-control  form-control-sm" id="inputEmail" name="inputEmail" placeholder="Ingrese Email del Cliente. Ej: provida@provida.cl" value="<?php if(isset($usuario['c_email'])): echo $usuario['c_email']; endif; ?>">
 						<!--<span>Se requiere una Abreviaci&oacute;n para el Traspaso.</span>-->
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputCelular">Celular</label>
-						<input type="text" class="form-control  form-control-sm" id="inputCelular" name="inputCelular" placeholder="Ingrese Celular del Cliente" value="<?php if(isset($usuario['c_celular'])): echo $usuario['c_celular']; endif; ?>">
+						<input type="text" class="form-control  form-control-sm" id="inputCelular" name="inputCelular" placeholder="Ingrese Celular del Cliente. Ej: 569XXXXXXX" value="<?php if(isset($usuario['c_celular'])): echo $usuario['c_celular']; endif; ?>">
 						<!--<span>Se requiere una Abreviaci&oacute;n para el Traspaso.</span>-->
 					</div>
 				</div>

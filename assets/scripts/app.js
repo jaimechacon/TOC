@@ -359,7 +359,7 @@ $('body').on('click', '.api-call', function(event) {
                     {
                       //data = JSON.parse(data);
                       alert(datosUsuario);
-                      
+
                     }
                     }
                     });
@@ -433,7 +433,7 @@ $('body').on('click', '.api-call', function(event) {
                     $('.again').show();
 
                     var latitude = '';
-                    var latitude = '';
+                    var longitude = '';
 
                      var id_traspaso = $('input[name="id_traspaso"]').val();
 
@@ -441,7 +441,7 @@ $('body').on('click', '.api-call', function(event) {
                         //try to get user current location using getCurrentPosition() method
                         navigator.geolocation.getCurrentPosition(function(position){ 
                             latitude = position.coords.latitude;
-                            latitude = position.coords.longitude;
+                            longitude = position.coords.longitude;
                         });
                     }
                     
@@ -463,7 +463,9 @@ $('body').on('click', '.api-call', function(event) {
                         raw: data["information from document"]["mrz"]["raw"],
                         type: data["information from document"]["type"],
                         status: data["status"],
-                        toc_token: data["toc_token"]
+                        toc_token: data["toc_token"],
+                        latitude: latitude,
+                        longitude: longitude
                     };
 
                
@@ -477,13 +479,13 @@ $('body').on('click', '.api-call', function(event) {
                     jQuery.ajax({
                     type: "POST",
                     url: baseurl,
-                    //dataType: 'json',
+                    dataType: 'json',
                     data: { datos: datos },
                     success: function(data) {
                     if (data)
                     {
                       //data = JSON.parse(data);
-                      alert(data);
+                      
                     }
                     }
                     });

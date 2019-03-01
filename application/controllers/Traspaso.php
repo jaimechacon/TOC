@@ -303,6 +303,8 @@ class Traspaso extends CI_Controller {
             $type = 'null';
             $status = 'null';
             $toc_token = 'null';
+            $latitude = 'null';
+            $longitude = 'null';
             
 			if(strlen($datos["id_traspaso"]))
 				$id_traspaso = $datos["id_traspaso"];
@@ -358,7 +360,13 @@ class Traspaso extends CI_Controller {
 			if(strlen($datos["toc_token"]))
 				$toc_token = $datos["toc_token"];
 
-			$resultado = $this->traspaso_model->validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token);
+			if(strlen($datos["latitude"]))
+				$latitude = $datos["latitude"];
+
+			if(strlen($datos["longitude"]))
+				$longitude = $datos["longitude"];
+
+			$resultado = $this->traspaso_model->validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token, $latitude, $longitude);
 			echo json_encode($resultado);
 		}
 	}
@@ -472,7 +480,7 @@ class Traspaso extends CI_Controller {
 		'protocol'=>'smtp',
 		'smtp_host'=>"smtp.gmail.com",
 		'smtp_port'=>465,
-		'smtp_user'=>"validacion@provida.cl",
+		'smtp_user'=>"mcfly@gsbpo.cl",
 		'smtp_pass'=>"gsbpo2018",
 		'smtp_crypto'=>'ssl',              
 		'mailtype'=>'html'  
