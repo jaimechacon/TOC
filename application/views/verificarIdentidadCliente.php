@@ -154,6 +154,7 @@
                                     </div>
                                     <!-- Fin Selección documento  -->
                                     <!-- Inicio Foto frontal -->
+                                    <input type="text" name="id_traspaso" value="<?php if(isset($idTraspaso)): echo $idTraspaso; endif; ?>" hidden>
                                     <div class="tab-pane fade" role="tabpanel" id="front">
                                         <fieldset id="front">
                                             <h2 class="fs-title" data-localize="front-id">Foto Documento Frontal</h2>
@@ -166,7 +167,6 @@
                                                             <i class="fa fa-undo" aria-hidden="true"></i></a>
                                                     </div>
                                                     <div class="col-10">
-                                                        <input type="text" name="id_traspaso" value="<?php if(isset($idTraspaso)): echo $idTraspaso; endif; ?>" hidden>
                                                         <input type="text" name="id_front" value="" hidden>
                                                         <img id="id_front" class="img-fluid" src="">
                                                         <div id="front-video">
