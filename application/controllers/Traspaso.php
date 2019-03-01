@@ -281,9 +281,10 @@ class Traspaso extends CI_Controller {
 
 	public function usuarioValido()
 	{
-		if(!is_null($this->input->POST('idTraspaso')))
+
+		if(!is_null($this->input->POST('datos')))
 		{
-			if(!is_null($this->input->POST('idRespuesta')))
+			/*if(!is_null($this->input->POST('idRespuesta')))
 			{
 				$numero = (int)$this->input->POST('idRespuesta');
 				$idTraspaso = (int)$this->input->POST('idTraspaso');
@@ -293,7 +294,9 @@ class Traspaso extends CI_Controller {
 
 				$resultado = $this->traspaso_model->validarUsuario($idTraspaso, $idRespuesta);
 				echo json_encode($resultado);
-			}
+			}*/
+
+			echo json_encode($this->input->POST('datos'));
 		}
 	}
 
@@ -369,8 +372,7 @@ class Traspaso extends CI_Controller {
 	    $nombre = explode(" ", $parametros['nombres'])[0];
 	    $apellido = explode(" ", $parametros['apellidos'])[0];
 
-
-	    $mensaje = 'Bienvenido '.$nombre.' '.$apellido.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$parametros['idTraspaso'].' .';
+	    $mensaje = 'Provida: Estimado '.$nombre.' '.$apellido.', verifica tu identidad en la url: '.base_url().'Traspaso/verificarIdentidadCliente/'.$parametros['idTraspaso'].' .';
 
 	    // echo $idllamada; exit();
 	    ini_set("soap.wsdl_cache_enabled", "0"); 
@@ -399,31 +401,31 @@ class Traspaso extends CI_Controller {
     }
 
     public function enviar($emailCliente, $nombresCliente, $apellidosClientes, $idTraspaso){
-      
-       $mensaje = 'Provida: Estimado '.$nombresCliente.' '.$apellidosClientes.', verifica tu identidad en la url: '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+	  
+		$mensaje = 'Bienvenido '.$nombresCliente.' '.$apellidosClientes.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
 
+		$this->load->library('email');
+		$confing =array(
+		'protocol'=>'smtp',
+		'smtp_host'=>"smtp.gmail.com",
+		'smtp_port'=>465,
+		'smtp_user'=>"validacion@provida.cl",
+		'smtp_pass'=>"gsbpo2018",
+		'smtp_crypto'=>'ssl',              
+		'mailtype'=>'html'  
+		);
 
-      $this->load->library('email');
-    $confing =array(
-    'protocol'=>'smtp',
-    'smtp_host'=>"smtp.gmail.com",
-    'smtp_port'=>465,
-    'smtp_user'=>"validacion@provida.cl",
-    'smtp_pass'=>"gsbpo2018",
-    'smtp_crypto'=>'ssl',              
-    'mailtype'=>'html'  
-    );
-    $this->email->initialize($confing);
-    $this->email->set_newline("\r\n");
-    $this->email->from('validacion@provida.cl');
-    $this->email->to($emailCliente);
-    $this->email->subject('AFP Provida, validacion de Identidad');
-    $this->email->message($mensaje);
+		$this->email->initialize($confing);
+		$this->email->set_newline("\r\n");
+		$this->email->from('validacion@provida.cl');
+		$this->email->to($emailCliente);
+		$this->email->subject('AFP Provida, validacion de Identidad');
+		$this->email->message($mensaje);
 
-        if(!$this->email->send()) {
-                        return 1;
-        }
-   }   
+		if(!$this->email->send()) {
+		    return 1;
+		}
+	}   
 
 
 }
