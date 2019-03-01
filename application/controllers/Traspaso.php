@@ -281,25 +281,85 @@ class Traspaso extends CI_Controller {
 
 	public function usuarioValido()
 	{
-
 		if(!is_null($this->input->POST('datos')))
 		{
-			/*if(!is_null($this->input->POST('idRespuesta')))
-			{
-				$numero = (int)$this->input->POST('idRespuesta');
-				$idTraspaso = (int)$this->input->POST('idTraspaso');
-				$idRespuesta = ($numero == -1 ? 1 : ($numero == 0 ? 2 : ($numero == 1 ? 3 : 4)));
-				$respuesta = 0;
-				$mensaje = '';
-
-				$resultado = $this->traspaso_model->validarUsuario($idTraspaso, $idRespuesta);
-				echo json_encode($resultado);
-			}*/
-
-			//var_dump($this->input->POST('datos'));
 			$datos = $this->input->POST('datos');
-			var_dump($datos["id_traspaso"]);
-			//echo json_encode($this->input->POST('datos'));
+
+			$id_traspaso = 'null';
+            $id_front = 'null';
+            $id_back = 'null';
+            $selfie = 'null';
+            $biometric_result = 'null';
+            $checksum = 'null';
+            $date_of_birth = 'null';
+            $document_number = 'null';
+            $expiration_date = 'null';
+            $family_name = 'null';
+            $gender = 'null';
+            $name = 'null';
+            $national_identification_number = 'null';
+            $nationality = 'null';
+            $raw = 'null';
+            $type = 'null';
+            $status = 'null';
+            $toc_token = 'null';
+            
+			if(strlen($datos["id_traspaso"]))
+				$id_traspaso = $datos["id_traspaso"];
+
+			if(strlen($datos["id_front"]))
+				$id_front = $datos["id_front"];
+
+			if(strlen($datos["id_back"]))
+				$id_back = $datos["id_back"];
+
+			if(strlen($datos["selfie"]))
+				$selfie = $datos["selfie"];
+
+			if(strlen($datos["biometric_result"]))
+				$biometric_result = $datos["biometric_result"];
+
+			if(strlen($datos["checksum"]))
+				$checksum = $datos["checksum"];
+
+			if(strlen($datos["date_of_birth"]))
+				$date_of_birth = $datos["date_of_birth"];
+
+			if(strlen($datos["document_number"]))
+				$document_number = $datos["document_number"];
+
+			if(strlen($datos["expiration_date"]))
+				$expiration_date = $datos["expiration_date"];
+
+			if(strlen($datos["family_name"]))
+				$family_name = $datos["family_name"];
+
+			if(strlen($datos["gender"]))
+				$gender = $datos["gender"];
+
+			if(strlen($datos["name"]))
+				$name = $datos["name"];
+
+			if(strlen($datos["national_identification_number"]))
+				$national_identification_number = $datos["national_identification_number"];
+
+			if(strlen($datos["nationality"]))
+				$nationality = $datos["nationality"];
+
+			if(strlen($datos["raw"]))
+				$raw = $datos["raw"];
+
+			if(strlen($datos["type"]))
+				$type = $datos["type"];
+
+			if(strlen($datos["status"]))
+				$status = $datos["status"];
+
+			if(strlen($datos["toc_token"]))
+				$toc_token = $datos["toc_token"];
+
+			$resultado = $this->traspaso_model->validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token);
+			echo json_encode($resultado);
 		}
 	}
 

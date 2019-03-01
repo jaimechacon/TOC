@@ -21,9 +21,9 @@ class Traspaso_model extends CI_Model
 		return $query->result_array();
 	}
 
-	public function validarUsuario($idTraspaso, $idRespuesta)
+	public function validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token)
 	{
-		$query = $this->db->query("call `db_toc`.`validarUsuario`(".$idTraspaso.", ".$idRespuesta.");");
+		$query = $this->db->query("call `db_toc`.`validarUsuario`(".$idTraspaso.", ".($id_front == "null" ? $id_front : ("'".$id_front."'")).", ".($id_back == "null" ? $id_back : ("'".$id_back."'")).", ".($selfie == "null" ? $selfie : ("'".$selfie."'")).", ".$biometric_result.", ".$checksum.", ".$date_of_birth.", ".($document_number == "null" ? $document_number : ("'".$document_number."'")).", ".$expiration_date.", ".($family_name == "null" ? $family_name : ("'".$family_name."'")).", ".($gender == "null" ? $gender : ("'".$gender."'")).", ".($name == "null" ? $name : ("'".$name."'")).", ".($national_identification_number == "null" ? $national_identification_number : ("'".$national_identification_number."'")).", ".($nationality == "null" ? $nationality : ("'".$nationality."'")).", ".($raw == "null" ? $raw : ("'".$raw."'")).", ".($type == "null" ? $type : ("'".$type."'")).", ".($status == "null" ? $status : ("'".$status."'")).", ".($toc_token == "null" ? $toc_token : ("'".$toc_token."'")).");");
 		return $query->result_array();
 	}
 

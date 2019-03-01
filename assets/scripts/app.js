@@ -358,7 +358,8 @@ $('body').on('click', '.api-call', function(event) {
                     if (datosUsuario)
                     {
                       //data = JSON.parse(data);
-                      alert(data);
+                      alert(datosUsuario);
+                      
                     }
                     }
                     });
