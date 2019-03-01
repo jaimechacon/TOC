@@ -217,8 +217,8 @@
                                     </div>
                                     <!-- Fin Foto reverso -->
                                     <!-- Inicio Selfie -->
-                                    <div class="tab-pane fade" role="tabpanel" id="selfiediv">
-                                        <fieldset id="selfiefs" class="fieldset-rostro">
+                                    <div class="tab-pane fade" role="tabpanel" id="selfie">
+                                        <fieldset id="selfie" class="fieldset-rostro">
                                             <h2 class="fs-title" data-localize="selfie-title">Foto Rostro</h2>
                                             <h3 class="fs-subtitle" style="display:inline;" data-localize="selfie-subtitle">Toma una foto de su rostro.</h3>
                                             <img class="check-orientation" style="width:8%; margin-left:5px; display:none;" src="../../assets/img/selfie-ok.PNG" alt="">
