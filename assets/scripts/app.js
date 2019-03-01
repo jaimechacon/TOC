@@ -342,6 +342,27 @@ $('body').on('click', '.api-call', function(event) {
                         toc_token: toc_token
                     };
 
+                    var loader = document.getElementById("loader");
+                    loader.removeAttribute('hidden');
+                    /*$("div.loader").addClass('show');*/
+                    event.preventDefault();
+
+                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+
+                    jQuery.ajax({
+                    type: "POST",
+                    url: baseurl,
+                    //dataType: 'json',
+                    data: { datos: datos },
+                    success: function(data) {
+                    if (data)
+                    {
+                      //data = JSON.parse(data);
+                      alert(data);
+                    }
+                    }
+                    });
+
             }).fail(function(data) {
                 console.log(data);
                 console.log("error");
