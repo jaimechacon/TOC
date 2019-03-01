@@ -323,9 +323,9 @@ $('body').on('click', '.api-call', function(event) {
 
                     var datos = {
                         id_traspaso: id_traspaso,
-                        id_front: id_front.src,
-                        id_back: id_back.src,
-                        selfie: selfie.src,
+                        id_front: id_front,
+                        id_back: id_back,
+                        selfie: selfie,
                         biometric_result: biometric_result,
                         checksum: checksum,
                         date_of_birth: date_of_birth,
@@ -354,8 +354,8 @@ $('body').on('click', '.api-call', function(event) {
                     url: baseurl,
                     //dataType: 'json',
                     data: { datos: datos },
-                    success: function(data) {
-                    if (data)
+                    success: function(datosUsuario) {
+                    if (datosUsuario)
                     {
                       //data = JSON.parse(data);
                       alert(data);
