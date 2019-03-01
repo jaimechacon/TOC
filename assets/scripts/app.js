@@ -325,8 +325,21 @@ $('body').on('click', '.api-call', function(event) {
                         id_traspaso: id_traspaso,
                         id_front: id_front,
                         id_back: id_back,
-                        
-
+                        selfie: selfie,
+                        biometric_result: data["biometric result"],
+                        checksum: data["information from document"]["mrz"]["checksum"],
+                        date_of_birth: data["information from document"]["mrz"]["data"]["date of birth"],
+                        document_number: data["information from document"]["mrz"]["data"]["document number"],
+                        expiration_date: data["information from document"]["mrz"]["data"]["expiration date"],
+                        family_name: data["information from document"]["mrz"]["data"]["family name"],
+                        gender: data["information from document"]["mrz"]["data"]["gender"],
+                        name: data["information from document"]["mrz"]["data"]["name"],
+                        national_identification_number: data["information from document"]["mrz"]["data"]["national identification number"],
+                        nationality: data["information from document"]["mrz"]["data"]["nationality"],
+                        raw: data["information from document"]["mrz"]["raw"],
+                        type: data["information from document"]["type"],
+                        status: data["status"],
+                        toc_token: data["toc_token"]
                     };
 
 
