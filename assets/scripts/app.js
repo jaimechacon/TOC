@@ -110,7 +110,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('selfie', dataURItoBlob(selfie));
             form_data.append('documentType', documentType);
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -349,18 +349,18 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
 
                     jQuery.ajax({
                     type: "POST",
                     url: baseurl,
-                    //dataType: 'json',
+                    dataType: 'json',
                     data: { datos: datos },
                     success: function(datosUsuario) {
                     if (datosUsuario)
                     {
                       //data = JSON.parse(data);
-                      alert(datosUsuario);
+                      
 
                     }
                     }
@@ -387,7 +387,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('photo1', dataURItoBlob(id_front));
             form_data.append('photo2', dataURItoBlob(selfie));
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -476,7 +476,7 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
 
                     jQuery.ajax({
                     type: "POST",
@@ -526,7 +526,7 @@ $('body').on('click', '.api-call', function(event) {
 
 function actualizarTraspaso(datos)
   {
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
