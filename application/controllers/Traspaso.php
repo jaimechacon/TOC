@@ -400,7 +400,7 @@ class Traspaso extends CI_Controller {
 
     public function enviar($emailCliente, $nombresCliente, $apellidosClientes, $idTraspaso){
       
-       $mensaje = 'Bienvenido '.$nombresCliente.' '.$apellidosClientes.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+       $mensaje = 'Provida: Estimado '.$nombresCliente.' '.$apellidosClientes.', verifica tu identidad en la url: '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
 
 
       $this->load->library('email');
@@ -408,7 +408,7 @@ class Traspaso extends CI_Controller {
     'protocol'=>'smtp',
     'smtp_host'=>"smtp.gmail.com",
     'smtp_port'=>465,
-    'smtp_user'=>"mcfly@gsbpo.cl",
+    'smtp_user'=>"validacion@provida.cl",
     'smtp_pass'=>"gsbpo2018",
     'smtp_crypto'=>'ssl',              
     'mailtype'=>'html'  
