@@ -110,7 +110,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('selfie', dataURItoBlob(selfie));
             form_data.append('documentType', documentType);
             $.ajax({
-                url: window.origin + '/Traspaso/verificarIdentidad',
+                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -240,6 +240,108 @@ $('body').on('click', '.api-call', function(event) {
                     (typeof(data.toc_token) != 'undefined') ? $('h6.token span.badge-light').text(data.toc_token) : '';
                     $('.loading').hide();
                 }
+
+                    var latitude = '';
+                    var latitude = '';
+
+                    var id_traspaso = $('input[name="id_traspaso"]').val();
+
+                    if ("geolocation" in navigator){ //check geolocation available 
+                        //try to get user current location using getCurrentPosition() method
+                        navigator.geolocation.getCurrentPosition(function(position){ 
+                            latitude = position.coords.latitude;
+                            latitude = position.coords.longitude;
+                        });
+                    }
+                    
+                    var biometric_result = '';
+                    var checksum = '';
+                    var date_of_birth = '';
+                    var document_number = '';
+                    var expiration_date = '';
+                    var family_name = '';
+                    var gender = '';
+                    var name = '';
+                    var national_identification_number = '';
+                    var nationality = '';
+                    var raw = '';
+                    var type = '';
+                    var status = '';
+                    var toc_token = '';
+
+                    if(data.hasOwnProperty('biometric result'))
+                        biometric_result =  data["biometric result"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz'))
+                        if(data["information from document"]["mrz"].hasOwnProperty("checksum"))
+                            checksum = data["information from document"]["mrz"]["checksum"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("date of birth"))
+                            date_of_birth = data["information from document"]["mrz"]["data"]["date of birth"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("document number"))
+                            document_number = data["information from document"]["mrz"]["data"]["document number"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("expiration date"))
+                            expiration_date = data["information from document"]["mrz"]["data"]["expiration date"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("family name"))
+                            family_name = data["information from document"]["mrz"]["data"]["family name"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("gender"))
+                            gender = data["information from document"]["mrz"]["data"]["gender"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("name"))
+                            name = data["information from document"]["mrz"]["data"]["name"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("national identification number"))
+                            national_identification_number = data["information from document"]["mrz"]["data"]["national identification number"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz') && data["information from document"]["mrz"].hasOwnProperty("data"))
+                        if(data["information from document"]["mrz"]['data'].hasOwnProperty("nationality"))
+                            nationality = data["information from document"]["mrz"]["data"]["nationality"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('mrz'))
+                        if(data["information from document"]["mrz"].hasOwnProperty("raw"))
+                            raw = data["information from document"]["mrz"]["raw"];
+
+                    if(data.hasOwnProperty('information from document') && data["information from document"].hasOwnProperty('type'))
+                        type = data["information from document"]["type"];
+
+                    if(data.hasOwnProperty('status'))
+                        status =  data["status"];
+
+                    if(data.hasOwnProperty('toc_token'))
+                        toc_token =  data["toc_token"];
+
+                    var datos = {
+                        id_traspaso: id_traspaso,
+                        id_front: id_front.src,
+                        id_back: id_back.src,
+                        selfie: selfie.src,
+                        biometric_result: biometric_result,
+                        checksum: checksum,
+                        date_of_birth: date_of_birth,
+                        document_number: document_number,
+                        expiration_date: expiration_date,
+                        family_name: family_name,
+                        gender: gender,
+                        name: name,
+                        national_identification_number: national_identification_number,
+                        nationality: nationality,
+                        raw: raw,
+                        type: type,
+                        status: status,
+                        toc_token: toc_token
+                    };
+
             }).fail(function(data) {
                 console.log(data);
                 console.log("error");
@@ -261,7 +363,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('photo1', dataURItoBlob(id_front));
             form_data.append('photo2', dataURItoBlob(selfie));
             $.ajax({
-                url: window.origin + '/Traspaso/verificarIdentidad',
+                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -376,7 +478,7 @@ $('body').on('click', '.api-call', function(event) {
 
 function actualizarTraspaso(datos)
   {
-    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarTraspaso';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
