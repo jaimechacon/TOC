@@ -343,7 +343,7 @@ $('body').on('click', '.api-call', function(event) {
                     };
 
                     var loader = document.getElementById("loader");
-                    loader.removeAttribute('hidden');
+                    //loader.removeAttribute('hidden');
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
