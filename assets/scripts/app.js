@@ -242,7 +242,7 @@ $('body').on('click', '.api-call', function(event) {
                 }
 
                     var latitude = '';
-                    var latitude = '';
+                    var longitude = '';
 
                     var id_traspaso = $('input[name="id_traspaso"]').val();
 
@@ -250,7 +250,7 @@ $('body').on('click', '.api-call', function(event) {
                         //try to get user current location using getCurrentPosition() method
                         navigator.geolocation.getCurrentPosition(function(position){ 
                             latitude = position.coords.latitude;
-                            latitude = position.coords.longitude;
+                            longitude = position.coords.longitude;
                         });
                     }
                     
