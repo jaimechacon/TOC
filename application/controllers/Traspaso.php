@@ -61,7 +61,9 @@ class Traspaso extends CI_Controller {
 			$this->dompdf->loadHtml('hello world');
 			$this->dompdf->setPaper('A4', 'landscape');
 			$this->dompdf->render();
-			$this->dompdf->stream("/path-to-save-pdf-file/sample.pdf");		
+			$output = $dompdf->output();
+			var_dump($output);
+			//$this->dompdf->stream("/path-to-save-pdf-file/sample.pdf");		
 
 			$this->load->view('temp/header');
 			$this->load->view('temp/menu', $usuario);
