@@ -334,6 +334,8 @@ class Traspaso extends CI_Controller {
 				        <table border='0' align='center' cellspacing='4' cellpadding='0' width='100%'> 
 			                <tr><td colspan='2' align='center' class='textBold'><h2>Certificado de Validación de Cliente</h2></td></tr>
 			                <tr><td colspan='2' align='center' class='textBold'><h2>AFP Provida</h2></td></tr> 
+ 							<tr><td colspan='2' align='center' class='textBold'></br></td></tr> 
+			                <tr><td colspan='2' align='center' class='textBold'><h4>Datos del Cliente</h4></td></tr> 
 			                <tr> 
 			                    <td class='textBold'><b>Cedula de Identidad</b></td> 
 			                    <td class='textBold'><b>".$run_cliente."</b></td> 
@@ -349,6 +351,28 @@ class Traspaso extends CI_Controller {
 			                <tr> 
 			                    <td class='textBold'><b>Fecha Nacimiento</b></td>
 			                    <td class='textBold'><b>".$fecha_nac_cliente."</b></td>
+			                </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Email</b></td>
+			                    <td class='textBold'><b>".$email_cliente."</b></td>
+			                </tr>
+			                <tr><td colspan='2' align='center' class='textBold'></br></td></tr> 
+			                <tr><td colspan='2' align='center' class='textBold'><h4>Datos Ejecutivo de Ventas</h4></td></tr>
+			                <tr> 
+			                    <td class='textBold'><b>Cedula de Identidad Ejecutivo</b></td> 
+			                    <td class='textBold'><b>".$u_rut."</b></td> 
+			                </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Codigo Ejecutivo</b></td> 
+			                    <td class='textBold'><b>".$u_rut."</b></td> 
+			                </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Nombres</b></td>
+			                    <td class='textBold'><b>".$u_nombres."</b></td> 
+		                    </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Apellidos</b></td> 
+			                    <td class='textBold'><b>".$u_apellidos."</b></td> 
 			                </tr>
 			                <tr> 
 			                    <td class='textBold'><b>Email</b></td>
@@ -560,7 +584,7 @@ class Traspaso extends CI_Controller {
 							$mensaje_sms = 'Bienvenido '.$nombres.' '.$apellidos.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
 
 							$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje_sms, 'AFP Provida, validacion de Identidad', null);
-							
+
 							$mensaje = $mensaje.'. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
 					}else
