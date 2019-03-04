@@ -38,8 +38,7 @@ class Pdf
         $pdf = new DOMPDF();
         
         $CI =& get_instance();
-        $CI->dompdf = $pdf;
-        
+        $CI->dompdf = $pdf;        
     }
 }
 
