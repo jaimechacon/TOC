@@ -98,19 +98,24 @@ $('body').on('click', '.api-call', function(event) {
         var id_front = $('input[name="id_front"]').val();
         var id_back = $('input[name="id_back"]').val();
         var selfie = $('input[name="selfie"]').val();
+        var idTraspaso = '';
         if (id_front.length > 0 && id_back.length > 0 && selfie.length > 0 && documentType != 'PASS') {
             data_valid = true;
         } else if (id_front.length > 0 && selfie.length > 0 && documentType == 'PASS') {
             data_valid = true;
         }
         if (data_valid) {
+             if($('input[name="id_traspaso"]').val())
+                idTraspaso = $('input[name="id_traspaso"]').val();
+
             var form_data = new FormData();
             form_data.append('id_front', dataURItoBlob(id_front));
             form_data.append('id_back', dataURItoBlob(id_back));
             form_data.append('selfie', dataURItoBlob(selfie));
             form_data.append('documentType', documentType);
+            form_data.append('idTraspaso', idTraspaso);
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -121,7 +126,7 @@ $('body').on('click', '.api-call', function(event) {
             })
             .done(function(data) {
                 console.log(data);
-                data = JSON.parse(data);
+               // data = JSON.parse(data);
                 var status_class = '';
                 var result_text = '';
                 var result_text_locale = '';
@@ -269,6 +274,10 @@ $('body').on('click', '.api-call', function(event) {
                     var status = '';
                     var toc_token = '';
 
+                    var status_pdf = '';
+                    var signed_pdf = '';
+                    var toc_token_pdf = '';
+
                     if(data.hasOwnProperty('biometric result'))
                         biometric_result =  data["biometric result"];
 
@@ -321,6 +330,23 @@ $('body').on('click', '.api-call', function(event) {
                     if(data.hasOwnProperty('toc_token'))
                         toc_token =  data["toc_token"];
 
+                    if(data.hasOwnProperty('document'))
+                    {
+                        data.document = JSON.parse(data.document);
+                        if(data.document.hasOwnProperty('signed pdf') && data.document.hasOwnProperty('status') && data.document["status"] == '200')
+                        {
+                            status_pdf = data.document["status"];
+                            signed_pdf = data.document["signed pdf"];
+                            toc_token_pdf = data.document["toc_token"];
+                            const linkSource = `data:application/pdf;base64,${signed_pdf}`;
+                            const downloadLink = document.createElement("a");
+                            const fileName = "verificacion_valida.pdf";
+                            downloadLink.href = linkSource;
+                            downloadLink.download = fileName;
+                            downloadLink.click();
+                        }
+                    }
+
                     var datos = {
                         id_traspaso: id_traspaso,
                         id_front: id_front,
@@ -341,7 +367,10 @@ $('body').on('click', '.api-call', function(event) {
                         status: status,
                         toc_token: toc_token,
                         latitude: latitude,
-                        longitude: longitude
+                        longitude: longitude,
+                        status_pdf: status_pdf,
+                        signed_pdf: signed_pdf,
+                        toc_token_pdf: toc_token_pdf
                     };
 
                     var loader = document.getElementById("loader");
@@ -349,7 +378,9 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
+
+
 
                     jQuery.ajax({
                     type: "POST",
@@ -387,7 +418,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('photo1', dataURItoBlob(id_front));
             form_data.append('photo2', dataURItoBlob(selfie));
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -476,7 +507,7 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
 
                     jQuery.ajax({
                     type: "POST",
@@ -526,7 +557,7 @@ $('body').on('click', '.api-call', function(event) {
 
 function actualizarTraspaso(datos)
   {
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
