@@ -229,7 +229,7 @@ class Traspaso extends CI_Controller {
             if(isset($response['biometric result']))
                 $biometric_result =  $response["biometric result"];
 
-            if(isset($response['information from document']) && isset(["information from document"]['mrz']))
+            if(isset($response['information from document']) && isset($response["information from document"]['mrz']))
                 if(isset($response["information from document"]["mrz"]["checksum"]))
                     $checksum = $response["information from document"]["mrz"]["checksum"];
 
