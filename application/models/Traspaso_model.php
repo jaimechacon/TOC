@@ -8,11 +8,11 @@ class Traspaso_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function obtenerTraspaso($id_asignacion)
+	/*public function obtenerTraspaso($id_asignacion)
 	{
 		$query = $this->db->query('CALL `db_toc`.`obtenerTraspaso`('.$id_asignacion.');');
 		return $query->result_array();
-	}
+	}*/
 
 	public function guardarTraspaso($idTraspaso, $rut, $fechaNac, $nombres, $apellidos, $email, $celular, $telefono, $obsrevaciones, $idUsuarioCreador)
 	{
@@ -30,6 +30,12 @@ class Traspaso_model extends CI_Model
 	{
 		$query = $this->db->query("call `db_toc`.`obtenerTraspasosUsu`(".$idUsuario.", ".($runCliente == "null" ? $runCliente : ("'".$runCliente."'")).", ".$idFolio.", ".($nombreCliente == "null" ? $nombreCliente : ("'".$nombreCliente."'")).");");
 		
+		return $query->result_array();
+	}
+
+	public function obtenerTraspaso($idFolio)
+	{
+		$query = $this->db->query("call `db_toc`.`obtenerTraspaso`(".$idFolio.");");
 		return $query->result_array();
 	}
 

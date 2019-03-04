@@ -175,7 +175,7 @@ class Traspaso extends CI_Controller {
 			$id_back = file_get_contents($_FILES["id_back"]['tmp_name']);
 			$selfie = file_get_contents($_FILES["selfie"]['tmp_name']);
 		    $documentType = $_POST['documentType'];
-		    $idTraspaso = $_POST['idTraspaso'];
+		    $idTraspaso = (int)$_POST['idTraspaso'];
 		    $params = array(
 		        'apiKey' => $apiKey,
 		        'id_front' => $id_front,
@@ -271,6 +271,36 @@ class Traspaso extends CI_Controller {
             if(($biometric_result == "1" && $status == "200") || ($biometric_result == "2" && $status == "200"))
             {
             	//$apiKey = '2baea4569b4544128ae83154e4d8a27b';
+
+            	$resultado = $this->traspaso_model->obtenerTraspaso($idTraspaso);
+				    var_dump($resultado);
+	            	if($resultado[0] > 0)
+					{
+						if($resultado[0]['folio'])
+						{
+							$fecha_creacion = $resultado[0]['fecha'];
+							$id_cliente = (int)$resultado[0]['id_cliente'];
+							$observacionesTraspaso = $resultado[0]['observaciones'];
+							$id_estados_traspasos = (int)$resultado[0]['id_estados_traspasos'];
+							$estado = $resultado[0]['estado'];
+							$descripcion_estado = $resultado[0]['descripcion'];
+							$nombre_cliente = $resultado[0]['nombre_cliente'];
+							$apellidos_cliente = $resultado[0]['apellidos_cliente'];
+							$email_cliente = $resultado[0]['email_cliente'];
+							$celular_cliente = $resultado[0]['celular_cliente'];
+							$fecha_nac_cliente = $resultado[0]['fecha_nac_cliente'];
+							$run_cliente = $resultado[0]['run_cliente'];
+							$id_usuario = (int)$resultado[0]['id_usuario'];
+							$u_cod_usuario = $resultado[0]['u_cod_usuario'];
+							$u_rut = $resultado[0]['u_rut'];
+							$u_nombres = $resultado[0]['u_nombres'];
+							$u_apellidos = $resultado[0]['u_apellidos'];
+							$u_email = $resultado[0]['u_email'];
+
+							var_dump($u_email);								
+						}
+					}
+
             	$this->dompdf->loadHtml("<html>
 				    <head> 
 				        <style type='text/css'> 
@@ -343,6 +373,16 @@ class Traspaso extends CI_Controller {
 				    
 				    $response2 =  json_decode($curl_response);
 				    $response['document'] = json_encode($response2);
+
+
+				    var_dump(json_decode(json_decode($curl_response), true));
+
+				    $mensaje = 'Estimado '.$nombres.' '.$apellidos.', somos AFP Provida, Informamos que tu traspaso ha sido solicitado exitosamente.';
+
+					$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje, 'Solicitud de Traspaso exitosa', null);
+
+					#$mensaje .= '. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
+
 				    //var_dump($response2);
 
 				 }
@@ -470,7 +510,9 @@ class Traspaso extends CI_Controller {
 							$parametros['idTraspaso'] = $idTraspaso;
 							
 							$se_envio = $this->enviasmsacliente($parametros);
-							$this->enviar($email, $nombres, $apellidos, $idTraspaso);
+
+							$mensaje = 'Bienvenido '.$nombres.' '.$apellidos.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+							$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje, 'AFP Provida, validacion de Identidad', null);
 							$mensaje = $mensaje.'. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
 					}else
@@ -681,9 +723,7 @@ class Traspaso extends CI_Controller {
 	      } 
     }
 
-    public function enviar($emailCliente, $nombresCliente, $apellidosClientes, $idTraspaso){
-	  
-		$mensaje = 'Bienvenido '.$nombresCliente.' '.$apellidosClientes.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+    public function enviar($emailCliente, $nombresCliente, $apellidosClientes, $idTraspaso, $mensaje, $asunto, $archivo){
 
 		$this->load->library('email');
 		$confing =array(
@@ -695,12 +735,13 @@ class Traspaso extends CI_Controller {
 		'smtp_crypto'=>'ssl',              
 		'mailtype'=>'html'  
 		);
-
+		if (isset($archivo) != null)
+			$this->email->attach($archivo);
 		$this->email->initialize($confing);
 		$this->email->set_newline("\r\n");
 		$this->email->from('validacion@provida.cl');
 		$this->email->to($emailCliente);
-		$this->email->subject('AFP Provida, validacion de Identidad');
+		$this->email->subject($asunto);
 		$this->email->message($mensaje);
 
 		if(!$this->email->send()) {
