@@ -13,4 +13,5 @@
 	<div class="row mt-3">
 		<h4>Usted es un <?php echo $perfil['perfil'];//echo $perfil; ?></h4>
 	</div>
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 </div>
