@@ -329,7 +329,7 @@ class Traspaso extends CI_Controller {
 				        </style> 
 				    </head> 
 				    <body topmargin='0' leftmargin='0'>
-				    	<img src='assets/img/logo.png' width='50' class='d-inline-block align-top' alt=''>
+				    	<img src='assets/img/logo.png' width='80' class='d-inline-block align-top' alt=''>
 
 				        <table border='0' align='center' cellspacing='4' cellpadding='0' width='100%'> 
 			                <tr><td colspan='2' align='center' class='textBold'><h2>Certificado de Validación de Cliente</h2></td></tr>
