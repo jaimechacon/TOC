@@ -8,7 +8,7 @@ class Traspaso extends CI_Controller {
 		parent::__construct();
 		$this->load->model('traspaso_model');
 		$this->load->model('perfil_model');
-		$this->load->library('Pdf');
+		$this->load->library('pdf');
 	}
 
 	public function index()
