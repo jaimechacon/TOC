@@ -559,7 +559,8 @@ class Traspaso extends CI_Controller {
 
 							$mensaje_sms = 'Bienvenido '.$nombres.' '.$apellidos.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
 
-							$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje, 'AFP Provida, validacion de Identidad', null);
+							$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje_sms, 'AFP Provida, validacion de Identidad', null);
+							
 							$mensaje = $mensaje.'. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
 					}else
