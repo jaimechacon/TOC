@@ -176,6 +176,8 @@ class Traspaso extends CI_Controller {
 			$selfie = file_get_contents($_FILES["selfie"]['tmp_name']);
 		    $documentType = $_POST['documentType'];
 		    $idTraspaso = (int)$_POST['idTraspaso'];
+		    $latitude = $_POST['latitude'];
+		    $longitude = $_POST['longitude'];
 		    $params = array(
 		        'apiKey' => $apiKey,
 		        'id_front' => $id_front,
@@ -185,7 +187,7 @@ class Traspaso extends CI_Controller {
 		    );
 		    $apiCall = $this->CallAPI('POST', 'https://sandbox-api.7oc.cl/v2/face-and-document', $params);
 			$response = json_decode(json_decode($apiCall), true);
-                    
+
             $biometric_result = '';
             $checksum = '';
             $date_of_birth = '';
@@ -200,6 +202,28 @@ class Traspaso extends CI_Controller {
             $type = '';
             $status = '';
             $toc_token = '';
+            $toc_token_pdf = '';
+            $status_pdf = '';
+            $signed_pdf = '';
+
+            $fecha_creacion = '';
+			$id_cliente = '';
+			$observacionesTraspaso = '';
+			$id_estados_traspasos = '';
+			$estado = '';
+			$descripcion_estado = '';
+			$nombre_cliente = '';
+			$apellidos_cliente = '';
+			$email_cliente = '';
+			$celular_cliente = '';
+			$fecha_nac_cliente = '';
+			$run_cliente = '';
+			$id_usuario = '';
+			$u_cod_usuario = '';
+			$u_rut = '';
+			$u_nombres = '';
+			$u_apellidos = '';
+			$u_email = '';
 
             if(isset($response['biometric result']))
                 $biometric_result =  $response["biometric result"];
@@ -273,33 +297,30 @@ class Traspaso extends CI_Controller {
             	//$apiKey = '2baea4569b4544128ae83154e4d8a27b';
 
             	$resultado = $this->traspaso_model->obtenerTraspaso($idTraspaso);
-				    var_dump($resultado);
-	            	if($resultado[0] > 0)
+            	if($resultado[0] > 0)
+				{
+					if($resultado[0]['folio'])
 					{
-						if($resultado[0]['folio'])
-						{
-							$fecha_creacion = $resultado[0]['fecha'];
-							$id_cliente = (int)$resultado[0]['id_cliente'];
-							$observacionesTraspaso = $resultado[0]['observaciones'];
-							$id_estados_traspasos = (int)$resultado[0]['id_estados_traspasos'];
-							$estado = $resultado[0]['estado'];
-							$descripcion_estado = $resultado[0]['descripcion'];
-							$nombre_cliente = $resultado[0]['nombre_cliente'];
-							$apellidos_cliente = $resultado[0]['apellidos_cliente'];
-							$email_cliente = $resultado[0]['email_cliente'];
-							$celular_cliente = $resultado[0]['celular_cliente'];
-							$fecha_nac_cliente = $resultado[0]['fecha_nac_cliente'];
-							$run_cliente = $resultado[0]['run_cliente'];
-							$id_usuario = (int)$resultado[0]['id_usuario'];
-							$u_cod_usuario = $resultado[0]['u_cod_usuario'];
-							$u_rut = $resultado[0]['u_rut'];
-							$u_nombres = $resultado[0]['u_nombres'];
-							$u_apellidos = $resultado[0]['u_apellidos'];
-							$u_email = $resultado[0]['u_email'];
-
-							var_dump($u_email);								
-						}
+						$fecha_creacion = $resultado[0]['fecha'];
+						$id_cliente = (int)$resultado[0]['id_cliente'];
+						$observacionesTraspaso = $resultado[0]['observaciones'];
+						$id_estados_traspasos = (int)$resultado[0]['id_estados_traspasos'];
+						$estado = $resultado[0]['estado'];
+						$descripcion_estado = $resultado[0]['descripcion'];
+						$nombre_cliente = $resultado[0]['nombre_cliente'];
+						$apellidos_cliente = $resultado[0]['apellidos_cliente'];
+						$email_cliente = $resultado[0]['email_cliente'];
+						$celular_cliente = $resultado[0]['celular_cliente'];
+						$fecha_nac_cliente = $resultado[0]['fecha_nac_cliente'];
+						$run_cliente = $resultado[0]['run_cliente'];
+						$id_usuario = (int)$resultado[0]['id_usuario'];
+						$u_cod_usuario = $resultado[0]['u_cod_usuario'];
+						$u_rut = $resultado[0]['u_rut'];
+						$u_nombres = $resultado[0]['u_nombres'];
+						$u_apellidos = $resultado[0]['u_apellidos'];
+						$u_email = $resultado[0]['u_email'];					
 					}
+				}
 
             	$this->dompdf->loadHtml("<html>
 				    <head> 
@@ -308,32 +329,30 @@ class Traspaso extends CI_Controller {
 				        </style> 
 				    </head> 
 				    <body topmargin='0' leftmargin='0'>
-				    	<img src='<?php echo base_url();?>assets/img/logo.png' width='50' class='d-inline-block align-top' alt=''>
+				    	<img src='assets/img/logo.png' width='50' class='d-inline-block align-top' alt=''>
 
 				        <table border='0' align='center' cellspacing='4' cellpadding='0' width='100%'> 
-			                <tr><td colspan='16' align='center' class='textBold'><b>Certificado de Validación de Cliente</b></td></tr>
-			                <tr><td colspan='6' class='textBold'><b>AFP Provida</b></td></tr> 
+			                <tr><td colspan='2' align='center' class='textBold'><h2>Certificado de Validación de Cliente</h2></td></tr>
+			                <tr><td colspan='2' align='center' class='textBold'><h2>AFP Provida</h2></td></tr> 
 			                <tr> 
-			                    <td class='textBold' align='center'><b>Cedula de Identidad</b></td> 
-			                    <td class='textBold' align='center' colspan='2'><b>Nombres</b></td> 
-			                    <td align='center' class='textBold'><b>DIAS<br>Apellidos<br></b></td> 
-			                    <td align='center' class='textBold'><b>Fecha Nacimiento</b></td>
-			                    <td align='center' class='textBold'><b>Genero</b></td>
-			                    <td align='center' class='textBold'><b>Fecha de Emision</b></td> 
-			                    <td align='center' class='textBold'><b>N° de Documento</b></td> 
-			                    <td align='center' class='textBold'><b>Nacionalidad</b></td> 
-			                    <td align='center' class='textBold'><b>Codigo Cedula</b></td> 
+			                    <td class='textBold'><b>Cedula de Identidad</b></td> 
+			                    <td class='textBold'><b>".$run_cliente."</b></td> 
 			                </tr>
 			                <tr> 
-			                    <td class='textBold' align='center'><b>".$document_number."</b></td> 
-			                    <td class='textBold' align='center' colspan='2'><b>".$name."</b></td> 
-			                    <td align='center' class='textBold'><b>DIAS<br>".$family_name."<br></b></td> 
-			                    <td align='center' class='textBold'><b>".$date_of_birth."</b></td>
-			                    <td align='center' class='textBold'><b>".$gender."</b></td>
-			                    <td align='center' class='textBold'><b>".$expiration_date."</b></td> 
-			                    <td align='center' class='textBold'><b>".$document_number."</b></td> 
-			                    <td align='center' class='textBold'><b>".$nationality."</b></td> 
-			                    <td align='center' class='textBold'><b>".$raw."</b></td> 
+			                    <td class='textBold'><b>Nombres</b></td>
+			                    <td class='textBold'><b>".$nombre_cliente."</b></td> 
+		                    </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Apellidos</b></td> 
+			                    <td class='textBold'><b>".$apellidos_cliente."</b></td> 
+			                </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Fecha Nacimiento</b></td>
+			                    <td class='textBold'><b>".$fecha_nac_cliente."</b></td>
+			                </tr>
+			                <tr> 
+			                    <td class='textBold'><b>Email</b></td>
+			                    <td class='textBold'><b>".$email_cliente."</b></td>
 			                </tr>
 				        </table> 
 				    </body> 
@@ -372,15 +391,42 @@ class Traspaso extends CI_Controller {
 				    //var_dump($curl);
 				    
 				    $response2 =  json_decode($curl_response);
-				    $response['document'] = json_encode($response2);
+				    $response['document'] = json_encode($response2, true);
 
 
-				    var_dump(json_decode(json_decode($curl_response), true));
+				    $datos_pdf = json_decode($curl_response, true);
 
-				    $mensaje = 'Estimado '.$nombres.' '.$apellidos.', somos AFP Provida, Informamos que tu traspaso ha sido solicitado exitosamente.';
+				    //var_dump(json_decode($curl_response, true)['signed pdf']);
 
-					$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje, 'Solicitud de Traspaso exitosa', null);
+				     if(isset($datos_pdf['signed pdf']))
+                		$signed_pdf =  base64_encode($datos_pdf['signed pdf']);
 
+            	  	if(isset($datos_pdf['status']))
+                		$status_pdf =  $datos_pdf['status'];
+
+            	  	if(isset($datos_pdf['toc_token']))
+                		$toc_token_pdf =  $datos_pdf['signed pdf'];
+
+                	$f_front = base64_encode($id_front);
+                	$f_back = base64_encode($id_back);
+
+				     $pdf = base64_decode(json_decode($curl_response, true)['signed pdf']);
+
+
+				    $mensaje_pdf = 'Estimado '.$nombre_cliente.' '.$apellidos_cliente.', somos AFP Provida, informamos que tu solicitud traspaso de AFP se ha enviado exitosamente.';
+
+					$this->enviar($email_cliente, $nombre_cliente, $apellidos_cliente, $idTraspaso, $mensaje_pdf, 'Solicitud de Traspaso exitosa', $pdf);
+
+
+					/*$resultadoValidacion = $this->traspaso_model->validarUsuario($idTraspaso, $f_front, $f_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token, $latitude, $longitude, $toc_token_pdf, $status_pdf, $signed_pdf);
+
+					if($resultadoValidacion[0] > 0)
+					{
+						if($resultado[0]['resultado'])
+						{
+
+						}
+					}*/
 					#$mensaje .= '. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 
 				    //var_dump($response2);
@@ -511,7 +557,8 @@ class Traspaso extends CI_Controller {
 							
 							$se_envio = $this->enviasmsacliente($parametros);
 
-							$mensaje = 'Bienvenido '.$nombres.' '.$apellidos.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+							$mensaje_sms = 'Bienvenido '.$nombres.' '.$apellidos.', somos AFP Provida, favor verifica tu identidad en el siguiente link. '.base_url().'Traspaso/verificarIdentidadCliente/'.$idTraspaso.' .';
+
 							$this->enviar($email, $nombres, $apellidos, $idTraspaso, $mensaje, 'AFP Provida, validacion de Identidad', null);
 							$mensaje = $mensaje.'. Se ha enviado un SMS y un Email al Cliente '.$nombres.' '.$apellidos.' para validar su identidad.';
 						}
@@ -536,7 +583,6 @@ class Traspaso extends CI_Controller {
 		if(!is_null($this->input->POST('datos')))
 		{
 			$datos = $this->input->POST('datos');
-
 			$id_traspaso = 'null';
             $id_front = 'null';
             $id_back = 'null';
@@ -557,7 +603,10 @@ class Traspaso extends CI_Controller {
             $toc_token = 'null';
             $latitude = 'null';
             $longitude = 'null';
-            
+            $toc_token_pdf = 'null';
+            $status_pdf = 'null';
+            $signed_pdf = 'null';
+
 			if(strlen($datos["id_traspaso"]))
 				$id_traspaso = $datos["id_traspaso"];
 
@@ -618,7 +667,16 @@ class Traspaso extends CI_Controller {
 			if(strlen($datos["longitude"]))
 				$longitude = $datos["longitude"];
 
-			$resultado = $this->traspaso_model->validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token, $latitude, $longitude);
+			if(strlen($datos["toc_token_pdf"]))
+				$toc_token_pdf = $datos["toc_token_pdf"];
+
+			if(strlen($datos["status_pdf"]))
+				$status_pdf = $datos["status_pdf"];
+
+			if(strlen($datos["signed_pdf"]))
+				$signed_pdf = $datos["signed_pdf"];
+
+			$resultado = $this->traspaso_model->validarUsuario($id_traspaso, $id_front, $id_back, $selfie, $biometric_result, $checksum, $date_of_birth, $document_number, $expiration_date, $family_name, $gender, $name, $national_identification_number, $nationality, $raw, $type, $status, $toc_token, $latitude, $longitude, $toc_token_pdf, $status_pdf, $signed_pdf);
 			echo json_encode($resultado);
 		}
 	}
@@ -736,7 +794,8 @@ class Traspaso extends CI_Controller {
 		'mailtype'=>'html'  
 		);
 		if (isset($archivo) != null)
-			$this->email->attach($archivo);
+			$this->email->attach($archivo, 'application/pdf', "Pdf File " . date("m-d H-i-s") . ".pdf", false);
+			//$this->email->attach($archivo);
 		$this->email->initialize($confing);
 		$this->email->set_newline("\r\n");
 		$this->email->from('validacion@provida.cl');

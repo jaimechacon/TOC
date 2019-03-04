@@ -150,7 +150,7 @@
     idTraspaso = document.getElementById('validarUsuario').dataset.idtraspaso;
     idRespuesta = x;
      
-    var baseurl = window.origin + '/TOC/Traspaso/usuarioValido';
+    var baseurl = window.origin + '/Traspaso/usuarioValido';
 
     jQuery.ajax({
     type: "POST",
@@ -418,7 +418,7 @@ function _getUserMedia() {
   $('#eliminarTraspaso').click(function(e){
     idTraspaso = $('#tituloEC').data('idtraspaso');
     //var nombreTraspaso = $('#tituloEC').data('nombretraspaso');
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/eliminarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/eliminarTraspaso';
 
     jQuery.ajax({
     type: "POST",
@@ -467,7 +467,7 @@ function _getUserMedia() {
 
   function listarTraspasos(filtro)
   {
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -513,7 +513,7 @@ function _getUserMedia() {
       else
         eacs = document.getElementById('tablaEAC').dataset.eac.split(',');
 
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarEAC';   
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarEAC';   
 
     jQuery.ajax({
     type: "POST",
@@ -630,7 +630,7 @@ function _getUserMedia() {
     {
       event.preventDefault();
     
-      var baseurl = (window.origin + '/TOC/Traspaso/guardarTraspaso');
+      var baseurl = (window.origin + '/Traspaso/guardarTraspaso');
       var run = $('#inputRun').val();
       var fechaNac = $('#inputFechaNacimiento').val();
       var nombres = $('#inputNombres').val();
@@ -755,7 +755,7 @@ function _getUserMedia() {
 
   function listarUsuCampEqui(analista, traspaso, equipo)
   {
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/filtrarUsuCampEqui';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/filtrarUsuCampEqui';
     jQuery.ajax({
     type: "POST",
     url: baseurl,
@@ -869,4 +869,10 @@ function _getUserMedia() {
       feather.replace()
       $('[data-toggle="tooltip"]').tooltip()
   });
+
+  $(".view").on('click', function(e) {
+    let pdfWindow = window.open("")
+    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(e.currentTarget.dataset.pdf)+"'></iframe>");
+  });
+
 });

@@ -98,6 +98,8 @@ $('body').on('click', '.api-call', function(event) {
         var id_front = $('input[name="id_front"]').val();
         var id_back = $('input[name="id_back"]').val();
         var selfie = $('input[name="selfie"]').val();
+        var latitude = '';
+        var longitude = '';
         var idTraspaso = '';
         if (id_front.length > 0 && id_back.length > 0 && selfie.length > 0 && documentType != 'PASS') {
             data_valid = true;
@@ -108,14 +110,24 @@ $('body').on('click', '.api-call', function(event) {
              if($('input[name="id_traspaso"]').val())
                 idTraspaso = $('input[name="id_traspaso"]').val();
 
+            if ("geolocation" in navigator){ //check geolocation available 
+                //try to get user current location using getCurrentPosition() method
+                navigator.geolocation.getCurrentPosition(function(position){ 
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                });
+            }
+
             var form_data = new FormData();
             form_data.append('id_front', dataURItoBlob(id_front));
             form_data.append('id_back', dataURItoBlob(id_back));
             form_data.append('selfie', dataURItoBlob(selfie));
             form_data.append('documentType', documentType);
             form_data.append('idTraspaso', idTraspaso);
+            form_data.append('latitude', latitude);
+            form_data.append('longitude', longitude);
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -225,7 +237,10 @@ $('body').on('click', '.api-call', function(event) {
                     $('.info-doc').show();
                     $('a#result-tab').tab('show');
                     $('.api-call').hide();
-                    $('.again').show();
+                    $('.pager li.previous').hide();
+                    $('.pager li.next').hide();
+                    $('.pager li.next').hide();
+                    //$('.again').show();
                 } else {
                     if (typeof(data["information from document"]).mrz != 'undefined') {
                         mrz = data["information from document"].mrz;
@@ -245,9 +260,6 @@ $('body').on('click', '.api-call', function(event) {
                     (typeof(data.toc_token) != 'undefined') ? $('h6.token span.badge-light').text(data.toc_token) : '';
                     $('.loading').hide();
                 }
-
-                    var latitude = '';
-                    var longitude = '';
 
                     var id_traspaso = $('input[name="id_traspaso"]').val();
 
@@ -338,12 +350,12 @@ $('body').on('click', '.api-call', function(event) {
                             status_pdf = data.document["status"];
                             signed_pdf = data.document["signed pdf"];
                             toc_token_pdf = data.document["toc_token"];
-                            const linkSource = `data:application/pdf;base64,${signed_pdf}`;
+                            /*const linkSource = `data:application/pdf;base64,${signed_pdf}`;
                             const downloadLink = document.createElement("a");
                             const fileName = "verificacion_valida.pdf";
                             downloadLink.href = linkSource;
                             downloadLink.download = fileName;
-                            downloadLink.click();
+                            downloadLink.click();*/
                         }
                     }
 
@@ -378,7 +390,7 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
 
 
 
@@ -418,7 +430,7 @@ $('body').on('click', '.api-call', function(event) {
             form_data.append('photo1', dataURItoBlob(id_front));
             form_data.append('photo2', dataURItoBlob(selfie));
             $.ajax({
-                url: window.origin + '/TOC/Traspaso/verificarIdentidad',
+                url: window.origin + '/Traspaso/verificarIdentidad',
                 async: true,
                 crossDomain: true,
                 processData: false,
@@ -465,9 +477,6 @@ $('body').on('click', '.api-call', function(event) {
                     $('.api-call').hide();
                     $('.again').show();
 
-                    var latitude = '';
-                    var longitude = '';
-
                      var id_traspaso = $('input[name="id_traspaso"]').val();
 
                     if ("geolocation" in navigator){ //check geolocation available 
@@ -507,9 +516,9 @@ $('body').on('click', '.api-call', function(event) {
                     /*$("div.loader").addClass('show');*/
                     event.preventDefault();
 
-                    var baseurl = (window.origin + '/TOC/Traspaso/usuarioValido');
+                    var baseurl = (window.origin + '/Traspaso/usuarioValido');
 
-                    jQuery.ajax({
+                    /*jQuery.ajax({
                     type: "POST",
                     url: baseurl,
                     dataType: 'json',
@@ -521,7 +530,7 @@ $('body').on('click', '.api-call', function(event) {
                       
                     }
                     }
-                    });p
+                    });*/
 
 
                 }else {
@@ -557,7 +566,7 @@ $('body').on('click', '.api-call', function(event) {
 
 function actualizarTraspaso(datos)
   {
-    var baseurl = window.origin + '/gestion_calidad/TOC/Traspaso/buscarTraspaso';
+    var baseurl = window.origin + '/gestion_calidad/Traspaso/buscarTraspaso';
     jQuery.ajax({
     type: "POST",
     url: baseurl,

@@ -4,7 +4,6 @@
 	if(!$id_usuario){
 	  redirect('Login');
 	}
-	
 ?>
 <div class="row pt-3">
 	<div id="filtros" class="col-sm-6">
@@ -32,7 +31,7 @@
 			      <th scope="col" class="text-center align-middle registro">Apellido</th>
 			      <th scope="col" class="text-center align-middle registro">Celular</th>
 			      <th scope="col" class="text-center align-middle registro">Estado</th>
-			      <th scope="col" class="text-right align-middle registro"></th>
+			      <th scope="col" class="text-right align-middle registro">Ver PDF</th>
 			    </tr>
 			  </thead>
 			  <tbody id="tbodyTraspaso">
@@ -45,17 +44,12 @@
 					        <td class="text-center align-middle registro"><?php echo $traspaso['apellidos']; ?></td>
 					        <td class="text-center align-middle registro"><?php echo $traspaso['celular']; ?></td>
 					        <td class="text-center align-middle registro"><?php echo $traspaso['nombre']; ?></td>
-					        <!--
-					        <td class="text-right align-middle registro">
-					        	<a id="trash_<?php //echo $traspaso['id_traspaso']; ?>" class="trash" href="#" data-id="<?php //echo $traspaso['id_traspaso']; ?>" data-nombre="<?php //echo $traspaso['nombre']; ?>" data-toggle="modal" data-target="#modalEliminarTraspaso">
-					        		<i data-feather="trash-2" data-toggle="tooltip" data-placement="top" title="eliminar"></i>					        		
-				        		</a>
-				        		<a id="edit_<?php //echo $traspaso['id_traspaso']; ?>" class="edit" type="link" href="ModificarTraspaso/?idTraspaso=<?php //echo $traspaso['id_traspaso']; ?>" data-id="<?php //echo $traspaso['id_traspaso']; ?>" data-nombre="<?php //echo $traspaso['nombre']; ?>">
-					        		<i data-feather="edit-3" data-toggle="tooltip" data-placement="top" title="modificar"></i>
-				        		</a>-->
-				        		<!--<a id="view_<?php //echo $traspaso['id_traspaso']; ?>" class="view" href="#">
+					         <td class="text-right align-middle registro">
+					         	<?php if($traspaso['tiene_pdf'] == "1") { ?>
+					        	<a id="view_<?php echo $traspaso['folio']; ?>" class="view" href="#" data-pdf="<?php echo $traspaso['signed_pdf']; ?>">
 					        		<i data-feather="search"  data-toggle="tooltip" data-placement="top" title="ver"></i>
-				        		</a>-->
+				        		</a>
+				        	<?php } ?>
 				        	</td>
 				    	</tr>
 			  		<?php endforeach ?>
