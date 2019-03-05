@@ -18,7 +18,7 @@
 <body>
     <div class="container-fluid">
         <!-- Inicio navbar -->
-        <nav class="navbar bg-light top">
+        <nav class="navbar bg-light top" id="apiTab">
             <a class="navbar-brand" href="/"><img src="../../assets/img/logo.png" alt=""></a>
             <div class="lang float-right" style="padding: .6rem;">
                 <button data-lang="es" class="btn btn-sm btn-secondary btn-squared">ES</button>
@@ -112,7 +112,7 @@
                                     <div class="tab-pane fade" role="tabpanel" id="intro">
                                         <fieldset>
                                             <h2 class="fs-title" data-localize="intro-title">Verificación de Identidad Facial</h2>
-                                            <h3 class="fs-subtitle"><i data-localize="intro-subtitle">Para verificar su identidad se necesitan fotos de su cédula de identidad y rostro; o rostro contra rostro.</i></h3>
+                                            <h3 class="fs-subtitle" id="sub_titulo_resultado"><i data-localize="intro-subtitle">Para verificar su identidad se necesitan fotos de su cédula de identidad y rostro; o rostro contra rostro.</i></h3>
                                         </fieldset>
                                     </div>
                                     <!-- Fin paso introducción -->

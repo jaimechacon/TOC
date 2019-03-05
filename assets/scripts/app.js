@@ -239,7 +239,6 @@ $('body').on('click', '.api-call', function(event) {
                     $('.api-call').hide();
                     $('.pager li.previous').hide();
                     $('.pager li.next').hide();
-                    $('.pager li.next').hide();
                     //$('.again').show();
                 } else {
                     if (typeof(data["information from document"]).mrz != 'undefined') {
@@ -289,6 +288,13 @@ $('body').on('click', '.api-call', function(event) {
                     var status_pdf = '';
                     var signed_pdf = '';
                     var toc_token_pdf = '';
+
+                    var apellidos_cliente = '';
+                    var celular_cliente = '';
+                    var email_cliente = '';
+                    var id_cliente = '';
+                    var nombre_cliente = '';
+                    var run_cliente = '';
 
                     if(data.hasOwnProperty('biometric result'))
                         biometric_result =  data["biometric result"];
@@ -359,6 +365,23 @@ $('body').on('click', '.api-call', function(event) {
                         }
                     }
 
+                    if(data.hasOwnProperty('cliente'))
+                    {
+                        data.cliente = JSON.parse(data.cliente);
+                        if(data.cliente.hasOwnProperty('apellidos_cliente') && data.cliente.hasOwnProperty('celular_cliente') &&
+                           data.cliente.hasOwnProperty('email_cliente') && data.cliente.hasOwnProperty('id_cliente') &&
+                           data.cliente.hasOwnProperty('nombre_cliente') && data.cliente.hasOwnProperty('run_cliente')
+                           )
+                        {
+                            apellidos_cliente = data.cliente["apellidos_cliente"];
+                            celular_cliente = data.cliente["celular_cliente"];
+                            email_cliente = data.cliente["email_cliente"];
+                            id_cliente = data.cliente["id_cliente"];
+                            nombre_cliente = data.cliente["nombre_cliente"];
+                            run_cliente = data.cliente["run_cliente"];
+                        }
+                    }
+
                     var datos = {
                         id_traspaso: id_traspaso,
                         id_front: id_front,
@@ -391,7 +414,7 @@ $('body').on('click', '.api-call', function(event) {
                     event.preventDefault();
 
                     var baseurl = (window.origin + '/Traspaso/usuarioValido');
-
+                    $('.pager li.next').hide();
 
 
                     jQuery.ajax({
@@ -403,8 +426,15 @@ $('body').on('click', '.api-call', function(event) {
                     if (datosUsuario)
                     {
                       //data = JSON.parse(data);
-                      
+                      $('.pager li.next').hide();
 
+                      $sub_titulo = 'Estimado ' + nombre_cliente + ' ' + apellidos_cliente + ', su solicitud ha sido aprobada con exito, se ha enviado un comprobante a su casilla de correo con el documento firmado electrónicamente.';
+                      $(document.getElementById('sub_titulo_resultado')).text($sub_titulo);
+                      $(document.getElementById('header')).hide();                      
+                      $(document.getElementById('apiTab')).hide();
+                      $(document.getElementById('result')).addClass('mt-5');
+                      $('.pager li.previous').hide();
+                      $('.pager li.next').hide();
                     }
                     }
                     });
