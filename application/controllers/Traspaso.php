@@ -813,8 +813,8 @@ class Traspaso extends CI_Controller {
 		'protocol'=>'smtp',
 		'smtp_host'=>"smtp.gmail.com",
 		'smtp_port'=>465,
-		'smtp_user'=>"mcfly@gsbpo.cl",
-		'smtp_pass'=>"gsbpo2018",
+		'smtp_user'=>"validacion@gsbpo.cl",
+		'smtp_pass'=>"black.Hole2019$$",
 		'smtp_crypto'=>'ssl',              
 		'mailtype'=>'html'  
 		);
