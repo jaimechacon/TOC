@@ -364,7 +364,7 @@ class Traspaso extends CI_Controller {
 			                </tr>
 			                <tr> 
 			                    <td class='textBold'><b>Codigo Ejecutivo</b></td> 
-			                    <td class='textBold'><b>".$u_rut."</b></td> 
+			                    <td class='textBold'><b>".$u_cod_usuario."</b></td> 
 			                </tr>
 			                <tr> 
 			                    <td class='textBold'><b>Nombres</b></td>
@@ -376,7 +376,7 @@ class Traspaso extends CI_Controller {
 			                </tr>
 			                <tr> 
 			                    <td class='textBold'><b>Email</b></td>
-			                    <td class='textBold'><b>".$email_cliente."</b></td>
+			                    <td class='textBold'><b>".$u_email."</b></td>
 			                </tr>
 				        </table> 
 				    </body> 
