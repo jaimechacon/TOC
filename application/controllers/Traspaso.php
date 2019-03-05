@@ -788,8 +788,8 @@ class Traspaso extends CI_Controller {
 	    //$client = new SoapClient(WS_URL_ITD);
 	    $client = new SoapClient('http://ida.itdchile.cl/services/smsApiService?wsdl');
 
-	    $array_ws = array('in0' => 'gs_salud',
-	                      'in1' => 'gs_salud',
+	    $array_ws = array('in0' => 'psandoval',
+	                      'in1' => 'psandoval159',
 	                      'in2' => $parametros['celular'],
 	                      'in3' => $mensaje);
 
@@ -823,7 +823,7 @@ class Traspaso extends CI_Controller {
 			//$this->email->attach($archivo);
 		$this->email->initialize($confing);
 		$this->email->set_newline("\r\n");
-		$this->email->from('validacion@provida.cl');
+		$this->email->from('validacion@gsbpo.cl');
 		$this->email->to($emailCliente);
 		$this->email->subject($asunto);
 		$this->email->message($mensaje);
