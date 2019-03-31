@@ -1,7 +1,5 @@
-
 window.onload = function () {
-
-  var options = {
+  /*var options = {
     title: {
       text: "Porcentaje de Traspasos exitosos por Ejecutivo de Ventas"
     },
@@ -29,6 +27,6 @@ window.onload = function () {
       ]
     }]
   };
-  $("#chartContainer").CanvasJSChart(options);
+  $("#chartContainer").CanvasJSChart(options);*/
 
 }

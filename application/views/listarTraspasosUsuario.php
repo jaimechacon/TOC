@@ -58,6 +58,11 @@
 		</div>
 	</div>
 </div>
+<div class="row p-3">
+	<div id="map" class="col-sm-12 p-3" style="height: 425px;">
+
+	</div>
+</div>
 
 <!-- Modal Mensaje -->
 <div class="modal fade" id="modalMensajeTraspaso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,8 +1,16 @@
+<style>
+.navbar-brand img {
+    height: 50px !important;
+}
+</style>
 <body>
 	<div class="container-full">
 		<div id="menu">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand" href="<?php echo base_url();?>Inicio"><img src="<?php echo base_url();?>assets/img/logo.png" width="50" class="d-inline-block align-top" alt=""></a>
+				<a class="navbar-brand" href="<?php echo base_url();?>Inicio" style="
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+"><img src="<?php echo base_url();?>assets/img/logo.png" width="75" height="50px" class="d-inline-block align-top" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
 				 	</button>
@@ -50,7 +58,7 @@
 						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>-->
-					<ul class="navbar-nav my-sm-2 my-sm-0">
+					<ul class="navbar-nav my-sm-2 my-sm-0 navbar-right mr-2">
 						<li class="nav-item">
 							<a class="nav-link" href="<?php echo base_url();?>Login">Cerrar Sesi&oacute;n</a>
 						</li>

@@ -31,7 +31,7 @@ class Inicio extends CI_Controller {
 			$this->enviasmsacliente('asdf');
 			$this->load->view('temp/header_index', $login);
 			$this->load->view('temp/menu_index');
-			$this->load->view('inicio');
+			$this->load->view('inicioSesion');
 			$this->load->view('temp/footer');
 		}
 	}

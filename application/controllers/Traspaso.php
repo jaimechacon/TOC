@@ -323,13 +323,101 @@ class Traspaso extends CI_Controller {
 				}
 
             	$this->dompdf->loadHtml("<html>
+	<head> 
+		<style type='text/css'> 
+			.textBold { font-family: 'Helvetica'; font-size: 14; color: #3894CC; } 
+			.textP { font-family: 'Helvetica'; font-size: 13; color: #666666; } 
+			.textT { font-family: 'Helvetica'; font-size: 12; color: #666666; } 
+		</style> 
+	</head> 
+	<body topmargin='0' leftmargin='0'>
+		<img src='assets/img/logo_2.png' width='200px' class='d-inline-block align-top' alt=''>
+
+		<table border='0' align='center' cellspacing='4' cellpadding='0' width='100%'> 
+			<tr><td colspan='2' align='center' class='textBold'><h1>Certificado de Validación de Cliente</h1></td></tr>
+			<tr><td colspan='2' align='center' class='textT'><h2>AFP Provida</h2></td></tr> 
+			<tr><td colspan='2' align='center'></br></td></tr> 
+			<tr><td colspan='2' align='center' class='textT'><h4>Datos del Cliente</h4></td></tr> 
+			<tr> 
+				<td class='textP'><b>Cedula de Identidad</b></td> 
+				<td class='textP'><b>".$run_cliente."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Nombres</b></td>
+				<td class='textP'><b>".$nombre_cliente."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Apellidos</b></td> 
+				<td class='textP'><b>".$apellidos_cliente."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Fecha Nacimiento</b></td>
+				<td class='textP'><b>".$fecha_nac_cliente."</b></td>
+			</tr>
+			<tr> 
+				<td class='textP'><b>Email</b></td>
+				<td class='textP'><b>".$email_cliente."</b></td>
+			</tr>
+			<tr><td colspan='2' align='center' class='textT'></br></td></tr> 
+			<tr><td colspan='2' align='center' class='textT'><h4>Datos Ejecutivo de Ventas</h4></td></tr>
+			<tr> 
+				<td class='textP'><b>Cedula de Identidad Ejecutivo</b></td> 
+				<td class='textP'><b>".$u_rut."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Codigo Ejecutivo</b></td> 
+				<td class='textP'><b>".$u_cod_usuario."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Nombres</b></td>
+				<td class='textP'><b>".$u_nombres."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Apellidos</b></td> 
+				<td class='textP'><b>".$u_apellidos."</b></td> 
+			</tr>
+			<tr> 
+				<td class='textP'><b>Email</b></td>
+				<td class='textP'><b>".$u_email."</b></td>
+			</tr>
+			<tr> 
+				<td colspan='2' class='textP'><br/><center><b><img src='assets/img/firma.png' width='130' class='d-inline-block align-top' alt=''></b></center></td>
+			</tr>
+			<tr>				
+				<td colspan='2'>
+					<center>
+						<b class='textT'>AFP Provida S.A.</b>
+					</center>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'>
+				<center>
+					<b class='textP'>Servicio de Información ProVida AFP en línea</b>
+					</center>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+				</td>
+			</tr>
+		</table> 
+	</body> 
+	<footer>
+		<center>
+			<b class='textP'>Contact Center: 600 20 10 150 Redes Sociales: www.provida</b>
+		</center>
+	</footer>
+</html>");
+
+		/*<html>
 				    <head> 
 				        <style type='text/css'> 
-				            .textBold { font-family: 'Helvetica'; font-size: 8; } 
+				            .textBold { font-family: 'Helvetica'; font-size: 12; color #3894CC; } 
 				        </style> 
 				    </head> 
 				    <body topmargin='0' leftmargin='0'>
-				    	<img src='assets/img/logo.png' width='80' class='d-inline-block align-top' alt=''>
+				    	<img src='assets/img/logo_2.png' width='80' class='d-inline-block align-top' alt=''>
 
 				        <table border='0' align='center' cellspacing='4' cellpadding='0' width='100%'> 
 			                <tr><td colspan='2' align='center' class='textBold'><h2>Certificado de Validación de Cliente</h2></td></tr>
@@ -380,7 +468,7 @@ class Traspaso extends CI_Controller {
 			                </tr>
 				        </table> 
 				    </body> 
-				</html>");
+				</html>");*/
 
 				//$this->dompdf->loadHtml('Hello word');
 				#$this->dompdf->setPaper('A4', 'landscape');
@@ -392,7 +480,7 @@ class Traspaso extends CI_Controller {
 				    "apiKey"     => $apiKey,
 				    "toc_token"  => $toc_token,
 				    "pdf"        => $pdf,
-				    "pos_x"      => 120,
+				    "pos_x"      => 130,
 				    "pos_y"      => 200,
 				    "page"       => 1
 				);

@@ -1,3 +1,139 @@
+function initMap() {
+    var latlon1 = new google.maps.LatLng(-33.27454273167671, -70.63809889945972);
+    var latlon2 = new google.maps.LatLng(-33.41615593315372, -70.5928329574061);
+    var latlon3 = new google.maps.LatLng(-33.41618450676709, -70.59284172201396);
+    var latlon4 = new google.maps.LatLng(-33.4165175, -70.6010515);
+    var latlon5 = new google.maps.LatLng(-33.41652, -70.6009283);
+    var latlon6 = new google.maps.LatLng(-33.4165789, -70.60096279999999);
+    var latlon7 = new google.maps.LatLng(-33.41659709474527, -70.59203023573801);
+    var latlon8 = new google.maps.LatLng(-33.4166072, -70.6009582);
+    var latlon9 = new google.maps.LatLng(-33.4166084, -70.6009827);
+    var latlon10 = new google.maps.LatLng(-33.41678, -70.600705);
+    var latlon11 = new google.maps.LatLng(-33.41700242177496, -70.60036968336853);
+    var latlon12 = new google.maps.LatLng(-33.41701275212244, -70.600368321178);
+    var latlon13 = new google.maps.LatLng(-33.4366033, -70.6464024);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: latlon2,
+      zoom: 12
+    });
+
+    var text1 = '<h1>Parricio Tapia</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text2 = '<h1>Pablo Carrasco</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text3 = '<h1>Pablo Carrasco</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text4 = '<h1>maria del carmen suarez</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text5 = '<h1>Maria Suarez</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text6 = '<h1>Maria Suarez</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text7 = '<h1>Pablo Carrasco</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text8 = '<h1>Maria Suarez</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text9 = '<h1>Maria Suarez</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text10 = '<h1>Carolina Alejandra Madariaga Reyes</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text11 = '<h1>francisco toledo</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text12 = '<h1>Adolfo Rocco</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    var text13 = '<h1>ANDREA JACQUELINE ARAYA VILLALON</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';
+    
+    var marker1 = new google.maps.Marker({ position: latlon1, map: map, title: 'Parricio Tapia' }); 
+    var marker2 = new google.maps.Marker({ position: latlon2, map: map, title: 'Pablo Carrasco' }); 
+    var marker3 = new google.maps.Marker({ position: latlon3, map: map, title: 'Pablo Carrasco' }); 
+    var marker4 = new google.maps.Marker({ position: latlon4, map: map, title: 'maria del carmen suarez' }); 
+    var marker5 = new google.maps.Marker({ position: latlon5, map: map, title: 'Maria Suarez' }); 
+    var marker6 = new google.maps.Marker({ position: latlon6, map: map, title: 'Maria Suarez' }); 
+    var marker7 = new google.maps.Marker({ position: latlon7, map: map, title: 'Pablo Carrasco' }); 
+    var marker8 = new google.maps.Marker({ position: latlon8, map: map, title: 'Maria Suarez' }); 
+    var marker9 = new google.maps.Marker({ position: latlon9, map: map, title: 'Maria Suarez' }); 
+    var marker10 = new google.maps.Marker({ position: latlon10, map: map, title: 'Carolina Alejandra Madariaga Reyes' }); 
+    var marker11 = new google.maps.Marker({ position: latlon11, map: map, title: 'francisco toledo' }); 
+    var marker12 = new google.maps.Marker({ position: latlon12, map: map, title: 'Adolfo Rocco' }); 
+    var marker13 = new google.maps.Marker({ position: latlon13, map: map, title: 'ANDREA JACQUELINE ARAYA VILLALON' });
+
+    var informacion1 = new google.maps.InfoWindow({ content: text1 });
+    var informacion2 = new google.maps.InfoWindow({ content: text2 });
+    var informacion3 = new google.maps.InfoWindow({ content: text3 });
+    var informacion4 = new google.maps.InfoWindow({ content: text4 });
+    var informacion5 = new google.maps.InfoWindow({ content: text5 });
+    var informacion6 = new google.maps.InfoWindow({ content: text6 });
+    var informacion7 = new google.maps.InfoWindow({ content: text7 });
+    var informacion8 = new google.maps.InfoWindow({ content: text8 });
+    var informacion9 = new google.maps.InfoWindow({ content: text9 });
+    var informacion10 = new google.maps.InfoWindow({ content: text10 });
+    var informacion11 = new google.maps.InfoWindow({ content: text11 });
+    var informacion12 = new google.maps.InfoWindow({ content: text12 });
+    var informacion13 = new google.maps.InfoWindow({ content: text13 });
+
+    marker1.addListener('click', function(){ informacion1.open(map, marker1); });
+    marker2.addListener('click', function(){ informacion2.open(map, marker2); });
+    marker3.addListener('click', function(){ informacion3.open(map, marker3); });
+    marker4.addListener('click', function(){ informacion4.open(map, marker4); });
+    marker5.addListener('click', function(){ informacion5.open(map, marker5); });
+    marker6.addListener('click', function(){ informacion6.open(map, marker6); });
+    marker7.addListener('click', function(){ informacion7.open(map, marker7); });
+    marker8.addListener('click', function(){ informacion8.open(map, marker8); });
+    marker9.addListener('click', function(){ informacion9.open(map, marker9); });
+    marker10.addListener('click', function(){ informacion10.open(map, marker10); });
+    marker11.addListener('click', function(){ informacion11.open(map, marker11); });
+    marker12.addListener('click', function(){ informacion12.open(map, marker12); });
+    marker13.addListener('click', function(){ informacion13.open(map, marker13); });
+
+    /*var coordInfoWindow = new google.maps.InfoWindow();
+    coordInfoWindow.setContent(createInfoWindowContent(siglo1, map.getZoom()));
+    coordInfoWindow.setPosition(siglo1);
+    coordInfoWindow.open(map);
+
+    var coordInfoWindow2 = new google.maps.InfoWindow();
+    coordInfoWindow2.setContent(createInfoWindowContent(siglo2, map2.getZoom()));
+    coordInfoWindow2.setPosition(siglo2);
+    coordInfoWindow2.open(map2);    
+
+    map.addListener('zoom_changed', function() {
+      coordInfoWindow.setContent(createInfoWindowContent(siglo1, map.getZoom()));
+      coordInfoWindow.open(map);
+    });
+
+    map2.addListener('zoom_changed', function() {
+      coordInfoWindow2.setContent(createInfoWindowContent(siglo2, map2.getZoom()));
+      coordInfoWindow2.open(map2);
+    });*/
+  }
+
+  var TILE_SIZE = 256;
+
+  function createInfoWindowContent(latLng, zoom) {
+    var scale = 1 << zoom;
+
+    var worldCoordinate = project(latLng);
+
+    var pixelCoordinate = new google.maps.Point(
+        Math.floor(worldCoordinate.x * scale),
+        Math.floor(worldCoordinate.y * scale));
+
+    var tileCoordinate = new google.maps.Point(
+        Math.floor(worldCoordinate.x * scale / TILE_SIZE),
+        Math.floor(worldCoordinate.y * scale / TILE_SIZE));
+
+    return [
+      'Chicago, IL',
+      'LatLng: ' + latLng,
+      'Zoom level: ' + zoom,
+      'World Coordinate: ' + worldCoordinate,
+      'Pixel Coordinate: ' + pixelCoordinate,
+      'Tile Coordinate: ' + tileCoordinate
+    ].join('<br>');
+  }
+
+  // The mapping between latitude, longitude and pixels is defined by the web
+  // mercator projection.
+  function project(latLng) {
+    var siny = Math.sin(latLng.lat() * Math.PI / 180);
+
+    // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+    // about a third of a tile past the edge of the world tile.
+    siny = Math.min(Math.max(siny, -0.9999), 0.9999);
+
+    return new google.maps.Point(
+        TILE_SIZE * (0.5 + latLng.lng() / 360),
+        TILE_SIZE * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI)));
+  }
+
  $(document).ready(function() {
 
 
@@ -870,9 +1006,51 @@ function _getUserMedia() {
       $('[data-toggle="tooltip"]').tooltip()
   });
 
-  $(".view").on('click', function(e) {
-    let pdfWindow = window.open("")
-    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(e.currentTarget.dataset.pdf)+"'></iframe>");
-  });
 
+
+     
+   
+
+  $(".view").on('click', function(e) {
+    let pdfWindow = window.open("");
+    var pdf = encodeURI(e.currentTarget.dataset.pdf); 
+    //e.currentTarget.dataset.pdf;
+    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(e.currentTarget.dataset.pdf)+"'></iframe>");
+    //pdfWindow.document.write('<iframe src="http://docs.google.com/gview?url='+pdf+'&embedded=true" style="width:800px; height:500px;" frameborder="0"></iframe>');
+    pdfWindow.document.title = "Documento Firmado electronicamente";
+    //window.open("data:application/pdf," + escape(newdata));
+
+    //window.open("data:application/pdf," + encodeURI(e.currentTarget.dataset.pdf)); 
+   
+/*
+ var file = new Blob([pdf], { type: 'application/pdf' });
+ var fileURL = URL.createObjectURL(file);
+ var win = window.open();
+ win.document.write('<iframe src="' + fileURL + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+*/
+    /*var file = new Blob([pdf], {type: 'application/pdf'});
+    var fileURL = URL.createObjectURL(file);
+    window.open(fileURL);*/
+
+
+    /*let a = document.createElement("a");
+     a.href = "data:application/octet-stream;base64,"+e.currentTarget.dataset.pdf;
+     a.open = "documentName.pdf"
+     a.click();*/
+     //pdfWindow.document.title = "Documento Firmado electronicamente";
+    
+    //var newdata = "data:" + "application/pdf" + ";base64," + (encodeURI(e.currentTarget.dataset.pdf));
+    //var newWindow = window.open(pdfWindow, "_blank");
+
+/*
+    var doc = new jsPDF();
+    var specialElementHandlers = encodeURI(e.currentTarget.dataset.pdf);
+
+    doc.fromHTML($('#print').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('pdf-version.pdf');*/
+
+  });
 });
