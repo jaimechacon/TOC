@@ -400,7 +400,7 @@ class Traspaso extends CI_Controller {
 			<tr>
 				<td colspan='2'>
 				<center>
-					<b class='textP'>Contact Center: 600 20 10 150 Redes Sociales: www.provida</b>
+					<b class='textP'>Contact Center: 600 20 10 150 Redes Sociales: www.provida.cl</b>
 					</center>
 				</td>
 			</tr>
