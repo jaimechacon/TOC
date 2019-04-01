@@ -381,28 +381,20 @@ class Traspaso extends CI_Controller {
 				<td class='textP'><b>".$u_email."</b></td>
 			</tr>
 			<tr> 
-				<td>
-				</td>
-				<td class='textP'><br/><center><b><img src='firma.png' width='130' class='d-inline-block align-top' alt=''></b></center></td>
+				<td colspan='2'> class='textP'><br/><center><b><img src='assets/img/firma.png' width='130' class='d-inline-block align-top' alt=''></b></center></td>
 			</tr>
 			<tr>				
-				<td>
-				</td>
-				<td>
+				<td colspan='2'>
 					<center>
 						<b class='textT'>AFP Provida S.A.</b>
 					</center>
 				</td>
 			</tr>
 			<tr>
-				<td>
-				</td>
-				<td>
+				<td colspan='2'>
 				<center>
 					<b class='textP'>Servicio de Información ProVida AFP en línea</b>
 					</center>
-					<br/>
-					<br/>
 				</td>
 			</tr>
 		</table> 
