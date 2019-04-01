@@ -397,13 +397,15 @@ class Traspaso extends CI_Controller {
 					</center>
 				</td>
 			</tr>
+			<tr>
+				<td colspan='2'>
+				<center>
+					<b class='textP'>Contact Center: 600 20 10 150 Redes Sociales: www.provida</b>
+					</center>
+				</td>
+			</tr>
 		</table> 
-	</body> 
-	<footer>
-		<center>
-			<b class='textP'>Contact Center: 600 20 10 150 Redes Sociales: www.provida</b>
-		</center>
-	</footer>
+	</body>
 </html>");
 
 		/*<html>
