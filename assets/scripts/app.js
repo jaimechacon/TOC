@@ -148,6 +148,7 @@ $('body').on('click', '.api-call', function(event) {
                 var type = null;
                 var checksum_result = '';
                 var checksum_result_locale = '';
+                var resultado_ok = 0;
                 if (data.status == '200') {
                     if (typeof(data["information from document"]) != 'undefined' && data["information from document"].length != 0) {
                         mrz = (typeof(data["information from document"]).mrz != 'undefined') ? data["information from document"].mrz : null;
@@ -158,11 +159,13 @@ $('body').on('click', '.api-call', function(event) {
                             result_text = lang[app_locale]['positive'];
                             result_text_locale = 'positive';
                             $('.match .card-body .positive').show();
+                            resultado_ok = 1;
                         } else if (parseFloat(data["biometric result"]) == 1) {
                             result_class = 'text-warning';
                             result_text = lang[app_locale]['positive'];
                             result_text_locale = 'positive';
                             $('.match .card-body .warning').show();
+                            resultado_ok = 1;
                         } else if (parseFloat(data["biometric result"]) < 0) {
                             result_class = 'text-danger';
                             result_text = lang[app_locale]['no_face'];
@@ -258,6 +261,17 @@ $('body').on('click', '.api-call', function(event) {
                     }
                     (typeof(data.toc_token) != 'undefined') ? $('h6.token span.badge-light').text(data.toc_token) : '';
                     $('.loading').hide();
+                }
+
+                if(resultado_ok == 1)
+                {
+                    $('#tituloME').empty();
+                    $("#parrafoME").empty();
+                    $("#tituloME").append('<i class="plusTitulo mb-2" data-feather="check"></i> Exito!!!');
+                    $("#parrafoME").append('Se ha validado exitosamente su identificati&oacute;n.');
+                    $('#modalMensajeTraspaso').modal({
+                        show: true
+                    });
                 }
 
                     var id_traspaso = $('input[name="id_traspaso"]').val();

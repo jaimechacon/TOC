@@ -61,7 +61,7 @@
 <div class="row">
 	<div class="col-sm-12">
 		<h3>
-			<i class="plusTitulo mb-2" data-feather="map-pin" ></i> Localizaciones transacciones
+			<i class="plusTitulo mb-2" data-feather="map-pin" ></i> Localizaciones de validaciones
 		</h3>
 	</div>
 </div>
