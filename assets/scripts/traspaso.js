@@ -15,7 +15,7 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlon2,
-      zoom: 12
+      zoom: 11
     });
 
     var text1 = '<h1>Parricio Tapia</h1> <p>Se validó usuario</p><a href="https://www.google.com">revisa su documento firmado aquí</a>';

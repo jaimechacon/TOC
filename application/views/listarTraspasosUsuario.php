@@ -58,6 +58,13 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3>
+			<i class="plusTitulo mb-2" data-feather="map-pin" ></i> Localizaciones transacciones
+		</h3>
+	</div>
+</div>
 <div class="row p-3">
 	<div id="map" class="col-sm-12 p-3" style="height: 425px;">
 
