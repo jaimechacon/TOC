@@ -381,7 +381,7 @@ class Traspaso extends CI_Controller {
 				<td class='textP'><b>".$u_email."</b></td>
 			</tr>
 			<tr> 
-				<td colspan='2'> class='textP'><br/><center><b><img src='assets/img/firma.png' width='130' class='d-inline-block align-top' alt=''></b></center></td>
+				<td colspan='2' class='textP'><br/><center><b><img src='assets/img/firma.png' width='130' class='d-inline-block align-top' alt=''></b></center></td>
 			</tr>
 			<tr>				
 				<td colspan='2'>
