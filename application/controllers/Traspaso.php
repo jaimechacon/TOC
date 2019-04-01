@@ -480,7 +480,7 @@ class Traspaso extends CI_Controller {
 				    "apiKey"     => $apiKey,
 				    "toc_token"  => $toc_token,
 				    "pdf"        => $pdf,
-				    "pos_x"      => 130,
+				    "pos_x"      => 10,
 				    "pos_y"      => 200,
 				    "page"       => 1
 				);
